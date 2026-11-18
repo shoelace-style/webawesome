@@ -5,9 +5,6 @@ export default css`
     :host {
       --_marker-background: var(--wa-color-fill-loud);
       --_marker-color: var(--wa-color-on-loud);
-      /* How far a first line taller than the marker would rise above the item. Applied as padding so it stays inside. */
-      --_line-overhang: max(0px, (1lh - var(--marker-size)) / 2);
-
       display: block;
     }
 
@@ -19,10 +16,19 @@ export default css`
 
     /* Layout */
     .item {
+      --_marker-size: var(--marker-size, 1em);
+      /* How far a first line taller than the marker would rise above the item. Applied as padding so it stays inside. */
+      --_line-overhang: max(0px, (1lh - var(--_marker-size)) / 2);
+
       display: grid;
       grid-template-columns: subgrid;
       grid-column: 1 / -1;
       padding-block-start: var(--_line-overhang);
+    }
+
+    /* An icon needs a bigger marker to stay legible, unless the author picked a size. */
+    .item.has-icon {
+      --_marker-size: var(--marker-size, 2em);
     }
 
     .rail {
@@ -45,14 +51,14 @@ export default css`
     /* Shift by half the marker and first line difference so the marker centers on that line. */
     .content {
       grid-column: content;
-      margin-block-start: calc((var(--marker-size) - 1lh) / 2);
+      margin-block-start: calc((var(--_marker-size) - 1lh) / 2);
       margin-inline-start: 1em;
     }
 
     /* Starts at the marker's middle. The slot then pulls its smaller first line up by half its own height. */
     .opposite {
       grid-column: opposite;
-      margin-block-start: calc(var(--marker-size) / 2);
+      margin-block-start: calc(var(--_marker-size) / 2);
       margin-inline-end: 1em;
       color: var(--wa-color-text-quiet);
       text-align: end;
@@ -72,8 +78,8 @@ export default css`
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: var(--marker-size);
-      height: var(--marker-size);
+      width: var(--_marker-size);
+      height: var(--_marker-size);
       color: var(--_marker-color);
       background-color: var(--_marker-background);
       border-radius: var(--wa-border-radius-circle);
@@ -84,7 +90,7 @@ export default css`
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: calc(var(--marker-size) * 0.4);
+      font-size: calc(var(--_marker-size) * 0.4);
     }
 
     slot[name='icon']::slotted(wa-avatar) {
@@ -108,7 +114,7 @@ export default css`
 
     /* From one connector gap below the marker to the middle of the gap below the item. */
     .connector-end {
-      inset-block: calc(var(--marker-size) + var(--connector-gap)) calc(-1 * var(--gap) / 2);
+      inset-block: calc(var(--_marker-size) + var(--connector-gap)) calc(-1 * var(--gap) / 2);
       background-color: var(--connector-color);
     }
 
@@ -161,11 +167,11 @@ export default css`
     }
 
     :host([data-wa-timeline-horizontal]) .connector-start {
-      inset-inline: calc(-1 * var(--gap) / 2) calc(50% + var(--marker-size) / 2 + var(--connector-gap));
+      inset-inline: calc(-1 * var(--gap) / 2) calc(50% + var(--_marker-size) / 2 + var(--connector-gap));
     }
 
     :host([data-wa-timeline-horizontal]) .connector-end {
-      inset-inline: calc(50% + var(--marker-size) / 2 + var(--connector-gap)) calc(-1 * var(--gap) / 2);
+      inset-inline: calc(50% + var(--_marker-size) / 2 + var(--connector-gap)) calc(-1 * var(--gap) / 2);
     }
 
     /* End placement */

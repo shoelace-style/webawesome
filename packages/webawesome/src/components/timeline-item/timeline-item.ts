@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import variantStyles from '../../styles/component/variants.styles.js';
@@ -31,13 +32,14 @@ import styles from './timeline-item.styles.js';
  *  set it here to change it for one item. Use a length such as `0px`, not a bare `0`, to remove it.
  *
  * @ssr - If you slot content into `opposite`, set the `with-opposite` attribute, otherwise the opposite column won't
- *  render until the item hydrates on the client.
+ *  render until the item hydrates on the client. Likewise, if you slot content into `icon`, set the `with-icon`
+ *  attribute, otherwise the marker draws at its smaller default size until the item hydrates.
  */
 @customElement('wa-timeline-item')
 export default class WaTimelineItem extends WebAwesomeElement {
   static css = [variantStyles, styles];
 
-  private readonly hasSlotController = new HasSlotController(this, 'opposite');
+  private readonly hasSlotController = new HasSlotController(this, 'opposite', 'icon');
 
   /**
    * Colors the item's marker. Neutral items keep a quiet marker, so a variant stands out against them. The color is
@@ -51,13 +53,20 @@ export default class WaTimelineItem extends WebAwesomeElement {
    */
   @property({ type: Boolean, attribute: 'with-opposite' }) withOpposite = false;
 
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in an `icon` element, so the server-rendered markup sizes
+   * the marker for it before the component hydrates on the client.
+   */
+  @property({ type: Boolean, attribute: 'with-icon' }) withIcon = false;
+
   @property({ reflect: true }) role = 'listitem';
 
   render() {
     const hasOpposite = this.hasSlotController.test('opposite', 'withOpposite');
+    const hasIcon = this.hasSlotController.test('icon', 'withIcon');
 
     return html`
-      <div part="timeline-item" class="item">
+      <div part="timeline-item" class=${classMap({ item: true, 'has-icon': hasIcon })}>
         <span part="opposite" class="opposite" ?hidden=${!hasOpposite}>
           <slot name="opposite"></slot>
         </span>

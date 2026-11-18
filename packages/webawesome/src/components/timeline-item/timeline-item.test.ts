@@ -76,6 +76,27 @@ describe('<wa-timeline-item>', () => {
           expect(slot.assignedElements().map(node => node.localName)).to.deep.equal(['wa-icon']);
         });
 
+        it('should draw a wider marker for an item with an icon than for one without', async () => {
+          const timeline = await fixture<HTMLElement>(html`
+            <wa-timeline>
+              <wa-timeline-item>Planned</wa-timeline-item>
+              <wa-timeline-item>
+                <wa-icon slot="icon" name="check"></wa-icon>
+                Done
+              </wa-timeline-item>
+            </wa-timeline>
+          `);
+          const [plainMarker, iconMarker] = [...timeline.querySelectorAll('wa-timeline-item')].map(
+            item => item.shadowRoot!.querySelector('[part~="marker"]')!,
+          );
+
+          await waitUntil(
+            () => iconMarker.getBoundingClientRect().width > plainMarker.getBoundingClientRect().width,
+            'the icon marker never grew wider than the plain marker',
+          );
+          expect(iconMarker.getBoundingClientRect().width).to.be.greaterThan(plainMarker.getBoundingClientRect().width);
+        });
+
         it('should size a slotted avatar to the marker', async () => {
           // An em-based size resolves against the timeline's font size, not the smaller font size inside the marker.
           for (const [markerSize, expected] of [
