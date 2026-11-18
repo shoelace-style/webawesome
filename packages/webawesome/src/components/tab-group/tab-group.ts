@@ -40,7 +40,8 @@ import styles from './tab-group.styles.js';
  * @csspart scroll-button - The previous/next scroll buttons that show when tabs are scrollable, a `<wa-button>`.
  * @csspart scroll-button-start - The starting scroll button.
  * @csspart scroll-button-end - The ending scroll button.
- * @csspart scroll-button__base - The scroll button's exported `base` part.
+ * @csspart scroll-button__base - Deprecated. Use the `scroll-button__button` part instead.
+ * @csspart scroll-button__button - The scroll button's exported `button` part.
  *
  * @cssproperty --indicator-color - The color of the active tab indicator.
  * @cssproperty --track-color - The color of the indicator's track (the line that separates tabs from panels).
@@ -426,7 +427,7 @@ export default class WaTabGroup extends WebAwesomeElement {
             ? html`
                 <wa-button
                   part="scroll-button scroll-button-start"
-                  exportparts="base:scroll-button__base"
+                  exportparts="base:scroll-button__base, button:scroll-button__button"
                   class="scroll-button scroll-button-start"
                   appearance="plain"
                   @click=${this.handleScrollToStart}
@@ -453,7 +454,7 @@ export default class WaTabGroup extends WebAwesomeElement {
                 <wa-button
                   part="scroll-button scroll-button-end"
                   class="scroll-button scroll-button-end"
-                  exportparts="base:scroll-button__base"
+                  exportparts="base:scroll-button__base, button:scroll-button__button"
                   appearance="plain"
                   @click=${this.handleScrollToEnd}
                 >

@@ -204,7 +204,7 @@ export default css`
   .user-input wa-button-group {
     margin-inline-start: 0.75em;
 
-    &::part(base) {
+    &::part(button-group) {
       flex-wrap: nowrap;
     }
   }

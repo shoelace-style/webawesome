@@ -1,6 +1,6 @@
 ---
 title: Angular
-description: Tips for using Web Awesome in your Angular app.
+description: 'Angular needs one extra step: the custom elements schema. Here’s that, plus install and theme.'
 layout: framework
 officialDocs: https://angular.dev
 ---

@@ -12,19 +12,15 @@ export default css`
     flex-wrap: wrap;
 
     @media (hover: hover) {
-      > :hover,
-      &::slotted(:hover) {
+      & ::slotted(:hover) {
         z-index: 1;
       }
     }
 
     /* Focus and checked are always on top */
-    > :focus,
-    &::slotted(:focus),
-    > [aria-checked='true'],
-    &::slotted([aria-checked='true']),
-    > [checked],
-    &::slotted([checked]) {
+    & ::slotted(:focus),
+    & ::slotted([aria-checked='true']),
+    & ::slotted([checked]) {
       z-index: 2 !important;
     }
 

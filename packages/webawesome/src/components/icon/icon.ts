@@ -111,14 +111,15 @@ export default class WaIcon extends WebAwesomeElement {
    * The family of icons to choose from. For Font Awesome Free, valid options include `classic` and `brands`. For
    * Font Awesome Pro subscribers, valid options include, `classic`, `sharp`, `duotone`, `sharp-duotone`, and `brands`.
    * A valid kit code must be present to show pro icons via CDN. You can set `<html data-fa-kit-code="...">` to provide
-   * one.
+   * one. Defaults to `classic` unless changed with `setDefaultIconFamily()` or `<html data-fa-family="...">`.
    */
   @property({ reflect: true }) family: string;
 
   /**
    * The name of the icon's variant. For Font Awesome, valid options include `thin`, `light`, `regular`, and `solid` for
    * the `classic` and `sharp` families. Some variants require a Font Awesome Pro subscription. Custom icon libraries
-   * may or may not use this property.
+   * may or may not use this property. For the default library, this defaults to `solid` unless changed with
+   * `setDefaultIconFamily()` or `<html data-fa-variant="...">`.
    */
   @property({ reflect: true }) variant: string;
 

@@ -48,13 +48,15 @@ import styles from './drawer.styles.js';
  * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-button>`.
  * @csspart title - The drawer's title.
  * @csspart close-button - The close button, a `<wa-button>`.
- * @csspart close-button__base - The close button's exported `base` part.
+ * @csspart close-button__base - Deprecated. Use the `close-button__button` part instead.
+ * @csspart close-button__button - The close button's exported `button` part.
  * @csspart body - The drawer's body.
  * @csspart footer - The drawer's footer.
  *
  * @cssproperty --spacing - The amount of space around and between the drawer's content.
  * @cssproperty --size - The preferred size of the drawer. This will be applied to the drawer's width or height
  *   depending on its `placement`. Note that the drawer will shrink to accommodate smaller screens.
+ * @cssproperty [--backdrop-color=var(--wa-color-overlay-modal)] - The color of the backdrop behind the drawer.
  * @cssproperty [--backdrop-filter=none] - A filter to apply to the backdrop behind the drawer.
  * @cssproperty [--show-duration=var(--wa-transition-normal)] - The animation duration when showing the drawer.
  * @cssproperty [--hide-duration=var(--wa-transition-normal)] - The animation duration when hiding the drawer.
@@ -304,7 +306,7 @@ export default class WaDrawer extends WebAwesomeElement {
                   <slot name="header-actions"></slot>
                   <wa-button
                     part="close-button"
-                    exportparts="base:close-button__base"
+                    exportparts="base:close-button__base, button:close-button__button"
                     class="close"
                     appearance="plain"
                     @click="${(event: PointerEvent) => this.requestClose(event.target as Element)}"

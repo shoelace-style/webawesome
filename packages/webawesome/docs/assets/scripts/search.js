@@ -164,7 +164,7 @@ function renderRecentSearches() {
     a.href = '#';
     a.className = 'wa-cluster wa-flex-nowrap wa-gap-s';
     a.innerHTML = `
-      <wa-icon class="site-search-result-icon de-emphasize wa-font-size-m" name="clock-rotate-left" variant="regular" aria-hidden="true"></wa-icon>
+      <wa-icon class="site-search-result-icon de-emphasize wa-font-size-m" name="clock-rotate-left" aria-hidden="true"></wa-icon>
       <div class="site-search-result-details">
         <div class="site-search-result-title wa-font-size-s"></div>
       </div>
@@ -176,7 +176,7 @@ function renderRecentSearches() {
     remove.className = 'site-search-recent-remove';
     remove.dataset.recentRemove = '';
     remove.setAttribute('appearance', 'plain');
-    remove.innerHTML = `<wa-icon name="xmark" variant="regular"></wa-icon>`;
+    remove.innerHTML = `<wa-icon name="xmark"></wa-icon>`;
     // setAttribute, not a template literal — the query is user-supplied
     remove.querySelector('wa-icon').setAttribute('label', `Remove ${query} from recent searches`);
 
@@ -690,7 +690,7 @@ async function updateResults(query = '') {
       a.href = page.url;
       a.className = 'wa-cluster wa-flex-nowrap';
       a.innerHTML = `
-        <wa-icon class="site-search-result-icon de-emphasize wa-font-size-m" name="${icon}" variant="regular" aria-hidden="true"></wa-icon>
+        <wa-icon class="site-search-result-icon de-emphasize wa-font-size-m" name="${icon}" aria-hidden="true"></wa-icon>
         <div class="site-search-result-details wa-stack wa-gap-3xs">
           <div class="site-search-result-title wa-heading-s"></div>
           <div class="site-search-result-description wa-font-size-s"></div>

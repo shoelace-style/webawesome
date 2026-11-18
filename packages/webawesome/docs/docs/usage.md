@@ -1,6 +1,6 @@
 ---
 title: Usage
-description: Learn more about using and customizing custom elements.
+description: Web Awesome components are HTML elements. Attributes, slots, events, and methods, plus where they act differently from native ones.
 layout: page-outline
 synonyms:
   - getting started
@@ -191,7 +191,7 @@ await Promise.all(elements.map(el => el.updateComplete));
 
 Web Awesome ships with a file called `vscode.html-custom-data.json` that can be used to describe its custom elements to [Visual Studio Code](https://code.visualstudio.com/). This enables code completion for Web Awesome components (also known as “code hinting” or “IntelliSense”). To enable it, you need to tell VS Code where the file is.
 
-1. [Install Web Awesome locally](/docs/#installing-via-npm)
+1. [Install Web Awesome locally](/docs/#npm)
 2. If it doesn’t already exist, create a folder called `.vscode` at the root of your project
 3. If it doesn’t already exist, create a file inside that folder called `settings.json`
 4. Add the following to the file

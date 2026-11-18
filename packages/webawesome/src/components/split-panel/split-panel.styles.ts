@@ -24,6 +24,7 @@ export default css`
     background-color: var(--wa-color-neutral-border-normal);
     color: var(--wa-color-neutral-on-normal);
     z-index: 1;
+    touch-action: none;
   }
 
   .divider:focus {

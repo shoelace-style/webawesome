@@ -383,7 +383,7 @@ describe('<wa-tooltip>', () => {
       });
 
       describe('CSS parts and states', () => {
-        it('should expose the base CSS part', async () => {
+        it('should expose the "tooltip" part and keep the deprecated base part', async () => {
           const el = await fixture<HTMLDivElement>(html`
             <div>
               <wa-button id="btn">Hover</wa-button>
@@ -391,8 +391,40 @@ describe('<wa-tooltip>', () => {
             </div>
           `);
           const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
-          const base = tooltip.shadowRoot!.querySelector('[part~="base"]');
-          expect(base).to.exist;
+          const wrapper = tooltip.shadowRoot!.querySelector('[part~="tooltip"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
+        });
+
+        it('should expose the popup and arrow under both the deprecated base__ names and the tooltip__ names', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <style>
+                wa-tooltip::part(base__popup) {
+                  outline-color: rgb(1, 2, 3);
+                }
+                wa-tooltip::part(base__arrow) {
+                  outline-color: rgb(4, 5, 6);
+                }
+                wa-tooltip::part(tooltip__popup) {
+                  outline-style: dotted;
+                }
+                wa-tooltip::part(tooltip__arrow) {
+                  outline-style: dashed;
+                }
+              </style>
+              <wa-button id="btn">Hover</wa-button>
+              <wa-tooltip for="btn">Tooltip</wa-tooltip>
+            </div>
+          `);
+          const popupEl = el.querySelector<WaTooltip>('wa-tooltip')!.shadowRoot!.querySelector('wa-popup')!;
+          await popupEl.updateComplete;
+          const popup = getComputedStyle(popupEl.shadowRoot!.querySelector('[part~="popup"]')!);
+          const arrow = getComputedStyle(popupEl.shadowRoot!.querySelector('[part~="arrow"]')!);
+          expect(popup.outlineColor).to.equal('rgb(1, 2, 3)');
+          expect(popup.outlineStyle).to.equal('dotted');
+          expect(arrow.outlineColor).to.equal('rgb(4, 5, 6)');
+          expect(arrow.outlineStyle).to.equal('dashed');
         });
 
         it('should expose the body CSS part', async () => {

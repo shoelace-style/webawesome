@@ -56,7 +56,7 @@ export default css`
     line-height: 1;
   }
 
-  [part='remove-button']::part(base) {
+  [part='remove-button']::part(button) {
     padding: 0;
     height: 1em;
     width: 1em;
@@ -64,13 +64,13 @@ export default css`
   }
 
   @media (hover: hover) {
-    :host(:hover) > [part='remove-button']::part(base) {
+    :host(:hover) > [part='remove-button']::part(button) {
       background-color: transparent;
       color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
     }
   }
 
-  :host(:active) > [part='remove-button']::part(base) {
+  :host(:active) > [part='remove-button']::part(button) {
     background-color: transparent;
     color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
   }

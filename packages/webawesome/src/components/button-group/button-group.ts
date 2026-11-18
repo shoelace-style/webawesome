@@ -14,7 +14,8 @@ import styles from './button-group.styles.js';
  *
  * @slot - One or more `<wa-button>` elements to display in the button group.
  *
- * @csspart base - Deprecated. Style the host element instead.
+ * @csspart base - Deprecated. Use the `button-group` part instead.
+ * @csspart button-group - The component's outer wrapper.
  */
 @customElement('wa-button-group')
 export default class WaButtonGroup extends WebAwesomeElement {
@@ -64,14 +65,16 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
   render() {
     return html`
-      <slot
-        part="base"
+      <div
+        part="base button-group"
         class="button-group"
         @focusout=${this.handleBlur}
         @focusin=${this.handleFocus}
         @mouseover=${this.handleMouseOver}
         @mouseout=${this.handleMouseOut}
-      ></slot>
+      >
+        <slot></slot>
+      </div>
     `;
   }
 }

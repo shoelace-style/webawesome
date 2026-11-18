@@ -44,7 +44,7 @@ export default css`
     font-weight: inherit;
   }
 
-  .checkbox::part(base) {
+  .checkbox::part(checkbox) {
     display: flex;
     align-items: center;
   }
