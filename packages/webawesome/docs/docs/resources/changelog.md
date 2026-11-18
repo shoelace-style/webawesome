@@ -1,7 +1,7 @@
 ---
 title: Changelog
-description: Changes to each version of the project are documented here.
 layout: page-outline
+ogKicker: Changelog
 ---
 
 {% from "macros/component-badges.njk" import statusBadge %}
@@ -31,6 +31,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+<!-- When you cut a release, add a summary: comment under the new version heading. It becomes the page description and the share card text. Keep it under 130 characters. See 3.15.0 for the form. -->
+
 :::added
 
 - Added the experimental `<wa-timeline>` and `<wa-timeline-item>` components for showing a chronological list of events, such as an order history, activity feed, or changelog [pr:2933]
@@ -53,7 +55,9 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## 3.15.0
 
-<small><time datetime="2026-11-17">November 11th, 2026</time></small>
+<!-- summary: 3.15 adds five new components: lightbox, code highlighter, counter, number ticker, and a rich text editor for Pro. -->
+
+<small><time datetime="2026-11-17">November 17th, 2026</time></small>
 
 :::added
 
