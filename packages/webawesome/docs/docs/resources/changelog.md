@@ -35,6 +35,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
+- Fixed a `<wa-badge>` inside `<wa-button>` jumping by the button's border width when a press ended
+- Fixed variant colors such as `--wa-color-border-normal` and `--wa-color-fill-quiet` keeping the page's color scheme inside a nested `.wa-dark` or `.wa-light` element, which drew light table rules and a light `<wa-video-playlist>` in dark sections
 
 :::
 
