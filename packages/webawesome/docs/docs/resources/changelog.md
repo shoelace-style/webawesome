@@ -35,6 +35,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
+- Fixed a bug in `<wa-known-date>` that caused the label to sit lower than the labels of other form controls [pr:3047]
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` that caused the text to start further in than other form controls [pr:3047]
 
 :::
 
