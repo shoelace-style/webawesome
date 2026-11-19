@@ -11,7 +11,6 @@ import { WaRemoveEvent } from '../../events/remove.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
-import { waitForEvent } from '../../internal/event.js';
 import { scrollIntoView } from '../../internal/scroll.js';
 import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
@@ -56,7 +55,7 @@ import styles from './select.styles.js';
  * @event wa-clear - Emitted when the control's value is cleared.
  * @event wa-show - Emitted when the select's menu opens.
  * @event wa-after-show - Emitted after the select's menu opens and all animations are complete.
- * @event wa-hide - Emitted when the select's menu closes.
+ * @event wa-hide - Emitted when the select's menu closes. Can't be canceled when the select is disabled.
  * @event wa-after-hide - Emitted after the select's menu closes and all animations are complete.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
@@ -109,6 +108,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   private typeToSelectString = '';
   private typeToSelectTimeout: number;
   private slotChangePending = false;
+  private openTransition: { open: boolean; controller?: AbortController } = { open: false };
+  private openAnimation: Promise<void> | undefined;
 
   @query('.select') popup: WaPopup;
   @query('.combobox') combobox: HTMLSlotElement;
@@ -327,7 +328,12 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeOpenListeners();
+    this.openTransition.controller?.abort();
+    this.openTransition = { open: false };
+    this.popup?.popup?.classList.remove('show', 'hide');
+    if (this.listbox) this.listbox.hidden = true;
+    if (this.popup) this.popup.active = false;
+    unregisterDismissible(this);
     this.cachedOptions = null;
   }
 
@@ -340,34 +346,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     }
     if (this.hasAttribute('value')) {
       this._defaultValue = this.getAttribute('value') || null;
-    }
-  }
-
-  private addOpenListeners() {
-    //
-    // Listen on the root node instead of the document in case the elements are inside a shadow root
-    //
-    // https://github.com/shoelace-style/shoelace/issues/1763
-    //
-    document.addEventListener('focusin', this.handleDocumentFocusIn);
-    document.addEventListener('keydown', this.handleDocumentKeyDown);
-    document.addEventListener('mousedown', this.handleDocumentMouseDown);
-    registerDismissible(this);
-
-    // If the component is rendered in a shadow root, we need to attach the focusin listener there too
-    if (this.getRootNode() !== document) {
-      this.getRootNode().addEventListener('focusin', this.handleDocumentFocusIn);
-    }
-  }
-
-  private removeOpenListeners() {
-    document.removeEventListener('focusin', this.handleDocumentFocusIn);
-    document.removeEventListener('keydown', this.handleDocumentKeyDown);
-    document.removeEventListener('mousedown', this.handleDocumentMouseDown);
-    unregisterDismissible(this);
-
-    if (this.getRootNode() !== document) {
-      this.getRootNode().removeEventListener('focusin', this.handleDocumentFocusIn);
     }
   }
 
@@ -896,6 +874,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     // Close the listbox when the control is open and disabled
     if (this.disabled && this.open) {
       this.open = false;
+      // The open watcher has already run for this update.
+      this.handleOpenChange();
     }
   }
 
@@ -912,73 +892,90 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   @watch('open', { waitUntilFirstUpdate: true })
   async handleOpenChange() {
-    if (this.open && !this.disabled) {
-      // Reset the current option
-      this.setCurrentOption(this.selectedOptions[0] || this.getFirstOption());
+    // A disabled select is never open
+    if (this.disabled && this.open) this.open = false;
 
-      // Show
-      const waShowEvent = new WaShowEvent();
-      this.dispatchEvent(waShowEvent);
-      if (waShowEvent.defaultPrevented) {
-        this.open = false;
-        return;
-      }
+    const open = this.open && !this.disabled;
+    if (!this.isConnected || this.openTransition.open === open) return this.openAnimation;
 
-      this.addOpenListeners();
+    if (open) this.setCurrentOption(this.selectedOptions[0] || this.getFirstOption());
+    const event = open ? new WaShowEvent() : new WaHideEvent(undefined, { cancelable: !this.disabled });
+    this.dispatchEvent(event);
+    if (event.defaultPrevented) {
+      this.open = this.openTransition.open;
+      return this.openAnimation;
+    }
+    if (!this.isConnected || (this.open && !this.disabled) !== open) return this.openAnimation;
+    // A listener can't reopen a disabled select
+    if (this.disabled) this.open = false;
+
+    this.openTransition.controller?.abort();
+    const controller = new AbortController();
+    this.openTransition = { open, controller };
+    const { signal } = controller;
+    const isCurrent = () => !signal.aborted && this.isConnected && this.open === open;
+
+    if (open) {
+      document.addEventListener('focusin', this.handleDocumentFocusIn, { signal });
+      document.addEventListener('keydown', this.handleDocumentKeyDown, { signal });
+      document.addEventListener('mousedown', this.handleDocumentMouseDown, { signal });
+      registerDismissible(this);
+      // Also listen on the root node in case the elements are inside a shadow root
+      // https://github.com/shoelace-style/shoelace/issues/1763
+      const root = this.getRootNode();
+      if (root !== document) root.addEventListener('focusin', this.handleDocumentFocusIn, { signal });
       this.listbox.hidden = false;
       this.popup.active = true;
 
-      // Select the appropriate option based on value after the listbox opens
       requestAnimationFrame(() => {
-        this.setCurrentOption(this.currentOption);
+        if (isCurrent()) this.setCurrentOption(this.currentOption);
       });
+    } else {
+      unregisterDismissible(this);
+    }
 
-      await animateWithClass(this.popup.popup, 'show');
+    // Retire the old animation before joining its cleanup. Only the current transition may publish completion.
+    this.popup.popup.classList.remove('show', 'hide');
+    const previousAnimation = this.openAnimation;
+    this.openAnimation = (async () => {
+      await previousAnimation;
+      if (!isCurrent()) return;
+      await animateWithClass(this.popup.popup, open ? 'show' : 'hide');
+      if (!isCurrent()) return;
 
-      // Make sure the current option is scrolled into view (required for Safari)
-      if (this.currentOption) {
+      // Make sure the current option is scrolled into view (required for Safari).
+      if (open && this.currentOption) {
         scrollIntoView(this.currentOption, this.listbox, 'vertical', 'auto');
       }
-
-      this.dispatchEvent(new WaAfterShowEvent());
-    } else {
-      // Hide
-      const waHideEvent = new WaHideEvent();
-      this.dispatchEvent(waHideEvent);
-      if (waHideEvent.defaultPrevented) {
-        this.open = false;
-        return;
+      if (!open) {
+        this.listbox.hidden = true;
+        this.popup.active = false;
       }
-
-      this.removeOpenListeners();
-      await animateWithClass(this.popup.popup, 'hide');
-      this.listbox.hidden = true;
-      this.popup.active = false;
-
-      this.dispatchEvent(new WaAfterHideEvent());
-    }
+      this.dispatchEvent(open ? new WaAfterShowEvent() : new WaAfterHideEvent());
+    })();
+    return this.openAnimation;
   }
 
   /** Shows the listbox. */
   async show() {
-    if (this.open || this.disabled) {
+    if (this.disabled) {
       this.open = false;
-      return undefined;
+      return;
     }
+    if (!this.isConnected) return;
 
     this.open = true;
-    return waitForEvent(this, 'wa-after-show');
+    await this.updateComplete;
+    return this.handleOpenChange();
   }
 
   /** Hides the listbox. */
   async hide() {
-    if (!this.open || this.disabled) {
-      this.open = false;
-      return undefined;
-    }
-
     this.open = false;
-    return waitForEvent(this, 'wa-after-hide');
+    if (!this.isConnected) return;
+
+    await this.updateComplete;
+    return this.openAnimation;
   }
 
   /** Sets focus on the control. */

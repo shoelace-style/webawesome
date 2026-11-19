@@ -51,6 +51,13 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-icon>` where icons from a sprite sheet library rendered a 300px wide `<svg>` that covered neighboring elements [issue:2918] [pr:2920]
 - Fixed a bug in `<wa-known-date>` that caused the label to sit lower than the labels of other form controls [pr:3047]
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` that caused the text to start further in than other form controls [pr:3047]
+- Fixed lifecycle bugs in `<wa-select>` [issue:2887] [pr:2888]
+  - Reopening during the hide animation now shows the listbox
+  - `show()` no longer closes an open select
+  - `show()` and `hide()` now resolve when `wa-show` or `wa-hide` is canceled
+  - Disabling an open select now hides its listbox
+  - Setting `open` on a disabled select no longer leaves it open with `aria-expanded="true"`
+  - A `<wa-dialog>` containing a select that was disabled while open closes on [[Escape]] again
 - Fixed a regression in `<wa-tab-group>` where selecting a tab, by clicking it or setting `active`, no longer scrolled it into view when the tabs overflow [issue:3042] [pr:3043]
 - Fixed a bug in `<wa-tooltip>` where reopening it during a hide or moving it in the DOM left it open but invisible, and canceled `show()` and `hide()` calls never resolved [issue:2879] [pr:2881]
 
