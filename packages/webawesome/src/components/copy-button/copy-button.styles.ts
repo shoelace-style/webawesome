@@ -10,8 +10,6 @@ export default css`
     position: relative;
   }
 
-  .copy-button__tooltip-slot {
-  }
 
   .button {
     display: inline-flex;
