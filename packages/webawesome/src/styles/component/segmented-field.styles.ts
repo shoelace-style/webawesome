@@ -18,6 +18,16 @@ import { css } from 'lit';
  *    `<wa-select>`'s clear axis given those fixed widths.
  */
 export default css`
+  /* Padding makes room for the focus highlight. The negative margin cancels it so text lines up with other controls. */
+  .segments {
+    --segment-padding: 0.15em;
+    margin-inline-start: calc(-1 * var(--segment-padding));
+  }
+
+  .segment {
+    padding: 0 var(--segment-padding);
+  }
+
   /* font: inherit lifts the UA default button font-size so children that size with em
      (e.g. the expand icon) resolve against the host size-driven font-size instead of ~13px. */
   [part~='clear-button'],
