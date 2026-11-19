@@ -35,13 +35,19 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Added the experimental `<wa-timeline>` and `<wa-timeline-item>` components for showing a chronological list of events, such as an order history, activity feed, or changelog [pr:2933]
+- Added the experimental `<wa-timeline>` component for showing a chronological list of events, such as an order history, activity feed, or changelog, in a column or a row [pr:2933] [pr:3057]
+  - Added `<wa-timeline-item>` for the entries it shows
 - Added the `without-fragment` attribute to `<wa-include>` to include the whole file when `src` has a hash, as it did before 3.11.0 [issue:2875] [pr:3054]
 
 :::
 
 :::fixed
 
+- Fixed bugs in `<wa-dropdown>` when opening and closing the menu [issue:2882] [pr:3060]
+  - Fixed a stale `wa-after-hide` event when the menu reopened during its hide animation
+  - Fixed an open dropdown ignoring [[Escape]] and clicks outside after it was removed and reattached
+  - Fixed open submenus closing when `wa-hide` was prevented
+  - Fixed `wa-hide` being emitted twice when [[Tab]] closed the menu
 - Fixed a regression in `<wa-copy-button>` where adding `display: inline-flex;` caused unintended consequences. [pr:3055]
 - Fixed a bug in `<wa-color-picker>` that allowed the color to change after the picker was disabled while open [issue:3017] [pr:3018]
 - Fixed a bug in `<wa-color-picker>` where the `open` attribute didn't open the picker on first render
@@ -50,9 +56,16 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-select>` that let an option be selected while the listbox closed after the control was disabled [pr:2960]
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
 - Fixed a performance issue in `<wa-icon>` where pages without a Font Awesome kit code searched the DOM for one on every icon [issue:2975] [pr:3053]
+- Fixed bugs in `<wa-dropdown>` submenu keyboard navigation [issue:2880] [pr:3061]
+  - Fixed arrow keys moving through a submenu that had closed, such as after hovering from one submenu to another
+  - Fixed nested submenus staying open after the dropdown closed
+  - Fixed submenu items forwarded through a slot not getting focus when the submenu opened
 - Fixed a bug in `<wa-icon>` where icons from a sprite sheet library rendered a 300px wide `<svg>` that covered neighboring elements [issue:2918] [pr:2920]
 - Fixed a bug in `<wa-known-date>` that caused the label to sit lower than the labels of other form controls [pr:3047]
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` that caused the text to start further in than other form controls [pr:3047]
+- Fixed bugs in `<wa-dropdown-item>` submenus [issue:2876] [pr:3059]
+  - Fixed a submenu staying hidden when it reopened during its close animation
+  - Fixed an open submenu staying visible after its item was removed and added back
 - Fixed lifecycle bugs in `<wa-select>` [issue:2887] [pr:2888]
   - Reopening during the hide animation now shows the listbox
   - `show()` no longer closes an open select

@@ -5,6 +5,7 @@ export default css`
     :host {
       --gap: var(--wa-space-l);
       --marker-size: 1em;
+      --icon-marker-size: 2em;
       --connector-color: var(--wa-color-neutral-fill-normal);
       --connector-width: var(--wa-border-width-m);
       --connector-gap: 0.35em;
@@ -26,7 +27,7 @@ export default css`
       list-style: none;
     }
 
-    :host([marker-placement='end']) .timeline {
+    .timeline.end {
       grid-template-columns:
         [content-start] minmax(0, 1fr)
         [content-end rail-start] auto
@@ -34,7 +35,7 @@ export default css`
         [opposite-end];
     }
 
-    :host([marker-placement='alternate']) .timeline {
+    .timeline.alternating {
       grid-template-columns: minmax(0, 1fr) [rail-start] auto [rail-end] minmax(0, 1fr);
     }
 
@@ -45,20 +46,25 @@ export default css`
     }
 
     /* Horizontal */
-    :host([orientation='horizontal']) .timeline {
+    .timeline.row {
       grid-auto-flow: column;
       grid-auto-columns: 1fr;
       grid-template-columns: none;
       grid-template-rows: [opposite-start] auto [opposite-end rail-start] auto [rail-end content-start] auto [content-end];
       row-gap: 0;
-      column-gap: var(--gap);
+      column-gap: 0;
     }
 
-    :host([orientation='horizontal']) ::slotted(wa-timeline-item) {
+    .row ::slotted(wa-timeline-item) {
       grid-template-columns: none;
       grid-template-rows: subgrid;
       grid-column: auto;
       grid-row: 1 / -1;
+    }
+
+    /* Middle items take two columns and the end items one, so the end items can sit against the edges. */
+    .row ::slotted(wa-timeline-item:not(:first-of-type):not(:last-of-type)) {
+      grid-column: span 2;
     }
   }
 `;

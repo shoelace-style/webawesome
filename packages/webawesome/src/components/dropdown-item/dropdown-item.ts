@@ -208,6 +208,9 @@ export default class WaDropdownItem extends WebAwesomeElement {
     // Notify parent dropdown to handle positioning
     this.notifyParentOfOpening();
 
+    // Cancel a running hide animation, which would otherwise override the show animation
+    submenu.classList.remove('hide');
+
     // Use Popover API to show the submenu
     submenu.showPopover?.();
     submenu.hidden = false;
@@ -217,6 +220,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
     // Animate the submenu
     await animateWithClass(submenu, 'show');
+    if (!this.submenuOpen) return;
 
     // Set focus to the first submenu item
     setTimeout(() => {
@@ -271,10 +275,12 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
     if (!submenu.hidden) {
       await animateWithClass(submenu, 'hide');
-      if (submenu?.isConnected) {
+      // Skip if the submenu reopened while it was animating closed
+      if (!this.submenuOpen) {
         submenu.hidden = true;
         submenu.removeAttribute('data-visible');
-        submenu.hidePopover?.();
+        // The browser already hid the popover if the item was removed
+        if (submenu.isConnected) submenu.hidePopover?.();
       }
     }
   }
@@ -345,11 +351,11 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
   /** Gets all dropdown items in the submenu. */
   private getSubmenuItems(): WaDropdownItem[] {
-    // Only get direct children with slot="submenu", not nested ones
-    return [...this.children].filter(
-      el =>
-        el.localName === 'wa-dropdown-item' && el.getAttribute('slot') === 'submenu' && !el.hasAttribute('disabled'),
-    ) as WaDropdownItem[];
+    const slot = this.submenuElement?.querySelector<HTMLSlotElement>('slot[name="submenu"]');
+    return (slot?.assignedElements({ flatten: true }) ?? []).filter(
+      (element): element is WaDropdownItem =>
+        element.localName === 'wa-dropdown-item' && !(element as WaDropdownItem).disabled,
+    );
   }
 
   /** Prevents click events from firing on the host when the item is disabled (e.g. programmatic .click() calls). */

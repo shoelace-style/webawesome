@@ -104,6 +104,12 @@ export default class WaDropdown extends WebAwesomeElement {
   /** The offset of the dropdown menu along its trigger. */
   @property({ type: Number }) skidding = 0;
 
+  connectedCallback() {
+    super.connectedCallback();
+    // Disconnecting removes the open listeners, so restore them when an open dropdown is reattached
+    if (this.hasUpdated && this.open) this.addOpenListeners();
+  }
+
   disconnectedCallback() {
     super.disconnectedCallback();
     clearInterval(this.userTypedTimeout);
@@ -143,7 +149,6 @@ export default class WaDropdown extends WebAwesomeElement {
       if (this.open) {
         await this.showMenu();
       } else {
-        this.closeAllSubmenus();
         await this.hideMenu();
       }
     }
@@ -205,38 +210,17 @@ export default class WaDropdown extends WebAwesomeElement {
 
   /** Gets the current active submenu item */
   private getCurrentSubmenuItem(): WaDropdownItem | undefined {
-    return this.openSubmenuStack.length > 0 ? this.openSubmenuStack[this.openSubmenuStack.length - 1] : undefined;
+    // Drop entries that closed on their own, such as on hover out or removal, along with their descendants
+    const index = this.openSubmenuStack.findIndex(item => !item.submenuOpen || !item.isConnected);
+    if (index !== -1) this.openSubmenuStack.splice(index).forEach(item => (item.submenuOpen = false));
+    return this.openSubmenuStack[this.openSubmenuStack.length - 1];
   }
 
   /** Closes all submenus in the dropdown. */
   private closeAllSubmenus() {
     const items = this.getItems(true);
-    items.forEach(item => {
-      item.submenuOpen = false;
-    });
+    [...items, ...this.openSubmenuStack].forEach(item => (item.submenuOpen = false));
     this.openSubmenuStack = [];
-  }
-
-  /** Closes sibling submenus at the same level as the specified item. */
-  private closeSiblingSubmenus(item: WaDropdownItem) {
-    const parentDropdownItem = item.closest<WaDropdownItem>('wa-dropdown-item:not([slot="submenu"])');
-    let siblingItems: WaDropdownItem[];
-
-    if (parentDropdownItem) {
-      siblingItems = this.getSubmenuItems(parentDropdownItem, true);
-    } else {
-      siblingItems = this.getItems(true);
-    }
-
-    siblingItems.forEach(siblingItem => {
-      if (siblingItem !== item && siblingItem.submenuOpen) {
-        siblingItem.submenuOpen = false;
-      }
-    });
-
-    if (!this.openSubmenuStack.includes(item)) {
-      this.openSubmenuStack.push(item);
-    }
   }
 
   /** Get the slotted trigger button, a <wa-button> or <button> element */
@@ -267,12 +251,8 @@ export default class WaDropdown extends WebAwesomeElement {
 
     this.popup.active = true; // Use wa-popup's active property instead of showPopover
     this.open = true;
-    openDropdowns.add(this);
-    registerDismissible(this);
+    this.addOpenListeners();
     this.syncAriaAttributes();
-    document.addEventListener('keydown', this.handleDocumentKeyDown);
-    document.addEventListener('pointerdown', this.handleDocumentPointerDown);
-    document.addEventListener('mousemove', this.handleGlobalMouseMove);
 
     // In case its still trying to hide, remove the class to cancel the hide animation.
     this.menu.classList.remove('hide');
@@ -320,6 +300,7 @@ export default class WaDropdown extends WebAwesomeElement {
       return;
     }
 
+    this.closeAllSubmenus();
     const originalTrigger = this.originalTrigger;
     this.originalTrigger = null;
     this.open = false;
@@ -332,6 +313,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
     this.menu.classList.remove('show');
     await animateWithClass(this.menu, 'hide'); // Animate before hiding
+    if (this.open) return; // Reopened during the hide animation
 
     // Sometimes this ends up out of sync. So make sure it aligns with `open`
     this.popup.active = this.open; // Hide using wa-popup
@@ -339,8 +321,17 @@ export default class WaDropdown extends WebAwesomeElement {
     originalTrigger?.focus({ preventScroll: true });
   }
 
+  /** Adds the dropdown to the open dropdowns and dismissible stack and listens for document events. */
+  private addOpenListeners() {
+    openDropdowns.add(this);
+    registerDismissible(this);
+    document.addEventListener('keydown', this.handleDocumentKeyDown);
+    document.addEventListener('pointerdown', this.handleDocumentPointerDown);
+    document.addEventListener('mousemove', this.handleGlobalMouseMove);
+  }
+
   /** Handles key down events when the menu is open */
-  private handleDocumentKeyDown = async (event: KeyboardEvent) => {
+  private handleDocumentKeyDown = (event: KeyboardEvent) => {
     const isRtl = this.localize.dir() === 'rtl';
 
     if (event.key === 'Escape' && this.open && isTopDismissible(this)) {
@@ -440,7 +431,7 @@ export default class WaDropdown extends WebAwesomeElement {
     }
 
     if (event.key === 'Tab') {
-      await this.hideMenu();
+      this.open = false;
     }
 
     if (
@@ -521,8 +512,6 @@ export default class WaDropdown extends WebAwesomeElement {
 
     if (item.hasSubmenu) {
       if (!item.submenuOpen) {
-        this.closeSiblingSubmenus(item);
-        this.addToSubmenuStack(item);
         item.submenuOpen = true;
       }
 
@@ -560,8 +549,16 @@ export default class WaDropdown extends WebAwesomeElement {
   /** Handles submenu opening events */
   private handleSubmenuOpening(event: CustomEvent) {
     const openingItem = event.detail.item as WaDropdownItem;
-    this.closeSiblingSubmenus(openingItem);
-    this.addToSubmenuStack(openingItem);
+    // The opening item and its ancestor items become the stack, so close any other open branch
+    const path = event.composedPath();
+    const branch = path
+      .slice(0, path.indexOf(this))
+      .filter((el): el is WaDropdownItem => el instanceof Element && el.localName === 'wa-dropdown-item')
+      .reverse();
+    if (!branch.every((item, index) => this.openSubmenuStack[index] === item)) {
+      this.openSubmenuStack.filter(item => !branch.includes(item)).forEach(item => (item.submenuOpen = false));
+      this.openSubmenuStack = branch;
+    }
 
     this.setupSubmenuPosition(openingItem);
     this.processSubmenuItems(openingItem);

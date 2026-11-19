@@ -128,6 +128,24 @@ describe('<wa-timeline>', () => {
           expect(first.hasAttribute('data-wa-timeline-placement')).to.be.false;
         });
 
+        it('should match :state(stacked) while an auto timeline is too narrow for a row', async () => {
+          const wrapper = await fixture<HTMLDivElement>(html`
+            <div style="width: 200px; font-size: 16px;">
+              <wa-timeline orientation="auto">
+                <wa-timeline-item>First</wa-timeline-item>
+                <wa-timeline-item>Second</wa-timeline-item>
+                <wa-timeline-item>Third</wa-timeline-item>
+              </wa-timeline>
+            </div>
+          `);
+          const el = wrapper.querySelector('wa-timeline')!;
+          await whenSynced(el);
+          await waitUntil(() => el.matches(':state(stacked)'), 'a narrow auto timeline never stacked');
+
+          wrapper.style.width = '800px';
+          await waitUntil(() => !el.matches(':state(stacked)'), 'a wide auto timeline never became a row');
+        });
+
         it('should scope its sync to its own items, not a timeline nested inside one', async () => {
           const el = await fixture<WaTimeline>(html`
             <wa-timeline marker-placement="end">
