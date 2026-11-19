@@ -43,14 +43,25 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::fixed
 
 - Fixed a bug where `autofocus` didn't focus `<wa-input>` and other components on page load in Firefox and Safari, or `<wa-button>` in Chrome [issue:2990] [pr:2991]
+- Fixed a regression in `<wa-copy-button>` where adding `display: inline-flex;` caused unintended consequences. [pr:3055]
+- Fixed a bug in `<wa-color-picker>` that allowed the color to change after the picker was disabled while open [issue:3017] [pr:3018]
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
 - Fixed a bug in `<wa-radio-group>` where arrow keys and [[Space]] were taken from buttons, links, and fields placed inside the group [issue:2892] [pr:2893]
 - Fixed a bug in `<wa-select>` that let an option be selected while the listbox closed after the control was disabled [pr:2960]
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
 - Fixed a performance issue in `<wa-icon>` where pages without a Font Awesome kit code searched the DOM for one on every icon [issue:2975] [pr:3053]
+- Fixed a bug in `<wa-icon>` where icons from a sprite sheet library rendered a 300px wide `<svg>` that covered neighboring elements [issue:2918] [pr:2920]
 - Fixed a bug in `<wa-known-date>` that caused the label to sit lower than the labels of other form controls [pr:3047]
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` that caused the text to start further in than other form controls [pr:3047]
+- Fixed lifecycle bugs in `<wa-select>` [issue:2887] [pr:2888]
+  - Reopening during the hide animation now shows the listbox
+  - `show()` no longer closes an open select
+  - `show()` and `hide()` now resolve when `wa-show` or `wa-hide` is canceled
+  - Disabling an open select now hides its listbox
+  - Setting `open` on a disabled select no longer leaves it open with `aria-expanded="true"`
+  - A `<wa-dialog>` containing a select that was disabled while open closes on [[Escape]] again
 - Fixed a regression in `<wa-tab-group>` where selecting a tab, by clicking it or setting `active`, no longer scrolled it into view when the tabs overflow [issue:3042] [pr:3043]
+- Fixed a bug in `<wa-tooltip>` where reopening it during a hide or moving it in the DOM left it open but invisible, and canceled `show()` and `hide()` calls never resolved [issue:2879] [pr:2881]
 
 :::
 
