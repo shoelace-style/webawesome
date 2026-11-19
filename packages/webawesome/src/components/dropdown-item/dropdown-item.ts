@@ -224,6 +224,9 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
     // Set focus to the first submenu item
     setTimeout(() => {
+      // Skip if this submenu or one it's nested in closed meanwhile, or keyboard navigation already moved focus into it
+      if (this.closest('wa-dropdown-item:not([submenuopen])') || this.hasFocusInSubmenu()) return;
+
       const items = this.getSubmenuItems();
       if (items.length > 0) {
         items.forEach((item, index) => (item.active = index === 0));
@@ -268,10 +271,8 @@ export default class WaDropdownItem extends WebAwesomeElement {
     this.submenuOpen = false;
     this.setAttribute('aria-expanded', 'false');
 
-    // Hiding a submenu that holds focus drops focus to the body, so return it to this item as ArrowLeft does. Check
-    // containment, since Chromium and WebKit don't match :focus-within across a nested submenu's popover.
-    const focused = (this.getRootNode() as Document | ShadowRoot).activeElement;
-    if (focused !== this && this.contains(focused)) {
+    // Hiding a submenu that holds focus drops focus to the body, so return it to this item as ArrowLeft does
+    if (this.hasFocusInSubmenu()) {
       this.focus({ preventScroll: true });
     }
 
@@ -285,6 +286,13 @@ export default class WaDropdownItem extends WebAwesomeElement {
         if (submenu.isConnected) submenu.hidePopover?.();
       }
     }
+  }
+
+  /** Whether focus is on an item in this item's submenu, at any depth. */
+  private hasFocusInSubmenu() {
+    // Check containment, since Chromium and WebKit don't match :focus-within across a nested submenu's popover
+    const focused = (this.getRootNode() as Document | ShadowRoot).activeElement;
+    return focused !== this && this.contains(focused);
   }
 
   /** Determines whether the item navigates when selected. Items with submenus never navigate. */
