@@ -36,6 +36,8 @@ function containsComposedNode(ancestor: Node, node: Node | null) {
   return false;
 }
 
+type OpenTransition = { open: boolean; promise?: Promise<void> };
+
 /**
  * @summary Tooltips display brief contextual information when the user hovers, focuses, or taps a target element.
  * @documentation https://webawesome.com/docs/components/tooltip
@@ -127,7 +129,7 @@ export default class WaTooltip extends WebAwesomeElement {
   @state() anchor: null | Element = null;
 
   private eventController = new AbortController();
-  private openTransition: { open: boolean; promise?: Promise<void> } = { open: false };
+  private openTransition: OpenTransition = { open: false };
 
   connectedCallback() {
     super.connectedCallback();
@@ -353,8 +355,10 @@ export default class WaTooltip extends WebAwesomeElement {
       return previous.promise;
     }
 
-    const event = open ? new WaShowEvent() : new WaHideEvent();
+    // A disabled tooltip must close, so its hide can't be canceled.
+    const event = open ? new WaShowEvent() : new WaHideEvent(undefined, { cancelable: !this.disabled });
     this.dispatchEvent(event);
+    // A listener made a newer request, which owns the transition now.
     if (this.openTransition !== previous || this.open !== open) {
       return this.openTransition.promise;
     }
@@ -363,7 +367,7 @@ export default class WaTooltip extends WebAwesomeElement {
       return previous.promise;
     }
 
-    const transition: { open: boolean; promise?: Promise<void> } = { open };
+    const transition: OpenTransition = { open };
     this.openTransition = transition;
     const isCurrent = () => this.isConnected && this.openTransition === transition && this.open === open;
 

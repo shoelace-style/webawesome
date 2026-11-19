@@ -305,6 +305,32 @@ describe('<wa-tooltip>', () => {
           expect(showHandler).to.have.been.calledOnce;
         });
 
+        it('should close when disabled even if wa-hide is prevented', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="disable-prevent-anchor">Anchor</button>
+              <wa-tooltip for="disable-prevent-anchor" trigger="manual">Tooltip</wa-tooltip>
+            </div>
+          `);
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+          await tooltip.show();
+          const hideEvents: Event[] = [];
+          const afterHide = sinon.spy();
+          tooltip.addEventListener('wa-hide', event => {
+            hideEvents.push(event);
+            event.preventDefault();
+          });
+          tooltip.addEventListener('wa-after-hide', afterHide);
+
+          tooltip.disabled = true;
+          await waitUntil(() => afterHide.called);
+
+          expect(tooltip.open).to.be.false;
+          expect(tooltip.body.hidden).to.be.true;
+          expect(hideEvents).to.have.length(1);
+          expect(hideEvents[0].cancelable).to.be.false;
+        });
+
         it('should stay closed when initially open and disabled', async () => {
           const el = await fixture<HTMLDivElement>(html`
             <div>
@@ -719,6 +745,30 @@ describe('<wa-tooltip>', () => {
       tooltip.open = true;
       await waitUntil(() => tooltip.open);
       expect(tooltip.open).to.be.true;
+    });
+
+    it('should end open when the pointer returns to the anchor during a hide', async () => {
+      const el = await fixtures[0]<HTMLDivElement>(html`
+        <div>
+          <wa-button id="rehover-btn">Hover me</wa-button>
+          <wa-tooltip for="rehover-btn" trigger="hover" show-delay="0" hide-delay="0">Tooltip</wa-tooltip>
+        </div>
+      `);
+      const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+      const anchor = el.querySelector<HTMLElement>('#rehover-btn')!;
+      tooltip.popup.style.setProperty('--hide-duration', '300ms');
+      const afterShow = new Promise(resolve => tooltip.addEventListener('wa-after-show', resolve, { once: true }));
+
+      await moveMouseOnElement(anchor);
+      await afterShow;
+      await moveMouseOnElement(document.body, 'top', 0, 0);
+      await waitUntil(() => !tooltip.open);
+      await moveMouseOnElement(anchor);
+      await aTimeout(500);
+
+      expect(tooltip.open).to.be.true;
+      expect(tooltip.body.hidden).to.be.false;
+      expect(tooltip.popup.active).to.be.true;
     });
 
     it('should remain open when the pointer moves onto a slotted child element of the tooltip', async () => {
