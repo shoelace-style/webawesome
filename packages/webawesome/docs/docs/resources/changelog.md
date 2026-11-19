@@ -78,8 +78,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a regression in `<wa-tab-group>` where selecting a tab, by clicking it or setting `active`, no longer scrolled it into view when the tabs overflow [issue:3042] [pr:3043]
 - Fixed a bug in `<wa-tooltip>` where reopening it during a hide or moving it in the DOM left it open but invisible, and canceled `show()` and `hide()` calls never resolved [issue:2879] [pr:2881]
 - Fixed a bug in `<wa-toast-item>` that let a toast close while hovered or focused [pr:3063]
-- Fixed a bug in `<wa-time-input>` where disabling it while open didn't fully close it, so `wa-hide` and `wa-after-hide` didn't fire and [[Escape]] no longer closed a `<wa-dialog>` that contained it
-- Fixed a bug in `<wa-carousel>` where changing `slides-per-page` or `loop` could change the active slide without emitting `wa-slide-change` or moving the `--is-active` class to it
+- Fixed a bug in `<wa-time-input>` where disabling it while open didn't fully close it, so `wa-hide` and `wa-after-hide` didn't fire and [[Escape]] no longer closed a `<wa-dialog>` that contained it [pr:3072]
+- Fixed a bug in `<wa-carousel>` where changing `slides-per-page` or `loop` could change the active slide without emitting `wa-slide-change` or moving the `--is-active` class to it [pr:3072]
 
 :::
 
