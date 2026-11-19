@@ -86,7 +86,7 @@ describe('<wa-color-picker>', () => {
           el.addEventListener('change', changeHandler);
           await el.show();
 
-          let valueAtDisable: string | undefined;
+          let valueAtDisable: string | null | undefined;
           await dragElement(grid, 20, 20, {
             afterMouseDown: async () => {
               valueAtDisable = el.value;
@@ -107,7 +107,9 @@ describe('<wa-color-picker>', () => {
           const el = await fixture<WaColorPicker>(html` <wa-color-picker value="#ff0000"></wa-color-picker> `);
           const button = el.shadowRoot!.querySelector<HTMLElement>('[part~="format-button"]')!;
           const changeHandler = sinon.spy();
+          const afterHideHandler = sinon.spy();
           el.addEventListener('change', changeHandler);
+          el.addEventListener('wa-after-hide', afterHideHandler);
           await el.show();
           const { x, y, width, height } = button.getBoundingClientRect();
 
@@ -119,11 +121,18 @@ describe('<wa-color-picker>', () => {
           expect(el.format).to.equal('hex');
           expect(changeHandler).not.to.have.been.called;
           expect(el.open).to.be.false;
+
+          await waitUntil(() => afterHideHandler.calledOnce, 'wa-after-hide never fired');
+          expect(el.wrapper.hidden).to.be.true;
+          expect(el.popup.active).to.be.false;
+          expect(el.trigger.getAttribute('aria-expanded')).to.equal('false');
         });
 
         it('should ignore an eyedropper pick that resolves after being disabled', async () => {
           let resolvePick!: (result: { sRGBHex: string }) => void;
           const win = window as unknown as { EyeDropper?: unknown };
+          const hadEyeDropper = 'EyeDropper' in win;
+          const originalEyeDropper = win.EyeDropper;
           win.EyeDropper = class {
             open() {
               return new Promise(resolve => (resolvePick = resolve));
@@ -150,7 +159,11 @@ describe('<wa-color-picker>', () => {
             expect(inputHandler).not.to.have.been.called;
             expect(changeHandler).not.to.have.been.called;
           } finally {
-            delete win.EyeDropper;
+            if (hadEyeDropper) {
+              win.EyeDropper = originalEyeDropper;
+            } else {
+              delete win.EyeDropper;
+            }
           }
         });
 

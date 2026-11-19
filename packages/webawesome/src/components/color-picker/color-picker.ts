@@ -1106,13 +1106,6 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     unregisterDismissible(this);
   }
 
-  @watch('disabled', { waitUntilFirstUpdate: true })
-  handleDisabledChange() {
-    if (this.disabled && this.open) {
-      this.open = false;
-    }
-  }
-
   @watch('open', { waitUntilFirstUpdate: true })
   async handleOpenChange() {
     if (this.open && this.disabled) {
@@ -1141,6 +1134,14 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       this.wrapper.hidden = true;
       this.popup.active = false;
       this.dispatchEvent(new CustomEvent('wa-after-hide'));
+    }
+  }
+
+  // Declared after handleOpenChange so it runs first and the open watcher sees the change.
+  @watch('disabled', { waitUntilFirstUpdate: true })
+  handleDisabledChange() {
+    if (this.disabled && this.open) {
+      this.open = false;
     }
   }
 
