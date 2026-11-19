@@ -17,21 +17,29 @@ use-cases:
 ```html {.example .anatomy}
 <wa-timeline label="Order history">
   <wa-timeline-item>
+    <wa-format-date slot="opposite" date="2026-07-22T09:00:00" month="short" day="numeric"></wa-format-date>
     <span class="wa-heading-m">Order placed</span>
     <p>We received your order and will begin processing it shortly.</p>
   </wa-timeline-item>
   <wa-timeline-item>
+    <wa-format-date slot="opposite" date="2026-07-23T09:00:00" month="short" day="numeric"></wa-format-date>
     <span class="wa-heading-m">Order shipped</span>
     <p>Your package left the warehouse and is on its way.</p>
   </wa-timeline-item>
-  <wa-timeline-item>
+  <wa-timeline-item variant="brand">
+    <wa-format-date slot="opposite" date="2026-07-24T09:00:00" month="short" day="numeric"></wa-format-date>
     <span class="wa-heading-m">Out for delivery</span>
     <p>Your package is on the truck and should arrive today.</p>
   </wa-timeline-item>
 </wa-timeline>
 ```
 
-Each entry is a [`<wa-timeline-item>`](/docs/components/timeline-item). To track progress through a linear, gated process instead of a record, use [`<wa-stepper>`](/docs/components/stepper).
+Each entry is a [`<wa-timeline-item>`](/docs/components/timeline-item).
+
+:::info
+<strong>Showing progress through a process?</strong><br />
+Use [`<wa-stepper>`](/docs/components/stepper) instead. A timeline is a record of what happened, with no current step.
+:::
 
 ## Examples
 
@@ -135,7 +143,7 @@ Use the `icon` slot on an item to show an element, such as [`<wa-icon>`](/docs/c
 
 ### Variant
 
-Set the `variant` attribute on an item to color its marker with a semantic color. The default is `neutral`, whose marker stays quiet so the other variants stand out against it. The color is cosmetic and never changes the marker's content, like `variant` on a badge or callout.
+Set the `variant` attribute on an item to color its marker with a semantic color. The default is `neutral`, whose marker stays quiet so the other variants stand out against it.
 
 ```html {.example}
 <wa-timeline>
@@ -208,7 +216,17 @@ A timeline is sized relative to the current font size, like a badge. Set `font-s
 
 ### Orientation
 
-Set the `orientation` attribute to `horizontal` to lay items out in a row instead of a column. To let a long timeline scroll sideways, wrap it in a [`<wa-scroller>`](/docs/components/scroller) and give each item a minimum width.
+Set the `orientation` attribute to `horizontal` to lay items out in a row instead of a column.
+
+```html {.example}
+<wa-timeline orientation="horizontal">
+  <wa-timeline-item>Ordered</wa-timeline-item>
+  <wa-timeline-item>Shipped</wa-timeline-item>
+  <wa-timeline-item>Delivered</wa-timeline-item>
+</wa-timeline>
+```
+
+To let a long timeline scroll sideways, wrap it in a [`<wa-scroller>`](/docs/components/scroller) and give the timeline a minimum width.
 
 ```html {.example}
 <wa-scroller>
@@ -247,8 +265,8 @@ Set the `orientation` attribute to `horizontal` to lay items out in a row instea
 </wa-scroller>
 
 <style>
-  .timeline-space-race wa-timeline-item {
-    min-inline-size: 6rem;
+  .timeline-space-race {
+    min-inline-size: 56rem;
   }
 </style>
 ```
@@ -460,67 +478,41 @@ An item's default slot accepts any content, so an entry can hold more than a tit
 </style>
 ```
 
-### Adding Entries
+### Grouping Entries
 
-Append a `<wa-timeline-item>` to add an entry.
+To group entries under headings, such as by day, give each group its own heading and its own timeline. Keep the headings outside the timelines, since a timeline should only hold items. Set the `label` attribute on each timeline so screen reader users can tell the groups apart.
 
 ```html {.example}
 <div class="wa-stack">
-  <wa-timeline id="timeline-live">
+  <h4>Today</h4>
+  <wa-timeline label="Today">
+    <wa-timeline-item variant="success">
+      <span class="wa-heading-m">Payment received</span>
+      <p>Paid in full by bank transfer.</p>
+    </wa-timeline-item>
     <wa-timeline-item>
-      <wa-badge slot="opposite" appearance="outlined" pill>0–0</wa-badge>
-      <span class="wa-heading-m">Kickoff</span>
-      <p>Rovers get us under way, playing left to right.</p>
+      <span class="wa-heading-m">Reminder sent</span>
+      <p>A second notice went to the billing contact.</p>
     </wa-timeline-item>
   </wa-timeline>
 
-  <wa-divider></wa-divider>
-
-  <wa-button id="timeline-live-advance" appearance="filled">Add Play</wa-button>
+  <h4>Yesterday</h4>
+  <wa-timeline label="Yesterday">
+    <wa-timeline-item>
+      <span class="wa-heading-m">Invoice sent</span>
+      <p>Due in 30 days.</p>
+    </wa-timeline-item>
+    <wa-timeline-item>
+      <span class="wa-heading-m">Quote approved</span>
+      <p>The client signed off on the estimate.</p>
+    </wa-timeline-item>
+  </wa-timeline>
 </div>
-
-<script>
-  const timelineLive = document.getElementById('timeline-live');
-  const timelineLiveButton = document.getElementById('timeline-live-advance');
-  const timelineLivePlays = [
-    {
-      score: '1–0',
-      variant: 'success',
-      label: 'Goal, Rovers',
-      body: 'A low cross from the left, tapped in at the far post.',
-    },
-    {
-      score: '1–0',
-      variant: 'warning',
-      label: 'Yellow card',
-      body: 'A late tackle in midfield. The referee has a word.',
-    },
-    {
-      score: '1–1',
-      variant: 'brand',
-      label: 'Goal, City',
-      body: 'A free kick curled over the wall and into the corner.',
-    },
-    { score: '1–1', variant: 'neutral', label: 'Full time', body: 'Honors even. Both sides will take the point.' },
-  ];
-
-  timelineLiveButton.addEventListener('click', () => {
-    const next = timelineLivePlays.shift();
-    if (!next) return;
-
-    const item = document.createElement('wa-timeline-item');
-    item.variant = next.variant;
-    item.innerHTML = `<wa-badge slot="opposite" appearance="outlined" pill>${next.score}</wa-badge><span class="wa-heading-m">${next.label}</span><p>${next.body}</p>`;
-    timelineLive.append(item);
-
-    if (timelineLivePlays.length === 0) timelineLiveButton.disabled = true;
-  });
-</script>
 ```
 
-### Newest First
+### Adding Entries
 
-To show the newest entry at the top, put it first in the markup and add entries with `prepend()`. Reading and focus order follow document order, so they match the screen.
+Append a `<wa-timeline-item>` to add an entry at the end. To show the newest entry at the top, put it first in the markup and add entries with `prepend()`. Reading and focus order follow document order, so they match the screen.
 
 ```html {.example}
 <div class="wa-stack">
@@ -679,7 +671,7 @@ This example sets the timeline's `--gap`, `--marker-size`, and `--connector-widt
 </style>
 ```
 
-Here the connector and markers become one rule with diamond stops. The `--connector-gap` custom property is set to `0px` so the line runs straight into each marker, the `--connector-color` custom property fades it back, and the `marker` part is rotated into a diamond that matches. The latest release takes the `brand` variant so it stands out, and version numbers sit in the `opposite` slot as [`<wa-badge>`](/docs/components/badge)s. Note that `--connector-gap` needs a length such as `0px`; a bare `0` isn't valid inside the connector's `calc()` positioning.
+Here the connector and markers become one rule with diamond stops: the `--connector-gap` custom property is set to `0px` so the line runs straight into each marker, and the `marker` part is rotated into a diamond. The latest release takes the `brand` variant so it stands out, and version numbers sit in the `opposite` slot as [`<wa-badge>`](/docs/components/badge)s.
 
 ```html {.example}
 <wa-timeline class="release-timeline">
