@@ -1,8 +1,10 @@
-import { expect } from '@open-wc/testing';
+import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
-import { fixtures } from '../../internal/test/fixture.js';
+import { clientFixture, fixtures } from '../../internal/test/fixture.js';
 import { clickOnElement } from '../../internal/test/pointer-utilities.js';
+import type WaDropdown from '../dropdown/dropdown.js';
 import type WaDropdownItem from './dropdown-item.js';
 
 describe('<wa-dropdown-item>', () => {
@@ -385,4 +387,70 @@ describe('<wa-dropdown-item>', () => {
       });
     });
   }
+
+  describe('submenus', () => {
+    it('should keep a submenu visible when it reopens while closing', async () => {
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown>
+          <button slot="trigger">Menu</button>
+          <wa-dropdown-item style="--show-duration: 400ms">
+            Parent
+            <wa-dropdown-item slot="submenu">First</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu">Second</wa-dropdown-item>
+          </wa-dropdown-item>
+          <wa-dropdown-item>Other</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const parentItem = el.querySelector<WaDropdownItem>('wa-dropdown-item')!;
+      const firstNested = parentItem.querySelector<WaDropdownItem>('[slot="submenu"]')!;
+
+      el.querySelector('button')!.focus();
+      await sendKeys({ press: 'Enter' });
+      await waitUntil(() => document.activeElement === parentItem);
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement === firstNested);
+      await aTimeout(500);
+
+      // Reopen before the close animation finishes
+      await sendKeys({ press: 'ArrowLeft' });
+      await waitUntil(() => document.activeElement === parentItem);
+      await sendKeys({ press: 'ArrowRight' });
+      await aTimeout(800);
+
+      expect(parentItem.submenuOpen).to.be.true;
+      expect(parentItem.getAttribute('aria-expanded')).to.equal('true');
+      expect(parentItem.submenuElement.hidden).to.be.false;
+      expect(parentItem.submenuElement.matches(':popover-open')).to.be.true;
+    });
+
+    it('should hide an open submenu when its item is removed and added back', async () => {
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown>
+          <button slot="trigger">Menu</button>
+          <wa-dropdown-item>
+            Parent
+            <wa-dropdown-item slot="submenu">First</wa-dropdown-item>
+          </wa-dropdown-item>
+          <wa-dropdown-item>Other</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const parentItem = el.querySelector<WaDropdownItem>('wa-dropdown-item')!;
+      const firstNested = parentItem.querySelector<WaDropdownItem>('[slot="submenu"]')!;
+
+      el.querySelector('button')!.focus();
+      await sendKeys({ press: 'Enter' });
+      await waitUntil(() => document.activeElement === parentItem);
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement === firstNested);
+      await aTimeout(200);
+
+      parentItem.remove();
+      await aTimeout(200);
+      el.prepend(parentItem);
+      await aTimeout(200);
+
+      expect(parentItem.submenuOpen).to.be.false;
+      expect(parentItem.submenuElement.checkVisibility()).to.be.false;
+    });
+  });
 });
