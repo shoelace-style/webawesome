@@ -119,10 +119,10 @@ The opposite column is shown once the item hydrates; `with-opposite` lays it out
 
 ### Custom Icon
 
-Use the `icon` slot on an item to show an element, such as [`<wa-icon>`](/docs/components/icon), inside its marker. The marker keeps its variant color, and the icon takes the variant's matching foreground color. Icons are drawn at 40% of the marker's size, so increase the `--marker-size` custom property to make room.
+Use the `icon` slot on an item to show an element, such as [`<wa-icon>`](/docs/components/icon) or an avatar, inside its marker. The icon takes the foreground color that matches the marker's variant. A marker with something in its `icon` slot is `2em` instead of `1em`. Resize it with `--icon-marker-size`, not `--marker-size`.
 
 ```html {.example}
-<wa-timeline style="--marker-size: 2em;">
+<wa-timeline>
   <wa-timeline-item variant="warning">
     <wa-icon slot="icon" name="hat-wizard"></wa-icon>
     <span class="wa-heading-m">The call</span>
@@ -140,6 +140,11 @@ Use the `icon` slot on an item to show an element, such as [`<wa-icon>`](/docs/c
   </wa-timeline-item>
 </wa-timeline>
 ```
+
+:::info
+<strong>Rendering on the server? Add the `with-icon` attribute to each item with content in its `icon` slot.</strong><br />
+The marker is sized up once the item hydrates; `with-icon` sizes it in the server-rendered markup. See [Server-Side Rendering](/docs/components/timeline-item#ssr).
+:::
 
 ### Variant
 
@@ -168,7 +173,7 @@ Set the `variant` attribute on an item to color its marker with a semantic color
 To flag something that failed or needs attention, pair the variant with an icon in the [`icon` slot](#custom-icon) and state the reason in the content, so the meaning doesn't depend on color alone.
 
 ```html {.example}
-<wa-timeline style="--marker-size: 2em;">
+<wa-timeline>
   <wa-timeline-item variant="success">
     <wa-icon slot="icon" name="check"></wa-icon>
     <span class="wa-heading-m">Build passed</span>
@@ -230,7 +235,7 @@ To let a long timeline scroll sideways, wrap it in a [`<wa-scroller>`](/docs/com
 
 ```html {.example}
 <wa-scroller>
-  <wa-timeline class="timeline-space-race" orientation="horizontal" style="--marker-size: 2em;">
+  <wa-timeline class="timeline-space-race" orientation="horizontal">
     <wa-timeline-item>
       <wa-icon slot="icon" name="satellite-dish"></wa-icon>
       <wa-format-date slot="opposite" date="1957-10-04" year="numeric"></wa-format-date>
@@ -271,9 +276,32 @@ To let a long timeline scroll sideways, wrap it in a [`<wa-scroller>`](/docs/com
 </style>
 ```
 
+Set the `orientation` attribute to `auto` to lay items out in a row and switch to a column when there's less than about 10em between items, so entries stay readable on small screens. Resize the example to see the switch. While laid out as a column, the timeline has the `stacked` custom state, so `wa-timeline:state(stacked)` targets it.
+
+The default, `vertical`, stays a column at any width. `auto` measures the timeline in the browser, so a server-rendered `auto` timeline starts as a column and switches to a row once it hydrates.
+
+```html {.example}
+<wa-timeline orientation="auto">
+  <wa-timeline-item>
+    <wa-format-date slot="opposite" date="2026-05-04T09:00:00" month="short" day="numeric"></wa-format-date>
+    <span class="wa-heading-m">Kickoff</span>
+  </wa-timeline-item>
+  <wa-timeline-item>
+    <wa-format-date slot="opposite" date="2026-06-08T09:00:00" month="short" day="numeric"></wa-format-date>
+    <span class="wa-heading-m">Beta</span>
+  </wa-timeline-item>
+  <wa-timeline-item>
+    <wa-format-date slot="opposite" date="2026-06-29T09:00:00" month="short" day="numeric"></wa-format-date>
+    <span class="wa-heading-m">Launch</span>
+  </wa-timeline-item>
+</wa-timeline>
+```
+
+Don't combine `auto` with `<wa-scroller>`. Pick sideways scrolling or switching to a column, not both.
+
 ### Marker Placement
 
-The `marker-placement` attribute sets where each marker sits relative to its item's content. The default, `start`, puts the marker before the content; set it to `end` to put the marker after the content. Marker placement only applies to vertical timelines.
+The `marker-placement` attribute sets where each marker sits relative to its item's content. The default, `start`, puts the marker before the content; set it to `end` to put the marker after the content. Marker placement only applies while the timeline is laid out as a column, including an `auto` timeline that has switched to one.
 
 ```html {.example}
 <wa-timeline marker-placement="end">
@@ -292,7 +320,7 @@ The `marker-placement` attribute sets where each marker sits relative to its ite
 </wa-timeline>
 ```
 
-Set it to `alternate` to switch sides item by item, so the rail runs down the middle, which suits a wide timeline.
+Set it to `alternate` to switch sides item by item, so the rail runs down the middle, which suits a wide timeline. When the timeline is narrower than 30em, it lays every item out on the start side until it has room again.
 
 ```html {.example}
 <wa-timeline marker-placement="alternate">
@@ -316,10 +344,10 @@ Set it to `alternate` to switch sides item by item, so the rail runs down the mi
 
 ### Marker Alignment
 
-By default, each marker sits at the top of its item, in line with the first line of text. Set the `marker-alignment` attribute to `center` to center the marker on the item's full height instead. Marker alignment only applies to vertical timelines.
+By default, each marker sits at the top of its item, in line with the first line of text. Set the `marker-alignment` attribute to `center` to center the marker on the item's full height instead. Marker alignment only applies while the timeline is laid out as a column, including an `auto` timeline that has switched to one.
 
 ```html {.example}
-<wa-timeline marker-alignment="center" style="--marker-size: 2em;">
+<wa-timeline marker-alignment="center">
   <wa-timeline-item variant="success">
     <wa-icon slot="icon" name="campground"></wa-icon>
     <wa-card>
@@ -468,7 +496,7 @@ An item's default slot accepts any content, so an entry can hold more than a tit
 
 <style>
   .timeline-activity {
-    --marker-size: 2.5em;
+    --icon-marker-size: 2.5em;
   }
 
   .timeline-activity ul {
@@ -574,7 +602,7 @@ Sides are assigned in document order, so prepending an entry moves existing entr
 
 ### Customizing
 
-Use the exported [CSS parts](#css-parts) and [custom properties](#css-custom-properties) to restyle the timeline. Most parts, such as `marker` and `connector`, belong to `<wa-timeline-item>`, so the selector targets the items, not the timeline; see the [Timeline Item page](/docs/components/timeline-item#css-parts) for every part an item exposes. Each item can also set the `--marker-size` and `--connector-gap` custom properties for itself.
+Use the exported [CSS parts](#css-parts) and [custom properties](#css-custom-properties) to restyle the timeline. Most parts, such as `marker` and `connector`, belong to `<wa-timeline-item>`, so the selector targets the items, not the timeline; see the [Timeline Item page](/docs/components/timeline-item#css-parts) for every part an item exposes. Each item can also set the `--marker-size`, `--icon-marker-size`, and `--connector-gap` custom properties for itself.
 
 This example sets the timeline's `--gap`, `--marker-size`, and `--connector-width` custom properties, and the first entry sets a larger `--marker-size` for itself.
 

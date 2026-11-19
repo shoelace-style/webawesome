@@ -5,9 +5,6 @@ export default css`
     :host {
       --_marker-background: var(--wa-color-fill-loud);
       --_marker-color: var(--wa-color-on-loud);
-      /* How far a first line taller than the marker would rise above the item. Applied as padding so it stays inside. */
-      --_line-overhang: max(0px, (1lh - var(--marker-size)) / 2);
-
       display: block;
     }
 
@@ -19,10 +16,19 @@ export default css`
 
     /* Layout */
     .item {
+      --_marker-size: var(--marker-size);
+      /* How far a first line taller than the marker would rise above the item. Applied as padding so it stays inside. */
+      --_line-overhang: max(0px, (1lh - var(--_marker-size)) / 2);
+
       display: grid;
       grid-template-columns: subgrid;
       grid-column: 1 / -1;
       padding-block-start: var(--_line-overhang);
+    }
+
+    /* An icon or avatar needs a bigger marker to stay legible. */
+    .item.has-icon {
+      --_marker-size: var(--icon-marker-size);
     }
 
     .rail {
@@ -45,14 +51,14 @@ export default css`
     /* Shift by half the marker and first line difference so the marker centers on that line. */
     .content {
       grid-column: content;
-      margin-block-start: calc((var(--marker-size) - 1lh) / 2);
+      margin-block-start: calc((var(--_marker-size) - 1lh) / 2);
       margin-inline-start: 1em;
     }
 
     /* Starts at the marker's middle. The slot then pulls its smaller first line up by half its own height. */
     .opposite {
       grid-column: opposite;
-      margin-block-start: calc(var(--marker-size) / 2);
+      margin-block-start: calc(var(--_marker-size) / 2);
       margin-inline-end: 1em;
       color: var(--wa-color-text-quiet);
       text-align: end;
@@ -72,8 +78,8 @@ export default css`
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: var(--marker-size);
-      height: var(--marker-size);
+      width: var(--_marker-size);
+      height: var(--_marker-size);
       color: var(--_marker-color);
       background-color: var(--_marker-background);
       border-radius: var(--wa-border-radius-circle);
@@ -84,7 +90,7 @@ export default css`
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: calc(var(--marker-size) * 0.4);
+      font-size: calc(var(--_marker-size) * 0.4);
     }
 
     slot[name='icon']::slotted(wa-avatar) {
@@ -108,7 +114,7 @@ export default css`
 
     /* From one connector gap below the marker to the middle of the gap below the item. */
     .connector-end {
-      inset-block: calc(var(--marker-size) + var(--connector-gap)) calc(-1 * var(--gap) / 2);
+      inset-block: calc(var(--_marker-size) + var(--connector-gap)) calc(-1 * var(--gap) / 2);
       background-color: var(--connector-color);
     }
 
@@ -132,6 +138,7 @@ export default css`
       grid-row: opposite;
       margin-inline: 0;
       margin-block: 0 0.5em;
+      padding-inline: calc(var(--gap) / 2);
       text-align: center;
     }
 
@@ -151,6 +158,7 @@ export default css`
       grid-row: content;
       margin-inline: 0;
       margin-block: 0.5em 0;
+      padding-inline: calc(var(--gap) / 2);
     }
 
     :host([data-wa-timeline-horizontal]) .connector {
@@ -161,11 +169,40 @@ export default css`
     }
 
     :host([data-wa-timeline-horizontal]) .connector-start {
-      inset-inline: calc(-1 * var(--gap) / 2) calc(50% + var(--marker-size) / 2 + var(--connector-gap));
+      inset-inline: 0 calc(50% + var(--_marker-size) / 2 + var(--connector-gap));
     }
 
     :host([data-wa-timeline-horizontal]) .connector-end {
-      inset-inline: calc(50% + var(--marker-size) / 2 + var(--connector-gap)) calc(-1 * var(--gap) / 2);
+      inset-inline: calc(50% + var(--_marker-size) / 2 + var(--connector-gap)) 0;
+    }
+
+    /* The first item hugs the start edge and the last item hugs the end edge. A lone item follows the first. */
+    :host([data-wa-timeline-horizontal]:first-of-type) .rail {
+      align-items: flex-start;
+    }
+
+    :host([data-wa-timeline-horizontal]:first-of-type) .content,
+    :host([data-wa-timeline-horizontal]:first-of-type) .opposite {
+      padding-inline-start: 0;
+      text-align: start;
+    }
+
+    :host([data-wa-timeline-horizontal]:first-of-type) .connector-end {
+      inset-inline-start: calc(var(--_marker-size) + var(--connector-gap));
+    }
+
+    :host([data-wa-timeline-horizontal]:last-of-type:not(:first-of-type)) .rail {
+      align-items: flex-end;
+    }
+
+    :host([data-wa-timeline-horizontal]:last-of-type:not(:first-of-type)) .content,
+    :host([data-wa-timeline-horizontal]:last-of-type:not(:first-of-type)) .opposite {
+      padding-inline-end: 0;
+      text-align: end;
+    }
+
+    :host([data-wa-timeline-horizontal]:last-of-type:not(:first-of-type)) .connector-start {
+      inset-inline-end: calc(var(--_marker-size) + var(--connector-gap));
     }
 
     /* End placement */
