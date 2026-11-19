@@ -10,7 +10,6 @@ export default css`
     position: relative;
   }
 
-
   .button {
     display: inline-flex;
     align-items: center;
