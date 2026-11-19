@@ -157,15 +157,28 @@ describe('<wa-select> lifecycle', () => {
         const el = await fixture<WaSelect>(html`
           <wa-select label="Choice"><wa-option value="one">One</wa-option></wa-select>
         `);
+        const addListener = sinon.spy(document, 'addEventListener');
         await el.show();
+        addListener.restore();
+        const signals = addListener
+          .getCalls()
+          .filter(call => ['focusin', 'keydown', 'mousedown'].includes(call.args[0]))
+          .map(call => (call.args[2] as AddEventListenerOptions).signal!);
+        const handleHide = sinon.spy();
+        el.addEventListener('wa-hide', handleHide);
         const hidden = oneEvent(el, 'wa-after-hide');
 
         el.disabled = true;
         await hidden;
         await el.popup.updateComplete;
 
+        expect(handleHide).to.have.been.calledOnce;
         expect(el.open).to.be.false;
+        expect(el.popup.active).to.be.false;
+        expect(el.displayInput.getAttribute('aria-expanded')).to.equal('false');
         expect(el.querySelector('wa-option')!.checkVisibility()).to.be.false;
+        expect(signals).to.have.length(3);
+        expect(signals.every(signal => signal.aborted)).to.be.true;
       });
     });
   }
