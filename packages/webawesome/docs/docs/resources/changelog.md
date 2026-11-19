@@ -33,6 +33,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 <!-- When you cut a release, add a summary: comment under the new version heading. It becomes the page description and the share card text. Keep it under 130 characters. See 3.15.0 for the form. -->
 
+:::added
+
+- Added the experimental `<wa-timeline>` and `<wa-timeline-item>` components for showing a chronological list of events, such as an order history, activity feed, or changelog [pr:2933]
+
+:::
+
 :::fixed
 
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
