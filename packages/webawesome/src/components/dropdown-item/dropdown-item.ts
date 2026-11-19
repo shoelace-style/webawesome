@@ -276,10 +276,11 @@ export default class WaDropdownItem extends WebAwesomeElement {
     if (!submenu.hidden) {
       await animateWithClass(submenu, 'hide');
       // Skip if the submenu reopened while it was animating closed
-      if (submenu.isConnected && !this.submenuOpen) {
+      if (!this.submenuOpen) {
         submenu.hidden = true;
         submenu.removeAttribute('data-visible');
-        submenu.hidePopover?.();
+        // The browser already hid the popover if the item was removed
+        if (submenu.isConnected) submenu.hidePopover?.();
       }
     }
   }

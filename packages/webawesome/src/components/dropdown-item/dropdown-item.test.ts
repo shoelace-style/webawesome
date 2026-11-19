@@ -422,5 +422,35 @@ describe('<wa-dropdown-item>', () => {
       expect(parentItem.submenuElement.hidden).to.be.false;
       expect(parentItem.submenuElement.matches(':popover-open')).to.be.true;
     });
+
+    it('should hide an open submenu when its item is removed and added back', async () => {
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown>
+          <button slot="trigger">Menu</button>
+          <wa-dropdown-item>
+            Parent
+            <wa-dropdown-item slot="submenu">First</wa-dropdown-item>
+          </wa-dropdown-item>
+          <wa-dropdown-item>Other</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const parentItem = el.querySelector<WaDropdownItem>('wa-dropdown-item')!;
+      const firstNested = parentItem.querySelector<WaDropdownItem>('[slot="submenu"]')!;
+
+      el.querySelector('button')!.focus();
+      await sendKeys({ press: 'Enter' });
+      await waitUntil(() => document.activeElement === parentItem);
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement === firstNested);
+      await aTimeout(200);
+
+      parentItem.remove();
+      await aTimeout(200);
+      el.prepend(parentItem);
+      await aTimeout(200);
+
+      expect(parentItem.submenuOpen).to.be.false;
+      expect(parentItem.submenuElement.checkVisibility()).to.be.false;
+    });
   });
 });
