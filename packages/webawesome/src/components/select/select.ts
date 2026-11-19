@@ -901,6 +901,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       return this.openAnimation;
     }
     if (!this.isConnected || (this.open && !this.disabled) !== open) return this.openAnimation;
+    // A listener can't reopen a disabled select
+    if (this.disabled) this.open = false;
 
     this.openTransition.controller?.abort();
     const controller = new AbortController();

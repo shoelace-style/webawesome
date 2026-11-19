@@ -107,31 +107,37 @@ describe('<wa-select> lifecycle', () => {
       });
 
       for (const duringOpening of [false, true]) {
-        it(`closes when disabled ${duringOpening ? 'during' : 'after'} opening even if wa-hide is canceled`, async () => {
-          const el = await fixture<WaSelect>(html`
-            <wa-select label="Choice"><wa-option value="one">One</wa-option></wa-select>
-          `);
-          if (duringOpening) el.style.setProperty('--show-duration', '1s');
-          const animationStarted = duringOpening ? pauseNextAnimation(el.popup.popup) : undefined;
-          const showing = el.show();
-          await (animationStarted ?? showing);
-          const hideEvents: Event[] = [];
-          el.addEventListener('wa-hide', event => {
-            event.preventDefault();
-            hideEvents.push(event);
+        for (const reopen of [false, true]) {
+          it(`closes when disabled ${duringOpening ? 'during' : 'after'} opening even if wa-hide ${reopen ? 'reopens it' : 'is canceled'}`, async () => {
+            const el = await fixture<WaSelect>(html`
+              <wa-select label="Choice"><wa-option value="one">One</wa-option></wa-select>
+            `);
+            if (duringOpening) el.style.setProperty('--show-duration', '1s');
+            const animationStarted = duringOpening ? pauseNextAnimation(el.popup.popup) : undefined;
+            const showing = el.show();
+            await (animationStarted ?? showing);
+            const hideEvents: Event[] = [];
+            el.addEventListener('wa-hide', event => {
+              if (reopen) el.open = true;
+              else event.preventDefault();
+              hideEvents.push(event);
+            });
+            const hidden = oneEvent(el, 'wa-after-hide');
+
+            el.disabled = true;
+            await hidden;
+            await showing;
+            await el.updateComplete;
+            await el.popup.updateComplete;
+
+            expect(hideEvents).to.have.length(1);
+            expect(hideEvents[0].cancelable).to.be.false;
+            expect(el.open).to.be.false;
+            expect(el.popup.active).to.be.false;
+            expect(el.displayInput.getAttribute('aria-expanded')).to.equal('false');
+            expect(el.querySelector('wa-option')!.checkVisibility()).to.be.false;
           });
-          const hidden = oneEvent(el, 'wa-after-hide');
-
-          el.disabled = true;
-          await hidden;
-          await showing;
-          await el.popup.updateComplete;
-
-          expect(hideEvents).to.have.length(1);
-          expect(hideEvents[0].cancelable).to.be.false;
-          expect(el.open).to.be.false;
-          expect(el.querySelector('wa-option')!.checkVisibility()).to.be.false;
-        });
+        }
       }
 
       it('stays closed when shown while disabled', async () => {
