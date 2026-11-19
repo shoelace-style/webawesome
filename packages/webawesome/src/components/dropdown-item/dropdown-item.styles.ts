@@ -159,7 +159,7 @@ export default css`
     }
 
     &.hide {
-      animation: submenu-show var(--show-duration, var(--wa-transition-fast)) ease reverse;
+      animation: submenu-show var(--hide-duration, var(--wa-transition-fast)) ease reverse;
     }
 
     /* Submenu placement transform origins */
