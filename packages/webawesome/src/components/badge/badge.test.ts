@@ -14,10 +14,10 @@ describe('<wa-badge>', () => {
           await expect(el).to.be.accessible({ ignoredRules });
         });
 
-        it('should have role="status" on the base part', async () => {
+        it('should have role="status" on the badge part', async () => {
           const el = await fixture<WaBadge>(html`<wa-badge>Badge</wa-badge>`);
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('role')).to.equal('status');
+          const badge = el.shadowRoot!.querySelector('[part~="badge"]')!;
+          expect(badge.getAttribute('role')).to.equal('status');
         });
       });
 
@@ -116,9 +116,11 @@ describe('<wa-badge>', () => {
       });
 
       describe('CSS parts', () => {
-        it('should have a base part', async () => {
+        it('should expose the "badge" part and keep the deprecated base part', async () => {
           const el = await fixture<WaBadge>(html`<wa-badge>Badge</wa-badge>`);
-          expect(el.shadowRoot!.querySelector('[part~="base"]')).to.exist;
+          const wrapper = el.shadowRoot!.querySelector('[part~="badge"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
         });
 
         it('should have a start part', async () => {

@@ -388,16 +388,4 @@ eleventyExcludeFromCollections: true
   [slot='main-footer'] {
     background-color: var(--wa-color-surface-default);
   }
-  #play-controls wa-icon-button::part(base) {
-    border: var(--wa-border-width-l) var(--wa-border-style) currentColor;
-    border-radius: var(--wa-border-radius-circle);
-    font-size: 1.5rem;
-  }
-  #play-controls wa-icon-button[name="play"]::part(base) {
-    background-color: var(--wa-color-brand-fill-loud);
-    border: none;
-    color: var(--wa-color-brand-on-loud);
-    font-size: 3rem;
-    padding: 1.5rem;
-  }
 </style>

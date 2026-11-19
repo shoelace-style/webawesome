@@ -212,6 +212,7 @@ export default class WaDetails extends WebAwesomeElement {
 
       this.isAnimating = true;
       const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--show-duration'));
+      const easing = getComputedStyle(this.body).getPropertyValue('--wa-transition-easing') || 'ease';
       // We can't animate to 'auto', so use the scroll height for now
       await animate(
         this.body,
@@ -219,10 +220,7 @@ export default class WaDetails extends WebAwesomeElement {
           { height: '0', opacity: '0' },
           { height: `${this.body.scrollHeight}px`, opacity: '1' },
         ],
-        {
-          duration,
-          easing: 'linear',
-        },
+        { duration, easing },
       );
 
       // If a newer animation has started, handle the final state
@@ -246,6 +244,7 @@ export default class WaDetails extends WebAwesomeElement {
 
       this.isAnimating = true;
       const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--hide-duration'));
+      const easing = getComputedStyle(this.body).getPropertyValue('--wa-transition-easing') || 'ease';
       // We can't animate from 'auto', so use the scroll height for now
       await animate(
         this.body,
@@ -253,7 +252,7 @@ export default class WaDetails extends WebAwesomeElement {
           { height: `${this.body.scrollHeight}px`, opacity: '1' },
           { height: '0', opacity: '0' },
         ],
-        { duration, easing: 'linear' },
+        { duration, easing },
       );
 
       // If a newer animation has started, handle the final state

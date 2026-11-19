@@ -1,13 +1,18 @@
-<div class="wa-cluster wa-gap-3xs">
-  <wa-switch id="ssr-switch" {% raw %}{{ bool_attr("checked", req.cookies.webawesome_ssr === "true") }}{% endraw %} size="s">
-    Try SSR
+{% set ssrToggleId = "ssr-toggle-" + ("" | uniqueId(8)) %}
+{% raw %}{% set isSSROn = req.cookies.webawesome_ssr === "true" %}{% endraw %}
+<wa-button id="{{ ssrToggleId }}" appearance="plain" pill {% raw %}{% if isSSROn %}class="ssr-on"{% endif %}{% endraw %}>
+  <wa-icon name="server" label="Server-Side Rendering"></wa-icon>
+</wa-button>
+<wa-tooltip for="{{ ssrToggleId }}">Server-Side Rendering: {% raw %}{{ "On" if isSSROn else "Off" }}{% endraw %}</wa-tooltip>
+
+<wa-popover for="{{ ssrToggleId }}" class="header-popover ssr-popover" placement="bottom">
+  <wa-switch class="header-popover-section" data-ssr-toggle autofocus hint="Server-side rendering (SSR) generates component HTML on the server before the page loads, improving SEO and initial load time. Switching it reloads the page." {% raw %}{{ bool_attr("checked", isSSROn) }}{% endraw %}>
+    Server-Side Rendering
   </wa-switch>
 
-  <wa-button href="/docs/ssr" appearance="plain" pill id="ssr-info-button" size="xs">
-    <wa-icon label="About SSR" name="circle-info" variant="regular" class="wa-font-size-s"></wa-icon>
-  </wa-button>
-
-  <wa-tooltip for="ssr-info-button">
-    <strong>Server-side rendering (SSR)</strong> generates component HTML on the server before the page loads, improving SEO and initial load time. Use the switch to see Web Awesome components render with and without SSR.
-  </wa-tooltip>
-</div>
+  <wa-divider></wa-divider>
+  <a class="header-popover-docs-link wa-cluster wa-gap-s" href="/docs/ssr" data-popover="close">
+    <wa-icon name="book-open"></wa-icon>
+    Docs
+  </a>
+</wa-popover>

@@ -264,6 +264,11 @@ export default class WaDropdownItem extends WebAwesomeElement {
     this.submenuOpen = false;
     this.setAttribute('aria-expanded', 'false');
 
+    // Hiding a submenu that holds focus drops focus to the body, so return it to this item as ArrowLeft does
+    if (this.getSubmenuItems().some(item => item.matches(':focus-within'))) {
+      this.focus({ preventScroll: true });
+    }
+
     if (!submenu.hidden) {
       await animateWithClass(submenu, 'hide');
       if (submenu?.isConnected) {
@@ -291,17 +296,51 @@ export default class WaDropdownItem extends WebAwesomeElement {
       return;
     }
 
-    link.dispatchEvent(
-      new MouseEvent('click', {
-        bubbles: false,
-        cancelable: true,
-        composed: false,
-        altKey: sourceEvent?.altKey ?? false,
-        ctrlKey: sourceEvent?.ctrlKey ?? false,
-        metaKey: sourceEvent?.metaKey ?? false,
-        shiftKey: sourceEvent?.shiftKey ?? false,
-      }),
-    );
+    // For the future: Theres a pattern here between button and dropdown-item, so if this comes up a 3rd time, we should extract it into a utility.
+    let handled = false;
+
+    const dispatchClick = () => {
+      if (handled) return;
+
+      handled = true;
+
+      if (sourceEvent?.type) {
+        window.removeEventListener(sourceEvent.type, handleWindowEvent);
+      }
+
+      // Keyboard events are always prevented by the dropdown, so only honor preventDefault() on clicks
+      if (sourceEvent instanceof MouseEvent && sourceEvent.defaultPrevented) {
+        return;
+      }
+
+      link.dispatchEvent(
+        new MouseEvent('click', {
+          bubbles: false,
+          cancelable: true,
+          composed: false,
+          altKey: sourceEvent?.altKey ?? false,
+          ctrlKey: sourceEvent?.ctrlKey ?? false,
+          metaKey: sourceEvent?.metaKey ?? false,
+          shiftKey: sourceEvent?.shiftKey ?? false,
+        }),
+      );
+    };
+
+    const handleWindowEvent = (event: Event) => {
+      if (event === sourceEvent) dispatchClick();
+    };
+
+    // Nothing left to wait for: no source event, or it won't reach window
+    if (!sourceEvent || !sourceEvent.bubbles || sourceEvent.eventPhase === Event.NONE) {
+      dispatchClick();
+      return;
+    }
+
+    // Runs at the end of this dispatch, after user listeners, so preventDefault() is respected
+    window.addEventListener(sourceEvent.type, handleWindowEvent);
+
+    // Fallback: stopPropagation() keeps the event from reaching window, but native links still navigate in this case. Only `preventDefault()` stops the link from navigating.
+    setTimeout(dispatchClick);
   }
 
   /** Gets all dropdown items in the submenu. */

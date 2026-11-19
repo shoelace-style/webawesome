@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Choose the installation method that works best for you.
+description: One CDN line is the fastest start. npm and self-hosted downloads are covered too.
 layout: page-outline
 ---
 
@@ -10,7 +10,7 @@ You can load Web Awesome via CDN or by installing it locally. If you’re using 
 
 ---
 
-## CDN (Easiest)
+## Use the CDN (Easiest) {id=cdn}
 
 The CDN is the fastest way to get started with Web Awesome. Just copy and paste the following into the `<head>` of your HTML to get started!
 
@@ -38,7 +38,9 @@ Now you can [use any Web Awesome component](/docs/components)! Try putting a but
 **Using Web Awesome Pro?** Visit [your workspaces](/workspaces) for personalized installation docs.
 :::
 
-## Installing with npm
+## Install with npm {id=npm}
+
+<!-- pro-npm-lead: rendered by the app -->{% raw %}{% include "server/pro-npm-lead.njk" ignore missing %}{% endraw %}
 
 Start by installing the Web Awesome package:
 
@@ -59,11 +61,11 @@ import '@awesome.me/webawesome/dist/components/input/input.js';
 
 Once a component has been imported, you can use it in your HTML normally. Components are cherry picked to ensure you're getting the smallest possible bundle. You can find each component import in the "Importing" section of its documentation.
 
-:::pro
-**Using Web Awesome Pro?** Visit [your workspaces](/workspaces) for personalized installation docs.
-:::
+<!-- pro-npm: rendered by the app -->{% raw %}{% include "server/pro-npm.njk" ignore missing %}{% endraw %}
 
-## Get the Download (Advanced)
+## Download & Self-Host {id=download}
+
+<!-- pro-setup-lead: rendered by the app -->{% raw %}{% include "server/pro-setup-lead.njk" ignore missing %}{% endraw %}
 
 You can download Web Awesome from npm and self-host it.
 
@@ -73,11 +75,13 @@ npm pack @awesome.me/webawesome
 
 This will download a `.tgz` archive containing all Web Awesome files. Extract it and host the files on your own server.
 
+<!-- pro-setup: rendered by the app -->{% raw %}{% include "server/pro-setup.njk" ignore missing %}{% endraw %}
+
 ---
 
-## Additional Setup
+## Setup for npm & Self-Hosted Installs {id=setup}
 
-### The Difference Between `/dist` & `/dist-cdn`
+### Choosing `/dist` or `/dist-cdn`
 
 If you have Web Awesome installed locally via npm, you'll notice the following directories in the project's root:
 
@@ -90,7 +94,7 @@ The `dist-cdn` files come with everything bundled together, so you can use them 
 
 Use `dist-cdn` if you're loading directly in the browser or from a CDN. Use `dist` if you're using a bundler like Webpack or Vite.
 
-### Referencing Necessary Styles
+### Adding Styles
 
 If you're self-hosting Web Awesome, you'll need to set up your pages to reference any necessary styles. You can do so by referencing `webawesome.css`, or you can pick and choose specific stylesheets you'd like to use.
 
@@ -129,7 +133,7 @@ Some components rely on assets (icons, images, etc.) and Web Awesome needs to kn
 </script>
 ```
 
-### Referencing Assets
+### Getting Asset Paths
 
 Most of the magic behind assets is handled internally by Web Awesome, but if you need to reference the base path for any reason, the same module exports a function called `getBasePath()`. An optional string argument can be passed, allowing you to get the full path to any asset.
 
@@ -165,3 +169,9 @@ Most of the magic behind assets is handled internally by Web Awesome, but if you
 ```
 
 Now you can use {{ site.siblings.fontAwesome.name }} icons through the [`<wa-icon>`](/docs/components/icon) component!
+
+To use a different family or variant for every icon, add the `data-fa-family` and `data-fa-variant` attributes too. See [Changing the Default Family & Variant](/docs/components/icon#changing-the-default-family-and-variant) for details.
+
+```html
+<html data-fa-kit-code="YOUR_KIT_CODE_HERE" data-fa-family="sharp" data-fa-variant="light"></html>
+```
