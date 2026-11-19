@@ -43,6 +43,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
+- Fixed a performance issue in `<wa-icon>` where pages without a Font Awesome kit code searched the DOM for one on every icon [issue:2975]
 
 :::
 

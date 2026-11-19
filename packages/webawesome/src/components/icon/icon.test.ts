@@ -1,8 +1,10 @@
 import { aTimeout, elementUpdated, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { emulateMedia } from '@web/test-runner-commands';
 import { html } from 'lit';
+import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
+import { setKitCode } from '../../utilities/base-path.js';
 
 // Make sure this is `dist-cdn/` otherwise you will get an error.
 import { registerIconLibrary } from '../../../dist-cdn/webawesome.js';
@@ -181,6 +183,28 @@ describe('<wa-icon>', () => {
       const xmark = decodeURIComponent(await systemLibrary.resolver('xmark', 'classic', 'solid', false));
       expect(check).to.include('fake-sharp-light');
       expect(xmark).to.include(systemIcons.solid.xmark);
+    });
+  });
+
+  // Without a kit code, the lookup used to scan the DOM on every icon (issue #2975).
+  describe('kit code', () => {
+    afterEach(() => {
+      sinon.restore();
+      setKitCode('');
+    });
+
+    it('looks up a missing kit code at most once', async () => {
+      const querySelector = sinon.spy(document, 'querySelector');
+      for (let i = 0; i < 100; i++) {
+        expect(await defaultLibrary.resolver('house', 'classic', 'solid', false)).to.include('ka-f.fontawesome.com');
+      }
+      expect(querySelector.withArgs('[data-fa-kit-code]').callCount).to.be.at.most(1);
+    });
+
+    it('uses a kit code set after a cached miss', async () => {
+      await defaultLibrary.resolver('house', 'classic', 'solid', false);
+      setKitCode('abc123');
+      expect(await defaultLibrary.resolver('house', 'classic', 'solid', false)).to.include('token=abc123');
     });
   });
 
