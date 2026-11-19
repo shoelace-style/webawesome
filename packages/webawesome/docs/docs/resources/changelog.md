@@ -42,6 +42,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a bug where `autofocus` didn't focus `<wa-input>` and other components on page load in Firefox and Safari, or `<wa-button>` in Chrome [issue:2990] [pr:2991]
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
 - Fixed a bug in `<wa-radio-group>` where arrow keys and [[Space]] were taken from buttons, links, and fields placed inside the group [issue:2892] [pr:2893]
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
@@ -90,20 +91,9 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-<<<<<<< HEAD
-- Improved `<wa-popover>` accessibility [pr:2986]
-  - Fixed the anchor not telling screen readers that it opens a popover, or whether it's open
-  - Fixed focus not returning to the anchor after closing with a `data-popover="close"` button
-- Fixed a bug where `autofocus` didn't focus `<wa-input>` and other components on page load in Firefox and Safari, and didn't focus some components in Chrome [issue:2990] [pr:2991]
-  - Fixed `autofocus` in a `<wa-dialog>`, `<wa-drawer>`, or `<wa-popover>` that's open when the page loads
-- Fixed `<wa-accordion-item>` styles to match `<wa-details>`, including label weight, content color, and spacing between the label and content [issue:2963]
-- Fixed `<wa-details>` using linear easing for its expand/collapse animation instead of the theme's `--wa-transition-easing` [issue:2963]
-- Fixed a bug in `allDefined()` where an unregistered `wa-*` element anywhere in the document made it wait forever; it now logs a warning and resolves after the new `timeout` option (2 seconds by default) [issue:2957]
-=======
 - Fixed `<wa-accordion-item>` styles to match `<wa-details>`, including label weight, content color, and spacing between the label and content [issue:2963] [pr:2965]
 - Fixed `<wa-accordion appearance="filled-outlined">` using the default border color for the lines between items instead of its outer border color [issue:2963] [pr:2992]
 - Fixed a bug in `<wa-button>` where calling `event.preventDefault()` would not prevent form submissions [pr:3008]
->>>>>>> origin/next
 - Fixed `<wa-button-group>` labels missing from the accessibility tree [issue:2863] [pr:2923]
 - Fixed an accessibility issue with `<wa-card>` where it would incorrectly be treated as a site-wide header [issue:2723] [pr:2728]
 - Fixed a bug in `<wa-checkbox-group>` where the vertical spacing of its label and checkboxes didn't match `<wa-radio-group>` [issue:2959] [pr:2964]
