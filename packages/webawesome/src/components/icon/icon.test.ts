@@ -409,11 +409,11 @@ describe('<wa-icon>', () => {
           });
 
           const el = await fixture<WaIcon>(html`<wa-icon name="non-existent" library="sprite"></wa-icon>`);
-          await waitUntil(() => el.shadowRoot!.querySelector('svg[viewBox]'));
+          await waitUntil(() => el.shadowRoot!.querySelector('svg[viewBox] > use'));
           const svg = el.shadowRoot!.querySelector<SVGElement>("svg[part='svg']")!;
 
           // The square default is only a fallback: an <svg> that states its own viewBox keeps the ratio it asked for.
-          expect(getComputedStyle(svg).aspectRatio).to.equal('auto');
+          expect(svg.getBoundingClientRect().width).to.equal(32);
         });
       });
 

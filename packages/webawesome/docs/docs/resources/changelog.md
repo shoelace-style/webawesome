@@ -45,6 +45,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-radio-group>` where arrow keys and [[Space]] were taken from buttons, links, and fields placed inside the group [issue:2892] [pr:2893]
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
 - Fixed a performance issue in `<wa-icon>` where pages without a Font Awesome kit code searched the DOM for one on every icon [issue:2975] [pr:3053]
+- Fixed a bug in `<wa-icon>` where icons from a sprite sheet library rendered a 300px wide `<svg>` that covered neighboring elements [issue:2918] [pr:2920]
 - Fixed a bug in `<wa-known-date>` that caused the label to sit lower than the labels of other form controls [pr:3047]
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` that caused the text to start further in than other form controls [pr:3047]
 - Fixed a regression in `<wa-tab-group>` where selecting a tab, by clicking it or setting `active`, no longer scrolled it into view when the tabs overflow [issue:3042] [pr:3043]
@@ -89,7 +90,6 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- Fixed a bug in `<wa-icon>` where icons from a sprite sheet library rendered a 300px wide `<svg>` that covered neighboring elements [issue:2918]
 - Fixed `<wa-accordion-item>` styles to match `<wa-details>`, including label weight, content color, and spacing between the label and content [issue:2963] [pr:2965]
 - Fixed `<wa-accordion appearance="filled-outlined">` using the default border color for the lines between items instead of its outer border color [issue:2963] [pr:2992]
 - Fixed a bug in `<wa-button>` where calling `event.preventDefault()` would not prevent form submissions [pr:3008]
