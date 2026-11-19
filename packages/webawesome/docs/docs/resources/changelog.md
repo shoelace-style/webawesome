@@ -36,6 +36,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added the experimental `<wa-timeline>` and `<wa-timeline-item>` components for showing a chronological list of events, such as an order history, activity feed, or changelog [pr:2933]
+- Added the `without-fragment` attribute to `<wa-include>` to include the whole file when `src` has a hash, as it did before 3.11.0 [issue:2875] [pr:3054]
 
 :::
 
@@ -308,7 +309,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Added support for including a single element by id to `<wa-include>`, either from the current page (`src="#my-id"`) or a fetched file (`src="/file.html#my-id"`)
+- Added support for including a single element by id to `<wa-include>`, either from the current page (`src="#my-id"`) or a fetched file (`src="/file.html#my-id"`) [pr:2642]
+  - A hash in a fetched `src` now selects that element instead of being ignored. To include the whole file, remove the hash, or use the `without-fragment` attribute from 3.16.0 [issue:2875]
 - Added a CSS part named after the component to every component that renders a wrapper element (e.g. `button`, `details`, `carousel`), alongside the existing `base` part. Where the component name is already used by an inner part, the wrapper takes a `-wrapper` suffix (`input-wrapper`, `textarea-wrapper`). [pr:2644]
 - Added the experimental `<wa-otp-input>` component for entering fixed-length codes — one-time passcodes, PINs, and verification codes [pr:2584]
 - Moved `<wa-toast>` and `<wa-toast-item>` from Pro to Core [pr:2631]

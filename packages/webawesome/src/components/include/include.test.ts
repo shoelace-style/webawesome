@@ -42,6 +42,7 @@ describe('<wa-include>', () => {
           expect(el.src).to.be.undefined;
           expect(el.mode).to.equal('cors');
           expect(el.allowScripts).to.be.false;
+          expect(el.withoutFragment).to.be.false;
         });
 
         it('should set the src property via attribute', async () => {
@@ -306,6 +307,136 @@ describe('<wa-include>', () => {
 
           expect(errorHandler).to.have.been.calledOnce;
           expect(el.children.length).to.equal(0);
+        });
+      });
+
+      describe('without-fragment', () => {
+        const file = '<div id="top">Top</div><section id="wanted"><b class="pick">Picked</b></section>';
+
+        it('should include the whole file when the hash matches an id', async () => {
+          const fetchStub = sinon.stub(window, 'fetch').resolves({
+            ...stubbedFetchResponse,
+            ok: true,
+            status: 200,
+            text: () => delayResolve(file),
+          });
+
+          const loadHandler = sinon.spy();
+          document.addEventListener('wa-load', loadHandler);
+
+          const el = await fixture<WaInclude>(
+            html`<wa-include without-fragment src="/whole-match-${fixture.type}#wanted"></wa-include>`,
+          );
+
+          await waitUntil(() => loadHandler.calledOnce);
+          document.removeEventListener('wa-load', loadHandler);
+
+          expect(el.withoutFragment).to.be.true;
+          expect(el.querySelector('#top')).to.exist;
+          expect(el.querySelector('#wanted .pick')).to.exist;
+          // The hash is dropped from the request
+          expect(String(fetchStub.firstCall.args[0])).to.not.contain('#');
+        });
+
+        it('should include the whole file and emit wa-load when the hash matches no id', async () => {
+          sinon.stub(window, 'fetch').resolves({
+            ...stubbedFetchResponse,
+            ok: true,
+            status: 200,
+            text: () => delayResolve(file),
+          });
+
+          const loadHandler = sinon.spy();
+          const errorHandler = sinon.spy();
+          document.addEventListener('wa-load', loadHandler);
+          document.addEventListener('wa-include-error', errorHandler);
+
+          const el = await fixture<WaInclude>(
+            html`<wa-include without-fragment src="/whole-missing-${fixture.type}#absent"></wa-include>`,
+          );
+
+          await waitUntil(() => loadHandler.calledOnce);
+          await aTimeout(20);
+          document.removeEventListener('wa-load', loadHandler);
+          document.removeEventListener('wa-include-error', errorHandler);
+
+          expect(errorHandler).to.not.have.been.called;
+          expect(el.querySelector('#top')).to.exist;
+          expect(el.querySelector('#wanted')).to.exist;
+        });
+
+        it('should reload when the attribute changes', async () => {
+          sinon.stub(window, 'fetch').resolves({
+            ...stubbedFetchResponse,
+            ok: true,
+            status: 200,
+            text: () => delayResolve(file),
+          });
+
+          const loadHandler = sinon.spy();
+          document.addEventListener('wa-load', loadHandler);
+
+          const el = await fixture<WaInclude>(
+            html`<wa-include src="/whole-toggle-${fixture.type}#wanted"></wa-include>`,
+          );
+          await waitUntil(() => loadHandler.calledOnce);
+          expect(el.querySelector('#top')).to.not.exist;
+
+          el.withoutFragment = true;
+          await waitUntil(() => loadHandler.calledTwice);
+          await aTimeout(20);
+          document.removeEventListener('wa-load', loadHandler);
+
+          expect(loadHandler.callCount).to.equal(2);
+          expect(el.querySelector('#top')).to.exist;
+        });
+
+        it('should load once when src and the attribute change together', async () => {
+          sinon.stub(window, 'fetch').resolves({
+            ...stubbedFetchResponse,
+            ok: true,
+            status: 200,
+            text: () => delayResolve(file),
+          });
+
+          const el = await fixture<WaInclude>(
+            html`<wa-include src="/whole-same-tick-a-${fixture.type}#wanted"></wa-include>`,
+          );
+          await waitUntil(() => el.querySelector('.pick'));
+
+          const loadHandler = sinon.spy();
+          document.addEventListener('wa-load', loadHandler);
+
+          el.src = `/whole-same-tick-b-${fixture.type}#wanted`;
+          el.withoutFragment = true;
+          await waitUntil(() => loadHandler.called);
+          await aTimeout(20);
+          document.removeEventListener('wa-load', loadHandler);
+
+          expect(loadHandler.callCount).to.equal(1);
+          expect(el.querySelector('#top')).to.exist;
+        });
+
+        it('should not reload when the attribute changes and src has no hash', async () => {
+          const fetchStub = sinon.stub(window, 'fetch').resolves({
+            ...stubbedFetchResponse,
+            ok: true,
+            status: 200,
+            text: () => delayResolve(file),
+          });
+
+          const loadHandler = sinon.spy();
+          document.addEventListener('wa-load', loadHandler);
+
+          const el = await fixture<WaInclude>(html`<wa-include src="/whole-no-hash-${fixture.type}"></wa-include>`);
+          await waitUntil(() => loadHandler.calledOnce);
+
+          el.withoutFragment = true;
+          await aTimeout(20);
+          document.removeEventListener('wa-load', loadHandler);
+
+          expect(loadHandler.callCount).to.equal(1);
+          expect(fetchStub.callCount).to.equal(1);
         });
       });
     });
