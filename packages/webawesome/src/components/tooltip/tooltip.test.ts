@@ -389,7 +389,7 @@ describe('<wa-tooltip>', () => {
           });
         }
 
-        it('should deactivate an open tooltip while disconnected and restore it on reconnect', async () => {
+        it('should restore an open tooltip on reconnect', async () => {
           const el = await fixture<HTMLDivElement>(html`
             <div>
               <button id="reconnect-visible-anchor">Anchor</button>
@@ -401,11 +401,26 @@ describe('<wa-tooltip>', () => {
 
           tooltip.remove();
           expect(tooltip.open).to.be.true;
-          expect(tooltip.body.hidden).to.be.true;
-          expect(tooltip.popup.active).to.be.false;
 
           el.append(tooltip);
           await tooltip.updateComplete;
+          expect(tooltip.open).to.be.true;
+          expect(tooltip.body.hidden).to.be.false;
+          expect(tooltip.popup.active).to.be.true;
+        });
+
+        it('should stay visible when an open tooltip is re-appended to its parent', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="reappend-anchor">Anchor</button>
+              <wa-tooltip for="reappend-anchor" open>Tooltip</wa-tooltip>
+            </div>
+          `);
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+
+          el.append(tooltip);
+          await aTimeout(500);
+
           expect(tooltip.open).to.be.true;
           expect(tooltip.body.hidden).to.be.false;
           expect(tooltip.popup.active).to.be.true;
