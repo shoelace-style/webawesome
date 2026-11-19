@@ -1,9 +1,10 @@
-import { aTimeout, expect, fixture, html, oneEvent } from '@open-wc/testing';
+import { aTimeout, expect, fixture, html, oneEvent, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { serialize } from '../../utilities/form.js';
+import type WaDialog from '../dialog/dialog.js';
 import type WaTimeInput from './time-input.js';
 
 function waitForEvent(el: EventTarget, eventName: string): Promise<void> {
@@ -344,6 +345,92 @@ describe('<wa-time-input>', () => {
       type(hour, 'ArrowDown', { altKey: true });
       await waitForEvent(el, 'wa-after-show');
       expect(el.open).to.equal(true);
+    });
+
+    it('closes when disabled while open', async () => {
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
+      el.show();
+      await waitForEvent(el, 'wa-after-show');
+      const hideHandler = sinon.spy();
+      const afterHideHandler = sinon.spy();
+      el.addEventListener('wa-hide', hideHandler);
+      el.addEventListener('wa-after-hide', afterHideHandler);
+      const afterHide = waitForEvent(el, 'wa-after-hide');
+
+      el.disabled = true;
+      await afterHide;
+
+      const popup = el.shadowRoot!.querySelector('wa-popup')!;
+      const expandButton = el.shadowRoot!.querySelector<HTMLButtonElement>('.expand-button')!;
+      expect(hideHandler).to.have.been.calledOnce;
+      expect(afterHideHandler).to.have.been.calledOnce;
+      expect(el.open).to.equal(false);
+      expect(popup.active).to.equal(false);
+      expect(expandButton.getAttribute('aria-expanded')).to.equal('false');
+    });
+
+    it('stays closed without events when opened and disabled at the same time', async () => {
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
+      const handler = sinon.spy();
+      for (const name of ['wa-show', 'wa-after-show', 'wa-hide', 'wa-after-hide']) {
+        el.addEventListener(name, handler);
+      }
+
+      el.open = true;
+      el.disabled = true;
+      await el.updateComplete;
+      await aTimeout(100);
+
+      const popup = el.shadowRoot!.querySelector('wa-popup')!;
+      expect(handler).to.not.have.been.called;
+      expect(el.open).to.equal(false);
+      expect(popup.active).to.equal(false);
+    });
+
+    for (const [name, listener] of [
+      ['cancels wa-hide', (event: Event) => event.preventDefault()],
+      ['reopens it from wa-hide', (event: Event) => ((event.target as WaTimeInput).open = true)],
+    ] as const) {
+      it(`closes when disabled while open even if a listener ${name}`, async () => {
+        const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
+        el.show();
+        await waitForEvent(el, 'wa-after-show');
+        const hideEvents: Event[] = [];
+        el.addEventListener('wa-hide', event => {
+          hideEvents.push(event);
+          listener(event);
+        });
+        const afterHide = waitForEvent(el, 'wa-after-hide');
+
+        el.disabled = true;
+        await afterHide;
+        await el.updateComplete;
+
+        const popup = el.shadowRoot!.querySelector('wa-popup')!;
+        const expandButton = el.shadowRoot!.querySelector<HTMLButtonElement>('.expand-button')!;
+        expect(hideEvents).to.have.length(1);
+        expect(hideEvents[0].cancelable).to.equal(false);
+        expect(el.open).to.equal(false);
+        expect(popup.active).to.equal(false);
+        expect(expandButton.getAttribute('aria-expanded')).to.equal('false');
+      });
+    }
+
+    it('lets a parent dialog close on Escape after it is disabled while open', async () => {
+      const dialog = await fixture<WaDialog>(
+        html`<wa-dialog label="Dialog" open><wa-time-input lang="en-GB"></wa-time-input></wa-dialog>`,
+      );
+      await dialog.updateComplete;
+      const el = dialog.querySelector<WaTimeInput>('wa-time-input')!;
+      el.show();
+      await waitForEvent(el, 'wa-after-show');
+
+      const afterHide = waitForEvent(el, 'wa-after-hide');
+      el.disabled = true;
+      await afterHide;
+
+      await sendKeys({ press: 'Escape' });
+      await waitUntil(() => !dialog.open, 'dialog never closed');
     });
 
     it('renders one column per segment', async () => {
@@ -959,6 +1046,30 @@ describe('<wa-time-input>', () => {
   //
   for (const fixture of fixtures) {
     describe(`SSR + hydration (${fixture.type})`, () => {
+      it('renders closed without events when open and disabled in markup', async () => {
+        const events: string[] = [];
+        const record = (event: Event) => {
+          if ((event.target as Element).id === 'open-disabled') events.push(event.type);
+        };
+        const names = ['wa-show', 'wa-after-show', 'wa-hide', 'wa-after-hide'];
+        names.forEach(name => document.addEventListener(name, record));
+        try {
+          const el = await fixture<WaTimeInput>(
+            html`<wa-time-input id="open-disabled" lang="en-GB" open disabled></wa-time-input>`,
+          );
+          await el.updateComplete;
+          await aTimeout(100);
+
+          const popup = el.shadowRoot!.querySelector('wa-popup')!;
+          expect(events).to.deep.equal([]);
+          expect(el.open).to.equal(false);
+          expect(el.hasAttribute('open')).to.equal(false);
+          expect(popup.active).to.equal(false);
+        } finally {
+          names.forEach(name => document.removeEventListener(name, record));
+        }
+      });
+
       it('renders 2 segments (hour, minute) in a 24-hour locale', async () => {
         const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
         await el.updateComplete;
