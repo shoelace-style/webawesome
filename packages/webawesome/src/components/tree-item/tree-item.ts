@@ -53,11 +53,13 @@ export const treeItemContext = createContext<TreeItemContext>('wa-tree-item');
  * @csspart indentation - The tree item's indentation container.
  * @csspart expand-button - The container that wraps the tree item's expand button and spinner.
  * @csspart spinner - The spinner that shows when a lazy tree item is in the loading state.
- * @csspart spinner__base - The spinner's base part.
+ * @csspart spinner__base - Deprecated. Use the `spinner__spinner` part instead.
+ * @csspart spinner__spinner - The spinner's exported `spinner` part.
  * @csspart label - The tree item's label.
  * @csspart children - The container that wraps the tree item's nested children.
  * @csspart checkbox - The checkbox that shows when using multiselect.
- * @csspart checkbox__base - The checkbox's exported `base` part.
+ * @csspart checkbox__base - Deprecated. Use the `checkbox__checkbox` part instead.
+ * @csspart checkbox__checkbox - The checkbox's exported `checkbox` part.
  * @csspart checkbox__control - The checkbox's exported `control` part.
  * @csspart checkbox__checked-icon - The checkbox's exported `checked-icon` part.
  * @csspart checkbox__indeterminate-icon - The checkbox's exported `indeterminate-icon` part.
@@ -338,7 +340,9 @@ export default class WaTreeItem extends WebAwesomeElement {
             <slot class="expand-icon-slot" name="expand-icon">
               ${when(
                 this.loading,
-                () => html` <wa-spinner part="spinner" exportparts="base:spinner__base"></wa-spinner> `,
+                () => html`
+                  <wa-spinner part="spinner" exportparts="base:spinner__base, spinner:spinner__spinner"></wa-spinner>
+                `,
                 () => html`
                   <wa-icon name=${isRtl ? 'chevron-left' : 'chevron-right'} library="system" variant="solid"></wa-icon>
                 `,
@@ -356,6 +360,7 @@ export default class WaTreeItem extends WebAwesomeElement {
                 part="checkbox"
                 exportparts="
                     base:checkbox__base,
+                    checkbox:checkbox__checkbox,
                     control:checkbox__control,
                     checked-icon:checkbox__checked-icon,
                     indeterminate-icon:checkbox__indeterminate-icon,

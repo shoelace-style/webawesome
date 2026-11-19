@@ -15,7 +15,8 @@ let id = 0;
  *
  * @slot - The tab panel's content.
  *
- * @csspart base - Deprecated. Style the host element instead.
+ * @csspart base - Deprecated. Use the `tab-panel` part instead.
+ * @csspart tab-panel - The component's outer wrapper.
  *
  * @cssproperty --padding - The tab panel's padding.
  */
@@ -46,13 +47,15 @@ export default class WaTabPanel extends WebAwesomeElement {
 
   render() {
     return html`
-      <slot
-        part="base"
+      <div
+        part="base tab-panel"
         class=${classMap({
           'tab-panel': true,
           'tab-panel-active': this.active,
         })}
-      ></slot>
+      >
+        <slot></slot>
+      </div>
     `;
   }
 }

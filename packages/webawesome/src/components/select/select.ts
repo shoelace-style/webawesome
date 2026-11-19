@@ -74,7 +74,8 @@ import styles from './select.styles.js';
  * @csspart tag - The individual tags that represent each multiselect option.
  * @csspart tag__content - The tag's content part.
  * @csspart tag__remove-button - The tag's remove button.
- * @csspart tag__remove-button__base - The tag's remove button base part.
+ * @csspart tag__remove-button__base - Deprecated. Use the `tag__remove-button__button` part instead.
+ * @csspart tag__remove-button__button - The tag's remove button's exported `button` part.
  * @csspart clear-button - The clear button.
  * @csspart expand-icon - The container that wraps the expand icon.
  *
@@ -297,10 +298,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         <wa-tag
           part="tag"
           exportparts="
-            base:tag__base,
             content:tag__content,
             remove-button:tag__remove-button,
-            remove-button__base:tag__remove-button__base
+            remove-button__base:tag__remove-button__base,
+            remove-button__button:tag__remove-button__button
           "
           ?pill=${this.pill}
           size=${this.size}
@@ -862,10 +863,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           <wa-tag
             part="tag"
             exportparts="
-              base:tag__base,
               content:tag__content,
               remove-button:tag__remove-button,
-              remove-button__base:tag__remove-button__base
+              remove-button__base:tag__remove-button__base,
+              remove-button__button:tag__remove-button__button
             "
             ?pill=${this.pill}
             size=${this.size}

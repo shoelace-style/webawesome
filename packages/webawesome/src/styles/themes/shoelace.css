@@ -25,6 +25,7 @@
     --wa-color-text-link: var(--wa-color-brand-40);
 
     --wa-color-overlay-modal: color-mix(in oklab, var(--wa-color-neutral-05) 50%, transparent);
+    --wa-color-overlay-media: color-mix(in oklab, black 90%, transparent);
     --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-neutral-80) 25%, transparent);
 
     --wa-color-shadow: color-mix(
@@ -112,6 +113,7 @@
     --wa-color-text-link: var(--wa-color-brand-70);
 
     --wa-color-overlay-modal: color-mix(in oklab, black 60%, transparent);
+    --wa-color-overlay-media: color-mix(in oklab, black 90%, transparent);
     --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-neutral-50) 10%, transparent);
 
     --wa-color-shadow: color-mix(
@@ -580,13 +582,24 @@
 
       &:focus-within {
         &:where(:not(wa-input, wa-textarea, wa-select, wa-combobox, wa-tag-input)),
-        &:where(wa-input)::part(base),
-        &:where(wa-textarea)::part(base),
+        &:where(wa-input)::part(input-wrapper),
+        &:where(wa-textarea)::part(textarea-wrapper),
         &:where(wa-select)::part(combobox),
         &:where(wa-combobox)::part(combobox),
         &:where(wa-tag-input)::part(tag-input) {
           border-color: var(--wa-color-brand-border-loud);
         }
+      }
+    }
+
+    /* The same focus without the tokens above, which would fade the focus rings of the controls inside the editor */
+    wa-rich-text-editor:not([appearance='filled'], .wa-filled) {
+      &::part(rich-text-editor) {
+        outline-offset: 0;
+      }
+
+      &:focus-within::part(rich-text-editor) {
+        border-color: var(--wa-color-brand-border-loud);
       }
     }
 

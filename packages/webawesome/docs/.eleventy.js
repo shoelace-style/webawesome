@@ -166,8 +166,8 @@ export default async function (eleventyConfig) {
   eleventyConfig.addGlobalData('eleventyComputed', {
     // Page title with smart + default site name formatting
     pageTitle: data => composePageTitle(data.title),
-    // Open Graph title with smart + default site name formatting
-    ogTitle: data => composePageTitle(data.ogTitle || data.title),
+    // Share titles leave out the site name: og:site_name and the card image already show it
+    ogTitle: data => data.ogTitle || data.title || SITE_NAME,
     ogDescription: data => data.ogDescription || data.description,
     ogImage: data => data.ogImage || siteMetadata.image,
     // Only emit dimensions when we know them: use the default if the page is using the
@@ -425,19 +425,19 @@ export default async function (eleventyConfig) {
       {
         replace: /\[pr:([0-9]+)\]/gs,
         replaceWith:
-          '<a class="ref-link ref-pr" href="https://github.com/shoelace-style/webawesome/pull/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="code-pull-request" variant="regular" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
+          '<a class="ref-link ref-pr" href="https://github.com/shoelace-style/webawesome/pull/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="code-pull-request" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
       },
       // Replace [issue:1234] with an outlined badge link to the issue on GitHub
       {
         replace: /\[issue:([0-9]+)\]/gs,
         replaceWith:
-          '<a class="ref-link ref-issue" href="https://github.com/shoelace-style/webawesome/issues/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="circle-dot" variant="regular" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
+          '<a class="ref-link ref-issue" href="https://github.com/shoelace-style/webawesome/issues/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="circle-dot" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
       },
       // Replace [discuss:1234] with an outlined badge link to the discussion on GitHub
       {
         replace: /\[discuss:([0-9]+)\]/gs,
         replaceWith:
-          '<a class="ref-link ref-discuss" href="https://github.com/shoelace-style/webawesome/discussions/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="comments" variant="regular" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
+          '<a class="ref-link ref-discuss" href="https://github.com/shoelace-style/webawesome/discussions/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="comments" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
       },
     ]),
   );

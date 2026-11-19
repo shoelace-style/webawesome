@@ -6,20 +6,21 @@ import { doViewTransition } from '../scripts/view-transitions.js';
 async function updateTheme(value, isInitialLoad = false) {
   const body = document.body;
 
-  // Get brand, palette, and theme name from the selected option, falling back to the saved values on pages without a
+  // Get brand and palette from the selected option, falling back to the saved values on pages without a
   // theme selector so visiting them doesn't reset the user's choice
   const themeSelector = document.querySelector('.theme-selector');
   const selectedOption = themeSelector?.querySelector(`wa-dropdown-item[value="${value}"]`);
   let brand = selectedOption?.getAttribute('data-brand') || localStorage.getItem('brand') || 'blue';
   let palette = selectedOption?.getAttribute('data-palette') || localStorage.getItem('palette') || 'default';
-  let themeName = selectedOption?.textContent.trim() || 'Unknown';
+
+  if (selectedOption) {
+    const themeName = selectedOption.textContent.trim();
+    document.querySelectorAll('.theme-tooltip .tooltip-value').forEach(el => (el.textContent = themeName));
+  }
 
   if (!isInitialLoad) {
     // Disable tooltip during theme transition
-    const tooltip = document.querySelector('#theme-tooltip');
-    if (tooltip) {
-      tooltip.disabled = true;
-    }
+    document.querySelectorAll('.theme-tooltip').forEach(tooltip => (tooltip.disabled = true));
 
     // Add fade-out class
     body.classList.add('theme-transitioning');
@@ -86,22 +87,13 @@ async function updateTheme(value, isInitialLoad = false) {
       el.value = value;
       el.setAttribute('value', value);
     });
-
-    // Update tooltip content to reflect the new theme
-    const tooltip = document.querySelector('#theme-tooltip');
-    if (tooltip) {
-      tooltip.textContent = `${themeName} Theme`;
-    }
   });
 
   if (!isInitialLoad) {
     // Remove transition class and re-enable tooltip after view transition completes
     body.classList.remove('theme-transitioning');
 
-    const tooltip = document.querySelector('#theme-tooltip');
-    if (tooltip) {
-      tooltip.disabled = false;
-    }
+    document.querySelectorAll('.theme-tooltip').forEach(tooltip => (tooltip.disabled = false));
   }
 }
 

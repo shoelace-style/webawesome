@@ -226,11 +226,11 @@ html.wa-theme-brutalist .preview-container {
     --wa-color-neutral-border-quiet: color-mix(in oklab, var(--wa-color-gray-30), white 40%);
   }
 
-  .message-composer [slot='header'] wa-button::part(base) {
+  .message-composer [slot='header'] wa-button::part(button) {
     color: var(--wa-color-neutral-on-loud);
   }
 
-  .message-composer .grouped-buttons wa-button::part(base):hover {
+  .message-composer .grouped-buttons wa-button::part(button):hover {
     background-color: var(--wa-color-neutral-fill-normal);
     color: var(--wa-color-text-normal);
   }
@@ -240,7 +240,7 @@ html.wa-theme-brutalist .preview-container {
     color: var(--wa-color-brand-on-loud);
   }
 
-  .message-composer wa-tooltip::part(base__arrow) {
+  .message-composer wa-tooltip::part(tooltip__arrow) {
     --arrow-color: var(--wa-color-brand-fill-loud);
   }
 
@@ -662,12 +662,12 @@ html.wa-theme-premium .preview-container {
     --padding: var(--wa-space-s) var(--wa-space-xl);
   }
 
-  .message-composer .grouped-buttons wa-button::part(base) {
+  .message-composer .grouped-buttons wa-button::part(button) {
     block-size: var(--wa-form-control-height-s);
     inline-size: var(--wa-form-control-height-s);
     justify-content: center;
   }
-  .message-composer .grouped-buttons wa-button::part(base):hover {
+  .message-composer .grouped-buttons wa-button::part(button):hover {
     background-color: var(--wa-color-neutral-fill-normal);
     color: var(--wa-color-text-normal);
   }

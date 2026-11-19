@@ -1,6 +1,6 @@
 let basePath = '';
 let iconPath = '';
-let kitCode = '';
+let kitCode: string | undefined;
 
 /** Sets the library's base path to the specified directory or URL. */
 export function setBasePath(path: string) {
@@ -70,17 +70,17 @@ export function getIconPath() {
   return iconPath.replace(/\/$/, '');
 }
 
-/** Sets the library's Web Awesome kit code. */
+/** Sets the library's Web Awesome kit code. An empty value clears it, so the `data-fa-kit-code` attribute is read again. */
 export function setKitCode(code: string) {
-  kitCode = code;
+  kitCode = code || undefined;
 }
 
 /**
  * Gets the library's Web Awesome kit code.
  *
  * The kit code is used to fetch premium assets, so it needs to be set for certain components to work correctly. This
- * isn't something we can infer, so the user will need to provide it using the `data-fa-kit-code` attribute. This can
- * be on any element, but ideally it should exist on the script that imports Web Awesome.
+ * isn't something we can infer, so the user will need to provide it using the `data-fa-kit-code` attribute. It's read
+ * once, when the first icon renders, so put it on `<html>` or the script that imports Web Awesome.
  *
  *   <script src="bundle.js" data-fa-kit-code="abc123"></script>
  *
@@ -88,12 +88,9 @@ export function setKitCode(code: string) {
  *
  */
 export function getKitCode() {
-  if (!kitCode) {
-    const el = document.querySelector('[data-fa-kit-code]');
-
-    if (el) {
-      setKitCode(el.getAttribute('data-fa-kit-code') || '');
-    }
+  if (kitCode === undefined) {
+    // Cached after the first lookup, so a kit code added to the DOM later is ignored. Use setKitCode() instead.
+    kitCode = document.querySelector('[data-fa-kit-code]')?.getAttribute('data-fa-kit-code') || '';
   }
 
   return kitCode;
