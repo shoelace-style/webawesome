@@ -268,8 +268,10 @@ export default class WaDropdownItem extends WebAwesomeElement {
     this.submenuOpen = false;
     this.setAttribute('aria-expanded', 'false');
 
-    // Hiding a submenu that holds focus drops focus to the body, so return it to this item as ArrowLeft does
-    if (this.getSubmenuItems().some(item => item.matches(':focus-within'))) {
+    // Hiding a submenu that holds focus drops focus to the body, so return it to this item as ArrowLeft does. Check
+    // containment, since Chromium and WebKit don't match :focus-within across a nested submenu's popover.
+    const focused = (this.getRootNode() as Document | ShadowRoot).activeElement;
+    if (focused !== this && this.contains(focused)) {
       this.focus({ preventScroll: true });
     }
 

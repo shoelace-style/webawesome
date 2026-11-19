@@ -1078,6 +1078,41 @@ describe('<wa-dropdown>', () => {
       expect(document.activeElement).to.equal(parentItem);
       expect(el.open).to.be.true;
     });
+
+    it('should return focus to the parent item when a nested submenu holds focus as its submenu closes', async () => {
+      await sendMouse({ type: 'move', position: [window.innerWidth - 10, window.innerHeight - 10] });
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown style="--show-duration: 0ms; --hide-duration: 0ms;">
+          <wa-button slot="trigger">Menu</wa-button>
+          <wa-dropdown-item id="export">
+            Export
+            <wa-dropdown-item slot="submenu" id="documents">
+              Documents
+              <wa-dropdown-item slot="submenu" id="pdf">PDF</wa-dropdown-item>
+            </wa-dropdown-item>
+          </wa-dropdown-item>
+          <wa-dropdown-item>Delete</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const shown = oneEvent(el, 'wa-after-show');
+      el.open = true;
+      await shown;
+
+      const exportItem = el.querySelector<WaDropdownItem>('#export')!;
+      exportItem.focus();
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement?.id === 'documents');
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement?.id === 'pdf');
+
+      // Chromium and WebKit don't match :focus-within across the nested submenu's popover
+      exportItem.submenuOpen = false;
+      await exportItem.updateComplete;
+      await waitUntil(() => exportItem.submenuElement.hidden);
+
+      expect(document.activeElement?.id).to.equal('export');
+      expect(el.open).to.be.true;
+    });
   });
 
   describe('submenu navigation', () => {
