@@ -365,6 +365,21 @@ describe('<wa-time-input>', () => {
       expect(expandButton.getAttribute('aria-expanded')).to.equal('false');
     });
 
+    it('emits one wa-hide when opened and disabled at the same time', async () => {
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
+      const hideHandler = sinon.spy();
+      el.addEventListener('wa-hide', hideHandler);
+      const afterHide = waitForEvent(el, 'wa-after-hide');
+
+      el.open = true;
+      el.disabled = true;
+      await afterHide;
+      await aTimeout(100);
+
+      expect(hideHandler).to.have.been.calledOnce;
+      expect(el.open).to.equal(false);
+    });
+
     it('renders one column per segment', async () => {
       const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-US"></wa-time-input>`);
       el.show();

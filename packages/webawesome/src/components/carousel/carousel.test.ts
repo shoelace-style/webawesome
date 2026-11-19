@@ -201,6 +201,27 @@ describe('<wa-carousel>', () => {
             expect(el.scrollContainer.style.getPropertyValue('--slides-per-page').trim()).to.be.equal('2');
           });
 
+          it('should move the active slide and emit wa-slide-change when slides-per-page clamps it', async () => {
+            const el = await fixture<WaCarousel>(html`
+              <wa-carousel>
+                ${map(range(5), i => html`<wa-carousel-item>Node ${i + 1}</wa-carousel-item>`)}
+              </wa-carousel>
+            `);
+            el.goToSlide(4, 'instant');
+            await el.updateComplete;
+            const slideChangeHandler = sinon.spy();
+            el.addEventListener('wa-slide-change', slideChangeHandler);
+
+            el.slidesPerPage = 3;
+            await el.updateComplete;
+
+            const items = el.querySelectorAll('wa-carousel-item');
+            expect(el.activeSlide).to.equal(2);
+            expect(items[2].classList.contains('--is-active')).to.be.true;
+            expect(slideChangeHandler).to.have.been.calledOnce;
+            expect(slideChangeHandler.firstCall.args[0].detail.index).to.equal(2);
+          });
+
           [
             [7, 2, 1, false, 6],
             [5, 3, 3, false, 2],
