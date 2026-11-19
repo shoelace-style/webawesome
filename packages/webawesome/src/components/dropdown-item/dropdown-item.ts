@@ -288,11 +288,15 @@ export default class WaDropdownItem extends WebAwesomeElement {
     }
   }
 
-  /** Whether focus is on an item in this item's submenu, at any depth. */
+  /**
+   * Whether focus is on one of this item's submenu items, including items forwarded through a slot, or on anything
+   * inside them, such as a nested submenu. Other light DOM children of this item don't count.
+   */
   private hasFocusInSubmenu() {
     // Check containment, since Chromium and WebKit don't match :focus-within across a nested submenu's popover
-    const focused = (this.getRootNode() as Document | ShadowRoot).activeElement;
-    return focused !== this && this.contains(focused);
+    return this.getSubmenuItems().some(item =>
+      item.contains((item.getRootNode() as Document | ShadowRoot).activeElement),
+    );
   }
 
   /** Determines whether the item navigates when selected. Items with submenus never navigate. */
