@@ -385,49 +385,46 @@ export default class WaCopyButton extends WebAwesomeElement {
       showTooltip = false;
     }
 
-    return html`
-      <div class="copy-button__trigger" @click=${this.handleCopy}>
-        <slot @slotchange=${this.handleDefaultSlotChange}></slot>
-        <button
-          class="button"
-          part="button"
-          type="button"
-          id="copy-button"
-          aria-label=${this.currentLabel}
-          ?disabled=${this.disabled}
-          ?hidden=${this.hasCustomTrigger}
-        >
-          <slot part="copy-icon" name="copy-icon">
-            <wa-icon library="system" name="copy" variant="regular"></wa-icon>
-          </slot>
-          <slot part="success-icon" name="success-icon" variant="solid" hidden>
-            <wa-icon library="system" name="check"></wa-icon>
-          </slot>
-          <slot part="error-icon" name="error-icon" variant="solid" hidden>
-            <wa-icon library="system" name="xmark"></wa-icon>
-          </slot>
-        </button>
-
-        ${showTooltip
-          ? html`
-              <wa-tooltip
-                part="feedback"
-                for="copy-button"
-                placement=${this.tooltipPlacement}
-                trigger=${triggerValue}
-                class=${classMap({
-                  'copy-button-tooltip': true,
-                  'copy-button-tooltip-success': this.status === 'success',
-                  'copy-button-tooltip-error': this.status === 'error',
-                })}
-                ?disabled=${this.disabled}
-                >${this.currentLabel}</wa-tooltip
-              >
-            `
-          : ''}
-        <slot name="${INTERNAL_TOOLTIP_SLOT}"></slot>
-      </div>
-    `;
+    // Significant whitespace is getting "fixed" by Prettier, but its important to tell Prettier to stop doing that because Lindsay complained about an extra 4px of width due to whitespace :D
+    // prettier-ignore
+    return html` <div part="trigger" class="copy-button__trigger" @click=${this.handleCopy}><!--
+  --><slot @slotchange=${this.handleDefaultSlotChange}></slot><!--
+  --><button
+        class="button"
+        part="button"
+        type="button"
+        id="copy-button"
+        aria-label=${this.currentLabel}
+        ?disabled=${this.disabled}
+        ?hidden=${this.hasCustomTrigger}
+      >
+        <slot part="copy-icon" name="copy-icon"
+          ><wa-icon library="system" name="copy" variant="regular"></wa-icon
+        ></slot>
+        <slot part="success-icon" name="success-icon" variant="solid" hidden
+          ><wa-icon library="system" name="check"></wa-icon
+        ></slot>
+        <slot part="error-icon" name="error-icon" variant="solid" hidden
+          ><wa-icon library="system" name="xmark"></wa-icon>
+        </slot>
+      </button>
+      ${showTooltip
+        ? html` <wa-tooltip
+            part="feedback"
+            for="copy-button"
+            placement=${this.tooltipPlacement}
+            trigger=${triggerValue}
+            class=${classMap({
+              'copy-button-tooltip': true,
+              'copy-button-tooltip-success': this.status === 'success',
+              'copy-button-tooltip-error': this.status === 'error',
+            })}
+            ?disabled=${this.disabled}
+            >${this.currentLabel}</wa-tooltip
+          >`
+        : ''}<!--
+        --><slot name="${INTERNAL_TOOLTIP_SLOT}"></slot><!--
+    --></div>`;
   }
 }
 
