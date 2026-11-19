@@ -55,7 +55,7 @@ You get what's _inside_ the target, not the target element itself, either the ch
 
 ### Ignoring the Hash
 
-To keep a hash in the `src` but include the whole file, add the `without-fragment` attribute. This is useful when the hash serves another purpose, such as when your own code scrolls to that section on the `wa-load` event, which is emitted even if no element has that `id`.
+To keep a hash in the `src` but include the whole file, add the `without-fragment` attribute. This is useful when the hash serves another purpose, such as your own code scrolling to that section after the file loads. The `wa-load` event is emitted even if no element has that `id`.
 
 `without-fragment` has no effect on same-page references like `src="#my-id"`.
 
