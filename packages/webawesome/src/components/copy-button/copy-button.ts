@@ -46,6 +46,7 @@ const ASSIGNED_ID_PROP = '__waCopyButtonAssignedId';
  * @csspart success-icon - The container that holds the success icon.
  * @csspart error-icon - The container that holds the error icon.
  * @csspart feedback - The internal `<wa-tooltip>` element.
+ * @csspart trigger  - The container that holds the button.
  */
 @customElement('wa-copy-button')
 export default class WaCopyButton extends WebAwesomeElement {
