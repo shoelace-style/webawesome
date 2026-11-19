@@ -205,38 +205,17 @@ export default class WaDropdown extends WebAwesomeElement {
 
   /** Gets the current active submenu item */
   private getCurrentSubmenuItem(): WaDropdownItem | undefined {
-    return this.openSubmenuStack.length > 0 ? this.openSubmenuStack[this.openSubmenuStack.length - 1] : undefined;
+    // Drop entries that closed on their own, such as on hover out or removal, along with their descendants
+    const index = this.openSubmenuStack.findIndex(item => !item.submenuOpen || !item.isConnected);
+    if (index !== -1) this.openSubmenuStack.splice(index).forEach(item => (item.submenuOpen = false));
+    return this.openSubmenuStack[this.openSubmenuStack.length - 1];
   }
 
   /** Closes all submenus in the dropdown. */
   private closeAllSubmenus() {
     const items = this.getItems(true);
-    items.forEach(item => {
-      item.submenuOpen = false;
-    });
+    [...items, ...this.openSubmenuStack].forEach(item => (item.submenuOpen = false));
     this.openSubmenuStack = [];
-  }
-
-  /** Closes sibling submenus at the same level as the specified item. */
-  private closeSiblingSubmenus(item: WaDropdownItem) {
-    const parentDropdownItem = item.closest<WaDropdownItem>('wa-dropdown-item:not([slot="submenu"])');
-    let siblingItems: WaDropdownItem[];
-
-    if (parentDropdownItem) {
-      siblingItems = this.getSubmenuItems(parentDropdownItem, true);
-    } else {
-      siblingItems = this.getItems(true);
-    }
-
-    siblingItems.forEach(siblingItem => {
-      if (siblingItem !== item && siblingItem.submenuOpen) {
-        siblingItem.submenuOpen = false;
-      }
-    });
-
-    if (!this.openSubmenuStack.includes(item)) {
-      this.openSubmenuStack.push(item);
-    }
   }
 
   /** Get the slotted trigger button, a <wa-button> or <button> element */
@@ -521,8 +500,6 @@ export default class WaDropdown extends WebAwesomeElement {
 
     if (item.hasSubmenu) {
       if (!item.submenuOpen) {
-        this.closeSiblingSubmenus(item);
-        this.addToSubmenuStack(item);
         item.submenuOpen = true;
       }
 
@@ -560,8 +537,16 @@ export default class WaDropdown extends WebAwesomeElement {
   /** Handles submenu opening events */
   private handleSubmenuOpening(event: CustomEvent) {
     const openingItem = event.detail.item as WaDropdownItem;
-    this.closeSiblingSubmenus(openingItem);
-    this.addToSubmenuStack(openingItem);
+    // The opening item and its ancestor items become the stack, so close any other open branch
+    const path = event.composedPath();
+    const branch = path
+      .slice(0, path.indexOf(this))
+      .filter((el): el is WaDropdownItem => el instanceof Element && el.localName === 'wa-dropdown-item')
+      .reverse();
+    if (!branch.every((item, index) => this.openSubmenuStack[index] === item)) {
+      this.openSubmenuStack.filter(item => !branch.includes(item)).forEach(item => (item.submenuOpen = false));
+      this.openSubmenuStack = branch;
+    }
 
     this.setupSubmenuPosition(openingItem);
     this.processSubmenuItems(openingItem);

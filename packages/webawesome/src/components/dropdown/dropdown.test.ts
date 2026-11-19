@@ -976,6 +976,90 @@ describe('<wa-dropdown>', () => {
     });
   });
 
+  describe('submenu navigation', () => {
+    const corner = (): [number, number] => [window.innerWidth - 10, window.innerHeight - 10];
+    const center = (element: Element): [number, number] => {
+      const rect = element.getBoundingClientRect();
+      return [Math.round(rect.left + rect.width / 2), Math.round(rect.top + rect.height / 2)];
+    };
+
+    const openMenu = async () => {
+      await sendMouse({ type: 'move', position: corner() });
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown style="--show-duration: 0ms; --hide-duration: 0ms;">
+          <button slot="trigger">Actions</button>
+          <wa-dropdown-item id="new">New</wa-dropdown-item>
+          <wa-dropdown-item id="export">
+            Export
+            <wa-dropdown-item slot="submenu" id="documents">
+              Documents
+              <wa-dropdown-item slot="submenu" id="pdf">PDF document</wa-dropdown-item>
+            </wa-dropdown-item>
+          </wa-dropdown-item>
+          <wa-dropdown-item id="settings">
+            Settings
+            <wa-dropdown-item slot="submenu" id="appearance">Appearance</wa-dropdown-item>
+          </wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const shown = oneEvent(el, 'wa-after-show');
+      el.open = true;
+      await shown;
+      const item = (id: string) => el.querySelector<WaDropdownItem>(`#${id}`)!;
+      return { el, item };
+    };
+
+    it('should navigate the root menu after hovering from one submenu to another and pressing ArrowLeft', async () => {
+      const { item } = await openMenu();
+
+      await sendMouse({ type: 'move', position: center(item('export')) });
+      await waitUntil(() => document.activeElement === item('documents'));
+      await sendMouse({ type: 'move', position: center(item('settings')) });
+      await waitUntil(() => document.activeElement === item('appearance'));
+
+      await sendKeys({ press: 'ArrowLeft' });
+      await waitUntil(() => document.activeElement === item('settings'));
+      await sendKeys({ press: 'ArrowDown' });
+      await aTimeout(50);
+
+      expect(document.activeElement?.id).to.equal('new');
+      expect(item('export').submenuOpen).to.be.false;
+    });
+
+    it('should navigate the root menu after a hovered submenu closes on hover out', async () => {
+      const { item } = await openMenu();
+
+      await sendMouse({ type: 'move', position: center(item('export')) });
+      await waitUntil(() => document.activeElement === item('documents'));
+      await sendMouse({ type: 'move', position: corner() });
+      await waitUntil(() => !item('export').submenuOpen);
+      await waitUntil(() => document.activeElement === item('export'));
+
+      await sendKeys({ press: 'ArrowDown' });
+      await aTimeout(50);
+
+      expect(document.activeElement?.id).to.equal('settings');
+    });
+
+    it('should close nested submenus when Escape closes the dropdown', async () => {
+      const { el, item } = await openMenu();
+
+      item('export').focus();
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement === item('documents'));
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement === item('pdf'));
+
+      await sendKeys({ press: 'Escape' });
+      await waitUntil(() => !el.open);
+      await aTimeout(50);
+
+      expect(item('export').submenuOpen).to.be.false;
+      expect(item('documents').submenuOpen).to.be.false;
+      expect(item('documents').getAttribute('aria-expanded')).to.equal('false');
+    });
+  });
+
   describe('submenu positioning', () => {
     const submenuFixture = () =>
       clientFixture<WaDropdown>(html`
