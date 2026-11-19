@@ -226,6 +226,33 @@ describe('<wa-color-picker>', () => {
           expect(inputHandler).to.have.been.calledTwice;
         });
 
+        it('should emit bubbling change and input events when dragging the grid and sliders', async () => {
+          const container = await fixture<HTMLDivElement>(html`
+            <div><wa-color-picker opacity></wa-color-picker></div>
+          `);
+          const el = container.querySelector<WaColorPicker>('wa-color-picker')!;
+          const trigger = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="trigger"]')!;
+          const changeHandler = sinon.spy();
+          const inputHandler = sinon.spy();
+
+          container.addEventListener('change', changeHandler);
+          container.addEventListener('input', inputHandler);
+
+          await clickOnElement(trigger); // open the dropdown
+          await aTimeout(200); // wait for the dropdown to open
+
+          for (const part of ['grid', 'hue-slider', 'opacity-slider']) {
+            changeHandler.resetHistory();
+            inputHandler.resetHistory();
+
+            await dragElement(el.shadowRoot!.querySelector<HTMLElement>(`[part~="${part}"]`)!, 2, 0);
+            await el.updateComplete;
+
+            expect(inputHandler.called, `${part} input`).to.be.true;
+            expect(changeHandler.calledOnce, `${part} change`).to.be.true;
+          }
+        });
+
         it('should emit change and input when toggling the format', async () => {
           const el = await fixture<WaColorPicker>(html` <wa-color-picker value="#fff"></wa-color-picker> `);
           const trigger = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="trigger"]')!;

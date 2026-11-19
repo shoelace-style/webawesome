@@ -405,7 +405,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         if (this.value !== currentValue) {
           currentValue = this.value;
           this.updateComplete.then(() => {
-            this.dispatchEvent(new InputEvent('input'));
+            this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
           });
         }
       },
