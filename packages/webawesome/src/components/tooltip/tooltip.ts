@@ -382,7 +382,7 @@ export default class WaTooltip extends WebAwesomeElement {
       unregisterDismissible(this);
     }
 
-    // Let the previous animation finish cleanup before reusing its classes.
+    // Removing the classes cancels the previous CSS animation so its promise settles before we reuse them.
     this.popup.popup.classList.remove('show-with-scale', 'hide-with-scale');
     transition.promise = (async () => {
       await previous.promise;
@@ -474,6 +474,7 @@ export default class WaTooltip extends WebAwesomeElement {
     this.open = open;
     if (!this.isConnected) return;
     await this.updateComplete;
+    // Starts the transition if the open watcher didn't. Otherwise the previous.open === open guard returns its promise.
     return this.handleOpenChange();
   }
 
