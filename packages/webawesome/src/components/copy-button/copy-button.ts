@@ -46,7 +46,7 @@ const ASSIGNED_ID_PROP = '__waCopyButtonAssignedId';
  * @csspart success-icon - The container that holds the success icon.
  * @csspart error-icon - The container that holds the error icon.
  * @csspart feedback - The internal `<wa-tooltip>` element.
- * @csspart trigger  - The container that holds the button.
+ * @csspart copy-button - The component's outer wrapper.
  */
 @customElement('wa-copy-button')
 export default class WaCopyButton extends WebAwesomeElement {
@@ -388,7 +388,7 @@ export default class WaCopyButton extends WebAwesomeElement {
 
     // Significant whitespace is getting "fixed" by Prettier, but its important to tell Prettier to stop doing that because Lindsay (@omnifides) complained about an extra 4px of width due to whitespace :D
     // prettier-ignore
-    return html` <div part="trigger" class="copy-button__trigger" @click=${this.handleCopy}><!--
+    return html`<div part="copy-button" class="copy-button__trigger" @click=${this.handleCopy}><!--
   --><slot @slotchange=${this.handleDefaultSlotChange}></slot><!--
   --><button
         class="button"
