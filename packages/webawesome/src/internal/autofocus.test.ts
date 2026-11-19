@@ -1,4 +1,5 @@
-import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, fixture, waitUntil } from '@open-wc/testing';
+import { html } from 'lit';
 
 // Each test loads a page in a new frame, so the components see a fresh document, as on a real page load
 let frame: HTMLIFrameElement | undefined;
@@ -40,6 +41,7 @@ describe('autofocus', () => {
     window.focus();
   });
 
+  // Assertions compare tag names, since a failure message that prints these elements can hang the runner
   // WebKit can autofocus the native control inside `<wa-input>` on its own, so tests that expect no focus use `<wa-button>`
 
   it('should focus an element that is defined after the page loads', async () => {
@@ -47,7 +49,7 @@ describe('autofocus', () => {
 
     await define(doc, 'input');
 
-    expect(doc.activeElement).to.equal(doc.querySelector('wa-input'));
+    expect(doc.activeElement?.localName).to.equal('wa-input');
   });
 
   it('should focus an element when its autofocus property is set', async () => {
@@ -66,12 +68,12 @@ describe('autofocus', () => {
     const doc = await loadPage('<wa-input label="Name" autofocus></wa-input><wa-button autofocus>Button</wa-button>');
 
     await define(doc, 'input');
-    expect(doc.activeElement).to.equal(doc.querySelector('wa-input'));
+    expect(doc.activeElement?.localName).to.equal('wa-input');
 
     (doc.activeElement as HTMLElement).blur();
     await define(doc, 'button');
 
-    expect(doc.activeElement).to.equal(doc.body);
+    expect(doc.activeElement?.localName).to.equal('body');
   });
 
   it('should not take focus from another element', async () => {
@@ -81,7 +83,7 @@ describe('autofocus', () => {
     other.focus();
     await define(doc, 'button');
 
-    expect(doc.activeElement).to.equal(other);
+    expect(doc.activeElement?.localName).to.equal('input');
   });
 
   it('should not focus after the user has moved focus, even when it has moved away again', async () => {
@@ -95,17 +97,20 @@ describe('autofocus', () => {
     (document.activeElement as HTMLElement | null)?.blur();
     await define(doc, 'button');
 
-    expect(doc.activeElement).to.equal(doc.body);
+    expect(doc.activeElement?.localName).to.equal('body');
   });
 
   it('should not take focus from an ancestor that has focus', async () => {
-    const doc = await loadPage('<main tabindex="-1"><wa-button autofocus>Button</wa-button></main>');
-    const main = doc.querySelector('main')!;
+    // A router focuses the new view. This runs in the top document, which is the one the helper checks for focus.
+    const main = await fixture<HTMLElement>(
+      html`<main tabindex="-1"><wa-autofocus-test-button autofocus>Button</wa-autofocus-test-button></main>`,
+    );
 
     main.focus();
-    await define(doc, 'button');
+    customElements.define('wa-autofocus-test-button', class extends (customElements.get('wa-button')!) {});
+    await aTimeout(100);
 
-    expect(doc.activeElement).to.equal(main);
+    expect(document.activeElement?.localName).to.equal('main');
   });
 
   it('should focus an element in a dialog that is open when the page loads', async () => {
@@ -116,7 +121,7 @@ describe('autofocus', () => {
     await define(doc, 'dialog');
     await define(doc, 'input');
 
-    expect(doc.activeElement).to.equal(doc.querySelector('wa-input'));
+    expect(doc.activeElement?.localName).to.equal('wa-input');
   });
 
   it('should not focus the element when the URL fragment points to an element', async () => {
@@ -125,7 +130,7 @@ describe('autofocus', () => {
     doc.defaultView!.location.hash = 'target';
     await define(doc, 'button');
 
-    expect(doc.activeElement).to.equal(doc.body);
+    expect(doc.activeElement?.localName).to.equal('body');
   });
 
   it('should wait for an ancestor to be defined before focusing', async () => {
@@ -134,8 +139,10 @@ describe('autofocus', () => {
     );
     const win = doc.defaultView! as Window & typeof globalThis;
     const button = doc.querySelector('wa-button')!;
-    let receivedFocus = false;
-    button.addEventListener('focusin', () => (receivedFocus = true));
+    let focusedEarly = false;
+
+    // Chromium can autofocus the button natively, so check when the helper calls focus() instead
+    button.focus = () => (focusedEarly ||= !win.customElements.get('wa-autofocus-test-ancestor'));
 
     await define(doc, 'button');
     win.customElements.define(
@@ -148,6 +155,6 @@ describe('autofocus', () => {
     );
     await aTimeout(100);
 
-    expect(receivedFocus).to.be.false;
+    expect(focusedEarly).to.be.false;
   });
 });
