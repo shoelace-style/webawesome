@@ -70,6 +70,9 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed bugs in `<wa-dropdown-item>` submenus [issue:2876] [pr:3059]
   - Fixed a submenu staying hidden when it reopened during its close animation
   - Fixed an open submenu staying visible after its item was removed and added back
+- Fixed submenu focus bugs in `<wa-dropdown-item>` [pr:3071]
+  - Fixed closing a submenu in code losing focus when a nested submenu held it
+  - Fixed fast keyboard navigation, such as [[ArrowRight]] then [[ArrowDown]], being pulled back to the first submenu item
 - Fixed lifecycle bugs in `<wa-select>` [issue:2887] [pr:2888]
   - Reopening during the hide animation now shows the listbox
   - `show()` no longer closes an open select

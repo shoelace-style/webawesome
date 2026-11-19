@@ -1191,7 +1191,25 @@ describe('<wa-dropdown>', () => {
       expect(item('documents').getAttribute('aria-expanded')).to.equal('false');
     });
 
-    it('should focus submenu items forwarded through a slot', async () => {
+    it('should return focus to the parent item when code closes a submenu while a nested submenu holds focus', async () => {
+      const { el, item } = await openMenu();
+
+      item('export').focus();
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement?.id === 'documents');
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement?.id === 'pdf');
+
+      // Chromium and WebKit don't match :focus-within across the nested submenu's popover
+      item('export').submenuOpen = false;
+      await item('export').updateComplete;
+      await waitUntil(() => item('export').submenuElement.hidden);
+
+      expect(document.activeElement?.id).to.equal('export');
+      expect(el.open).to.be.true;
+    });
+
+    const openForwardedMenu = async () => {
       await sendMouse({ type: 'move', position: corner() });
       const host = await clientFixture<HTMLDivElement>(
         html`<div><wa-dropdown-item id="forwarded">Forwarded option</wa-dropdown-item></div>`,
@@ -1209,6 +1227,25 @@ describe('<wa-dropdown>', () => {
       const shown = oneEvent(el, 'wa-after-show');
       el.open = true;
       await shown;
+      return { shadow, parentItem };
+    };
+
+    it('should return focus to the parent item when code closes a submenu while a forwarded item holds focus', async () => {
+      const { shadow, parentItem } = await openForwardedMenu();
+
+      parentItem.focus();
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement?.id === 'forwarded');
+
+      parentItem.submenuOpen = false;
+      await parentItem.updateComplete;
+      await waitUntil(() => parentItem.submenuElement.hidden);
+
+      expect(shadow.activeElement?.id).to.equal('parent');
+    });
+
+    it('should focus submenu items forwarded through a slot', async () => {
+      const { parentItem } = await openForwardedMenu();
 
       await sendMouse({ type: 'move', position: center(parentItem) });
       await waitUntil(() => parentItem.submenuOpen);
