@@ -55,7 +55,7 @@ import styles from './select.styles.js';
  * @event wa-clear - Emitted when the control's value is cleared.
  * @event wa-show - Emitted when the select's menu opens.
  * @event wa-after-show - Emitted after the select's menu opens and all animations are complete.
- * @event wa-hide - Emitted when the select's menu closes.
+ * @event wa-hide - Emitted when the select's menu closes. Can't be canceled when the select is disabled.
  * @event wa-after-hide - Emitted after the select's menu closes and all animations are complete.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
@@ -362,8 +362,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   };
 
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
-    if (this.disabled) return;
-
     const target = event.target as HTMLElement;
     const isClearButton = target.closest('[part~="clear-button"]') !== null;
     const isButton = target.closest('wa-button') !== null;
@@ -889,11 +887,14 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   @watch('open', { waitUntilFirstUpdate: true })
   async handleOpenChange() {
+    // A disabled select is never open
+    if (this.disabled && this.open) this.open = false;
+
     const open = this.open && !this.disabled;
     if (!this.isConnected || this.openTransition.open === open) return this.openAnimation;
 
     if (open) this.setCurrentOption(this.selectedOptions[0] || this.getFirstOption());
-    const event = open ? new WaShowEvent() : new WaHideEvent();
+    const event = open ? new WaShowEvent() : new WaHideEvent(undefined, { cancelable: !this.disabled });
     this.dispatchEvent(event);
     if (event.defaultPrevented) {
       this.open = this.openTransition.open;
@@ -912,6 +913,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       document.addEventListener('keydown', this.handleDocumentKeyDown, { signal });
       document.addEventListener('mousedown', this.handleDocumentMouseDown, { signal });
       registerDismissible(this);
+      // Also listen on the root node in case the elements are inside a shadow root
+      // https://github.com/shoelace-style/shoelace/issues/1763
       const root = this.getRootNode();
       if (root !== document) root.addEventListener('focusin', this.handleDocumentFocusIn, { signal });
       this.listbox.hidden = false;

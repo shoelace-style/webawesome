@@ -1,5 +1,4 @@
 import { expect, oneEvent } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
@@ -108,54 +107,50 @@ describe('<wa-select> lifecycle', () => {
       });
 
       for (const duringOpening of [false, true]) {
-        it(`preserves a canceled hide when disabled ${duringOpening ? 'during' : 'after'} opening`, async () => {
+        it(`closes when disabled ${duringOpening ? 'during' : 'after'} opening even if wa-hide is canceled`, async () => {
           const el = await fixture<WaSelect>(html`
             <wa-select label="Choice"><wa-option value="one">One</wa-option></wa-select>
           `);
-          const afterShow = sinon.spy();
-          el.addEventListener('wa-after-show', afterShow);
           if (duringOpening) el.style.setProperty('--show-duration', '1s');
           const animationStarted = duringOpening ? pauseNextAnimation(el.popup.popup) : undefined;
           const showing = el.show();
-          const animation = animationStarted ? await animationStarted : undefined;
-          if (!duringOpening) await showing;
-          const hiding = oneEvent(el, 'wa-hide');
-          el.addEventListener('wa-hide', event => event.preventDefault());
+          await (animationStarted ?? showing);
+          const hideEvents: Event[] = [];
+          el.addEventListener('wa-hide', event => {
+            event.preventDefault();
+            hideEvents.push(event);
+          });
+          const hidden = oneEvent(el, 'wa-after-hide');
 
           el.disabled = true;
-          await hiding;
-          await el.updateComplete;
-          animation?.finish();
+          await hidden;
           await showing;
           await el.popup.updateComplete;
 
-          expect(el.open).to.be.true;
-          expect(el.querySelector('wa-option')!.checkVisibility()).to.be.true;
-          expect(afterShow).to.have.been.calledOnce;
+          expect(hideEvents).to.have.length(1);
+          expect(hideEvents[0].cancelable).to.be.false;
+          expect(el.open).to.be.false;
+          expect(el.querySelector('wa-option')!.checkVisibility()).to.be.false;
         });
       }
 
-      it('ignores keyboard selection while a disabled listbox is kept open', async () => {
-        const host = await fixture<HTMLDivElement>(html`
-          <div>
-            <wa-select label="Choice"><wa-option value="one">One</wa-option></wa-select>
-            <button>Other control</button>
-          </div>
+      it('stays closed when shown while disabled', async () => {
+        const el = await fixture<WaSelect>(html`
+          <wa-select label="Choice" disabled><wa-option value="one">One</wa-option></wa-select>
         `);
-        const el = host.querySelector('wa-select')!;
-        const changed = sinon.spy();
-        el.addEventListener('change', changed);
-        el.addEventListener('wa-hide', event => event.preventDefault());
+        const handleShow = sinon.spy();
+        el.addEventListener('wa-show', handleShow);
+
         await el.show();
+        expect(el.open).to.be.false;
 
-        el.disabled = true;
+        el.open = true;
         await el.updateComplete;
-        host.querySelector('button')!.focus();
-        await sendKeys({ press: 'Enter' });
-        await el.updateComplete;
+        await el.popup.updateComplete;
 
-        expect(el.value).to.equal(null);
-        expect(changed).not.to.have.been.called;
+        expect(el.open).to.be.false;
+        expect(el.querySelector('wa-option')!.checkVisibility()).to.be.false;
+        expect(handleShow).not.to.have.been.called;
       });
 
       it('closes an open listbox when the control is disabled', async () => {
