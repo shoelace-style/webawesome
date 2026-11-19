@@ -89,7 +89,9 @@ function runWatchers(element: WatchedElement, watchers: Watcher[], changedProps:
       }
     }
 
-    if (![...(unhandledSets?.values() ?? [])].some(properties => properties.size > 0)) return;
+    let hasUnhandledSets = false;
+    unhandledSets?.forEach(properties => (hasUnhandledSets ||= properties.size > 0));
+    if (!hasUnhandledSets) return;
   }
 
   if (!warnedTags.has(element.localName)) {
@@ -107,7 +109,8 @@ function runWatchers(element: WatchedElement, watchers: Watcher[], changedProps:
  * initial update/render, use `{ waitUntilFirstUpdate: true }` or `this.hasUpdated` in the handler.
  *
  * Handlers see properties that other handlers set during the same update, regardless of declaration order. A handler
- * doesn't run again for a property it sets itself.
+ * doesn't run again for a property it sets itself, or for one another handler sets back to its value at the start of
+ * the update. Reruns follow named `requestUpdate(name)` calls, so an unnamed `requestUpdate()` doesn't trigger one.
  *
  * Usage:
  *

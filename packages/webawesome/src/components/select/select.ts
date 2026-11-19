@@ -874,7 +874,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     // Close the listbox when the control is open and disabled
     if (this.disabled && this.open) {
       this.open = false;
-      // The open watcher has already run for this update.
+      // Redundant now that the open watcher sees this change, but kept for safety. A second call returns early.
       this.handleOpenChange();
     }
   }

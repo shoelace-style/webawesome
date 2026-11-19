@@ -1147,7 +1147,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
   }
 
-  // Declared after handleOpenChange so it runs first and the open watcher sees the change.
+  // The open watcher sees this change regardless of declaration order.
   @watch('disabled', { waitUntilFirstUpdate: true })
   handleDisabledChange() {
     if (this.disabled && this.open) {
