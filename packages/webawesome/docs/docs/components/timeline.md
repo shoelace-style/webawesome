@@ -253,7 +253,7 @@ Set the `orientation` attribute to `horizontal` to lay items out in a row instea
 </style>
 ```
 
-Set the `orientation` attribute to `auto` to lay items out in a row and switch to a column when there's less than about 10em of room per item, so entries stay readable on small screens. Resize the example to see the switch. While laid out as a column, the timeline has the `stacked` custom state, so `wa-timeline:state(stacked)` targets it.
+Set the `orientation` attribute to `auto` to lay items out in a row and switch to a column when there's less than about 10em between items, so entries stay readable on small screens. Resize the example to see the switch. While laid out as a column, the timeline has the `stacked` custom state, so `wa-timeline:state(stacked)` targets it.
 
 The default, `vertical`, stays a column at any width. `auto` measures the timeline in the browser, so a server-rendered `auto` timeline starts as a column and switches to a row once it hydrates.
 
