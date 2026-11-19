@@ -7,6 +7,12 @@ export default css`
     display: contents;
   }
 
+  /* Pass through from dropdown to the popup */
+  wa-popup {
+    --show-duration: inherit;
+    --hide-duration: inherit;
+  }
+
   #menu {
     display: flex;
     flex-direction: column;
