@@ -104,6 +104,12 @@ export default class WaDropdown extends WebAwesomeElement {
   /** The offset of the dropdown menu along its trigger. */
   @property({ type: Number }) skidding = 0;
 
+  connectedCallback() {
+    super.connectedCallback();
+    // Disconnecting removes the open listeners, so restore them when an open dropdown is reattached
+    if (this.hasUpdated && this.open) this.addOpenListeners();
+  }
+
   disconnectedCallback() {
     super.disconnectedCallback();
     clearInterval(this.userTypedTimeout);
@@ -143,7 +149,6 @@ export default class WaDropdown extends WebAwesomeElement {
       if (this.open) {
         await this.showMenu();
       } else {
-        this.closeAllSubmenus();
         await this.hideMenu();
       }
     }
@@ -267,12 +272,8 @@ export default class WaDropdown extends WebAwesomeElement {
 
     this.popup.active = true; // Use wa-popup's active property instead of showPopover
     this.open = true;
-    openDropdowns.add(this);
-    registerDismissible(this);
+    this.addOpenListeners();
     this.syncAriaAttributes();
-    document.addEventListener('keydown', this.handleDocumentKeyDown);
-    document.addEventListener('pointerdown', this.handleDocumentPointerDown);
-    document.addEventListener('mousemove', this.handleGlobalMouseMove);
 
     // In case its still trying to hide, remove the class to cancel the hide animation.
     this.menu.classList.remove('hide');
@@ -320,6 +321,7 @@ export default class WaDropdown extends WebAwesomeElement {
       return;
     }
 
+    this.closeAllSubmenus();
     const originalTrigger = this.originalTrigger;
     this.originalTrigger = null;
     this.open = false;
@@ -332,6 +334,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
     this.menu.classList.remove('show');
     await animateWithClass(this.menu, 'hide'); // Animate before hiding
+    if (this.open) return; // Reopened during the hide animation
 
     // Sometimes this ends up out of sync. So make sure it aligns with `open`
     this.popup.active = this.open; // Hide using wa-popup
@@ -339,8 +342,17 @@ export default class WaDropdown extends WebAwesomeElement {
     originalTrigger?.focus({ preventScroll: true });
   }
 
+  /** Adds the dropdown to the open dropdowns and dismissible stack and listens for document events. */
+  private addOpenListeners() {
+    openDropdowns.add(this);
+    registerDismissible(this);
+    document.addEventListener('keydown', this.handleDocumentKeyDown);
+    document.addEventListener('pointerdown', this.handleDocumentPointerDown);
+    document.addEventListener('mousemove', this.handleGlobalMouseMove);
+  }
+
   /** Handles key down events when the menu is open */
-  private handleDocumentKeyDown = async (event: KeyboardEvent) => {
+  private handleDocumentKeyDown = (event: KeyboardEvent) => {
     const isRtl = this.localize.dir() === 'rtl';
 
     if (event.key === 'Escape' && this.open && isTopDismissible(this)) {
@@ -440,7 +452,7 @@ export default class WaDropdown extends WebAwesomeElement {
     }
 
     if (event.key === 'Tab') {
-      await this.hideMenu();
+      this.open = false;
     }
 
     if (
