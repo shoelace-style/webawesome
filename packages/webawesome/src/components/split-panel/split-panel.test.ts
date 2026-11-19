@@ -106,6 +106,20 @@ describe('<wa-split-panel>', () => {
           expect(el.positionInPixels).to.be.greaterThan(0);
         });
 
+        it('should keep its position when it has no size', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel position="25" style="display: none;">
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
+            </wa-split-panel>`,
+          );
+
+          expect(el.position).to.equal(25);
+          el.position = 40;
+          await el.updateComplete;
+          expect(el.position).to.equal(40);
+        });
+
         it('should default snapThreshold to 12', async () => {
           const el = await fixture<WaSplitPanel>(html`<wa-split-panel></wa-split-panel>`);
           expect(el.snapThreshold).to.equal(12);
@@ -124,6 +138,24 @@ describe('<wa-split-panel>', () => {
           await expectEvent(el, 'wa-reposition', () => {
             el.position = 10;
           });
+        });
+
+        it('should emit wa-reposition once per position change', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel style="width: 333px;">
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
+            </wa-split-panel>`,
+          );
+          let count = 0;
+          el.addEventListener('wa-reposition', () => count++);
+
+          el.position = 33.3;
+          await el.updateComplete;
+          el.positionInPixels = 77.7;
+          await el.updateComplete;
+
+          expect(count).to.equal(2);
         });
       });
 

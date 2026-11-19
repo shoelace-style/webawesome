@@ -259,6 +259,11 @@ export default class WaSplitPanel extends WebAwesomeElement {
 
   @watch('positionInPixels')
   handlePositionInPixelsChange() {
+    // Skip pixels that handlePositionChange derived from position. Converting them back can drift or give NaN.
+    if (Object.is(this.positionInPixels, this.percentageToPixels(this.position))) {
+      return;
+    }
+
     // Only update position if it actually changed to avoid a circular watch loop
     const newPosition = this.pixelsToPercentage(this.positionInPixels);
     if (this.position !== newPosition) {
