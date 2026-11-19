@@ -370,19 +370,22 @@ describe('<wa-time-input>', () => {
       expect(expandButton.getAttribute('aria-expanded')).to.equal('false');
     });
 
-    it('emits one wa-hide when opened and disabled at the same time', async () => {
+    it('stays closed without events when opened and disabled at the same time', async () => {
       const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
-      const hideHandler = sinon.spy();
-      el.addEventListener('wa-hide', hideHandler);
-      const afterHide = waitForEvent(el, 'wa-after-hide');
+      const handler = sinon.spy();
+      for (const name of ['wa-show', 'wa-after-show', 'wa-hide', 'wa-after-hide']) {
+        el.addEventListener(name, handler);
+      }
 
       el.open = true;
       el.disabled = true;
-      await afterHide;
+      await el.updateComplete;
       await aTimeout(100);
 
-      expect(hideHandler).to.have.been.calledOnce;
+      const popup = el.shadowRoot!.querySelector('wa-popup')!;
+      expect(handler).to.not.have.been.called;
       expect(el.open).to.equal(false);
+      expect(popup.active).to.equal(false);
     });
 
     for (const [name, listener] of [

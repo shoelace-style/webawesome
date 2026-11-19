@@ -346,9 +346,9 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
 
   protected willUpdate(changed: PropertyValues<this>) {
     super.willUpdate(changed);
-    // Close here, before any watcher runs, so the open watcher sees it whatever order the watchers are declared in.
-    // When open was just set from false, the open watcher already takes the hide path.
-    if (this.hasUpdated && changed.has('disabled') && this.disabled && this.open && changed.get('open') !== false) {
+    // A disabled time input is never open. Closing here, before any watcher runs, lets the open watcher see the change
+    // whatever order the watchers are declared in, and skip it when open was only just set.
+    if (this.hasUpdated && this.disabled && this.open) {
       this.open = false;
     }
   }
