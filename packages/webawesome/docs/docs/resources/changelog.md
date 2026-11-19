@@ -56,6 +56,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-radio-group>` where arrow keys and [[Space]] were taken from buttons, links, and fields placed inside the group [issue:2892] [pr:2893]
 - Fixed a bug in `<wa-select>` that let an option be selected while the listbox closed after the control was disabled [pr:2960]
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
+- Fixed a bug in `<wa-time-input>` where disabling it while open didn't close its popup or fire `wa-hide`
 - Fixed a performance issue in `<wa-icon>` where pages without a Font Awesome kit code searched the DOM for one on every icon [issue:2975] [pr:3053]
 - Fixed bugs in `<wa-dropdown>` submenu keyboard navigation [issue:2880] [pr:3061]
   - Fixed arrow keys moving through a submenu that had closed, such as after hovering from one submenu to another
