@@ -123,12 +123,9 @@ export default class WaToastItem extends WebAwesomeElement {
     await animateWithClass(this.toastItemElement, 'show');
     this.dispatchEvent(new WaAfterShowEvent());
 
-    // Start the countdown if there's a duration
-    if (this.duration > 0 && Number.isFinite(this.duration)) {
-      this.startTime = performance.now();
-      this.timeLeft = 100;
-      this.tick();
-    }
+    // Start the countdown unless hover or focus is holding it
+    this.timeLeft = 100;
+    this.resumeTimer();
   }
 
   /** @internal Stops the toast item's timer. */
@@ -186,7 +183,9 @@ export default class WaToastItem extends WebAwesomeElement {
 
   private resumeTimer() {
     // Only resume if neither hover nor focus is keeping it paused
-    if (!this.isHovering && !this.isFocused && this.duration > 0) {
+    if (!this.isHovering && !this.isFocused && this.duration > 0 && Number.isFinite(this.duration)) {
+      // Cancel any running loop so only one countdown exists
+      this.stopTimer();
       this.startTime = performance.now();
       this.tick();
     }

@@ -60,6 +60,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - A `<wa-dialog>` containing a select that was disabled while open closes on [[Escape]] again
 - Fixed a regression in `<wa-tab-group>` where selecting a tab, by clicking it or setting `active`, no longer scrolled it into view when the tabs overflow [issue:3042] [pr:3043]
 - Fixed a bug in `<wa-tooltip>` where reopening it during a hide or moving it in the DOM left it open but invisible, and canceled `show()` and `hide()` calls never resolved [issue:2879] [pr:2881]
+- Fixed a bug in `<wa-toast-item>` that let a toast close while hovered or focused
 
 :::
 
