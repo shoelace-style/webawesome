@@ -28,9 +28,9 @@ Included markup is inserted into the page as-is, and scripts run when `allow-scr
 
 ### Including Part of a File
 
-To include just one section of a file instead of the whole thing, add the target element's `id` as a hash to the `src`. Only the matching element's content is included, the rest of the file is ignored.
+To include just one section of a file instead of the whole thing, add the target element's `id` as a hash to the `src`. Only the matching element's content is included. The rest of the file is ignored.
 
-If the file loads but the `id` isn't found, the `wa-include-error` event is emitted.
+If the file loads but no element has that `id`, the `wa-include-error` event is emitted. Since the request itself succeeded, `event.detail.status` is a success status such as 200.
 
 ```html {.example}
 <wa-include src="/assets/examples/include.html#callout-fragment"></wa-include>
@@ -59,8 +59,22 @@ To keep a hash in the `src` but include the whole file, add the `without-fragmen
 
 `without-fragment` has no effect on same-page references like `src="#my-id"`.
 
-```html {.example}
-<wa-include src="/assets/examples/include.html#callout-fragment" without-fragment></wa-include>
+```html
+<wa-include src="/manual.html#install" without-fragment></wa-include>
+
+<script>
+  const include = document.querySelector('wa-include');
+
+  include.addEventListener('wa-load', event => {
+    if (event.eventPhase === Event.AT_TARGET) {
+      const id = decodeURIComponent(new URL(include.src, document.baseURI).hash.slice(1));
+
+      if (id) {
+        include.querySelector(`#${CSS.escape(id)}`)?.scrollIntoView();
+      }
+    }
+  });
+</script>
 ```
 
 ### Listening for Events
