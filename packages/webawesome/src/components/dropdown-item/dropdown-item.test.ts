@@ -1,4 +1,4 @@
-import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
@@ -451,6 +451,38 @@ describe('<wa-dropdown-item>', () => {
 
       expect(parentItem.submenuOpen).to.be.false;
       expect(parentItem.submenuElement.checkVisibility()).to.be.false;
+    });
+
+    it('should animate the submenu with the dropdown --show-duration and --hide-duration', async () => {
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown style="--show-duration: 1234ms; --hide-duration: 567ms">
+          <button slot="trigger">Menu</button>
+          <wa-dropdown-item>
+            Parent
+            <wa-dropdown-item slot="submenu">First</wa-dropdown-item>
+          </wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const parentItem = el.querySelector<WaDropdownItem>('wa-dropdown-item')!;
+      const submenu = parentItem.submenuElement;
+      const submenuAnimation = () => submenu.getAnimations().find(animation => animation instanceof CSSAnimation);
+      submenu.style.animationPlayState = 'paused';
+
+      const shown = oneEvent(el, 'wa-after-show');
+      el.open = true;
+      await shown;
+
+      parentItem.submenuOpen = true;
+      await waitUntil(() => submenuAnimation());
+      expect(submenuAnimation()!.effect!.getComputedTiming().duration).to.equal(1234);
+      submenuAnimation()!.finish();
+      await waitUntil(() => !submenu.classList.contains('show'));
+
+      parentItem.submenuOpen = false;
+      await waitUntil(() => submenuAnimation());
+      expect(submenuAnimation()!.effect!.getComputedTiming().duration).to.equal(567);
+      submenuAnimation()!.finish();
+      await waitUntil(() => submenu.hidden);
     });
   });
 });
