@@ -50,6 +50,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - Fixed `wa-hide` being emitted twice when [[Tab]] closed the menu
 - Fixed a regression in `<wa-copy-button>` where adding `display: inline-flex;` caused unintended consequences. [pr:3055]
 - Fixed a bug in `<wa-color-picker>` that allowed the color to change after the picker was disabled while open [issue:3017] [pr:3018]
+- Fixed a bug in `<wa-color-picker>` where dragging the hue slider emitted an `input` event that didn't bubble [pr:3062]
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
 - Fixed a bug in `<wa-radio-group>` where arrow keys and [[Space]] were taken from buttons, links, and fields placed inside the group [issue:2892] [pr:2893]
 - Fixed a bug in `<wa-select>` that let an option be selected while the listbox closed after the control was disabled [pr:2960]
