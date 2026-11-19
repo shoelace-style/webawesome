@@ -53,6 +53,16 @@ You get what's _inside_ the target, not the target element itself, either the ch
 <wa-include src="#greeting"></wa-include>
 ```
 
+### Ignoring the Hash
+
+To keep a hash in the `src` but include the whole file, add the `without-fragment` attribute. This is useful when the hash serves another purpose, such as when your own code scrolls to that section on the `wa-load` event, which is emitted even if no element has that `id`.
+
+`without-fragment` has no effect on same-page references like `src="#my-id"`.
+
+```html {.example}
+<wa-include src="/assets/examples/include.html#callout-fragment" without-fragment></wa-include>
+```
+
 ### Listening for Events
 
 When an include file loads successfully, the `wa-load` event will be emitted. You can listen for this event to add custom loading logic to your includes.

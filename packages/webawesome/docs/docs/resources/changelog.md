@@ -36,6 +36,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added the experimental `<wa-timeline>` and `<wa-timeline-item>` components for showing a chronological list of events, such as an order history, activity feed, or changelog [pr:2933]
+- Added the `without-fragment` attribute to `<wa-include>` to include the whole file when `src` has a hash [issue:2875]
 
 :::
 
