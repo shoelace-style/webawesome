@@ -346,6 +346,25 @@ describe('<wa-time-input>', () => {
       expect(el.open).to.equal(true);
     });
 
+    it('closes when disabled while open', async () => {
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
+      el.show();
+      await waitForEvent(el, 'wa-after-show');
+      const hideHandler = sinon.spy();
+      el.addEventListener('wa-hide', hideHandler);
+      const afterHide = waitForEvent(el, 'wa-after-hide');
+
+      el.disabled = true;
+      await afterHide;
+
+      const popup = el.shadowRoot!.querySelector('wa-popup')!;
+      const expandButton = el.shadowRoot!.querySelector<HTMLButtonElement>('.expand-button')!;
+      expect(hideHandler).to.have.been.calledOnce;
+      expect(el.open).to.equal(false);
+      expect(popup.active).to.equal(false);
+      expect(expandButton.getAttribute('aria-expanded')).to.equal('false');
+    });
+
     it('renders one column per segment', async () => {
       const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-US"></wa-time-input>`);
       el.show();
