@@ -408,9 +408,10 @@ export default class WaCopyButton extends WebAwesomeElement {
         <slot part="error-icon" name="error-icon" variant="solid" hidden
           ><wa-icon library="system" name="xmark"></wa-icon>
         </slot>
-      </button>
-      ${showTooltip
-        ? html` <wa-tooltip
+      </button><!--
+
+  -->${showTooltip
+        ? html`<wa-tooltip
             part="feedback"
             for="copy-button"
             placement=${this.tooltipPlacement}
@@ -421,8 +422,7 @@ export default class WaCopyButton extends WebAwesomeElement {
               'copy-button-tooltip-error': this.status === 'error',
             })}
             ?disabled=${this.disabled}
-            >${this.currentLabel}</wa-tooltip
-          >`
+            >${this.currentLabel}</wa-tooltip>`
         : ''}<!--
         --><slot name="${INTERNAL_TOOLTIP_SLOT}"></slot><!--
     --></div>`;
