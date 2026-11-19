@@ -74,7 +74,7 @@ const SINGLE_GROUP = 'single';
  * @event wa-clear - Emitted when the clear button is activated.
  * @event wa-show - Emitted when the popup is about to open. Cancelable.
  * @event wa-after-show - Emitted after the popup opens and animations complete.
- * @event wa-hide - Emitted when the popup is about to close. Cancelable.
+ * @event wa-hide - Emitted when the popup is about to close. Cancelable, except when the time input is disabled.
  * @event wa-after-hide - Emitted after the popup closes and animations complete.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
@@ -395,12 +395,15 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
       }
       this.dispatchEvent(new WaAfterShowEvent());
     } else {
-      const hideEvent = new WaHideEvent();
+      // A disabled time input is never open, so wa-hide can't cancel the close
+      const hideEvent = new WaHideEvent(undefined, { cancelable: !this.disabled });
       this.dispatchEvent(hideEvent);
       if (hideEvent.defaultPrevented) {
         this.open = true;
         return;
       }
+      // A listener can't reopen a disabled time input
+      if (this.disabled) this.open = false;
       this.removeOpenListeners();
       await animateWithClass(this.popup.popup, 'hide');
       this.popup.active = false;

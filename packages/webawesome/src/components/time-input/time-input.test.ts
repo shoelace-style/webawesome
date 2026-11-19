@@ -380,6 +380,35 @@ describe('<wa-time-input>', () => {
       expect(el.open).to.equal(false);
     });
 
+    for (const [name, listener] of [
+      ['cancels wa-hide', (event: Event) => event.preventDefault()],
+      ['reopens it from wa-hide', (event: Event) => ((event.target as WaTimeInput).open = true)],
+    ] as const) {
+      it(`closes when disabled while open even if a listener ${name}`, async () => {
+        const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
+        el.show();
+        await waitForEvent(el, 'wa-after-show');
+        const hideEvents: Event[] = [];
+        el.addEventListener('wa-hide', event => {
+          hideEvents.push(event);
+          listener(event);
+        });
+        const afterHide = waitForEvent(el, 'wa-after-hide');
+
+        el.disabled = true;
+        await afterHide;
+        await el.updateComplete;
+
+        const popup = el.shadowRoot!.querySelector('wa-popup')!;
+        const expandButton = el.shadowRoot!.querySelector<HTMLButtonElement>('.expand-button')!;
+        expect(hideEvents).to.have.length(1);
+        expect(hideEvents[0].cancelable).to.equal(false);
+        expect(el.open).to.equal(false);
+        expect(popup.active).to.equal(false);
+        expect(expandButton.getAttribute('aria-expanded')).to.equal('false');
+      });
+    }
+
     it('renders one column per segment', async () => {
       const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-US"></wa-time-input>`);
       el.show();
