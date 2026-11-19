@@ -36,18 +36,31 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added the experimental `<wa-timeline>` and `<wa-timeline-item>` components for showing a chronological list of events, such as an order history, activity feed, or changelog [pr:2933]
+- Added the `without-fragment` attribute to `<wa-include>` to include the whole file when `src` has a hash, as it did before 3.11.0 [issue:2875] [pr:3054]
 
 :::
 
 :::fixed
 
 - Fixed a regression in `<wa-copy-button>` where adding `display: inline-flex;` caused unintended consequences. [pr:3055]
+- Fixed a bug in `<wa-color-picker>` that allowed the color to change after the picker was disabled while open [issue:3017] [pr:3018]
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
 - Fixed a bug in `<wa-radio-group>` where arrow keys and [[Space]] were taken from buttons, links, and fields placed inside the group [issue:2892] [pr:2893]
+- Fixed a bug in `<wa-select>` that let an option be selected while the listbox closed after the control was disabled [pr:2960]
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
+- Fixed a performance issue in `<wa-icon>` where pages without a Font Awesome kit code searched the DOM for one on every icon [issue:2975] [pr:3053]
+- Fixed a bug in `<wa-icon>` where icons from a sprite sheet library rendered a 300px wide `<svg>` that covered neighboring elements [issue:2918] [pr:2920]
 - Fixed a bug in `<wa-known-date>` that caused the label to sit lower than the labels of other form controls [pr:3047]
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` that caused the text to start further in than other form controls [pr:3047]
+- Fixed lifecycle bugs in `<wa-select>` [issue:2887] [pr:2888]
+  - Reopening during the hide animation now shows the listbox
+  - `show()` no longer closes an open select
+  - `show()` and `hide()` now resolve when `wa-show` or `wa-hide` is canceled
+  - Disabling an open select now hides its listbox
+  - Setting `open` on a disabled select no longer leaves it open with `aria-expanded="true"`
+  - A `<wa-dialog>` containing a select that was disabled while open closes on [[Escape]] again
 - Fixed a regression in `<wa-tab-group>` where selecting a tab, by clicking it or setting `active`, no longer scrolled it into view when the tabs overflow [issue:3042] [pr:3043]
+- Fixed a bug in `<wa-tooltip>` where reopening it during a hide or moving it in the DOM left it open but invisible, and canceled `show()` and `hide()` calls never resolved [issue:2879] [pr:2881]
 
 :::
 
@@ -308,7 +321,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Added support for including a single element by id to `<wa-include>`, either from the current page (`src="#my-id"`) or a fetched file (`src="/file.html#my-id"`)
+- Added support for including a single element by id to `<wa-include>`, either from the current page (`src="#my-id"`) or a fetched file (`src="/file.html#my-id"`) [pr:2642]
+  - A hash in a fetched `src` now selects that element instead of being ignored. To include the whole file, remove the hash, or use the `without-fragment` attribute from 3.16.0 [issue:2875]
 - Added a CSS part named after the component to every component that renders a wrapper element (e.g. `button`, `details`, `carousel`), alongside the existing `base` part. Where the component name is already used by an inner part, the wrapper takes a `-wrapper` suffix (`input-wrapper`, `textarea-wrapper`). [pr:2644]
 - Added the experimental `<wa-otp-input>` component for entering fixed-length codes — one-time passcodes, PINs, and verification codes [pr:2584]
 - Moved `<wa-toast>` and `<wa-toast-item>` from Pro to Core [pr:2631]

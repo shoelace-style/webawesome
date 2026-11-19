@@ -155,7 +155,7 @@ Most of the magic behind assets is handled internally by Web Awesome, but if you
 
 ### Using Font Awesome Pro & Pro+
 
-{{ site.siblings.fontAwesome.name }} users can provide their kit code to unlock Pro and Pro+ icon packs. You can do so by adding the `data-fa-kit-code` attribute to any element on the page, or by calling the `setKitCode()` method.
+{{ site.siblings.fontAwesome.name }} users can provide their kit code to unlock Pro and Pro+ icon packs. You can do so by adding the `data-fa-kit-code` attribute to the `<html>` element or the script that loads Web Awesome, or by calling the `setKitCode()` method. The attribute is read once, when the first icon renders, so use `setKitCode()` if the kit code is added to the page later.
 
 ```html
 <!-- Option 1: the data-fa-kit-code attribute -->
