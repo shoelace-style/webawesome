@@ -16,7 +16,7 @@ export default css`
 
     /* Layout */
     .item {
-      --_marker-size: var(--marker-size, 1em);
+      --_marker-size: var(--marker-size);
       /* How far a first line taller than the marker would rise above the item. Applied as padding so it stays inside. */
       --_line-overhang: max(0px, (1lh - var(--_marker-size)) / 2);
 
@@ -26,9 +26,9 @@ export default css`
       padding-block-start: var(--_line-overhang);
     }
 
-    /* An icon needs a bigger marker to stay legible, unless the author picked a size. */
+    /* An icon or avatar needs a bigger marker to stay legible. */
     .item.has-icon {
-      --_marker-size: var(--marker-size, 2em);
+      --_marker-size: var(--icon-marker-size);
     }
 
     .rail {

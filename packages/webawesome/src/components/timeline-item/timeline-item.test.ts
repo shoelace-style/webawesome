@@ -1,3 +1,4 @@
+import { ssrFixture } from '@lit-labs/testing/fixtures.js';
 import { expect, html, waitUntil } from '@open-wc/testing';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaTimelineItem from './timeline-item.js';
@@ -105,7 +106,7 @@ describe('<wa-timeline-item>', () => {
             ['1em', 16],
           ] as const) {
             const timeline = await fixture<HTMLElement>(html`
-              <wa-timeline style="font-size: 16px; --marker-size: ${markerSize}">
+              <wa-timeline style="font-size: 16px; --icon-marker-size: ${markerSize}">
                 <wa-timeline-item>
                   <wa-avatar slot="icon" label="Test"></wa-avatar>
                   Done
@@ -130,4 +131,30 @@ describe('<wa-timeline-item>', () => {
       });
     });
   }
+
+  describe('with server-rendered markup that has not hydrated', () => {
+    it('should draw a wider marker for a with-icon item than for a plain one', async function () {
+      if (window.CSR_ONLY) {
+        this.skip();
+      }
+
+      const timeline = await ssrFixture<HTMLElement>(
+        html`
+          <wa-timeline>
+            <wa-timeline-item>Planned</wa-timeline-item>
+            <wa-timeline-item with-icon>
+              <wa-icon slot="icon" name="check"></wa-icon>
+              Done
+            </wa-timeline-item>
+          </wa-timeline>
+        `,
+        { base: import.meta.url, modules: window.serverComponents, hydrate: false },
+      );
+      const [plainMarker, iconMarker] = [...timeline.querySelectorAll('wa-timeline-item')].map(
+        item => item.shadowRoot!.querySelector('[part~="marker"]')!,
+      );
+
+      expect(iconMarker.getBoundingClientRect().width).to.be.greaterThan(plainMarker.getBoundingClientRect().width);
+    });
+  });
 });

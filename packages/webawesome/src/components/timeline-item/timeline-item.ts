@@ -26,8 +26,10 @@ import styles from './timeline-item.styles.js';
  * @csspart content - The wrapper around the default slot.
  * @csspart opposite - The wrapper around the `opposite` slot.
  *
- * @cssproperty --marker-size - The size of the item's marker. Inherited from `<wa-timeline>`; set it here to make one
- *  item stand out.
+ * @cssproperty --marker-size - The size of the item's marker when its icon slot is empty. Inherited from
+ *  `<wa-timeline>`, where it defaults to `1em`; set it here to change it for one item.
+ * @cssproperty --icon-marker-size - The size of the item's marker when its icon slot has content, such as an icon or
+ *  avatar. Inherited from `<wa-timeline>`, where it defaults to `2em`; set it here to change it for one item.
  * @cssproperty --connector-gap - The gap between this item's marker and its connector. Inherited from `<wa-timeline>`;
  *  set it here to change it for one item. Use a length such as `0px`, not a bare `0`, to remove it.
  *

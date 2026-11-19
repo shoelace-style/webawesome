@@ -113,13 +113,13 @@ Add content to an item's `opposite` slot to show it on the other side of the rai
 ```
 
 :::info
-<strong>Rendering on the server?</strong><br />
-Add the `with-opposite` attribute to items with opposite content and the `with-icon` attribute to items with an icon, so both lay out before the page hydrates. See [Server-Side Rendering](/docs/components/timeline-item#ssr).
+<strong>Rendering on the server? Add the `with-opposite` attribute to each item that has opposite content.</strong><br />
+The opposite column is shown once the item hydrates; `with-opposite` lays it out in the server-rendered markup. See [Server-Side Rendering](/docs/components/timeline-item#ssr).
 :::
 
 ### Custom Icon
 
-Use the `icon` slot on an item to show an element, such as [`<wa-icon>`](/docs/components/icon), inside its marker. The marker keeps its variant color, and the icon takes the variant's matching foreground color. Icons are drawn at 40% of the marker's size. A marker with an icon is `2em` by default instead of `1em`, and the `--marker-size` custom property overrides it.
+Use the `icon` slot on an item to show an element, such as [`<wa-icon>`](/docs/components/icon) or an avatar, inside its marker. The icon takes the foreground color that matches the marker's variant. A marker with something in its `icon` slot is `2em` instead of `1em`. Resize it with `--icon-marker-size`, not `--marker-size`.
 
 ```html {.example}
 <wa-timeline>
@@ -140,6 +140,11 @@ Use the `icon` slot on an item to show an element, such as [`<wa-icon>`](/docs/c
   </wa-timeline-item>
 </wa-timeline>
 ```
+
+:::info
+<strong>Rendering on the server? Add the `with-icon` attribute to each item with content in its `icon` slot.</strong><br />
+The marker is sized up once the item hydrates; `with-icon` sizes it in the server-rendered markup. See [Server-Side Rendering](/docs/components/timeline-item#ssr).
+:::
 
 ### Variant
 
@@ -491,7 +496,7 @@ An item's default slot accepts any content, so an entry can hold more than a tit
 
 <style>
   .timeline-activity {
-    --marker-size: 2.5em;
+    --icon-marker-size: 2.5em;
   }
 
   .timeline-activity ul {
@@ -597,7 +602,7 @@ Sides are assigned in document order, so prepending an entry moves existing entr
 
 ### Customizing
 
-Use the exported [CSS parts](#css-parts) and [custom properties](#css-custom-properties) to restyle the timeline. Most parts, such as `marker` and `connector`, belong to `<wa-timeline-item>`, so the selector targets the items, not the timeline; see the [Timeline Item page](/docs/components/timeline-item#css-parts) for every part an item exposes. Each item can also set the `--marker-size` and `--connector-gap` custom properties for itself.
+Use the exported [CSS parts](#css-parts) and [custom properties](#css-custom-properties) to restyle the timeline. Most parts, such as `marker` and `connector`, belong to `<wa-timeline-item>`, so the selector targets the items, not the timeline; see the [Timeline Item page](/docs/components/timeline-item#css-parts) for every part an item exposes. Each item can also set the `--marker-size`, `--icon-marker-size`, and `--connector-gap` custom properties for itself.
 
 This example sets the timeline's `--gap`, `--marker-size`, and `--connector-width` custom properties, and the first entry sets a larger `--marker-size` for itself.
 

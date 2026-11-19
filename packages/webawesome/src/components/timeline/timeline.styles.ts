@@ -4,8 +4,8 @@ export default css`
   @layer wa-component {
     :host {
       --gap: var(--wa-space-l);
-      /* Blocks a --marker-size set on an ancestor, so the items fall back to their own defaults. */
-      --marker-size: initial;
+      --marker-size: 1em;
+      --icon-marker-size: 2em;
       --connector-color: var(--wa-color-neutral-fill-normal);
       --connector-width: var(--wa-border-width-m);
       --connector-gap: 0.35em;

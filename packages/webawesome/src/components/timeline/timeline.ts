@@ -27,8 +27,9 @@ const ALTERNATE_MIN_EM = 30;
  *
  * @cssproperty [--gap=var(--wa-space-l)] - The space between items. Connectors are sized from this value, so set it
  *  here instead of setting `gap` on the `timeline` part. Use a length such as `0px`, not a bare `0`, to remove it.
- * @cssproperty --marker-size - The size of each item's marker. Usually set here so every item matches. When unset,
- *  a marker is `1em`, or `2em` when its item has an icon.
+ * @cssproperty [--marker-size=1em] - The size of a marker with no icon. Usually set here so every item matches.
+ * @cssproperty [--icon-marker-size=2em] - The size of a marker whose item has content in its icon slot, such as an icon
+ *  or avatar. Usually set here so every item matches.
  * @cssproperty [--connector-color=var(--wa-color-neutral-fill-normal)] - The color of the connector line.
  * @cssproperty [--connector-width=var(--wa-border-width-m)] - The thickness of the connector line, in either
  *  orientation.
