@@ -1058,6 +1058,32 @@ describe('<wa-dropdown>', () => {
       expect(item('documents').submenuOpen).to.be.false;
       expect(item('documents').getAttribute('aria-expanded')).to.equal('false');
     });
+
+    it('should focus submenu items forwarded through a slot', async () => {
+      await sendMouse({ type: 'move', position: corner() });
+      const host = await clientFixture<HTMLDivElement>(
+        html`<div><wa-dropdown-item id="forwarded">Forwarded option</wa-dropdown-item></div>`,
+      );
+      const shadow = host.attachShadow({ mode: 'open' });
+      shadow.innerHTML = `
+        <wa-dropdown style="--show-duration: 0ms; --hide-duration: 0ms;">
+          <button slot="trigger">Menu</button>
+          <wa-dropdown-item id="parent">More options<slot slot="submenu"></slot></wa-dropdown-item>
+        </wa-dropdown>
+      `;
+      const el = shadow.querySelector<WaDropdown>('wa-dropdown')!;
+      const parentItem = shadow.querySelector<WaDropdownItem>('#parent')!;
+      await parentItem.updateComplete;
+      const shown = oneEvent(el, 'wa-after-show');
+      el.open = true;
+      await shown;
+
+      await sendMouse({ type: 'move', position: center(parentItem) });
+      await waitUntil(() => parentItem.submenuOpen);
+      await aTimeout(100);
+
+      expect(document.activeElement?.id).to.equal('forwarded');
+    });
   });
 
   describe('submenu positioning', () => {

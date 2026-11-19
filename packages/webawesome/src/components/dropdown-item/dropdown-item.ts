@@ -345,11 +345,11 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
   /** Gets all dropdown items in the submenu. */
   private getSubmenuItems(): WaDropdownItem[] {
-    // Only get direct children with slot="submenu", not nested ones
-    return [...this.children].filter(
-      el =>
-        el.localName === 'wa-dropdown-item' && el.getAttribute('slot') === 'submenu' && !el.hasAttribute('disabled'),
-    ) as WaDropdownItem[];
+    const slot = this.submenuElement?.querySelector<HTMLSlotElement>('slot[name="submenu"]');
+    return (slot?.assignedElements({ flatten: true }) ?? []).filter(
+      (element): element is WaDropdownItem =>
+        element.localName === 'wa-dropdown-item' && !(element as WaDropdownItem).disabled,
+    );
   }
 
   /** Prevents click events from firing on the host when the item is disabled (e.g. programmatic .click() calls). */

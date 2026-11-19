@@ -49,6 +49,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed bugs in `<wa-dropdown>` submenu keyboard navigation [issue:2880]
   - Fixed arrow keys moving through a submenu that had closed, such as after hovering from one submenu to another
   - Fixed nested submenus staying open after the dropdown closed
+  - Fixed submenu items forwarded through a slot not getting focus when the submenu opened
 - Fixed a bug in `<wa-known-date>` that caused the label to sit lower than the labels of other form controls [pr:3047]
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` that caused the text to start further in than other form controls [pr:3047]
 - Fixed a regression in `<wa-tab-group>` where selecting a tab, by clicking it or setting `active`, no longer scrolled it into view when the tabs overflow [issue:3042] [pr:3043]
