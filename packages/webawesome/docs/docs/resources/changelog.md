@@ -48,6 +48,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-known-date>` that caused the label to sit lower than the labels of other form controls [pr:3047]
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` that caused the text to start further in than other form controls [pr:3047]
 - Fixed a regression in `<wa-tab-group>` where selecting a tab, by clicking it or setting `active`, no longer scrolled it into view when the tabs overflow [issue:3042] [pr:3043]
+- Fixed a bug in `<wa-tooltip>` where reopening it during a hide or moving it in the DOM left it open but invisible, and canceled `show()` and `hide()` calls never resolved [issue:2879] [pr:2881]
 
 :::
 
