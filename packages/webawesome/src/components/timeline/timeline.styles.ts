@@ -52,7 +52,7 @@ export default css`
       grid-template-columns: none;
       grid-template-rows: [opposite-start] auto [opposite-end rail-start] auto [rail-end content-start] auto [content-end];
       row-gap: 0;
-      column-gap: var(--gap);
+      column-gap: 0;
     }
 
     :host([orientation='horizontal']) ::slotted(wa-timeline-item) {
@@ -60,6 +60,11 @@ export default css`
       grid-template-rows: subgrid;
       grid-column: auto;
       grid-row: 1 / -1;
+    }
+
+    /* Middle items take two columns and the end items one, so the end items can sit against the edges. */
+    :host([orientation='horizontal']) ::slotted(wa-timeline-item:not(:first-of-type):not(:last-of-type)) {
+      grid-column: span 2;
     }
   }
 `;

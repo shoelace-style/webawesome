@@ -138,6 +138,7 @@ export default css`
       grid-row: opposite;
       margin-inline: 0;
       margin-block: 0 0.5em;
+      padding-inline: calc(var(--gap) / 2);
       text-align: center;
     }
 
@@ -157,6 +158,7 @@ export default css`
       grid-row: content;
       margin-inline: 0;
       margin-block: 0.5em 0;
+      padding-inline: calc(var(--gap) / 2);
     }
 
     :host([data-wa-timeline-horizontal]) .connector {
@@ -167,11 +169,40 @@ export default css`
     }
 
     :host([data-wa-timeline-horizontal]) .connector-start {
-      inset-inline: calc(-1 * var(--gap) / 2) calc(50% + var(--_marker-size) / 2 + var(--connector-gap));
+      inset-inline: 0 calc(50% + var(--_marker-size) / 2 + var(--connector-gap));
     }
 
     :host([data-wa-timeline-horizontal]) .connector-end {
-      inset-inline: calc(50% + var(--_marker-size) / 2 + var(--connector-gap)) calc(-1 * var(--gap) / 2);
+      inset-inline: calc(50% + var(--_marker-size) / 2 + var(--connector-gap)) 0;
+    }
+
+    /* The first item hugs the start edge and the last item hugs the end edge. A lone item follows the first. */
+    :host([data-wa-timeline-horizontal]:first-of-type) .rail {
+      align-items: flex-start;
+    }
+
+    :host([data-wa-timeline-horizontal]:first-of-type) .content,
+    :host([data-wa-timeline-horizontal]:first-of-type) .opposite {
+      padding-inline-start: 0;
+      text-align: start;
+    }
+
+    :host([data-wa-timeline-horizontal]:first-of-type) .connector-end {
+      inset-inline-start: calc(var(--_marker-size) + var(--connector-gap));
+    }
+
+    :host([data-wa-timeline-horizontal]:last-of-type:not(:first-of-type)) .rail {
+      align-items: flex-end;
+    }
+
+    :host([data-wa-timeline-horizontal]:last-of-type:not(:first-of-type)) .content,
+    :host([data-wa-timeline-horizontal]:last-of-type:not(:first-of-type)) .opposite {
+      padding-inline-end: 0;
+      text-align: end;
+    }
+
+    :host([data-wa-timeline-horizontal]:last-of-type:not(:first-of-type)) .connector-start {
+      inset-inline-end: calc(var(--_marker-size) + var(--connector-gap));
     }
 
     /* End placement */
