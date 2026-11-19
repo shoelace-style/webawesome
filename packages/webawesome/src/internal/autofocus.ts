@@ -17,7 +17,7 @@ if (!isServer) {
  * first render.
  *
  * Like a browser, this does nothing once anything in the document has taken focus, when the URL's fragment points to
- * an element, or in a cross-origin frame.
+ * an element, or in a cross-origin frame. It also does nothing once the user has interacted with the page.
  */
 export async function autofocus(element: HTMLElement) {
   // An ancestor that isn't defined yet hasn't hidden its content (a closed dialog, an inactive tab panel). Focusing
@@ -26,6 +26,7 @@ export async function autofocus(element: HTMLElement) {
   // focus isn't rendered during `firstUpdated()`. An ancestor that's never defined never resolves, so it never focuses.
   await allDefined({
     match: tagName => tagName.startsWith('wa-') && element.closest(tagName) !== null,
+    root: element.getRootNode() as Document | ShadowRoot,
     timeout: Infinity,
   });
 
@@ -39,8 +40,11 @@ export async function autofocus(element: HTMLElement) {
 
   const hasFocus = topDocument.activeElement !== topDocument.body;
   const hasTarget = [document, topDocument].some(doc => doc.querySelector(':target'));
+  // Catches a click or key press from before this module loaded, which the focusin listener missed. Activation in a
+  // frame also activates the top window.
+  const hasInteracted = window.top!.navigator.userActivation?.hasBeenActive;
 
-  if (!isDone && !hasFocus && !hasTarget) {
+  if (!isDone && !hasFocus && !hasTarget && !hasInteracted) {
     // A popover is shown in-viewport, so focusing inside it must never scroll the page.
     element.focus({ preventScroll: element.closest('wa-popover') !== null });
   }
