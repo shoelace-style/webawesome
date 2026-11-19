@@ -1,7 +1,6 @@
 ---
 title: Astro
-description: Tips for using Web Awesome in your Astro app.
-ogDescription: "Add Web Awesome to an Astro site, server-side rendering included."
+description: Add Web Awesome to an Astro site, server-side rendering included.
 layout: framework
 officialDocs: https://docs.astro.build
 ---

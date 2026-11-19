@@ -50,6 +50,7 @@
     "contenteditable",
     "copydir",
     "Cotte",
+    "countup",
     "coverpage",
     "crossorigin",
     "crutchcorn",
@@ -135,6 +136,8 @@
     "Krabs",
     "labelledby",
     "Laravel",
+    "lightbox",
+    "lightboxes",
     "linkify",
     "listbox",
     "listitem",
@@ -257,6 +260,7 @@
     "tinycolor",
     "touchcancel",
     "touchend",
+    "trailhead",
     "transitionend",
     "treegrid",
     "treeitem",
@@ -286,6 +290,7 @@
     "weeknumber",
     "weeknumbers",
     "xmark",
+    "Zarya",
     "zoomable"
   ],
   "ignorePaths": [

@@ -1,7 +1,6 @@
 ---
 title: Express
-description: Tips for using Web Awesome in your Express app.
-ogDescription: "Serve Web Awesome from Express. Covers server-side rendering and plugging into a view engine."
+description: Serve Web Awesome from Express. Covers server-side rendering and plugging into a view engine.
 layout: framework
 officialDocs: https://expressjs.com
 ---

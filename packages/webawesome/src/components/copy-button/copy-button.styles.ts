@@ -7,7 +7,9 @@ export default css`
   }
 
   .copy-button__trigger {
+    display: inline-flex;
     position: relative;
+    vertical-align: middle;
   }
 
   .button {

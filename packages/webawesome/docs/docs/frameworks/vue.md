@@ -1,7 +1,6 @@
 ---
 title: Vue 3
-description: Tips for using Web Awesome in your Vue 3 app.
-ogDescription: "Configure Vue 3 for Web Awesome, with types, slots, SSR, and why v-model only sometimes works."
+description: Configure Vue 3 for Web Awesome, with types, slots, SSR, and why v-model only sometimes works.
 layout: framework
 officialDocs: https://vuejs.org
 ---

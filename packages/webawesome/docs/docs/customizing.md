@@ -1,6 +1,6 @@
 ---
 title: Customizing & Theming
-description: Learn how to customize Web Awesome through themes, parts, custom properties, and custom states.
+description: Start with a theme. Then style single components with CSS parts, custom properties, and custom states.
 layout: page-outline
 synonyms:
   - styling
