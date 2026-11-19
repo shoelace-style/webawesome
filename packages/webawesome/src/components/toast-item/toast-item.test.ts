@@ -238,6 +238,38 @@ describe('<wa-toast-item>', () => {
           expect(hideHandler).to.have.been.calledOnce;
         });
 
+        it('should stay open when shown under the pointer', async () => {
+          const el = await fixture<WaToastItem>(html`<wa-toast-item duration="100">Test message</wa-toast-item>`);
+          const hideHandler = sinon.spy();
+
+          el.addEventListener('wa-hide', hideHandler);
+
+          // The pointer is already where the toast appears
+          await moveMouseOnElement(el);
+          await el.startTimer();
+          await aTimeout(300);
+
+          expect(hideHandler).to.not.have.been.called;
+        });
+
+        it('should pause again when the pointer leaves during the show animation and comes back', async () => {
+          const el = await fixture<WaToastItem>(
+            html`<wa-toast-item duration="400" style="--show-duration: 300ms">Test message</wa-toast-item>`,
+          );
+          const hideHandler = sinon.spy();
+
+          el.addEventListener('wa-hide', hideHandler);
+
+          await moveMouseOnElement(el);
+          const shown = el.startTimer();
+          await moveMouseOnElement(el, 'bottom', 0, 50);
+          await shown;
+          await moveMouseOnElement(el);
+          await aTimeout(600);
+
+          expect(hideHandler).to.not.have.been.called;
+        });
+
         it('should not pause timer for touch events', async () => {
           const el = await fixture<WaToastItem>(html`<wa-toast-item duration="100">Test message</wa-toast-item>`);
           const hideHandler = sinon.spy();
