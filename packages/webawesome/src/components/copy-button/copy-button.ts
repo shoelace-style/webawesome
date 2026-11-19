@@ -385,7 +385,7 @@ export default class WaCopyButton extends WebAwesomeElement {
       showTooltip = false;
     }
 
-    // Significant whitespace is getting "fixed" by Prettier, but its important to tell Prettier to stop doing that because Lindsay complained about an extra 4px of width due to whitespace :D
+    // Significant whitespace is getting "fixed" by Prettier, but its important to tell Prettier to stop doing that because Lindsay (@omnifides) complained about an extra 4px of width due to whitespace :D
     // prettier-ignore
     return html` <div part="trigger" class="copy-button__trigger" @click=${this.handleCopy}><!--
   --><slot @slotchange=${this.handleDefaultSlotChange}></slot><!--
