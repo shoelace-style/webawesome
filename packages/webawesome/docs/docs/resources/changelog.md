@@ -1,7 +1,7 @@
 ---
 title: Changelog
-description: Changes to each version of the project are documented here.
 layout: page-outline
+ogKicker: Changelog
 ---
 
 {% from "macros/component-badges.njk" import statusBadge %}
@@ -31,6 +31,39 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+<!-- When you cut a release, add a summary: comment under the new version heading. It becomes the page description and the share card text. Keep it under 130 characters. See 3.15.0 for the form. -->
+
+:::added
+
+- Added the experimental `<wa-timeline>` and `<wa-timeline-item>` components for showing a chronological list of events, such as an order history, activity feed, or changelog [pr:2933]
+
+:::
+
+:::fixed
+
+- Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
+- Fixed a bug in `<wa-radio-group>` where arrow keys and [[Space]] were taken from buttons, links, and fields placed inside the group [issue:2892] [pr:2893]
+- Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
+- Fixed a performance issue in `<wa-icon>` where pages without a Font Awesome kit code searched the DOM for one on every icon [issue:2975] [pr:3053]
+- Fixed a bug in `<wa-known-date>` that caused the label to sit lower than the labels of other form controls [pr:3047]
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` that caused the text to start further in than other form controls [pr:3047]
+- Fixed a regression in `<wa-tab-group>` where selecting a tab, by clicking it or setting `active`, no longer scrolled it into view when the tabs overflow [issue:3042] [pr:3043]
+
+:::
+
+:::changed
+
+- Improved spacing in `<wa-chart>` and its variants with more room below the title and between legend items [pr:3045]
+- Improved readability of `<wa-polar-area-chart>` and `<wa-radar-chart>` by hiding the scale's tick labels, which crossed the data; set `options.scales.r.ticks.display` to `true` to show them [pr:3045]
+
+:::
+
+## 3.15.0
+
+<!-- summary: 3.15 adds five new components: lightbox, code highlighter, counter, number ticker, and a rich text editor for Pro. -->
+
+<small><time datetime="2026-11-17">November 17th, 2026</time></small>
+
 :::added
 
 - Added the experimental `<wa-rich-text-editor>` pro component for writing and formatting content, with HTML or Markdown values that submit with forms [pr:2958]
@@ -39,6 +72,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - Added the `--wa-color-overlay-media` token for its backdrop
 - Added the experimental `<wa-code-highlighter>` component for displaying syntax-highlighted code with a copy button [pr:2940]
   - Added `registerCodeGrammar()` for adding or replacing grammars
+- Added the experimental `<wa-counter>` component for counting down to a date or up from one, with localized unit labels [pr:3035]
+- Added the experimental `<wa-number-ticker>` component for counting up or down to a number as it scrolls into view [pr:3031]
 - Added the ability to change the default icon family and variant for all icons [pr:2978]
   - Added the `data-fa-family` and `data-fa-variant` attributes
   - Added an optional `variant` argument to `setDefaultIconFamily()`
@@ -132,6 +167,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
+- Added the experimental `<wa-code-highlighter>` component for displaying syntax-highlighted code with a copy button [pr:2940]
 - Added the experimental `<wa-stepper>` and `<wa-step>` components [pr:2794]
 - Added a `nonce` attribute to `<wa-page>` and falls back to using `window.litNonce` if `nonce` is not set directly for first render. [pr:2779]
 - Added the `with-label` attribute to `<wa-dialog>` and `<wa-drawer>` for server-side rendering [pr:2846]

@@ -343,7 +343,7 @@ export default class WaTabGroup extends WebAwesomeElement {
 
       this.panels.forEach(el => (el.active = el.name === this.activeTab?.panel));
 
-      if (['top', 'bottom'].includes(this.placement) && !options.scroll) {
+      if (['top', 'bottom'].includes(this.placement) && options.scroll) {
         scrollIntoView(this.activeTab, this.nav, 'horizontal', options.scrollBehavior);
       }
 

@@ -54,7 +54,7 @@ function getHighlight(category: string) {
  *  commands, and configuration snippets.
  * @documentation https://webawesome.com/docs/components/code-highlighter
  * @status experimental
- * @since 3.15
+ * @since 3.14
  *
  * @dependency wa-copy-button
  *

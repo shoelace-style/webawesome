@@ -210,7 +210,6 @@ export default css`
 
   .segment {
     display: inline-block;
-    padding: 0 0.15em;
     margin: 0;
     background: transparent;
     border: none;

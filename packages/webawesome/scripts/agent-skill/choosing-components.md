@@ -15,8 +15,8 @@ The major decisions:
 - **Trigger an action** — button, copy button, dropdown menu, button group, tabs
 - **Show feedback or status** — callout, toast, badge, spinner, progress, skeleton, tooltip, popover
 - **Capture input** — input, number input, textarea, date/time inputs, OTP input, file input (Pro)
-- **Show data** — format helpers, relative time, QR code, comparison, carousel, avatar, data grid (Pro), charts (Pro)
-- **Navigate or organize** — page, breadcrumb, tabs, accordion, details, tree, pagination, split panel, divider, card, tag, badge
+- **Show data** — format helpers, number ticker, relative time, counter, QR code, comparison, carousel, avatar, timeline, data grid (Pro), charts (Pro)
+- **Navigate or organize** — page, breadcrumb, tabs, accordion, details, tree, pagination, stepper, split panel, divider, card, tag, badge
 - **Overlay or float** — dialog, drawer, tooltip, popover, dropdown
 
 **Check the project first.** If the codebase already has a wrapper, class, or house recipe for the thing you
@@ -138,28 +138,31 @@ association behavior.
 
 Read-only data display.
 
-| You need…                                                     | Use                                                                                      |
-| ------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Format a number with locale-aware rules                       | `<wa-format-number>`                                                                     |
-| Format a date with locale-aware rules                         | `<wa-format-date>`                                                                       |
-| Format a byte count                                           | `<wa-format-bytes>`                                                                      |
-| Show a time as "5 minutes ago" (relative, live)               | `<wa-relative-time>`                                                                     |
-| A QR code                                                     | `<wa-qr-code>`                                                                           |
-| Side-by-side image comparison                                 | `<wa-comparison>`                                                                        |
-| A carousel / slideshow                                        | `<wa-carousel>` with `<wa-carousel-item>`                                                |
-| A full-screen image / video viewer opened from thumbnails     | `<wa-lightbox>` with `<wa-lightbox-item>`                                                |
-| An iframe with zoom controls                                  | `<wa-zoomable-frame>`                                                                    |
-| A user avatar                                                 | `<wa-avatar>`                                                                            |
-| A simple, static table                                        | A native `<table>` (Web Awesome's native styles theme it)                                |
-| A sortable, filterable, selectable data table                 | `<wa-data-grid>` **(Pro)**                                                               |
-| Horizontally overflowing content (wide table, strip of cards) | `<wa-scroller>`                                                                          |
-| An animation                                                  | `<wa-animation>`                                                                         |
-| Markdown content rendered inline                              | `<wa-markdown>`                                                                          |
-| A syntax-highlighted code block                               | `<wa-code-highlighter>`                                                                  |
-| Include external HTML                                         | `<wa-include>`                                                                           |
-| A small inline trend chart                                    | `<wa-sparkline>` **(Pro)**                                                               |
-| A data chart (bar, line, pie, donut, radar, etc.)             | The chart family **(Pro)** — `<wa-bar-chart>`, `<wa-line-chart>`, `<wa-pie-chart>`, etc. |
-| A video player                                                | `<wa-video>` or `<wa-video-playlist>` **(Pro)**                                          |
+| You need…                                                                | Use                                                                                      |
+| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| Format a number with locale-aware rules                                  | `<wa-format-number>`                                                                     |
+| Format a date with locale-aware rules                                    | `<wa-format-date>`                                                                       |
+| Format a byte count                                                      | `<wa-format-bytes>`                                                                      |
+| A number that counts up or down to its value (stats, totals)             | `<wa-number-ticker>`                                                                     |
+| Show a time as "5 minutes ago" (relative, live)                          | `<wa-relative-time>`                                                                     |
+| A live countdown to a date, or time elapsed since one                    | `<wa-counter>`                                                                           |
+| A QR code                                                                | `<wa-qr-code>`                                                                           |
+| Side-by-side image comparison                                            | `<wa-comparison>`                                                                        |
+| A carousel / slideshow                                                   | `<wa-carousel>` with `<wa-carousel-item>`                                                |
+| A full-screen image / video viewer opened from thumbnails                | `<wa-lightbox>` with `<wa-lightbox-item>`                                                |
+| An iframe with zoom controls                                             | `<wa-zoomable-frame>`                                                                    |
+| A user avatar                                                            | `<wa-avatar>`                                                                            |
+| A chronological list of events (order history, activity feed, changelog) | `<wa-timeline>` with `<wa-timeline-item>`                                                |
+| A simple, static table                                                   | A native `<table>` (Web Awesome's native styles theme it)                                |
+| A sortable, filterable, selectable data table                            | `<wa-data-grid>` **(Pro)**                                                               |
+| Horizontally overflowing content (wide table, strip of cards)            | `<wa-scroller>`                                                                          |
+| An animation                                                             | `<wa-animation>`                                                                         |
+| Markdown content rendered inline                                         | `<wa-markdown>`                                                                          |
+| A syntax-highlighted code block                                          | `<wa-code-highlighter>`                                                                  |
+| Include external HTML                                                    | `<wa-include>`                                                                           |
+| A small inline trend chart                                               | `<wa-sparkline>` **(Pro)**                                                               |
+| A data chart (bar, line, pie, donut, radar, etc.)                        | The chart family **(Pro)** — `<wa-bar-chart>`, `<wa-line-chart>`, `<wa-pie-chart>`, etc. |
+| A video player                                                           | `<wa-video>` or `<wa-video-playlist>` **(Pro)**                                          |
 
 ---
 
@@ -167,20 +170,21 @@ Read-only data display.
 
 Structuring content or moving between views.
 
-| You need…                                             | Use                                                 |
-| ----------------------------------------------------- | --------------------------------------------------- |
-| The page-level frame (header, sidebar, main, footer)  | `<wa-page>` — see the `webawesome-design` skill     |
-| Breadcrumb trail                                      | `<wa-breadcrumb>` with `<wa-breadcrumb-item>`       |
-| Switch between sections inline                        | `<wa-tab-group>` with `<wa-tab>` + `<wa-tab-panel>` |
-| A single expandable disclosure                        | `<wa-details>`                                      |
-| A stack of related disclosures (FAQ, settings groups) | `<wa-accordion>` with `<wa-accordion-item>`         |
-| Paging through a long list                            | `<wa-pagination>`                                   |
-| Two resizable side-by-side panes                      | `<wa-split-panel>`                                  |
-| Tree navigation (hierarchical lists)                  | `<wa-tree>` with `<wa-tree-item>`                   |
-| Visual separator between sections                     | `<wa-divider>`                                      |
-| Group of related content as a card                    | `<wa-card>`                                         |
-| Inline label (interactive)                            | `<wa-tag>` — removable, supports actions            |
-| Inline status indicator (non-interactive)             | `<wa-badge>` — small status pill                    |
+| You need…                                                                  | Use                                                 |
+| -------------------------------------------------------------------------- | --------------------------------------------------- |
+| The page-level frame (header, sidebar, main, footer)                       | `<wa-page>` — see the `webawesome-design` skill     |
+| Breadcrumb trail                                                           | `<wa-breadcrumb>` with `<wa-breadcrumb-item>`       |
+| Switch between sections inline                                             | `<wa-tab-group>` with `<wa-tab>` + `<wa-tab-panel>` |
+| A single expandable disclosure                                             | `<wa-details>`                                      |
+| A stack of related disclosures (FAQ, settings groups)                      | `<wa-accordion>` with `<wa-accordion-item>`         |
+| Paging through a long list                                                 | `<wa-pagination>`                                   |
+| Progress through a multi-step process (checkout, onboarding, setup wizard) | `<wa-stepper>` with `<wa-step>`                     |
+| Two resizable side-by-side panes                                           | `<wa-split-panel>`                                  |
+| Tree navigation (hierarchical lists)                                       | `<wa-tree>` with `<wa-tree-item>`                   |
+| Visual separator between sections                                          | `<wa-divider>`                                      |
+| Group of related content as a card                                         | `<wa-card>`                                         |
+| Inline label (interactive)                                                 | `<wa-tag>` — removable, supports actions            |
+| Inline status indicator (non-interactive)                                  | `<wa-badge>` — small status pill                    |
 
 **Details vs. accordion.** Details = one independent disclosure. Accordion = a group of them that share
 styling and can open one at a time. Three or more `<wa-details>` in a row usually want to be an accordion.
