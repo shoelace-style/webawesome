@@ -1,5 +1,6 @@
 import { html, isServer, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import '../timeline-item/timeline-item.js';
@@ -30,19 +31,25 @@ import styles from './timeline.styles.js';
  *
  * @ssr - During SSR, `<wa-timeline>` can't reach its items, so each item renders with the default start placement and
  *  start alignment until it hydrates. The list itself follows `orientation` and `marker-placement` right away, so a
- *  horizontal or alternating timeline doesn't lay out correctly until then.
+ *  horizontal or alternating timeline doesn't lay out correctly until then. A server-rendered alternating timeline also
+ *  starts out alternating and only stacks after it hydrates, if it's too narrow.
  */
 @customElement('wa-timeline')
 export default class WaTimeline extends WebAwesomeElement {
   static css = [styles];
+
+  private resizeObserver?: ResizeObserver;
+
+  @state() private isAlternateTooNarrow = false;
 
   /** The timeline's layout direction. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'vertical';
 
   /**
    * Which side of each item's content the marker sits on. `start` puts the marker before the content and `end` puts
-   * it after. `alternate` switches sides on every other item, so the rail runs down the middle. Only applies when
-   * `orientation` is `vertical`.
+   * it after. `alternate` switches sides on every other item, so the rail runs down the middle. An alternating timeline
+   * narrower than 30em lays every item out like `start` until it has room. Only applies when `orientation` is
+   * `vertical`.
    */
   @property({ attribute: 'marker-placement', reflect: true }) markerPlacement: 'start' | 'end' | 'alternate' = 'start';
 
@@ -65,6 +72,22 @@ export default class WaTimeline extends WebAwesomeElement {
     this.updateComplete.then(() => {
       if (this.isConnected) this.syncItems();
     });
+
+    this.resizeObserver = new ResizeObserver(entries => {
+      // Stacking changes the timeline's height, so apply it on the next frame to keep the observer from reporting an
+      // undelivered-notifications loop.
+      requestAnimationFrame(() => {
+        for (const entry of entries) {
+          this.updateStacking(entry.borderBoxSize[0].inlineSize);
+        }
+      });
+    });
+    this.resizeObserver.observe(this);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.resizeObserver?.disconnect();
   }
 
   private handleSlotChange() {
@@ -75,16 +98,43 @@ export default class WaTimeline extends WebAwesomeElement {
     return [...this.children].filter(el => el.localName === 'wa-timeline-item') as WaTimelineItem[];
   }
 
+  /**
+   * Decides whether an alternating timeline stacks at the given width. Below 30em, the columns on either side of
+   * the rail get too narrow to read.
+   */
+  private updateStacking(width: number) {
+    if (this.markerPlacement !== 'alternate' || !this.isLaidOutVertically()) {
+      this.isAlternateTooNarrow = false;
+      return;
+    }
+
+    const fontSize = parseFloat(getComputedStyle(this).fontSize);
+    this.isAlternateTooNarrow = width < fontSize * 30;
+  }
+
+  private isLaidOutVertically() {
+    return this.orientation !== 'horizontal';
+  }
+
+  private isAlternating() {
+    return this.isLaidOutVertically() && this.markerPlacement === 'alternate' && !this.isAlternateTooNarrow;
+  }
+
   /** Hands each item its layout as `data-wa-timeline-*` attributes. */
   private syncItems() {
     const items = this.getAllItems();
-    const isVertical = this.orientation !== 'horizontal';
+
+    // Measure now rather than waiting for the observer, so a narrow timeline never draws one frame alternating.
+    // offsetWidth ignores transforms, so a dialog scaling in doesn't make the timeline read as narrow.
+    this.updateStacking(this.offsetWidth);
+
+    const isVertical = this.isLaidOutVertically();
+    const isAlternating = this.isAlternating();
 
     items.forEach((item, index) => {
       let placement = '';
       if (isVertical && this.markerPlacement === 'end') placement = 'end';
-      if (isVertical && this.markerPlacement === 'alternate')
-        placement = index % 2 === 0 ? 'alternate-start' : 'alternate-end';
+      if (isAlternating) placement = index % 2 === 0 ? 'alternate-start' : 'alternate-end';
 
       item.toggleAttribute('data-wa-timeline-horizontal', !isVertical);
       item.toggleAttribute('data-wa-timeline-center', isVertical && this.markerAlignment === 'center');
@@ -96,14 +146,26 @@ export default class WaTimeline extends WebAwesomeElement {
     });
   }
 
-  @watch(['orientation', 'markerPlacement', 'markerAlignment'], { waitUntilFirstUpdate: true })
+  @watch(['orientation', 'markerPlacement', 'markerAlignment', 'isAlternateTooNarrow'], { waitUntilFirstUpdate: true })
   handleLayoutChange() {
     this.syncItems();
   }
 
   render() {
+    const isVertical = this.isLaidOutVertically();
+
     return html`
-      <ol part="timeline" class="timeline" role="list" aria-label=${this.label || nothing}>
+      <ol
+        part="timeline"
+        class=${classMap({
+          timeline: true,
+          row: !isVertical,
+          end: isVertical && this.markerPlacement === 'end',
+          alternating: this.isAlternating(),
+        })}
+        role="list"
+        aria-label=${this.label || nothing}
+      >
         <slot @slotchange=${this.handleSlotChange}></slot>
       </ol>
     `;

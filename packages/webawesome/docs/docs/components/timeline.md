@@ -274,7 +274,7 @@ The `marker-placement` attribute sets where each marker sits relative to its ite
 </wa-timeline>
 ```
 
-Set it to `alternate` to switch sides item by item, so the rail runs down the middle, which suits a wide timeline.
+Set it to `alternate` to switch sides item by item, so the rail runs down the middle, which suits a wide timeline. When the timeline is narrower than 30em, it lays every item out on the start side until it has room again.
 
 ```html {.example}
 <wa-timeline marker-placement="alternate">
