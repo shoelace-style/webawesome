@@ -278,6 +278,91 @@ describe('<wa-input>', () => {
           expect(keydownHandler).to.have.been.calledOnce;
           expect(submitHandler).to.not.have.been.called;
         });
+
+        it('should not submit the form when pressing enter and the submit button is disabled', async () => {
+          const form = await fixture<HTMLFormElement>(
+            html`<form><wa-input></wa-input><wa-button type="submit" disabled>Submit</wa-button></form>`,
+          );
+          const input = form.querySelector('wa-input')!;
+          const submitHandler = sinon.spy((event: SubmitEvent) => event.preventDefault());
+
+          form.addEventListener('submit', submitHandler);
+          input.focus();
+          await sendKeys({ press: 'Enter' });
+          await aTimeout(50);
+
+          expect(submitHandler).to.not.have.been.called;
+        });
+
+        it('should not submit the form when pressing enter and an associated submit button outside the form is disabled', async () => {
+          const el = await fixture<HTMLElement>(html`
+            <div>
+              <form id="f"><wa-input></wa-input></form>
+              <button type="submit" form="f" disabled>Submit</button>
+            </div>
+          `);
+          const form = el.querySelector('form')!;
+          const input = el.querySelector('wa-input')!;
+          const submitHandler = sinon.spy((event: SubmitEvent) => event.preventDefault());
+
+          form.addEventListener('submit', submitHandler);
+          input.focus();
+          await sendKeys({ press: 'Enter' });
+          await aTimeout(50);
+
+          expect(submitHandler).to.not.have.been.called;
+        });
+
+        it('should not submit the form when pressing enter and the first submit button is disabled', async () => {
+          const form = await fixture<HTMLFormElement>(html`
+            <form>
+              <wa-input></wa-input>
+              <wa-input></wa-input>
+              <button type="submit" disabled>First</button>
+              <button type="submit">Second</button>
+            </form>
+          `);
+          const input = form.querySelector('wa-input')!;
+          const submitHandler = sinon.spy((event: SubmitEvent) => event.preventDefault());
+
+          form.addEventListener('submit', submitHandler);
+          input.focus();
+          await sendKeys({ press: 'Enter' });
+          await aTimeout(50);
+
+          expect(submitHandler).to.not.have.been.called;
+        });
+
+        it('should submit through the submit button when pressing enter', async () => {
+          const form = await fixture<HTMLFormElement>(
+            html`<form><wa-input></wa-input><button type="submit" name="action" value="save">Save</button></form>`,
+          );
+          const input = form.querySelector('wa-input')!;
+          const button = form.querySelector('button')!;
+          const submitHandler = sinon.spy((event: SubmitEvent) => event.preventDefault());
+
+          form.addEventListener('submit', submitHandler);
+          input.focus();
+          await sendKeys({ press: 'Enter' });
+          await waitUntil(() => submitHandler.calledOnce);
+
+          expect(submitHandler.firstCall.args[0].submitter).to.equal(button);
+        });
+
+        it('should submit the form when pressing enter with a hidden input and no submit button', async () => {
+          const form = await fixture<HTMLFormElement>(
+            html`<form><input type="hidden" name="extra" value="1" /><wa-input></wa-input></form>`,
+          );
+          const input = form.querySelector('wa-input')!;
+          const submitHandler = sinon.spy((event: SubmitEvent) => event.preventDefault());
+
+          form.addEventListener('submit', submitHandler);
+          input.focus();
+          await sendKeys({ press: 'Enter' });
+          await waitUntil(() => submitHandler.calledOnce);
+
+          expect(submitHandler).to.have.been.calledOnce;
+        });
       });
 
       describe('form integration', () => {
@@ -501,6 +586,28 @@ describe('<wa-input>', () => {
 
           expect(el.checkValidity()).to.be.false;
           expect(el.validity.tooLong).to.be.true;
+        });
+
+        it('Should properly update validity on required attribute change', async () => {
+          const form = await fixture<HTMLFormElement>(html`
+            <form>
+              <wa-input></wa-input>
+            </form>
+          `);
+
+          const input = form.querySelector('wa-input') as WaInput;
+
+          const valueMissing = () => input.validity.valueMissing;
+
+          expect(valueMissing()).to.equal(false);
+
+          input.required = true;
+          await input.updateComplete;
+          expect(valueMissing()).to.equal(true);
+
+          input.required = false;
+          await input.updateComplete;
+          expect(valueMissing()).to.equal(false);
         });
       });
 

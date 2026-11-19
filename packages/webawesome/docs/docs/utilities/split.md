@@ -116,6 +116,58 @@ Items can be split across a row or a column by appending `:row` or `:column` to 
 </div>
 ```
 
+## Column Height
+
+A column split spreads its items across the height its container gives it. Whether it gets that height depends on how the container lays out its children:
+
+| Container                                             | Layout      | Column split                 |
+| ----------------------------------------------------- | ----------- | ---------------------------- |
+| `wa-flank`, `wa-cluster`, `wa-grid`, `wa-split`       | Row or grid | Fills the container's height |
+| `wa-stack`                                            | Column      | Shrinks to fit its items     |
+| The `body` part of a drawer or dialog, plain elements | Block       | Shrinks to fit its items     |
+
+To fill a stack, add `flex-grow: 1` to the split. To fill a block container, also make the container a flex column. In a drawer or dialog, that container is the `body` part:
+
+```html {.example}
+<wa-drawer label="Without the Fix" id="split-drawer-without-fix">
+  <div class="wa-split:column">
+    <nav class="wa-stack">
+      <wa-button appearance="plain">Home</wa-button>
+      <wa-button appearance="plain">Calendar</wa-button>
+      <wa-button appearance="plain">Mail</wa-button>
+    </nav>
+    <wa-button appearance="plain">Sign Out</wa-button>
+  </div>
+</wa-drawer>
+
+<wa-drawer label="With the Fix" id="split-drawer-with-fix" class="navigation-drawer">
+  <div class="wa-split:column">
+    <nav class="wa-stack">
+      <wa-button appearance="plain">Home</wa-button>
+      <wa-button appearance="plain">Calendar</wa-button>
+      <wa-button appearance="plain">Mail</wa-button>
+    </nav>
+    <wa-button appearance="plain">Sign Out</wa-button>
+  </div>
+</wa-drawer>
+
+<div class="wa-cluster">
+  <wa-button appearance="outlined" data-drawer="open split-drawer-without-fix">Open Drawer Without the Fix</wa-button>
+  <wa-button appearance="filled" data-drawer="open split-drawer-with-fix">Open Drawer With the Fix</wa-button>
+</div>
+
+<style>
+  .navigation-drawer::part(body) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .navigation-drawer .wa-split\:column {
+    flex-grow: 1;
+  }
+</style>
+```
+
 ## Align Items
 
 By default, items are centered on the cross axis of the `wa-split` container. Add any [`wa-align-items-*`](/docs/utilities/align-items) class to change how items line up: in the block direction for `wa-split:row` and in the inline direction for `wa-split:column`.

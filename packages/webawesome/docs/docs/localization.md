@@ -1,6 +1,6 @@
 ---
 title: Localization
-description: Discover how to localize Web Awesome with minimal effort.
+description: Components ship in about 30 languages. Load one, set the lang attribute, mix locales on a page, or add your own translation.
 layout: page-outline
 synonyms:
   - i18n

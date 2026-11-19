@@ -4,6 +4,7 @@ export default css`
   :host {
     --width: 31rem;
     --spacing: var(--wa-space-l);
+    --backdrop-color: var(--wa-color-overlay-modal);
     --backdrop-filter: none;
     --show-duration: var(--wa-transition-normal);
     --hide-duration: var(--wa-transition-normal);
@@ -146,7 +147,7 @@ export default css`
       NOTE: the ::backdrop element doesn't inherit properly in Safari yet, but it will in 17.4! At that time, we can
       remove the fallback values here.
     */
-    background-color: var(--wa-color-overlay-modal, rgb(0 0 0 / 0.25));
+    background-color: var(--backdrop-color, rgb(0 0 0 / 0.25));
     backdrop-filter: var(--backdrop-filter);
   }
 

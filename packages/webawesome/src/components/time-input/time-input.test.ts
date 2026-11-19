@@ -20,7 +20,11 @@ function getSegment(el: WaTimeInput, field: 'hour' | 'minute' | 'second' | 'dayP
   return el.shadowRoot!.querySelector<HTMLElement>(`[data-segment="${field}"]`)!;
 }
 
-function type(segment: HTMLElement, key: string, modifiers: { altKey?: boolean } = {}) {
+function type(
+  segment: HTMLElement,
+  key: string,
+  modifiers: { altKey?: boolean; ctrlKey?: boolean; metaKey?: boolean } = {},
+) {
   segment.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, composed: true, ...modifiers }));
 }
 
@@ -89,6 +93,18 @@ describe('<wa-time-input>', () => {
   });
 
   describe('segmented input structure', () => {
+    it('opts segments and literals out of text selection in every engine', async () => {
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-US" value="09:30"></wa-time-input>`);
+      await el.updateComplete;
+      const nodes = el.shadowRoot!.querySelectorAll<HTMLElement>('[data-segment], .segment-literal');
+      expect(nodes.length).to.be.greaterThan(1);
+      for (const node of nodes) {
+        const style = getComputedStyle(node);
+        expect(style.userSelect, node.className).to.equal('none');
+        expect(style.webkitUserSelect, node.className).to.equal('none');
+      }
+    });
+
     it('renders 2 segments by default (hour, minute) in 24-hour locale', async () => {
       const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       const segments = getSegments(el);
@@ -202,6 +218,28 @@ describe('<wa-time-input>', () => {
       type(dp, 'a');
       await el.updateComplete;
       expect(el.value).to.equal('09:00');
+    });
+
+    it('does not treat Ctrl/Cmd+A as the "a" shortcut', async () => {
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-US" value="21:00"></wa-time-input>`);
+      await el.updateComplete;
+      const dp = getSegment(el, 'dayPeriod');
+      dp.focus();
+      for (const modifier of ['ctrlKey', 'metaKey'] as const) {
+        const event = new KeyboardEvent('keydown', {
+          key: 'a',
+          [modifier]: true,
+          bubbles: true,
+          composed: true,
+          cancelable: true,
+        });
+        dp.dispatchEvent(event);
+        await el.updateComplete;
+        expect(el.value).to.equal('21:00');
+        // Swallowed by the select-all guard instead of selecting the page.
+        expect(event.defaultPrevented).to.equal(true);
+      }
+      expect(el.shadowRoot!.activeElement).to.equal(dp);
     });
 
     it('toggles dayPeriod via ArrowUp / ArrowDown', async () => {

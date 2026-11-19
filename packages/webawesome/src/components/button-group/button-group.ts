@@ -1,6 +1,6 @@
-import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
+import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import type WaButton from '../button/button.js';
 import styles from './button-group.styles.js';
@@ -14,7 +14,8 @@ import styles from './button-group.styles.js';
  *
  * @slot - One or more `<wa-button>` elements to display in the button group.
  *
- * @csspart base - Deprecated. Style the host element instead.
+ * @csspart base - Deprecated. Use the `button-group` part instead.
+ * @csspart button-group - The component's outer wrapper.
  */
 @customElement('wa-button-group')
 export default class WaButtonGroup extends WebAwesomeElement {
@@ -34,11 +35,11 @@ export default class WaButtonGroup extends WebAwesomeElement {
   /** The button group's orientation. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
-  updated(changedProperties: PropertyValues<this>) {
-    super.updated(changedProperties);
-
-    if (changedProperties.has('orientation')) {
-      this.setAttribute('aria-orientation', this.orientation);
+  @watch(['label', 'disableRole'])
+  handleLabelChange() {
+    if (this.internals) {
+      this.internals.role = this.disableRole ? 'presentation' : 'group';
+      this.internals.ariaLabel = this.disableRole ? null : this.label || null;
     }
   }
 
@@ -64,17 +65,16 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
   render() {
     return html`
-      <slot
-        part="base"
+      <div
+        part="base button-group"
         class="button-group"
-        role="${this.disableRole ? 'presentation' : 'group'}"
-        aria-label=${this.label}
-        aria-orientation=${this.orientation}
         @focusout=${this.handleBlur}
         @focusin=${this.handleFocus}
         @mouseover=${this.handleMouseOver}
         @mouseout=${this.handleMouseOut}
-      ></slot>
+      >
+        <slot></slot>
+      </div>
     `;
   }
 }

@@ -1,6 +1,8 @@
+export { registerCodeGrammar } from './components/code-highlighter/grammars.js';
 export { getIconFolder } from './components/icon/library.default.js';
 export {
   getDefaultIconFamily,
+  getDefaultIconVariant,
   registerIconLibrary,
   setDefaultIconFamily,
   unregisterIconLibrary,

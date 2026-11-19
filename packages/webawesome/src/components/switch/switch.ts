@@ -73,7 +73,10 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     this._value = val;
   }
 
-  /** The switch's size. */
+  /**
+   * The switch's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
@@ -129,6 +132,8 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     const isRtl = this.localize.dir() === 'rtl';
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
+      // Pressing toward the side the switch is already on changes nothing, so it fires nothing
+      if (this.checked === isRtl) return;
       this.checked = isRtl;
       this.updateComplete.then(() => {
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
@@ -138,6 +143,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
 
     if (event.key === 'ArrowRight') {
       event.preventDefault();
+      if (this.checked === !isRtl) return;
       this.checked = !isRtl;
 
       this.updateComplete.then(() => {

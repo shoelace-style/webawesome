@@ -9,6 +9,7 @@ cdn/
 yarn.lock
 _bundle_
 /packages/webawesome-pro
+/packages/breaking-changes
 /packages/webawesome-app
 custom-elements.json
 .claude/settings.local.json

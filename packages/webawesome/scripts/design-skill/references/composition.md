@@ -280,6 +280,10 @@ setKitCode('YOUR_KIT_CODE_HERE');
 Once a kit code is set, select a Pro family with the `variant` attribute, e.g.
 `<wa-icon variant="regular" name="grip-vertical"></wa-icon>`.
 
+To use one family and variant for every icon, add `data-fa-family` and `data-fa-variant` next to the kit
+code, e.g. `<html data-fa-kit-code="…" data-fa-family="sharp" data-fa-variant="light">`. Icons with their own
+`family` or `variant` attribute still win.
+
 ---
 
 ## Images & placeholders

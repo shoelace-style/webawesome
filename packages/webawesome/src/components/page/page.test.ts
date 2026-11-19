@@ -287,9 +287,11 @@ describe('<wa-page>', () => {
       });
 
       describe('CSS parts', () => {
-        it('should have a base part', async () => {
+        it('should expose the "page" part and keep the deprecated base part', async () => {
           const el = await fixture<WaPage>(html`<wa-page>Content</wa-page>`);
-          expect(el.shadowRoot!.querySelector('[part~="base"]')).to.exist;
+          const wrapper = el.shadowRoot!.querySelector('[part~="page"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
         });
 
         it('should have a header part', async () => {

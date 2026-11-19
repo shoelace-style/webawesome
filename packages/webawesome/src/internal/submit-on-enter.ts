@@ -97,32 +97,30 @@ export function submitForm(el: HTMLElement | WebAwesomeFormAssociatedElement) {
 
   const formElements = Array.from(form.elements);
 
-  let submittableFormElements = 0;
-  for (const el of formElements) {
-    if (isSubmittableElement(el)) {
-      submittableFormElements += 1;
+  // The default button is the first submit button in tree order, disabled or not. A disabled default button blocks
+  // Enter even when a later submit button is enabled, as it does natively.
+  const button = formElements.find((el: HTMLButtonElement | HTMLInputElement) => el.type === 'submit') as
+    | undefined
+    | HTMLButtonElement
+    | HTMLInputElement
+    | WaButton;
+
+  if (button) {
+    if (button.matches(':disabled')) {
+      return;
     }
+
+    if (['input', 'button'].includes(button.localName)) {
+      form.requestSubmit(button);
+    } else {
+      // requestSubmit() wont work with `<wa-button>`, so trigger a manual click.
+      button.click();
+    }
+    return;
   }
 
-  // If we're the only formElement, we submit like a native input.
-  if (submittableFormElements === 1) {
+  // Without a submit button, Enter submits only when a single field blocks implicit submission
+  if (formElements.filter(isSubmittableElement).length === 1) {
     form.requestSubmit(null);
-    return;
-  }
-
-  const button = formElements.find((el: HTMLButtonElement | HTMLInputElement) => {
-    return el.type === 'submit' && !el.matches(':disabled');
-  }) as undefined | HTMLButtonElement | HTMLInputElement | WaButton;
-
-  // No button found, don't submit.
-  if (!button) {
-    return;
-  }
-
-  if (['input', 'button'].includes(button.localName)) {
-    form.requestSubmit(button);
-  } else {
-    // requestSubmit() wont work with `<wa-button>`, so trigger a manual click.
-    button.click();
   }
 }

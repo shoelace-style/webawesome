@@ -16,7 +16,7 @@ and `categories` are optional — card callers omit them and skip the link. #}
 {% for cat in categories %}{% if cat.label == category %}
 <a class="component-category-link" href="/docs/components/?category={{ cat.slug }}">
   <wa-badge variant="neutral" appearance="filled" pill>
-    <wa-icon variant="regular" name="{{ cat.icon }}" slot="start"></wa-icon>{{ cat.label }}
+    <wa-icon name="{{ cat.icon }}" slot="start"></wa-icon>{{ cat.label }}
   </wa-badge>
 </a>
 {% endif %}{% endfor %}

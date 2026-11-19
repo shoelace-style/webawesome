@@ -359,7 +359,7 @@ toggle wiring, no media queries** — the component handles all of it. This is t
     <section class="section wa-stack wa-gap-l">
       <h1>Big headline</h1>
       <p>Hero content.</p>
-      <wa-button variant="brand" size="large">Get started</wa-button>
+      <wa-button variant="brand" size="l">Get started</wa-button>
     </section>
     <!-- more full-bleed <section class="section"> blocks … -->
   </main>
