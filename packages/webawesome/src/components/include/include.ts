@@ -27,8 +27,8 @@ export default class WaInclude extends WebAwesomeElement {
    * The location of the content to include. This can be a URL to an HTML file, a same-page reference to an element's id
    * (e.g. `#my-id`), or a URL with a fragment that targets an element's id within the fetched file
    * (e.g. `/partials.html#my-id`). When targeting an element by id, its content is cloned. If the target is a
-   * `<template>`, its child nodes are cloned. Be sure you trust the content you are including as it will be executed as
-   * code and can result in XSS attacks.
+   * `<template>`, its child nodes are cloned. Set `without-fragment` to include the whole file regardless of the hash.
+   * Be sure you trust the content you are including as it will be executed as code and can result in XSS attacks.
    */
   @property() src: string;
 
@@ -40,6 +40,12 @@ export default class WaInclude extends WebAwesomeElement {
    * code and can result in XSS attacks.
    */
   @property({ attribute: 'allow-scripts', type: Boolean }) allowScripts = false;
+
+  /** Includes the whole fetched file and ignores the hash in `src`. Has no effect on same-page `#id` references. */
+  @property({ attribute: 'without-fragment', type: Boolean }) withoutFragment = false;
+
+  /** Increments on every load so stale responses can be ignored. */
+  private loadId = 0;
 
   private executeScript(script: HTMLScriptElement) {
     // Create a copy of the script and swap it out so the browser executes it
@@ -64,8 +70,11 @@ export default class WaInclude extends WebAwesomeElement {
 
   @watch('src')
   async handleSrcChange() {
+    const loadId = ++this.loadId;
+
     try {
       const src = this.src;
+      const withoutFragment = this.withoutFragment;
 
       // Resolve against the current document so we can pull off the hash (id), if any
       const url = new URL(src, document.baseURI);
@@ -94,8 +103,8 @@ export default class WaInclude extends WebAwesomeElement {
       }
       const file = await requestInclude(fetchSrc, this.mode);
 
-      // If the src changed since the request started do nothing, otherwise we risk overwriting a subsequent response
-      if (src !== this.src) {
+      // If another load started since this one, do nothing, otherwise we risk overwriting a subsequent response
+      if (loadId !== this.loadId) {
         return;
       }
 
@@ -104,7 +113,7 @@ export default class WaInclude extends WebAwesomeElement {
         return;
       }
 
-      if (fragmentId) {
+      if (fragmentId && !withoutFragment) {
         // Pull the requested element out of the fetched file
         const doc = new DOMParser().parseFromString(file.html, 'text/html');
         const element = doc.getElementById(decodeURIComponent(fragmentId));
@@ -125,7 +134,17 @@ export default class WaInclude extends WebAwesomeElement {
 
       this.dispatchEvent(new WaLoadEvent());
     } catch {
-      this.dispatchEvent(new WaIncludeErrorEvent({ status: -1 }));
+      if (loadId === this.loadId) {
+        this.dispatchEvent(new WaIncludeErrorEvent({ status: -1 }));
+      }
+    }
+  }
+
+  @watch('withoutFragment', { waitUntilFirstUpdate: true })
+  handleWithoutFragmentChange() {
+    // Only a fetched src with a hash is affected
+    if (this.src?.split('#')[1] && !this.src.startsWith('#')) {
+      this.handleSrcChange();
     }
   }
 

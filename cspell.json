@@ -50,6 +50,7 @@
     "contenteditable",
     "copydir",
     "Cotte",
+    "countup",
     "coverpage",
     "crossorigin",
     "crutchcorn",
@@ -259,6 +260,7 @@
     "tinycolor",
     "touchcancel",
     "touchend",
+    "trailhead",
     "transitionend",
     "treegrid",
     "treeitem",
@@ -288,6 +290,7 @@
     "weeknumber",
     "weeknumbers",
     "xmark",
+    "Zarya",
     "zoomable"
   ],
   "ignorePaths": [
