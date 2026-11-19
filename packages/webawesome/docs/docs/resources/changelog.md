@@ -42,6 +42,11 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed bugs in `<wa-dropdown>` when opening and closing the menu [issue:2882]
+  - Fixed a stale `wa-after-hide` event when the menu reopened during its hide animation
+  - Fixed [[Escape]] and clicks outside not closing an open dropdown after it was removed and reattached
+  - Fixed open submenus closing when `wa-hide` was prevented
+  - Fixed `wa-hide` being emitted twice when [[Tab]] closed the menu
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
 - Fixed a bug in `<wa-radio-group>` where arrow keys and [[Space]] were taken from buttons, links, and fields placed inside the group [issue:2892] [pr:2893]
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`

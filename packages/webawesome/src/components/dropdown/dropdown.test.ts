@@ -840,6 +840,110 @@ describe('<wa-dropdown>', () => {
       expect(el.open).to.be.false;
       expect(popup.active).to.be.false;
     });
+
+    it('should not emit wa-after-hide when reopened during the hide animation', async () => {
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown style="--hide-duration: 400ms">
+          <wa-button slot="trigger">Dropdown</wa-button>
+          <wa-dropdown-item>One</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')!;
+      const afterHide = sinon.spy();
+      el.addEventListener('wa-after-hide', afterHide);
+
+      await clickOnElement(trigger);
+      await oneEvent(el, 'wa-after-show');
+      await sendKeys({ press: 'Escape' });
+      await aTimeout(50);
+      const shown = oneEvent(el, 'wa-after-show');
+      await clickOnElement(trigger);
+      await shown;
+      await aTimeout(500);
+
+      expect(el.open).to.be.true;
+      expect(afterHide).not.to.have.been.called;
+    });
+
+    for (const dismissal of ['Escape', 'an outside click']) {
+      it(`should close on ${dismissal} after an open dropdown is removed and reattached`, async () => {
+        const host = await clientFixture<HTMLDivElement>(html`
+          <div>
+            <wa-dropdown>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item>One</wa-dropdown-item>
+            </wa-dropdown>
+            <button>Outside</button>
+          </div>
+        `);
+        const el = host.querySelector<WaDropdown>('wa-dropdown')!;
+        await clickOnElement(el.querySelector('[slot="trigger"]')!);
+        await oneEvent(el, 'wa-after-show');
+
+        el.remove();
+        host.prepend(el);
+        await aTimeout(100);
+
+        if (dismissal === 'Escape') {
+          await sendKeys({ press: 'Escape' });
+        } else {
+          await clickOnElement(host.querySelector('button')!);
+        }
+        await waitUntil(() => !el.open);
+        expect(el.open).to.be.false;
+      });
+    }
+
+    it('should keep submenus open when wa-hide is prevented', async () => {
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown>
+          <button slot="trigger">Menu</button>
+          <wa-dropdown-item>
+            More options
+            <wa-dropdown-item slot="submenu">Nested option</wa-dropdown-item>
+          </wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const parentItem = el.querySelector<WaDropdownItem>('wa-dropdown-item')!;
+      const nestedItem = parentItem.querySelector<WaDropdownItem>('[slot="submenu"]')!;
+
+      el.querySelector('button')!.focus();
+      await sendKeys({ press: 'Enter' });
+      await waitUntil(() => document.activeElement === parentItem);
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement === nestedItem);
+      await aTimeout(200);
+
+      el.addEventListener('wa-hide', event => event.preventDefault());
+      await sendKeys({ press: 'Escape' });
+      await aTimeout(300);
+
+      expect(el.open).to.be.true;
+      expect(parentItem.submenuOpen).to.be.true;
+      expect(parentItem.submenuElement.hidden).to.be.false;
+    });
+
+    it('should emit wa-hide once when Tab closes the menu', async () => {
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown>
+          <button slot="trigger">Menu</button>
+          <wa-dropdown-item>One</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const hide = sinon.spy();
+      el.addEventListener('wa-hide', hide);
+
+      el.querySelector('button')!.focus();
+      await sendKeys({ press: 'Enter' });
+      await oneEvent(el, 'wa-after-show');
+      const hidden = oneEvent(el, 'wa-after-hide');
+      await sendKeys({ press: 'Tab' });
+      await hidden;
+      await aTimeout(100);
+
+      expect(el.open).to.be.false;
+      expect(hide).to.have.been.calledOnce;
+    });
   });
 
   describe('dismissible stack', () => {
