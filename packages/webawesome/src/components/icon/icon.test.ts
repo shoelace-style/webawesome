@@ -206,6 +206,17 @@ describe('<wa-icon>', () => {
       setKitCode('abc123');
       expect(await defaultLibrary.resolver('house', 'classic', 'solid', false)).to.include('token=abc123');
     });
+
+    it('reads the attribute again after the kit code is set to an empty string', async () => {
+      await defaultLibrary.resolver('house', 'classic', 'solid', false);
+      document.documentElement.setAttribute('data-fa-kit-code', 'fromdom');
+      try {
+        setKitCode('');
+        expect(await defaultLibrary.resolver('house', 'classic', 'solid', false)).to.include('token=fromdom');
+      } finally {
+        document.documentElement.removeAttribute('data-fa-kit-code');
+      }
+    });
   });
 
   for (const fixture of fixtures) {

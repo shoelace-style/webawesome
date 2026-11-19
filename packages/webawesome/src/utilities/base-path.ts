@@ -70,9 +70,9 @@ export function getIconPath() {
   return iconPath.replace(/\/$/, '');
 }
 
-/** Sets the library's Web Awesome kit code. */
+/** Sets the library's Web Awesome kit code. An empty value clears it, so the `data-fa-kit-code` attribute is read again. */
 export function setKitCode(code: string) {
-  kitCode = code;
+  kitCode = code || undefined;
 }
 
 /**
