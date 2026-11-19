@@ -121,6 +121,39 @@ describe('<wa-color-picker>', () => {
           expect(el.open).to.be.false;
         });
 
+        it('should ignore an eyedropper pick that resolves after being disabled', async () => {
+          let resolvePick!: (result: { sRGBHex: string }) => void;
+          const win = window as unknown as { EyeDropper?: unknown };
+          win.EyeDropper = class {
+            open() {
+              return new Promise(resolve => (resolvePick = resolve));
+            }
+          };
+
+          try {
+            const el = await fixture<WaColorPicker>(html` <wa-color-picker value="#ff0000"></wa-color-picker> `);
+            const inputHandler = sinon.spy();
+            const changeHandler = sinon.spy();
+            el.addEventListener('input', inputHandler);
+            el.addEventListener('change', changeHandler);
+            await el.show();
+
+            const eyeDropperButton = el.shadowRoot!.querySelector<HTMLElement>('[part~="eyedropper-button"]')!;
+            eyeDropperButton.click();
+            el.disabled = true;
+            await el.updateComplete;
+            resolvePick({ sRGBHex: '#00ff00' });
+            await aTimeout(0);
+            await el.updateComplete;
+
+            expect(el.value).to.equal('#ff0000');
+            expect(inputHandler).not.to.have.been.called;
+            expect(changeHandler).not.to.have.been.called;
+          } finally {
+            delete win.EyeDropper;
+          }
+        });
+
         it('should emit change and input when the color grid selector is moved', async () => {
           const el = await fixture<WaColorPicker>(html` <wa-color-picker></wa-color-picker> `);
           const trigger = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="trigger"]')!;

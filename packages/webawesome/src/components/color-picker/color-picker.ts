@@ -791,6 +791,11 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     eyeDropper
       .open()
       .then(colorSelectionResult => {
+        // The picker may have been disabled while the eyedropper was open.
+        if (this.disabled) {
+          return;
+        }
+
         const oldValue = this.value;
 
         this.setColor(colorSelectionResult.sRGBHex);
