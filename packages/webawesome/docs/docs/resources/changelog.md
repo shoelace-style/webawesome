@@ -47,6 +47,11 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a performance issue in `<wa-icon>` where pages without a Font Awesome kit code searched the DOM for one on every icon [issue:2975] [pr:3053]
 - Fixed a bug in `<wa-known-date>` that caused the label to sit lower than the labels of other form controls [pr:3047]
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` that caused the text to start further in than other form controls [pr:3047]
+- Fixed lifecycle bugs in `<wa-select>` [issue:2887] [pr:2888]
+  - Fixed reopening during the hide animation leaving the listbox hidden
+  - Fixed `show()` closing an already open select
+  - Fixed `show()` and `hide()` never resolving when `wa-show` or `wa-hide` was canceled
+  - Fixed a disabled select staying open when `wa-hide` was canceled
 - Fixed a regression in `<wa-tab-group>` where selecting a tab, by clicking it or setting `active`, no longer scrolled it into view when the tabs overflow [issue:3042] [pr:3043]
 
 :::
