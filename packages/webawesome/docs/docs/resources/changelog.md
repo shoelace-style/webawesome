@@ -52,6 +52,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-icon>` where icons from a sprite sheet library rendered a 300px wide `<svg>` that covered neighboring elements [issue:2918] [pr:2920]
 - Fixed a bug in `<wa-known-date>` that caused the label to sit lower than the labels of other form controls [pr:3047]
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` that caused the text to start further in than other form controls [pr:3047]
+- Fixed a bug in `<wa-dropdown>` where the `--show-duration` and `--hide-duration` custom properties had no effect
 - Fixed lifecycle bugs in `<wa-select>` [issue:2887] [pr:2888]
   - Reopening during the hide animation now shows the listbox
   - `show()` no longer closes an open select

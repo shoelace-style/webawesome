@@ -792,6 +792,34 @@ describe('<wa-dropdown>', () => {
     });
   });
 
+  describe('animation durations', () => {
+    it('should animate the menu with --show-duration and --hide-duration set on the host', async () => {
+      const dropdown = await clientFixture<WaDropdown>(html`
+        <wa-dropdown style="--show-duration: 1234ms; --hide-duration: 567ms">
+          <button slot="trigger">Menu</button>
+          <wa-dropdown-item>One</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const menu = dropdown.shadowRoot!.querySelector<HTMLElement>('[part="menu"]')!;
+      const menuAnimation = () => menu.getAnimations().find(animation => animation instanceof CSSAnimation);
+      menu.style.animationPlayState = 'paused';
+
+      const shown = oneEvent(dropdown, 'wa-after-show');
+      dropdown.querySelector('button')!.click();
+      await waitUntil(() => menuAnimation());
+      expect(menuAnimation()!.effect!.getComputedTiming().duration).to.equal(1234);
+      menuAnimation()!.finish();
+      await shown;
+
+      const hidden = oneEvent(dropdown, 'wa-after-hide');
+      dropdown.open = false;
+      await waitUntil(() => menuAnimation());
+      expect(menuAnimation()!.effect!.getComputedTiming().duration).to.equal(567);
+      menuAnimation()!.finish();
+      await hidden;
+    });
+  });
+
   describe('trigger interaction', () => {
     it('should toggle open when the trigger is clicked', async () => {
       const el = await clientFixture<WaDropdown>(html`
