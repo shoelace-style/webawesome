@@ -7,6 +7,7 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { focusAutofocusChild } from '../../internal/autofocus.js';
 import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
 import { waitForEvent } from '../../internal/event.js';
 import { uniqueId } from '../../internal/math.js';
@@ -136,6 +137,7 @@ export default class WaPopover extends WebAwesomeElement {
       this.dialog.show();
       this.popup.active = true;
       this.popup.reposition();
+      requestAnimationFrame(() => focusAutofocusChild(this, { preventScroll: true }));
     }
   }
 
@@ -270,11 +272,8 @@ export default class WaPopover extends WebAwesomeElement {
 
       // Autofocus the first element with the autofocus attribute. preventScroll everywhere: the popup may not be
       // positioned yet, and an anchored popover is always shown in-viewport, so focus must never scroll the page.
-      requestAnimationFrame(() => {
-        const elementToFocus = this.querySelector<HTMLElement>('[autofocus]');
-        if (elementToFocus && typeof elementToFocus.focus === 'function') {
-          elementToFocus.focus({ preventScroll: true });
-        } else {
+      requestAnimationFrame(async () => {
+        if (!(await focusAutofocusChild(this, { preventScroll: true }))) {
           // Fall back to setting focus on the dialog
           this.dialog.focus({ preventScroll: true });
         }

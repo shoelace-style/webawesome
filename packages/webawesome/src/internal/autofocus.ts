@@ -1,4 +1,13 @@
+import type { ReactiveElement } from 'lit';
+import { isServer } from 'lit';
 import { allDefined } from '../utilities/defined.js';
+
+// Like a browser, autofocus at most once per document. The first focus, from an autofocus or anything else, ends it.
+let isDone = false;
+
+if (!isServer) {
+  document.addEventListener('focusin', () => (isDone = true), { capture: true, once: true });
+}
 
 /**
  * Focuses an element that has the `autofocus` attribute, under the rules browsers apply to the attribute.
@@ -7,16 +16,18 @@ import { allDefined } from '../utilities/defined.js';
  * the autoloader defines after that point can be left unfocused. `WebAwesomeElement` calls this after a component's
  * first render.
  *
- * Like a browser, this does nothing when another element has focus, when the URL's fragment points to an element, or
- * in a cross-origin frame. One rule differs from a browser's. The element takes focus from its own ancestor, because a
- * dialog that opens before its `autofocus` element is ready takes the focus itself.
+ * Like a browser, this does nothing once anything in the document has taken focus, when the URL's fragment points to
+ * an element, or in a cross-origin frame.
  */
 export async function autofocus(element: HTMLElement) {
   // An ancestor that isn't defined yet hasn't hidden its content (a closed dialog, an inactive tab panel). Focusing
   // the element before the ancestor is defined scrolls the page to content that the ancestor then hides.
   // `allDefined()` also waits one frame. `<wa-select>` and `<wa-time-input>` need that frame, because the element they
-  // focus isn't rendered during `firstUpdated()`.
-  await allDefined({ match: tagName => tagName.startsWith('wa-') && element.closest(tagName) !== null });
+  // focus isn't rendered during `firstUpdated()`. An ancestor that's never defined never resolves, so it never focuses.
+  await allDefined({
+    match: tagName => tagName.startsWith('wa-') && element.closest(tagName) !== null,
+    timeout: Infinity,
+  });
 
   let topDocument: Document;
   try {
@@ -26,11 +37,28 @@ export async function autofocus(element: HTMLElement) {
     return;
   }
 
-  const focused = topDocument.activeElement;
-  const hasFocus = focused !== topDocument.body && !focused?.contains(element);
+  const hasFocus = topDocument.activeElement !== topDocument.body;
   const hasTarget = [document, topDocument].some(doc => doc.querySelector(':target'));
 
-  if (!hasFocus && !hasTarget) {
-    element.focus();
+  if (!isDone && !hasFocus && !hasTarget) {
+    // A popover is shown in-viewport, so focusing inside it must never scroll the page.
+    element.focus({ preventScroll: element.closest('wa-popover') !== null });
   }
+}
+
+/**
+ * Focuses a container's first `[autofocus]` element when the container opens. A Web Awesome element is focused after
+ * it's defined and rendered, since it can't take focus before that. Resolves to `false` when there's no such element.
+ */
+export async function focusAutofocusChild(container: HTMLElement, options?: FocusOptions) {
+  const element = container.querySelector<HTMLElement>('[autofocus]');
+  if (!element) return false;
+
+  if (element.localName.startsWith('wa-')) {
+    await customElements.whenDefined(element.localName);
+    await (element as Partial<ReactiveElement>).updateComplete;
+  }
+
+  element.focus(options);
+  return true;
 }

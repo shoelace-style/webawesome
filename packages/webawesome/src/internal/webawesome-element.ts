@@ -156,7 +156,8 @@ export default class WebAwesomeElement extends LitElement {
       });
     }
 
-    if (this.hasAttribute('autofocus')) {
+    // Read the property, since some components declare a non-reflecting `autofocus` property
+    if (this.autofocus) {
       autofocus(this);
     }
   }

@@ -7,6 +7,7 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { focusAutofocusChild } from '../../internal/autofocus.js';
 import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
 import { isEventInsideRect } from '../../internal/offset.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
@@ -114,6 +115,7 @@ export default class WaDrawer extends WebAwesomeElement {
       this.drawer.showModal();
       lockBodyScrolling(this);
       this.renderedWatcher.start(this.drawer);
+      requestAnimationFrame(() => focusAutofocusChild(this));
     }
   }
 
@@ -258,12 +260,9 @@ export default class WaDrawer extends WebAwesomeElement {
     lockBodyScrolling(this);
     this.renderedWatcher.start(this.drawer);
 
-    // Set focus on autocomplete if it exists
-    requestAnimationFrame(() => {
-      const elementToFocus = this.querySelector<HTMLButtonElement>('[autofocus]');
-      if (elementToFocus && typeof elementToFocus.focus === 'function') {
-        elementToFocus.focus();
-      } else {
+    // Focus the autofocus element if it exists
+    requestAnimationFrame(async () => {
+      if (!(await focusAutofocusChild(this))) {
         this.drawer.focus();
       }
     });
