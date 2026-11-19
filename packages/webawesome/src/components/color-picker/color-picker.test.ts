@@ -64,6 +64,29 @@ describe('<wa-color-picker>', () => {
           expect(getComputedStyle(swatches[1]).backgroundColor).to.equal('rgb(0, 128, 0)');
           expect(getComputedStyle(swatches[2]).backgroundColor).to.equal('rgb(0, 0, 255)');
         });
+
+        it('should open on first render when the open attribute is set', async () => {
+          const el = await fixture<WaColorPicker>(html` <wa-color-picker open></wa-color-picker> `);
+          await waitUntil(() => el.popup.active, 'popup never activated');
+
+          expect(el.open).to.be.true;
+          expect(el.wrapper.hidden).to.be.false;
+          expect(el.trigger.getAttribute('aria-expanded')).to.equal('true');
+
+          // The open listeners are registered, so Escape closes it
+          await sendKeys({ press: 'Escape' });
+          await waitUntil(() => !el.popup.active, 'popup never closed');
+          expect(el.open).to.be.false;
+        });
+
+        it('should stay closed on first render when open and disabled', async () => {
+          const el = await fixture<WaColorPicker>(html` <wa-color-picker open disabled></wa-color-picker> `);
+          await aTimeout(100);
+
+          expect(el.open).to.be.false;
+          expect(el.hasAttribute('open')).to.be.false;
+          expect(el.popup.active).to.be.false;
+        });
       });
 
       describe('events', () => {
@@ -643,6 +666,23 @@ describe('<wa-color-picker>', () => {
       });
     });
   }
+
+  it('should emit wa-show and wa-after-show once when connected with open', async () => {
+    const el = document.createElement('wa-color-picker') as WaColorPicker;
+    const showHandler = sinon.spy();
+    el.open = true;
+    el.addEventListener('wa-show', showHandler);
+    const afterShow = oneEvent(el, 'wa-after-show');
+    document.body.append(el);
+
+    try {
+      await afterShow;
+      await aTimeout(100);
+      expect(showHandler).to.have.been.calledOnce;
+    } finally {
+      el.remove();
+    }
+  });
 
   describe('dismissible stack', () => {
     it('should only close the popover when pressing Escape with an open color-picker underneath', async () => {

@@ -858,6 +858,11 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       this.handleValueChange(changedProperties.get('value') || '', this.value || '');
     }
 
+    // A disabled picker is never open. The watchers enforce this after the first update.
+    if (!this.hasUpdated && this.open && this.disabled) {
+      this.open = false;
+    }
+
     super.willUpdate(changedProperties);
   }
 
@@ -981,6 +986,11 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     super.firstUpdated(changedProperties);
 
     this.hasEyeDropper = 'EyeDropper' in window;
+
+    // The open watcher skips the first update, so open the popup here when it starts open
+    if (this.open) {
+      this.handleOpenChange();
+    }
   }
 
   private handleKeyDown = (event: KeyboardEvent) => {
