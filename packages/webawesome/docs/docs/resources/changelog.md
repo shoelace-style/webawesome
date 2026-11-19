@@ -42,9 +42,9 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- Fixed bugs in `<wa-dropdown>` when opening and closing the menu [issue:2882]
+- Fixed bugs in `<wa-dropdown>` when opening and closing the menu [issue:2882] [pr:3060]
   - Fixed a stale `wa-after-hide` event when the menu reopened during its hide animation
-  - Fixed [[Escape]] and clicks outside not closing an open dropdown after it was removed and reattached
+  - Fixed an open dropdown ignoring [[Escape]] and clicks outside after it was removed and reattached
   - Fixed open submenus closing when `wa-hide` was prevented
   - Fixed `wa-hide` being emitted twice when [[Tab]] closed the menu
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
