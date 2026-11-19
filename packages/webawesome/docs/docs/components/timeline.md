@@ -271,9 +271,32 @@ To let a long timeline scroll sideways, wrap it in a [`<wa-scroller>`](/docs/com
 </style>
 ```
 
+Set the `orientation` attribute to `auto` to lay items out in a row and switch to a column when there's less than about 10em between items, so entries stay readable on small screens. Resize the example to see the switch. While laid out as a column, the timeline has the `stacked` custom state, so `wa-timeline:state(stacked)` targets it.
+
+The default, `vertical`, stays a column at any width. `auto` measures the timeline in the browser, so a server-rendered `auto` timeline starts as a column and switches to a row once it hydrates.
+
+```html {.example}
+<wa-timeline orientation="auto">
+  <wa-timeline-item>
+    <wa-format-date slot="opposite" date="2026-05-04T09:00:00" month="short" day="numeric"></wa-format-date>
+    <span class="wa-heading-m">Kickoff</span>
+  </wa-timeline-item>
+  <wa-timeline-item>
+    <wa-format-date slot="opposite" date="2026-06-08T09:00:00" month="short" day="numeric"></wa-format-date>
+    <span class="wa-heading-m">Beta</span>
+  </wa-timeline-item>
+  <wa-timeline-item>
+    <wa-format-date slot="opposite" date="2026-06-29T09:00:00" month="short" day="numeric"></wa-format-date>
+    <span class="wa-heading-m">Launch</span>
+  </wa-timeline-item>
+</wa-timeline>
+```
+
+Don't combine `auto` with `<wa-scroller>`. Pick sideways scrolling or switching to a column, not both.
+
 ### Marker Placement
 
-The `marker-placement` attribute sets where each marker sits relative to its item's content. The default, `start`, puts the marker before the content; set it to `end` to put the marker after the content. Marker placement only applies to vertical timelines.
+The `marker-placement` attribute sets where each marker sits relative to its item's content. The default, `start`, puts the marker before the content; set it to `end` to put the marker after the content. Marker placement only applies while the timeline is laid out as a column, including an `auto` timeline that has switched to one.
 
 ```html {.example}
 <wa-timeline marker-placement="end">
@@ -292,7 +315,7 @@ The `marker-placement` attribute sets where each marker sits relative to its ite
 </wa-timeline>
 ```
 
-Set it to `alternate` to switch sides item by item, so the rail runs down the middle, which suits a wide timeline.
+Set it to `alternate` to switch sides item by item, so the rail runs down the middle, which suits a wide timeline. When the timeline is narrower than 30em, it lays every item out on the start side until it has room again.
 
 ```html {.example}
 <wa-timeline marker-placement="alternate">
@@ -316,7 +339,7 @@ Set it to `alternate` to switch sides item by item, so the rail runs down the mi
 
 ### Marker Alignment
 
-By default, each marker sits at the top of its item, in line with the first line of text. Set the `marker-alignment` attribute to `center` to center the marker on the item's full height instead. Marker alignment only applies to vertical timelines.
+By default, each marker sits at the top of its item, in line with the first line of text. Set the `marker-alignment` attribute to `center` to center the marker on the item's full height instead. Marker alignment only applies while the timeline is laid out as a column, including an `auto` timeline that has switched to one.
 
 ```html {.example}
 <wa-timeline marker-alignment="center">
