@@ -359,7 +359,6 @@ describe('<wa-time-input>', () => {
 
       el.disabled = true;
       await afterHide;
-      await aTimeout(100);
 
       const popup = el.shadowRoot!.querySelector('wa-popup')!;
       const expandButton = el.shadowRoot!.querySelector<HTMLButtonElement>('.expand-button')!;
@@ -426,9 +425,9 @@ describe('<wa-time-input>', () => {
       el.show();
       await waitForEvent(el, 'wa-after-show');
 
+      const afterHide = waitForEvent(el, 'wa-after-hide');
       el.disabled = true;
-      await el.updateComplete;
-      await aTimeout(300);
+      await afterHide;
 
       await sendKeys({ press: 'Escape' });
       await waitUntil(() => !dialog.open, 'dialog never closed');
@@ -1047,6 +1046,30 @@ describe('<wa-time-input>', () => {
   //
   for (const fixture of fixtures) {
     describe(`SSR + hydration (${fixture.type})`, () => {
+      it('renders closed without events when open and disabled in markup', async () => {
+        const events: string[] = [];
+        const record = (event: Event) => {
+          if ((event.target as Element).id === 'open-disabled') events.push(event.type);
+        };
+        const names = ['wa-show', 'wa-after-show', 'wa-hide', 'wa-after-hide'];
+        names.forEach(name => document.addEventListener(name, record));
+        try {
+          const el = await fixture<WaTimeInput>(
+            html`<wa-time-input id="open-disabled" lang="en-GB" open disabled></wa-time-input>`,
+          );
+          await el.updateComplete;
+          await aTimeout(100);
+
+          const popup = el.shadowRoot!.querySelector('wa-popup')!;
+          expect(events).to.deep.equal([]);
+          expect(el.open).to.equal(false);
+          expect(el.hasAttribute('open')).to.equal(false);
+          expect(popup.active).to.equal(false);
+        } finally {
+          names.forEach(name => document.removeEventListener(name, record));
+        }
+      });
+
       it('renders 2 segments (hour, minute) in a 24-hour locale', async () => {
         const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
         await el.updateComplete;
