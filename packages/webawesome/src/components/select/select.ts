@@ -388,8 +388,13 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     const isClearButton = target.closest('[part~="clear-button"]') !== null;
     const isButton = target.closest('wa-button') !== null;
 
+    // Ignore presses while disabled
+    if (this.disabled) {
+      return;
+    }
+
     // Ignore presses when the target is a button (e.g. the remove button in `<wa-tag>`)
-    if (this.disabled || isClearButton || isButton) {
+    if (isClearButton || isButton) {
       return;
     }
 

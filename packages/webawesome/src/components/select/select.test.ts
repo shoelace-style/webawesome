@@ -83,23 +83,49 @@ describe('<wa-select>', () => {
           expect(displayInput.placeholder).to.equal('Select a few');
         });
 
-        it('should not select an option when disabled while open', async () => {
+        it('should not select an option with the mouse when disabled while open', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select value="option-1" style="--hide-duration: 1s">
+              <wa-option value="option-1">Option 1</wa-option>
+              <wa-option value="option-2">Option 2</wa-option>
+            </wa-select>
+          `);
+          const option = el.querySelector('wa-option[value="option-2"]')!;
+          const handleChange = sinon.spy();
+          el.addEventListener('change', handleChange);
+
+          await el.show();
+          el.disabled = true;
+          await el.updateComplete;
+
+          // The option is still visible while the listbox animates closed
+          await clickOnElement(option);
+          await el.updateComplete;
+
+          expect(el.value).to.equal('option-1');
+          expect(handleChange).not.to.have.been.called;
+        });
+
+        it('should not select an option with the keyboard when disabled while open', async () => {
           const el = await fixture<WaSelect>(html`
             <wa-select value="option-1">
               <wa-option value="option-1">Option 1</wa-option>
               <wa-option value="option-2">Option 2</wa-option>
             </wa-select>
           `);
-          const option = el.querySelector('wa-option[value="option-2"]')!;
-          const onChange = sinon.spy();
-          el.addEventListener('change', onChange);
+          const handleChange = sinon.spy();
+          el.addEventListener('change', handleChange);
+
           await el.show();
+          el.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+
+          // Press Enter before the disabled update closes the listbox
           el.disabled = true;
           el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
-          option.click();
           await el.updateComplete;
+
           expect(el.value).to.equal('option-1');
-          expect(onChange).not.to.have.been.called;
+          expect(handleChange).not.to.have.been.called;
         });
 
         it('should not allow selection when the option is disabled', async () => {

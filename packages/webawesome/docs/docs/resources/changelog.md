@@ -43,6 +43,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
 - Fixed a bug in `<wa-radio-group>` where arrow keys and [[Space]] were taken from buttons, links, and fields placed inside the group [issue:2892] [pr:2893]
+- Fixed a bug in `<wa-select>` that let an option be selected while the listbox closed after the control was disabled [pr:2960]
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
 - Fixed a performance issue in `<wa-icon>` where pages without a Font Awesome kit code searched the DOM for one on every icon [issue:2975] [pr:3053]
 - Fixed a bug in `<wa-known-date>` that caused the label to sit lower than the labels of other form controls [pr:3047]
