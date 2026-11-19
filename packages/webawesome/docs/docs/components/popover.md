@@ -33,6 +33,8 @@ Unlike [tooltips](/docs/components/tooltip), popovers can contain links, buttons
 
 Use `<wa-button>` or `<button>` elements as popover anchors. Connect the popover to its anchor by setting the `for` attribute to match the anchor's `id`.
 
+The popover sets the `aria-haspopup="dialog"` and `aria-expanded` attributes on its anchor and keeps them current, so screen readers announce that the anchor opens a popover and whether it's open.
+
 ```html {.example}
 <wa-button appearance="filled" id="popover__anchor-button">Show Popover</wa-button>
 
@@ -54,7 +56,7 @@ Otherwise the popover won't attach and you'll see a console warning.
 
 Popovers show when you click their anchor element. You can also control them programmatically by setting the `open` property to `true` or `false`.
 
-Use `data-popover="close"` on any button inside a popover to close it automatically.
+Use `data-popover="close"` on any button inside a popover to close it automatically. Closing this way or with [[Escape]] returns focus to the anchor.
 
 ```html {.example}
 <wa-popover for="popover__opening">

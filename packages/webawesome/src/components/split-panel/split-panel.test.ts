@@ -1,9 +1,9 @@
-import { aTimeout, expect } from '@open-wc/testing';
-import { resetMouse, sendKeys } from '@web/test-runner-commands';
+import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { resetMouse, sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
-import { dragElement } from '../../internal/test/pointer-utilities.js';
+import { dragElement, moveMouseOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaSplitPanel from './split-panel.js';
 
 describe('<wa-split-panel>', () => {
@@ -308,6 +308,34 @@ describe('<wa-split-panel>', () => {
       });
 
       describe('drag interaction', () => {
+        // https://github.com/shoelace-style/webawesome/issues/2983
+        it('should not click the element around it when a drag is released outside', async () => {
+          const card = await fixture<HTMLDivElement>(html`
+            <div style="display: flex; gap: 40px; padding: 20px;">
+              <span style="display: inline-block; width: 80px; height: 40px;">Label</span>
+              <wa-split-panel style="width: 200px; height: 100px;">
+                <div slot="start">Start</div>
+                <div slot="end">End</div>
+              </wa-split-panel>
+            </div>
+          `);
+          const el = card.querySelector('wa-split-panel')!;
+          const targets: string[] = [];
+          card.addEventListener('click', event => targets.push((event.target as Element).localName));
+
+          try {
+            await moveMouseOnElement(el.shadowRoot!.querySelector('[part~="divider"]')!);
+            await sendMouse({ type: 'down' });
+            await moveMouseOnElement(card.querySelector('span')!);
+            await sendMouse({ type: 'up' });
+          } finally {
+            await resetMouse();
+          }
+
+          await waitUntil(() => targets.length > 0, 'The release did not fire a click');
+          expect(targets).to.deep.equal(['wa-split-panel']);
+        });
+
         it('can be resized using the mouse horizontally', async () => {
           const el = await fixture<WaSplitPanel>(
             html`<wa-split-panel>

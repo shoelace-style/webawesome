@@ -229,18 +229,43 @@ describe('<wa-copy-button>', () => {
           expect(writeTextStub.firstCall.args[0]).to.equal('prop-value');
         });
 
-        it('should emit wa-error when referenced element is not found', async () => {
-          const el = await fixture<WaCopyButton>(html`<wa-copy-button from="nonexistent-element"></wa-copy-button>`);
+        for (const value of ['', 'fallback value']) {
+          it(`should emit one error without copying when the target is missing and value is "${value}"`, async () => {
+            const writeTextStub = sinon.stub(navigator.clipboard, 'writeText').resolves();
+            const copyHandler = sinon.spy();
+            const el = await fixture<WaCopyButton>(html`
+              <wa-copy-button from="nonexistent-element" value=${value}></wa-copy-button>
+            `);
+            el.addEventListener('wa-copy', copyHandler);
 
-          // Fires twice: once for missing target, once for empty value
-          await expectEvent(
-            el,
-            'wa-error',
-            async () => {
-              await clickOnElement(el);
-            },
-            { count: 2 },
-          );
+            await expectEvent(el, 'wa-error', () => clickOnElement(el));
+
+            expect(writeTextStub.called).to.be.false;
+            expect(copyHandler.called).to.be.false;
+            expect(el.status).to.equal('error');
+          });
+        }
+
+        it('should allow copying after a missing target becomes available', async () => {
+          const writeTextStub = sinon.stub(navigator.clipboard, 'writeText').resolves();
+          const container = await fixture<HTMLDivElement>(html`
+            <div>
+              <wa-copy-button from="late-source" feedback-duration="0" tooltip="none"></wa-copy-button>
+            </div>
+          `);
+          const el = container.querySelector<WaCopyButton>('wa-copy-button')!;
+
+          await expectEvent(el, 'wa-error', () => clickOnElement(el));
+          await waitUntil(() => el.status === 'rest');
+
+          const source = document.createElement('span');
+          source.id = 'late-source';
+          source.textContent = 'Available now';
+          container.append(source);
+
+          await expectEvent(el, 'wa-copy', () => clickOnElement(el));
+
+          expect(writeTextStub.calledOnceWithExactly('Available now')).to.be.true;
         });
       });
 

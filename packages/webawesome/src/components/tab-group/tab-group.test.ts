@@ -699,6 +699,39 @@ describe('<wa-tab-group>', () => {
           expect(scrollButtons).to.have.length(0);
         });
 
+        const isInsideNav = (tabGroup: WaTabGroup, tab: WaTab) => {
+          const nav = tabGroup.shadowRoot!.querySelector('.nav')!.getBoundingClientRect();
+          const box = tab.getBoundingClientRect();
+          return box.left >= nav.left - 1 && box.right <= nav.right + 1;
+        };
+
+        const overflowingTabGroup = async () => {
+          const tabGroup = await clientFixture<WaTabGroup>(html`<wa-tab-group>${generateTabs(30)}</wa-tab-group>`);
+          await waitForScrollButtonsToBeRendered(tabGroup);
+          // Let the scroll that runs on first visibility finish, so it doesn't scroll the tab we select
+          await aTimeout(200);
+          const lastTab = tabGroup.querySelector<WaTab>('wa-tab[panel="tab-29"]')!;
+          expect(isInsideNav(tabGroup, lastTab)).to.be.false;
+          return { tabGroup, lastTab };
+        };
+
+        it('should scroll a clicked tab into view when tabs overflow', async () => {
+          const { tabGroup, lastTab } = await overflowingTabGroup();
+
+          lastTab.click();
+
+          await waitUntil(() => isInsideNav(tabGroup, lastTab), 'the clicked tab was not scrolled into view');
+          expect(tabGroup.active).to.equal('tab-29');
+        });
+
+        it('should scroll a tab selected with the active property into view when tabs overflow', async () => {
+          const { tabGroup, lastTab } = await overflowingTabGroup();
+
+          tabGroup.active = 'tab-29';
+
+          await waitUntil(() => isInsideNav(tabGroup, lastTab), 'the selected tab was not scrolled into view');
+        });
+
         it('should not show scroll buttons when all tabs fit', async () => {
           const tabGroup = await clientFixture<WaTabGroup>(html`<wa-tab-group>${generateTabs(2)}</wa-tab-group>`);
           await aTimeout(0);
@@ -709,14 +742,16 @@ describe('<wa-tab-group>', () => {
       });
 
       describe('CSS parts and states', () => {
-        it('should expose the base part', async () => {
+        it('should expose the "tab-group" part and keep the deprecated base part', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
               <wa-tab panel="general">General</wa-tab>
               <wa-tab-panel name="general">Content</wa-tab-panel>
             </wa-tab-group>
           `);
-          expect(tabGroup.shadowRoot!.querySelector('[part~="base"]')).to.exist;
+          const wrapper = tabGroup.shadowRoot!.querySelector('[part~="tab-group"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
         });
 
         it('should expose the nav part', async () => {
