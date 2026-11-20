@@ -49,7 +49,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - Fixed open submenus closing when `wa-hide` was prevented
   - Fixed `wa-hide` being emitted twice when [[Tab]] closed the menu
 - Fixed a regression in `<wa-copy-button>` where adding `display: inline-flex;` caused unintended consequences. [pr:3055]
-- Fixed a bug in `<wa-copy-button>` that left it stuck showing its success feedback when the tooltip was shown again while hiding
+- Fixed a bug in `<wa-copy-button>` that left it stuck showing its success feedback when the tooltip was shown again while hiding [pr:3080]
 - Fixed a bug in `<wa-color-picker>` that allowed the color to change after the picker was disabled while open [issue:3017] [pr:3018]
 - Fixed a bug in `<wa-color-picker>` where the `open` attribute didn't open the picker on first render [pr:3065]
 - Fixed a bug in `<wa-color-picker>` where dragging the hue slider emitted an `input` event that didn't bubble [pr:3062]
