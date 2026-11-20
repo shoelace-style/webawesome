@@ -60,10 +60,6 @@ import styles from './drawer.styles.js';
  * @cssproperty [--backdrop-filter=none] - A filter to apply to the backdrop behind the drawer.
  * @cssproperty [--show-duration=var(--wa-transition-normal)] - The animation duration when showing the drawer.
  * @cssproperty [--hide-duration=var(--wa-transition-normal)] - The animation duration when hiding the drawer.
- *
- * @property modal - Exposes the internal modal utility that controls focus trapping. To temporarily disable focus
- *   trapping and allow third-party modals spawned from an active Shoelace modal, call `modal.activateExternal()` when
- *   the third-party modal opens. Upon closing, call `modal.deactivateExternal()` to restore Shoelace's focus trapping.
  */
 @customElement('wa-drawer')
 export default class WaDrawer extends WebAwesomeElement {

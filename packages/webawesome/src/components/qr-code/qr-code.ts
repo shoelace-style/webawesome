@@ -49,9 +49,19 @@ export default class WaQrCode extends WebAwesomeElement {
   /** The level of error correction to use. [Learn more](https://www.qrcode.com/en/about/error_correction.html) */
   @property({ attribute: 'error-correction' }) errorCorrection: 'L' | 'M' | 'Q' | 'H' = 'H';
 
+  /** The URL of an image, such as a logo, to draw in the center of the QR code. */
   @property() image: string | null = null;
+
+  /** The color drawn behind the image. This can be any valid CSS color, but not a CSS custom property. */
   @property({ attribute: 'image-background' }) imageBackground: string | null = null;
+
+  /**
+   * How much of the QR code the image may cover, from `0` to `1`. Defaults to `0.5`. Higher values are harder to
+   * scan.
+   */
   @property({ attribute: 'image-coverage', type: Number }) imageCoverage: number | null = null;
+
+  /** @internal The renderer ignores this value today. */
   @property({ attribute: 'image-padding', type: Number }) imagePadding: number | null = null;
 
   private computedStyle: ReturnType<typeof getComputedStyle> | null = null;

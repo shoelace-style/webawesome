@@ -87,16 +87,14 @@ color is set in three places, it is effectively set in none, because the next ch
    A brand hue that already exists in the palette is simpler still: `wa-brand-indigo` on `<html>` and no
    overrides at all.
 
-3. **Project tokens, for new concepts only.** A token the system doesn't have (`--app-content-measure:
-65ch`, `--app-sidebar-width: 16rem`) is fine. A new name for an existing token is not:
+3. **Project tokens, for new concepts only.** A new name for an existing token (a `--brand-primary` holding
+   a hex, a `--spacing-md` holding a pixel value) is a parallel vocabulary that stops following the theme.
+   Add a project token only where Web Awesome has no word for the concept:
 
    ```css
-   /* Incorrect: a parallel vocabulary that stops following the theme */
-   --brand-primary: #4f46e5;
-   --spacing-md: 16px;
-
-   /* Correct: extend the vocabulary only where Web Awesome has no word for it */
-   --app-content-measure: 65ch;
+   :root {
+     --app-content-measure: 65ch;
+   }
    ```
 
 4. **House recipes: named classes and compositions built from components and tokens.** This is where
@@ -125,15 +123,15 @@ composition, and express the difference through tokens and the component's API:
 </wa-card>
 
 <style>
-  wa-card.stat-card::part(body) {
-    padding: var(--wa-space-l);
+  wa-card.stat-card {
+    --spacing: var(--wa-space-xl);
   }
 </style>
 ```
 
 Everything here re-themes: the card's surface, the badge's color, the type scale, and the spacing all
-resolve through tokens, and the layout inside is a utility, not hand-rolled flex. (Check the card reference before using a part; `body` is documented for
-`<wa-card>`, but part names differ per component.)
+resolve through tokens, and the layout inside is a utility, not hand-rolled flex. (`--spacing` is documented
+for `<wa-card>`; custom properties and parts differ per component, so check the reference first.)
 
 **A house variant of an existing component** is a class that reaches the documented part, never a copy of
 the component's CSS:
@@ -215,9 +213,10 @@ worse than none, because agents will trust it.
 ## 5. Optional guardrails
 
 Instructions are advisory; a check that runs on every change is not. If the project has a lint or hook
-step, the search patterns in the main skill's "Verify before you finish" table are designed to be run
+step, the search command in the main skill's "Verify before you finish" section is designed to be run
 mechanically: hex and `px` literals outside the theme layer, self-closed custom elements, `wa-*` host
-rules that set `background`/`color`/`border`, and `slot="main"` on a `<wa-page>` child. A stylelint rule
+rules that set `background`/`color`/`border`, long-form size names, and `slot="main"` on a `<wa-page>`
+child. A stylelint rule
 or a small script that fails on those catches the drift that reviews miss, and lets the brief stay short.
 
 ---

@@ -2,15 +2,14 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { apiMembers, cleanCemText, current, typeText } from './agent-skill.js';
 import { getAllComponents } from './shared.js';
 import { getCdnDir, getDistDir, getDocsDir } from './utils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-/** Removes newlines from text to keep llms.txt formatting clean. */
-function removeNewlines(str) {
-  return str ? str.replace(/\n/g, ' ').trim() : '';
-}
+/** Removes newlines and JSDoc key shortcodes from text to keep llms.txt formatting clean. */
+const removeNewlines = cleanCemText;
 
 /** Loads front-matter from all component markdown files. */
 function loadAllFrontMatter(components, docsDir) {
@@ -58,10 +57,11 @@ function generateComponentApiSection(component, frontMatterCache, baseUrl) {
   lines.push('');
 
   // Slots
-  if (component.slots?.length > 0) {
+  const slots = current(component.slots);
+  if (slots.length > 0) {
     lines.push('**Slots:**');
     lines.push('');
-    for (const slot of component.slots) {
+    for (const slot of slots) {
       const slotName = slot.name || '(default)';
       lines.push(`- \`${slotName}\`: ${removeNewlines(slot.description) || 'No description.'}`);
     }
@@ -69,8 +69,7 @@ function generateComponentApiSection(component, frontMatterCache, baseUrl) {
   }
 
   // Properties
-  const properties =
-    component.members?.filter(m => m.kind === 'field' && m.privacy !== 'private' && m.description) || [];
+  const properties = apiMembers(component, 'field');
 
   if (properties.length > 0) {
     lines.push('**Properties:**');
@@ -79,7 +78,7 @@ function generateComponentApiSection(component, frontMatterCache, baseUrl) {
       // Find corresponding attribute if any
       const attr = component.attributes?.find(a => a.fieldName === prop.name);
       const attrNote = attr && attr.name !== prop.name ? ` (attribute: \`${attr.name}\`)` : '';
-      const typeStr = prop.type?.text ? `Type: \`${removeNewlines(prop.type.text)}\`` : '';
+      const typeStr = typeText(prop) ? `Type: \`${removeNewlines(typeText(prop))}\`` : '';
       const defaultStr = prop.default ? `Default: \`${prop.default}\`` : '';
       const meta = [typeStr, defaultStr].filter(Boolean).join(', ');
 
@@ -91,14 +90,14 @@ function generateComponentApiSection(component, frontMatterCache, baseUrl) {
   }
 
   // Methods
-  const methods = component.members?.filter(m => m.kind === 'method' && m.privacy !== 'private' && m.description) || [];
+  const methods = apiMembers(component, 'method');
 
   if (methods.length > 0) {
     lines.push('**Methods:**');
     lines.push('');
     for (const method of methods) {
       const params = method.parameters?.length
-        ? `(${method.parameters.map(p => `${p.name}: ${removeNewlines(p.type?.text) || 'unknown'}`).join(', ')})`
+        ? `(${method.parameters.map(p => `${p.name}: ${removeNewlines(typeText(p)) || 'unknown'}`).join(', ')})`
         : '()';
       lines.push(`- \`${method.name}${params}\`: ${removeNewlines(method.description) || 'No description.'}`);
     }
@@ -106,7 +105,7 @@ function generateComponentApiSection(component, frontMatterCache, baseUrl) {
   }
 
   // Events
-  const events = component.events?.filter(e => e.name) || [];
+  const events = current(component.events).filter(e => e.name);
   if (events.length > 0) {
     lines.push('**Events:**');
     lines.push('');
@@ -117,10 +116,11 @@ function generateComponentApiSection(component, frontMatterCache, baseUrl) {
   }
 
   // CSS Custom Properties
-  if (component.cssProperties?.length > 0) {
+  const cssProperties = current(component.cssProperties);
+  if (cssProperties.length > 0) {
     lines.push('**CSS Custom Properties:**');
     lines.push('');
-    for (const prop of component.cssProperties) {
+    for (const prop of cssProperties) {
       const defaultStr = prop.default ? ` (Default: \`${prop.default}\`)` : '';
       lines.push(`- \`${prop.name}\`: ${removeNewlines(prop.description) || 'No description.'}${defaultStr}`);
     }
@@ -128,20 +128,22 @@ function generateComponentApiSection(component, frontMatterCache, baseUrl) {
   }
 
   // CSS Parts
-  if (component.cssParts?.length > 0) {
+  const cssParts = current(component.cssParts);
+  if (cssParts.length > 0) {
     lines.push('**CSS Parts:**');
     lines.push('');
-    for (const part of component.cssParts) {
+    for (const part of cssParts) {
       lines.push(`- \`${part.name}\`: ${removeNewlines(part.description) || 'No description.'}`);
     }
     lines.push('');
   }
 
   // CSS States
-  if (component.cssStates?.length > 0) {
+  const cssStates = current(component.cssStates);
+  if (cssStates.length > 0) {
     lines.push('**CSS States:**');
     lines.push('');
-    for (const state of component.cssStates) {
+    for (const state of cssStates) {
       lines.push(`- \`${state.name}\`: ${removeNewlines(state.description) || 'No description.'}`);
     }
     lines.push('');

@@ -78,6 +78,10 @@ function toLength(px: number | string): string {
  * @status stable
  * @since 3.0
  *
+ * @dependency wa-button
+ * @dependency wa-drawer
+ * @dependency wa-icon
+ *
  * @slot - The page's main content.
  * @slot banner - The banner that gets display above the header. The banner will not be shown if no content is provided.
  * @slot header - The header to display at the top of the page. If a banner is present, the header will appear below the banner. The header will not be shown if there is no content.
@@ -225,7 +229,10 @@ export default class WaPage extends WebAwesomeElement {
   // For some reason "private" reports this as not used and breaks builds?
   protected internalMobileBreakpointPx = toPx(this.mobileBreakpoint);
 
-  /** Space-separated list of `banner`, `header`, `subheader`, in any order that will disable its sticky properties. */
+  /**
+   * A space-separated list of regions that should not stick as the page scrolls, in any order. Accepts `banner`,
+   * `header`, `subheader`, `menu`, and `aside`.
+   */
   @property({ attribute: 'disable-sticky', reflect: true })
   disableSticky: undefined | null | string = null;
 
@@ -300,6 +307,7 @@ export default class WaPage extends WebAwesomeElement {
   }
 
   /**
+   * @internal
    * https://stackoverflow.com/a/26831113
    * This prevents awkward gaps when scrolling the page and the aside / menu don't "fill" the gaps.
    */

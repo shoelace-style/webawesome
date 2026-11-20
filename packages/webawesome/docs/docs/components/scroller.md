@@ -91,7 +91,7 @@ The scroller component automatically provides a scrollable container for any con
 <wa-scroller>
   <div style="width: 1200px; padding: 1rem;">
     <h3>Superhero Team Roles Guide</h3>
-    <div class="wa-grid" style="--wa-grid-columns: 4; --wa-grid-gap: var(--wa-spacing-l);">
+    <div class="wa-grid wa-gap-l" style="--min-column-size: 250px;">
       <div>
         <h4>Team Leaders</h4>
         <p>

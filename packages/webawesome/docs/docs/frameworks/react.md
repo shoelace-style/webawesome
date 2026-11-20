@@ -179,7 +179,7 @@ Every Web Awesome component is available to import as a React component. Note th
 ```jsx
 import WaButton from '@awesome.me/webawesome/dist/react/button/index.js';
 
-const MyComponent = () => <WaButton variant="primary">Click me</WaButton>;
+const MyComponent = () => <WaButton variant="brand">Click me</WaButton>;
 
 export default MyComponent;
 ```
@@ -213,17 +213,25 @@ import WaInput from '@awesome.me/webawesome/dist/react/input/index.js';
 <WaInput defaultValue="Foo" />;
 ```
 
-And import the component's event type to type your callbacks directly:
+And import the types of the component's `wa-*` events to type those callbacks directly. Native events such as `input` and `change` use React's own event types.
 
 ```tsx
 import { useCallback, useState } from 'react';
-import WaInput, { type WaInputEvent } from '@awesome.me/webawesome/dist/react/input/index.js';
+import type WaInputElement from '@awesome.me/webawesome/dist/components/input/input.js';
+import WaInput, { type WaClearEvent } from '@awesome.me/webawesome/dist/react/input/index.js';
 
 function MyComponent() {
   const [value, setValue] = useState('');
-  const onInput = useCallback((event: WaInputEvent) => setValue(event.detail), []);
+  const onWaClear = useCallback((_event: WaClearEvent) => setValue(''), []);
 
-  return <WaInput value={value} onInput={onInput} />;
+  return (
+    <WaInput
+      value={value}
+      withClear
+      onInput={event => setValue((event.target as WaInputElement).value)}
+      onWaClear={onWaClear}
+    />
+  );
 }
 
 export default MyComponent;

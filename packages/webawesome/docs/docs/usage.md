@@ -213,7 +213,7 @@ Be sure to add a reference to the `web-types.json` file in your `package.json` i
 ```json
 {
   ...
-  "web-types": "./web-types.json"
+  "web-types": "./node_modules/@awesome.me/webawesome/dist/web-types.json"
   ...
 }
 ```
@@ -225,7 +225,7 @@ If you are using types from multiple projects, you can add an array of reference
   ...
   "web-types": [
     ...,
-    "./web-types.json"
+    "./node_modules/@awesome.me/webawesome/dist/web-types.json"
   ]
   ...
 }

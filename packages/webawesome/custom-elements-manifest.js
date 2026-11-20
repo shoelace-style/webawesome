@@ -17,6 +17,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const packageData = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'));
 const { name, description, version, author, homepage, license } = packageData;
 const outdir = 'dist-cdn';
+const SIZE_SCALE = "'xs' | 's' | 'm' | 'l' | 'xl'";
 
 // The package directory with forward slashes and a trailing slash
 const packageRoot = __dirname.replaceAll(path.sep, '/').replace(/\/*$/, '/');
@@ -228,31 +229,6 @@ export default {
         });
       },
     },
-    // Generate custom VS Code data
-    customElementVsCodePlugin({
-      outdir,
-      cssFileName: null,
-      referencesTemplate: (_, tag) => [
-        {
-          name: 'Documentation',
-          url: `https://webawesome.com/docs/components/${tag.replace('wa-', '')}`,
-        },
-      ],
-    }),
-
-    // Generate custom JetBrains data
-    customElementJetBrainsPlugin({
-      outdir,
-      excludeCss: true,
-      packageJson: false,
-      referencesTemplate: (_, tag) => {
-        return {
-          name: 'Documentation',
-          url: `https://webawesome.com/docs/components/${tag.replace('wa-', '')}`,
-        };
-      },
-    }),
-
     // Filter out events without names (these come from code analysis detecting
     // dispatchEvent() calls, but lack the event name that comes from @event JSDoc tags)
     {
@@ -294,6 +270,53 @@ export default {
     customElementSveltePlugin({
       outdir: './dist-cdn/types/svelte',
       fileName: 'index.d.ts',
+    }),
+
+    // Publish only the current size scale. Runs after the TypeScript outputs above so their types
+    // still accept the deprecated long-form values, and before the editor data below.
+    {
+      name: 'wa-current-size-scale',
+      packageLinkPhase({ customElementsManifest }) {
+        const deprecated = /'(small|medium|large)'/;
+        const sentence =
+          /\s*The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead\./;
+        customElementsManifest?.modules?.forEach(mod => {
+          mod.declarations?.forEach(declaration => {
+            [...(declaration.attributes ?? []), ...(declaration.members ?? [])].forEach(item => {
+              if (item.name !== 'size') return;
+              for (const key of ['type', 'parsedType']) {
+                if (deprecated.test(item[key]?.text ?? '')) item[key].text = SIZE_SCALE;
+              }
+              if (item.description) item.description = item.description.replace(sentence, '');
+            });
+          });
+        });
+      },
+    },
+
+    // Generate custom VS Code data
+    customElementVsCodePlugin({
+      outdir,
+      cssFileName: null,
+      referencesTemplate: (_, tag) => [
+        {
+          name: 'Documentation',
+          url: `https://webawesome.com/docs/components/${tag.replace('wa-', '')}`,
+        },
+      ],
+    }),
+
+    // Generate custom JetBrains data
+    customElementJetBrainsPlugin({
+      outdir,
+      excludeCss: true,
+      packageJson: false,
+      referencesTemplate: (_, tag) => {
+        return {
+          name: 'Documentation',
+          url: `https://webawesome.com/docs/components/${tag.replace('wa-', '')}`,
+        };
+      },
     }),
     // cemValidatorPlugin({
     //   cemFileName: "./dist-cdn/custom-elements.json"

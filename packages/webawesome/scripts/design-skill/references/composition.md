@@ -65,7 +65,7 @@ Don't. Use the scales instead:
 | A glyph's size            | `font-size: var(--wa-font-size-*)` — icons inherit it (see Icons below)                                                                     |
 
 ```css
-/* ✓ Token-based circular icon badge — no raw rem, themes correctly. */
+/* A token-based circular icon badge that re-themes with the scale. */
 .icon-badge {
   inline-size: var(--wa-space-2xl);
   block-size: var(--wa-space-2xl);
@@ -107,7 +107,7 @@ Modifiers combine: `class="wa-cluster wa-gap-xs wa-align-items-start"`. Make one
 </div>
 
 <!-- Responsive tiles -->
-<div class="wa-grid wa-gap-l" style="--min-column-size: 14rem;">…</div>
+<div class="wa-grid wa-gap-l" style="--min-column-size: 24ch;">…</div>
 ```
 
 ---
@@ -174,13 +174,13 @@ Use it for labels on icon-only controls when there's no visible text:
 
 ```html
 <wa-button>
-  <wa-icon name="settings"></wa-icon>
+  <wa-icon name="gear"></wa-icon>
   <span class="wa-visually-hidden">Settings</span>
 </wa-button>
 ```
 
-(For `<wa-icon>` itself, the `label` attribute is simpler — use `wa-visually-hidden` when you need
-a span of extra text rather than a single icon label.)
+For a single icon, its `label` attribute is simpler (`<wa-icon name="gear" label="Settings">`). Use
+`wa-visually-hidden` when you need a span of extra text.
 
 ---
 
@@ -245,40 +245,39 @@ text need none.
 guessing goes wrong. Both skills work with the Free library by default; with a Pro kit code (below),
 they also surface Pro icons.
 
-**Font Awesome Pro / Pro+.** If the user has a Font Awesome Pro kit, you can unlock the Pro and Pro+
-icon families (`thin`, `light`, `sharp`, `duotone`, etc.) by setting their kit code. **Act on this — don't
-just leave Free on the table:** if the user has told you they have Font Awesome Pro (or Web Awesome Pro,
-which includes it), wire up their kit code and feel free to use Pro families. If a project clearly wants a
-distinctive icon weight (thin/light/duotone) and you don't know whether they have a kit, **ask once**
-("Do you have a Font Awesome Pro kit code?") rather than silently shipping only Free `solid` icons. Do
-**not** invent or add a kit code otherwise — without one, stay on Font Awesome Free. Use any **one** of
-these:
+**Font Awesome Pro / Pro+.** If the user has a Font Awesome Pro kit, setting their kit code unlocks the Pro
+families (`sharp`, `duotone`, `sharp-duotone`), the Pro variants (such as `thin` and `light`), and the
+Pro+ packs. If the user has told you they have Font Awesome Pro (or Web Awesome Pro, which includes it),
+wire up their kit code and use Pro families. If a project clearly wants a distinctive icon style (a `thin`
+or `light` variant, the `duotone` family) and you don't know whether they have a kit, ask once ("Do you
+have a Font Awesome Pro kit code?") rather than silently shipping only Free `solid` icons. Never invent a
+kit code; without one, stay on Font Awesome Free. Set it with any **one** of these:
 
-Option 1 — the `data-fa-kit-code` attribute on `<html>` (mirrors the theme/palette classes):
+Option 1: the `data-fa-kit-code` attribute on `<html>` (mirrors the theme/palette classes):
 
 ```html
 <html class="wa-theme-default wa-palette-default wa-light" data-fa-kit-code="YOUR_KIT_CODE_HERE"></html>
 ```
 
-Option 2 — the same attribute on the loader script (the canonical CDN URL is
-`https://ka-f.webawesome.com/webawesome@<version>/dist/webawesome.loader.js`; substitute your
-loader's actual URL or path):
+Option 2: the same attribute on the loader script (the CDN URL is
+`https://ka-f.webawesome.com/webawesome@<version>/webawesome.loader.js`; substitute your loader's actual
+URL or path):
 
 ```html
 <script src="…/webawesome.loader.js" data-fa-kit-code="YOUR_KIT_CODE_HERE"></script>
 ```
 
-Option 3 — the `setKitCode()` method. Import from the npm package, or from the CDN loader URL:
+Option 3: the `setKitCode()` method. Import from the npm package, or from the CDN loader URL:
 
 ```js
 // npm
 import { setKitCode } from '@awesome.me/webawesome';
-// or CDN: import { setKitCode } from 'https://ka-f.webawesome.com/webawesome@<version>/dist/webawesome.loader.js';
+// or CDN: import { setKitCode } from 'https://ka-f.webawesome.com/webawesome@<version>/webawesome.loader.js';
 setKitCode('YOUR_KIT_CODE_HERE');
 ```
 
-Once a kit code is set, select a Pro family with the `variant` attribute, e.g.
-`<wa-icon variant="regular" name="grip-vertical"></wa-icon>`.
+Once a kit code is set, choose the family with `family` and the weight with `variant`, e.g.
+`<wa-icon family="sharp" variant="light" name="grip-vertical"></wa-icon>`.
 
 To use one family and variant for every icon, add `data-fa-family` and `data-fa-variant` next to the kit
 code, e.g. `<html data-fa-kit-code="…" data-fa-family="sharp" data-fa-variant="light">`. Icons with their own
@@ -299,8 +298,6 @@ Source images in this order — never an emoji or a broken `src`:
    ```
    ```css
    .image-placeholder {
-     display: grid;
-     place-items: center;
      background-color: var(--wa-color-surface-lowered);
      color: var(--wa-color-text-quiet);
      font-size: var(--wa-font-size-s);
@@ -308,8 +305,9 @@ Source images in this order — never an emoji or a broken `src`:
    }
    ```
 
-Wrap images and placeholders in `wa-frame` (`:square`/`:landscape`/`:portrait`) to lock the aspect ratio so
-the layout reserves the right space and doesn't reflow when the real image swaps in. For people, prefer
+`wa-frame` already centers its content. Wrap images and placeholders in it (`:square`/`:landscape`/
+`:portrait`) to lock the aspect ratio, so the layout reserves the right space and doesn't reflow when the
+real image swaps in. For people, prefer
 `<wa-avatar>` — it renders a clean initials/icon placeholder with no `image`.
 
 ---
@@ -484,36 +482,27 @@ order, stopping at the first that does the job:
    attribute (`variant`, `appearance`, `size`, `pill`, …). These pierce the shadow boundary by design
    and survive theme changes. Prefer them. Custom properties inherit, so setting a value like
    `--wa-color-brand-fill-loud` or a component's own `--*` property on a container flows inward.
-2. **A `::part()` selector.** When you need to style the component's _internal_ surface — its padding,
-   border, border-radius, background, width — target one of its exposed **parts**. Most components
-   expose an outer-wrapper part **named after the component** (`button`, `input`, `details`,
-   `tab-group`, …); many expose more (`content`, `label`, `caret`, `remove-button`, `checkbox`,
-   `thumb`, …) — the set is **per-component**, so check that element's API. `::part()` is the correct,
-   supported way through the shadow boundary.
+2. **The part its reference names.** To style the component's internal surface (padding, border, radius,
+   background), target a documented **part**. Names differ per component: `button` for `wa-button`,
+   `input-wrapper` for `wa-input` (`input` is the native `<input>` inside it), `textarea-wrapper` for
+   `wa-textarea`, `details` for `wa-details`. Many components expose more (`label`, `caret`,
+   `remove-button`, `thumb`, …), so check that element's API. Older examples use `::part(base)`; it still
+   resolves as a deprecated alias and goes away in the next major.
+3. **The host, for layout or where documented.** `margin`, width, and placement in a flex or grid parent
+   apply to the host normally. Visual properties on the host usually sit outside or behind the rendered
+   control. A few components, such as `wa-card`, `wa-callout`, and `wa-tag`, are styled on the host by design,
+   and their reference says so. `wa-button` is not one of them, and `wa-dropdown` is styled through its
+   `menu` part.
 
-   **There is no `base` part any more.** Components still answer to `::part(base)` as a legacy alias,
-   and plenty of older examples use it, but it's deprecated library-wide and disappears in the next
-   major. Use the component-named part in anything you write.
-
-3. **Host-level layout only, on the element itself.** Properties that act on the element _as a box in
-   your layout_ — `margin`, and participation in a flex/grid parent — apply to the host normally. But
-   `padding`, `border`, and `background` set on the host often sit _outside_ or _behind_ the rendered
-   control and won't look right; those belong on the component's outer part.
+Background, border, and padding on a `wa-button` host miss the surface the user sees. Target the part
+instead, and keep width (layout) on the host:
 
 ```css
-/* ✗ Doesn't reach the component's visual surface (shadow DOM blocks it). */
-wa-button.cta {
-  border-radius: var(--wa-border-radius-pill);
-  padding-inline: var(--wa-space-2xl);
-}
-
-/* ✓ Target the part that actually renders the surface. */
 wa-button.cta::part(button) {
   border-radius: var(--wa-border-radius-pill);
   padding-inline: var(--wa-space-2xl);
 }
 
-/* ✓ Width is layout (host); the internal look is the part. */
 wa-button.full-width-control {
   width: 100%;
 }
@@ -522,11 +511,11 @@ wa-button.full-width-control::part(button) {
 }
 ```
 
-**Look up each component's parts, custom properties, and attributes in the
-[`webawesome` skill](https://webawesome.com/docs/ai/)** (the companion component-API skill) or that
-component's docs page — every component lists its "CSS parts" and "CSS custom properties." Do this for
-**whatever** `<wa-*>` element you're styling, not just the common ones; the right hook differs by
-component. Don't guess internal class names — they aren't stable and aren't selectable. If a component
+**Look up each component's parts, custom properties, and attributes** in
+`references/components/<name>.md` of the companion `webawesome` skill (or
+`node_modules/@awesome.me/webawesome/dist/skills/webawesome/references/components/<name>.md`, or
+`https://webawesome.com/docs/components/<name>`). Every component lists its CSS parts and custom
+properties. Do this for **whatever** `<wa-*>` element you're styling; the right hook differs by component. Don't guess internal class names. They aren't stable and aren't selectable. If a component
 exposes neither a token nor a part for what you need, that styling generally isn't intended — reconsider
 the approach rather than forcing it.
 
@@ -537,20 +526,14 @@ the inline-styles rule in the main skill file.
 
 ## Polish checklist
 
-After the **Verify before you finish** pass in SKILL.md (searches, markup, slot decisions, rule compliance), walk this
-**visual-quality pass** before calling a layout done. These check the things that make the output look
-intentionally designed — spacing rhythm, hierarchy, contrast on surfaces, and brand presence.
+After the checklist in SKILL.md, walk this **visual-quality pass**: spacing rhythm, hierarchy, contrast on
+surfaces, and brand presence.
 
 - [ ] **Spacing rhythm is consistent within a section** — at most 2 distinct `wa-gap-*` values per section (a base gap for the main flow, optionally a tighter step for closely-related inner clusters). If you see 3+ different `wa-gap-*` classes in one section, consolidate.
-- [ ] A theme + palette is set on `<html>`.
 - [ ] Text on filled backgrounds uses `*-on-*` tokens (accessible contrast — WCAG-tuned pairings).
 - [ ] Bordered elements (cards, callouts, inputs) on colored bands don't show the default gray border — change `appearance` or recolor `border-color` to match the band.
 - [ ] Quiet/plain controls on colored bands have full-contrast on-color text, not the muted page-surface color (otherwise they read as low-contrast or disabled).
 - [ ] One consistent border-radius scale across cards, inputs, buttons.
 - [ ] Clear hierarchy: distinct heading/body/caption styles; generous whitespace between sections.
 - [ ] A single primary action per view (`variant="brand"`); secondaries are quieter (`appearance="plain"`).
-- [ ] No inline `style` attributes — reusable classes live in a `<style>` block.
-- [ ] Before styling any `<wa-*>`, you read its `references/components/<name>.md` and every part / `--wa-*` property / `variant` you used is actually documented there — no guessed parts, tokens, or assumed `variant`→token mappings.
-- [ ] Component overrides go through tokens, attributes, or `::part()` (per the component's API), not host CSS that the shadow DOM ignores.
-- [ ] Any component whose background/fill you changed has readable body text **and** border against the new background (no dark-on-dark callout/card) — set the text color explicitly via the documented part if unsure.
 - [ ] Any custom CSS uses **semantic** color tokens (`--wa-color-brand-*`, `-surface-*`, `-text-*`), not raw palette tints (`--wa-color-blue-50`) — so dark mode and re-theming work automatically.

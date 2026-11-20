@@ -32,10 +32,9 @@ verbatim, alongside the generated `themes.md`, `support.md`, `installation.md`, 
 `form-controls.md`, `customizing.md`, `localization.md`, the per-component `components/*.md`, and the
 framework guides under `frameworks/`.
 
-The generated `SKILL.md` also gets two pointers to `choosing-components.md`: a callout under
-`## Components` ("Not sure which one to pick?") and the lead entry in
-`## Reference Documentation` ("start here if you're unsure which component fits"). When adding a new
-static reference, update both surfaces so it's discoverable.
+The generated `SKILL.md` points to `choosing-components.md` from the top of `## Components`, and lists every
+other reference under `## Other references` with a line saying when to read it. When adding a new static
+reference, add it there so it's discoverable.
 
 ## To make a change
 
@@ -56,19 +55,35 @@ static reference, update both surfaces so it's discoverable.
 **Never edit `dist/skills/webawesome/references/` directly**; every build overwrites it from this
 source (and from the CEM-driven generators for everything else).
 
-## The verifier and what it checks here
+## The verifier and what it checks
 
-`scripts/verify-skills.js` cross-checks files in this directory against the library so silent drift
-can't ship. Specifically for `choosing-components.md`:
+`scripts/verify-skills.js` (`npm run verify:skills`) fails the build when skill content drifts from the library.
+Checks that read `dist/` are skipped with a warning until you build.
 
-- Every `<wa-*>` tag mentioned in a table must exist in either `packages/webawesome/src/components/`
-  (free) or `packages/webawesome-pro/src/components/` (Pro)
-- Rows marked `**(Pro)**` must point at the Pro package; unmarked rows must point at the free package
+For `choosing-components.md`:
+
+- Every `<wa-*>` tag mentioned must exist in either `packages/webawesome/src/components/` (core) or
+  `packages/webawesome-pro/src/components/` (Pro)
+- Table rows marked `**(Pro)**` must point at the Pro package; unmarked rows must point at the core package
 - Every `<wa-tag attr>` and `<wa-tag attr="value">` cited must reference a real attribute per the CEM
   (caught the case where `<wa-tag removable>` should have been `<wa-tag with-remove>`)
 - Relative markdown links must resolve, with a small allowlist for generator-output siblings (e.g.
   `form-controls.md`, `themes.md`) that don't exist at source but will exist at runtime in the same
   `references/` directory
+
+For the generated skill and the rest of the skill output:
+
+- Frontmatter: `name` is lowercase words joined by hyphens, 64 characters or fewer, and matches the skill's
+  directory; `description` is 1024 characters or fewer and contains no `<` or `>`, escaped or not
+- No deprecated long-form size values: a size attribute set to one, the long-form union, or the "long-form
+  values" sentence, in `dist/skills/**`, `dist/llms.txt`, `scripts/design-skill/**`, or `docs/docs/**/*.md`
+  (the changelog and the Shoelace migration guide excepted)
+- No CEM item flagged deprecated and no static member is listed in a component reference's API sections
+- The design skill's `layouts-page.md` tables cite only slots, attributes, CSS custom properties, and CSS parts
+  that `<wa-page>` has, and no deprecated part
+- Relative links in `dist/skills/webawesome/**` resolve; a link to a directory is an error
+- Budgets: a SKILL.md over 500 lines or 24 KB and a reference over 100 KB are warnings; a line over 2,000
+  characters is an error
 
 If the verifier fails after a library change, fix the citation (or the library) before merging.
 

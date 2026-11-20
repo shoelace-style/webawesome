@@ -717,7 +717,7 @@ This example shows a cover photo with a button that opens the rest. The button u
     height="1067"
   ></wa-lightbox-item>
 
-  <wa-button size="small" class="view-all" data-lightbox="open lightbox-hidden">
+  <wa-button size="s" class="view-all" data-lightbox="open lightbox-hidden">
     <wa-icon slot="start" name="images"></wa-icon>
     View all 5 photos
   </wa-button>
