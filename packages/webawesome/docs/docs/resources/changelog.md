@@ -66,6 +66,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
 - Fixed a bug in `<wa-time-input>` where disabling it while open didn't fire `wa-hide` and left a parent `<wa-dialog>` unable to close on [[Escape]] [pr:3074]
 - Fixed a bug in `<wa-date-input>` and `<wa-combobox>` where disabling them while open didn't fire `wa-hide` and left a parent `<wa-dialog>` unable to close on [[Escape]]
+- Fixed a bug in `<wa-combobox>` where disabling it could still select an option as the listbox closed or commit typed text as the value
 - Fixed a performance issue in `<wa-icon>` where pages without a Font Awesome kit code searched the DOM for one on every icon [issue:2975] [pr:3053]
 - Fixed bugs in `<wa-dropdown>` submenu keyboard navigation [issue:2880] [pr:3061]
   - Fixed arrow keys moving through a submenu that had closed, such as after hovering from one submenu to another
