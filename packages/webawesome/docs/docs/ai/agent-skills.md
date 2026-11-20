@@ -1,12 +1,12 @@
 ---
 title: Agent Skills
-description: Two complementary Agent Skills that help AI tools work with Web Awesome — components and design.
+description: Two complementary Agent Skills that help AI tools work with Web Awesome, one for components and one for design.
 layout: page-outline
 ---
 
 The [Agent Skills specification](https://agentskills.io/) is a standard for providing structured documentation to AI coding assistants. It helps AI tools understand your project's APIs, conventions, and best practices through a well-organized directory of markdown files.
 
-Web Awesome publishes **two complementary Agent Skills** that are designed to work together. If your tool supports loading more than one skill, install both — they cross-reference each other, and the combination covers the full range of design and component work an AI tool will hit on a real task.
+Web Awesome publishes **two complementary Agent Skills** that are designed to work together. If your tool supports loading more than one skill, install both. They cross-reference each other, and the combination covers the full range of design and component work an AI tool will hit on a real task.
 
 | Skill               | Answers the question                             | Reach for it when you're                                                          |
 | ------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------- |
@@ -36,7 +36,7 @@ Unlike a single file, Agent Skills use progressive disclosure. The AI loads only
 
 ### Skill Quality
 
-Both skills are kept in sync with the library by tooling. The `webawesome` skill is generated from the Custom Elements Manifest on every release, so it matches the current component API exactly. The `webawesome-design` skill is hand-authored but verified — every component tag, attribute, slot, and CSS custom property it cites is cross-checked against the library on every build, so it can't claim something the components don't actually do.
+The `webawesome` skill is generated from the Custom Elements Manifest on every build, so it matches the current component API. The `webawesome-design` skill is hand-authored. Tooling checks its frontmatter, its `<wa-page>` API tables against the Custom Elements Manifest, its relative links, and deprecated size values as part of the library's verification step; the rest of its guidance and examples is reviewed by hand.
 
 ## How to Use Them
 
@@ -62,6 +62,8 @@ npx skills add ./node_modules/@awesome.me/webawesome/dist/skills/webawesome-desi
 npx skills remove webawesome
 npx skills remove webawesome-design
 ```
+
+Web Awesome Pro users can install the same skills from `node_modules/@awesome.me/webawesome-pro/dist/skills/`.
 
 Once installed, the skills are available to Claude Code automatically, and it loads the right one based on what you ask for. They're installed as symlinks, so they stay up to date when you update Web Awesome via npm.
 
@@ -101,7 +103,7 @@ The skill directory contains:
 webawesome/
 ├── SKILL.md                       # Overview, quick start, and component listing
 └── references/
-    ├── choosing-components.md     # Decision tree by user intent — start here
+    ├── choosing-components.md     # Decision tree by user intent; start here
     ├── components/                # Individual documentation for each component
     ├── frameworks/                # React, Vue, Angular, Svelte guides
     ├── utilities/                 # Layout and styling utilities
@@ -115,7 +117,7 @@ webawesome/
 
 It covers:
 
-- **Component decision tree:** a "which component should I use?" reference organized by user intent (pick one, pick many, show feedback, etc.) — closes the most common gap, which is picking the wrong component for the job
+- **Component decision tree:** a "which component should I use?" reference organized by user intent (pick one, pick many, show feedback, etc.). It closes the most common gap, which is picking the wrong component for the job
 - **Component documentation:** every component's full API (properties, slots, methods, events, CSS parts, and customization), with examples
 - **Installation & usage:** npm, CDN, and self-hosting options, plus working with attributes, properties, events, methods, and slots
 - **Form controls:** form integration and validation
@@ -133,14 +135,16 @@ The skill directory contains:
 
 ```
 webawesome-design/
-├── SKILL.md                  # Layout decision gate, core rules, recommended starting points, structural Final Pass
+├── SKILL.md                    # Four-step workflow, core rules, verification command and checklist, starting points
 └── references/
-    ├── layouts-page.md       # Full-page layouts with <wa-page> + a <wa-page>-specific structural checklist
-    ├── layouts-inpage.md     # Sections, widgets, and embeds (utilities only)
-    ├── theming.md            # Themes, palettes, light/dark, brand color, tokens
-    ├── composition.md        # Spacing, layout utilities, companion utilities, typography, surfaces, images, custom CSS playbook
-    ├── patterns.md           # Best-practice recipes (app shell, login, settings, dashboard, hero)
-    └── getting-started.md    # The opinionated default setup
+    ├── your-design-system.md   # Discovering and extending a project's own design system, DESIGN.md template
+    ├── layouts-page.md         # Full-page layouts with <wa-page>, nav shapes, a <wa-page> checklist, API tables
+    ├── layouts-inpage.md       # Sections, widgets, and embeds (utilities only)
+    ├── theming.md              # Themes, palettes, light/dark, brand color, tokens
+    ├── composition.md          # Spacing, layout and companion utilities, typography, icons, surfaces, custom CSS playbook
+    ├── principles.md           # The design judgment behind the tokens: color, depth, hierarchy, spacing, type
+    ├── patterns.md             # Recipes: app shell, landing page, login, settings, dashboard grid
+    └── getting-started.md      # The opinionated default setup
 ```
 
 It covers:
@@ -148,8 +152,9 @@ It covers:
 - **Layout:** when and how to use `<wa-page>` for full-page layouts (with an explicit landing-page vs. app-shell branch to head off the most common sidebar mistake), and how to compose sections, widgets, and forms with layout utilities when `<wa-page>` isn't the right fit
 - **Theming:** choosing themes and palettes, light and dark mode, matching a brand color, and customizing with `--wa-*` tokens
 - **Composition:** spacing rhythm, the layout-utility decision guide, typography, surfaces, images/placeholders, and a Companion utilities reference (alignment, text, sizing, color, accessibility) so AI tools reach for utility classes instead of inline styles
-- **Custom CSS playbook:** a seven-point playbook for the times AI tools genuinely need to write custom CSS — semantic tokens for dark mode, `*-on-*` pairings for WCAG contrast, the `loud`/`normal`/`quiet` step as a contrast lever, and the shadow-DOM cascade boundary so custom rules target your own elements rather than fighting component internals
-- **Self-check passes:** a **structural** final pass in the main skill (markup, slot decisions, rule compliance) plus a **visual polish** checklist in composition.md (rhythm, hierarchy, contrast on surfaces) and a `<wa-page>`-specific structural checklist in layouts-page.md
+- **Design system discovery:** how to find a project's existing theme, token overrides, and house recipes before building, and how to extend them without forking
+- **Custom CSS playbook:** an eight-point playbook for the times AI tools genuinely need to write custom CSS: semantic tokens for dark mode, `*-on-*` pairings for WCAG contrast, the `loud`/`normal`/`quiet` step as a contrast lever, and the shadow-DOM cascade boundary so custom rules target your own elements rather than fighting component internals
+- **Self-check passes:** a "Verify before you finish" section in the main skill with one search command and a structural checklist, plus a **visual polish** checklist in composition.md (rhythm, hierarchy, contrast on surfaces) and a `<wa-page>` checklist in layouts-page.md
 - **Recipes:** best-practice starting points for common screens
 
 ## Agent Skills vs llms.txt

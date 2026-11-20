@@ -14,7 +14,7 @@ The major decisions:
 - **Pick many** — checkbox group, multi-select, multi-combobox (Pro), tag input
 - **Trigger an action** — button, copy button, dropdown menu, button group, tabs
 - **Show feedback or status** — callout, toast, badge, spinner, progress, skeleton, tooltip, popover
-- **Capture input** — input, number input, textarea, date/time inputs, OTP input, file input (Pro)
+- **Capture input** — input, number input, textarea, date/time inputs, OTP input, file input (Pro), rich text editor (Pro)
 - **Show data** — format helpers, number ticker, relative time, counter, QR code, comparison, carousel, avatar, timeline, data grid (Pro), charts (Pro)
 - **Navigate or organize** — page, breadcrumb, tabs, accordion, details, tree, pagination, stepper, split panel, divider, card, tag, badge
 - **Overlay or float** — dialog, drawer, tooltip, popover, dropdown
@@ -127,6 +127,7 @@ The user types or uploads.
 | A known date (birthday, expiry) or a time of day            | `<wa-known-date>` / `<wa-time-input>` (see "Pick one")       |
 | A date from a calendar popup                                | `<wa-date-input>` **(Pro)**                                  |
 | File upload                                                 | `<wa-file-input>` **(Pro)**                                  |
+| Formatted text (bold, lists, links) submitted as HTML | `<wa-rich-text-editor>` **(Pro)** |
 | A color value                                               | `<wa-color-picker>`                                          |
 
 Use a `<form>` and the [form controls reference](form-controls.md) for validation patterns and form
@@ -201,13 +202,14 @@ Content that sits above the page.
 | You need…                                      | Use                                       |
 | ---------------------------------------------- | ----------------------------------------- |
 | Modal dialog (blocks page)                     | `<wa-dialog>`                             |
-| Side panel (non-blocking)                      | `<wa-drawer>`                             |
+| Modal side panel (slides in from an edge)      | `<wa-drawer>`                             |
 | Floating tooltip (hover / focus)               | `<wa-tooltip>`                            |
 | Floating popover (click to open, rich content) | `<wa-popover>`                            |
 | Dropdown menu of actions                       | `<wa-dropdown>` with `<wa-dropdown-item>` |
 
-**Dialog vs. drawer.** Dialog = blocks the page (confirmations, focused tasks). Drawer = slides in
-alongside (settings panels, secondary nav). If the user must respond before continuing, it's a dialog.
+**Dialog vs. drawer.** Both are modal and block the page until closed. Dialog = centered, for confirmations
+and focused tasks. Drawer = slides in from an edge, for settings panels, filters, and secondary nav. For a
+panel that stays visible beside the content, use the `aside` slot of `<wa-page>` or a `<wa-split-panel>`.
 
 ---
 
@@ -235,6 +237,7 @@ The Pro-only set is:
 
 - **`<wa-combobox>`** — typeahead select (single or `multiple`)
 - **`<wa-file-input>`** — file upload form control
+- **`<wa-rich-text-editor>`** — formatted text editor that submits HTML
 - **`<wa-date-input>` / `<wa-date-picker>`** — calendar date entry and inline month grid
 - **`<wa-data-grid>`** — sortable, filterable, selectable data table
 - **`<wa-sparkline>`** — small inline trend chart
@@ -246,5 +249,4 @@ The Pro-only set is:
 Don't use Pro components unless the user has Web Awesome Pro. When in doubt, pick the closest Free
 equivalent (`<wa-select>` instead of `<wa-combobox>`, native `<input type="file">` instead of
 `<wa-file-input>`, `<wa-known-date>` instead of `<wa-date-input>`, a native `<table>` instead of
-`<wa-data-grid>`) or compose from primitives.
-The full Pro list also lives in the main `SKILL.md`.
+`<wa-data-grid>`, `<wa-textarea>` instead of `<wa-rich-text-editor>`) or compose from primitives.

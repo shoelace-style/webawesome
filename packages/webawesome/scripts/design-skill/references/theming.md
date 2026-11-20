@@ -10,6 +10,15 @@ For the _why_ behind WA's three-layer color system — why semantic tokens beat 
 
 Full docs: https://webawesome.com/docs/themes
 
+**Contents**
+
+- [The three layers](#the-three-layers)
+- [Pick a theme and palette](#pick-a-theme-and-palette)
+- [Match a brand color](#match-a-brand-color)
+- [Light & dark](#light--dark)
+- [Customize with tokens](#customize-with-tokens)
+- [Rules](#rules)
+
 ---
 
 ## The three layers
@@ -72,7 +81,8 @@ The fastest way to re-brand: remap the **brand** role to a different hue with a 
 ```
 
 Available: `wa-brand-red`, `-orange`, `-yellow`, `-green`, `-cyan`, `-blue`, `-indigo`, `-purple`,
-`-pink`, `-gray`. The same pattern works for `wa-success-*`, `wa-warning-*`, and `wa-danger-*`.
+`-pink`, `-gray`. The same pattern works for `wa-neutral-*`, `wa-success-*`, `wa-warning-*`, and
+`wa-danger-*`.
 
 For a brand color that isn't one of the built-in hues, override the brand tokens on a scope. Declare
 them with concrete values (don't rely on `var()` fallbacks):

@@ -124,6 +124,7 @@ export default class WaTooltip extends WebAwesomeElement {
   /** Removes the arrow from the tooltip. */
   @property({ attribute: 'without-arrow', type: Boolean, reflect: true }) withoutArrow = false;
 
+  /** The `id` of the element the tooltip is attached to. The element must be in the same document or shadow root. */
   @property() for: string | null = null;
 
   @state() anchor: null | Element = null;

@@ -133,7 +133,10 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
     return [...super.validators, ...validators];
   }
 
-  /** Every segment edit dispatches `input`, so a single observed `input` event marks the field as interacted with. */
+  /**
+   * @internal Every segment edit dispatches `input`, so a single observed `input` event marks the field as interacted
+   * with.
+   */
   assumeInteractionOn = ['input'];
 
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label', 'footer');

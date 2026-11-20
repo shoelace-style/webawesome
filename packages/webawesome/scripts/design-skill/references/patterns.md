@@ -4,13 +4,11 @@ Best-practice compositions built from Web Awesome primitives. Each recipe names 
 (full-page → `<wa-page>`; in-page → utilities only), its **design intent**, and its **rationale** (the
 established web-design convention it follows). Copy, then re-theme with tokens.
 
-All recipes assume a theme/palette is set on `<html>` (see [theming.md](theming.md)) and, for full-page
-recipes, the `html, body` reset from [layouts-page.md](layouts-page.md).
-
-These snippets keep a few one-off values inline (a `max-width`, a `--min-column-size`) so each is
-self-contained. In a real page, lift anything reused into a `<style>` block as a class, and **never style
-a component host inline** — restyle components through their tokens, attributes, or `::part()` (see
-[composition.md](composition.md)).
+All recipes assume Web Awesome's stylesheet is loaded and a theme and palette are set on `<html>` (see
+[getting-started.md](getting-started.md) and [theming.md](theming.md)). The default theme stylesheet also
+supplies the `html`/`body` reset that `<wa-page>` needs. Inline `style` appears only for a one-off custom
+property value; everything else lives in a class. Restyle components through their tokens, attributes, or
+`::part()` (see [composition.md](composition.md#styling-components--css-parts)).
 
 **Contents**
 
@@ -26,134 +24,202 @@ a component host inline** — restyle components through their tokens, attribute
 ## App shell (full-page, `<wa-page>`)
 
 **Intent:** a logged-in application frame with a sidebar, top bar, and content area.
-**Rationale:** persistent left navigation + a top bar is the conventional app layout; users expect nav
-to stay put while content scrolls. `<wa-page>` gives sticky regions and a mobile drawer for free.
+**Rationale:** persistent left navigation plus a top bar is the conventional app layout; users expect nav
+to stay put while content scrolls, and to see where they are. `<wa-page>` gives sticky regions and a mobile
+drawer for free.
 
 ```html
-<wa-page>
+<wa-page mobile-breakpoint="920">
   <header slot="header" class="wa-split">
-    <div class="wa-cluster">
-      <wa-button data-toggle-nav appearance="plain" class="wa-mobile-only">
-        <wa-icon name="bars" label="Menu"></wa-icon>
+    <div class="wa-cluster wa-gap-s">
+      <wa-button data-toggle-nav appearance="plain">
+        <wa-icon name="bars" label="Open menu"></wa-icon>
       </wa-button>
       <strong>Acme</strong>
     </div>
     <wa-avatar label="Account"></wa-avatar>
   </header>
 
-  <!-- data-drawer="close" closes the mobile nav drawer after a tap -->
-  <nav slot="navigation" class="wa-stack wa-gap-2xs">
-    <a href="#" data-drawer="close"><wa-icon slot="start" name="gauge"></wa-icon> Dashboard</a>
-    <a href="#" data-drawer="close"><wa-icon slot="start" name="users"></wa-icon> Customers</a>
-    <a href="#" data-drawer="close"><wa-icon slot="start" name="gear"></wa-icon> Settings</a>
+  <nav slot="navigation" class="wa-stack wa-gap-3xs app-nav" aria-label="Main">
+    <a href="/dashboard" class="wa-cluster wa-gap-xs wa-link-plain" aria-current="page" data-drawer="close">
+      <wa-icon name="gauge"></wa-icon> Dashboard
+    </a>
+    <a href="/customers" class="wa-cluster wa-gap-xs wa-link-plain" data-drawer="close">
+      <wa-icon name="users"></wa-icon> Customers
+    </a>
+    <a href="/settings" class="wa-cluster wa-gap-xs wa-link-plain" data-drawer="close">
+      <wa-icon name="gear"></wa-icon> Settings
+    </a>
   </nav>
 
   <main class="wa-stack wa-gap-xl">
-    <h1>Dashboard</h1>
+    <div class="wa-split">
+      <h1 class="wa-heading-2xl">Dashboard</h1>
+      <div class="wa-cluster wa-gap-xs">
+        <wa-button appearance="plain">Export</wa-button>
+        <wa-button variant="brand">
+          <wa-icon slot="start" name="plus"></wa-icon>
+          New report
+        </wa-button>
+      </div>
+    </div>
     <p>Welcome back.</p>
   </main>
 </wa-page>
 
 <style>
-  html,
-  body {
-    min-height: 100%;
-    padding: 0;
-    margin: 0;
-  }
   wa-page {
     --menu-width: 15rem;
   }
   wa-page[view='mobile'] {
     --menu-width: auto;
   }
+  .app-nav a {
+    padding: var(--wa-space-xs) var(--wa-space-s);
+    border-radius: var(--wa-border-radius-m);
+  }
+  .app-nav a[aria-current='page'] {
+    background-color: var(--wa-color-brand-fill-quiet);
+    color: var(--wa-color-brand-on-quiet);
+  }
 </style>
 ```
+
+`aria-current="page"` tells assistive tech which link is the current page, and the style hangs off the
+same attribute, so the two never disagree. For the settings and forms inside an app, see
+`references/form-controls.md` in the `webawesome` skill.
 
 ---
 
 ## Marketing landing page (full-page, `<wa-page>`)
 
-**Intent:** a public landing page with a top nav, a hero, a feature grid, and a footer.
-**Rationale:** a single clear value proposition with one primary call-to-action above the fold converts
-better than competing actions; supporting detail follows below.
+**Intent:** a public landing page with header nav, a hero, a feature grid, a call-to-action band, and a
+footer.
+**Rationale:** one clear value proposition with a single primary action above the fold converts better
+than competing actions; supporting detail follows, and the CTA repeats at the end.
 
-**Nav:** this uses the sanctioned "header on desktop, drawer on mobile" recipe — links live in the
-`header` for wide screens and are mirrored in `slot="navigation"` for the mobile drawer `<wa-page>`
-provides. Each copy is hidden in the opposite view via `wa-page[view='…']`. This is the _only_ place nav
-is duplicated on purpose; never copy nav between slots otherwise. (For a simpler page, drop the header
-copy and the two hide-rules and keep just `slot="navigation"` — you'll get a small desktop sidebar plus
-the mobile drawer.)
+**Nav:** this is the header-links-on-desktop, drawer-on-mobile shape from
+[layouts-page.md](layouts-page.md#header-links-on-desktop-drawer-on-mobile). The header links hide on
+mobile (`wa-desktop-only`), the `navigation` copy fills the drawer, the desktop sidebar is hidden, the
+header carries its own toggle, and `--menu-width` stays at its `auto` default so no empty column appears.
 
 ```html
 <wa-page>
   <header slot="header" class="wa-split">
-    <strong>Acme</strong>
-    <!-- Desktop links — hidden on mobile via the style block below -->
-    <div class="header-nav wa-cluster">
-      <a href="#features">Features</a>
-      <a href="#pricing">Pricing</a>
-      <wa-button variant="brand">Get started</wa-button>
-    </div>
+    <a href="/" class="wa-link-plain"><strong>Acme</strong></a>
+    <nav class="wa-desktop-only wa-cluster wa-gap-l" aria-label="Main">
+      <a href="#features" class="wa-link-plain">Features</a>
+      <a href="/pricing" class="wa-link-plain">Pricing</a>
+      <a href="/docs" class="wa-link-plain">Docs</a>
+      <wa-button variant="brand" href="/signup">Get started</wa-button>
+    </nav>
+    <wa-button data-toggle-nav appearance="plain">
+      <wa-icon name="bars" label="Open menu"></wa-icon>
+    </wa-button>
   </header>
 
-  <!-- Same links, mirrored for the mobile drawer (hamburger is automatic) -->
-  <nav slot="navigation" class="wa-stack wa-gap-2xs">
-    <a href="#features" data-drawer="close">Features</a>
-    <a href="#pricing" data-drawer="close">Pricing</a>
-    <wa-button variant="brand">Get started</wa-button>
+  <nav slot="navigation" class="wa-stack wa-gap-s" aria-label="Main">
+    <a href="#features" class="wa-link-plain" data-drawer="close">Features</a>
+    <a href="/pricing" class="wa-link-plain" data-drawer="close">Pricing</a>
+    <a href="/docs" class="wa-link-plain" data-drawer="close">Docs</a>
+    <wa-button variant="brand" href="/signup">Get started</wa-button>
   </nav>
 
-  <main class="wa-stack wa-gap-3xl">
-    <section class="wa-stack wa-gap-l" style="max-width: 40rem; text-align: center; margin-inline: auto;">
-      <h1 class="wa-heading-3xl">Ship faster with Acme</h1>
-      <p class="wa-body-l">The toolkit teams reach for when deadlines are real.</p>
-      <div class="wa-cluster" style="justify-content: center;">
-        <wa-button variant="brand" size="l">Start free</wa-button>
-        <wa-button appearance="plain" size="l">Watch demo</wa-button>
+  <main>
+    <section class="section">
+      <div class="section-inner wa-stack wa-gap-l wa-align-items-center wa-text-center">
+        <h1 class="wa-heading-4xl wa-text-balance">Ship faster with Acme</h1>
+        <p class="wa-body-l wa-color-text-quiet wa-text-pretty">The toolkit teams reach for when deadlines are real.</p>
+        <div class="wa-cluster wa-justify-content-center">
+          <wa-button variant="brand" size="l" href="/signup">Start free</wa-button>
+          <wa-button appearance="plain" size="l" href="/demo">Watch demo</wa-button>
+        </div>
       </div>
     </section>
 
-    <section id="features" class="wa-grid wa-gap-xl" style="--min-column-size: 16rem;">
-      <div class="wa-stack wa-gap-xs">
-        <wa-icon name="bolt"></wa-icon>
-        <h3>Fast</h3>
-        <p>Built for speed from the ground up.</p>
+    <section id="features" class="section">
+      <div class="section-inner wa-stack wa-gap-2xl">
+        <h2 class="wa-heading-2xl wa-text-center">Why teams pick Acme</h2>
+        <div class="wa-grid wa-gap-xl features">
+          <div class="wa-stack wa-gap-xs">
+            <wa-icon name="bolt" class="feature-icon"></wa-icon>
+            <h3 class="wa-heading-m">Fast</h3>
+            <p class="wa-color-text-quiet">Built for speed from the ground up.</p>
+          </div>
+          <div class="wa-stack wa-gap-xs">
+            <wa-icon name="shield" class="feature-icon"></wa-icon>
+            <h3 class="wa-heading-m">Secure</h3>
+            <p class="wa-color-text-quiet">Enterprise-grade security by default.</p>
+          </div>
+          <div class="wa-stack wa-gap-xs">
+            <wa-icon name="puzzle-piece" class="feature-icon"></wa-icon>
+            <h3 class="wa-heading-m">Flexible</h3>
+            <p class="wa-color-text-quiet">Adapts to how your team already works.</p>
+          </div>
+        </div>
       </div>
-      <div class="wa-stack wa-gap-xs">
-        <wa-icon name="shield"></wa-icon>
-        <h3>Secure</h3>
-        <p>Enterprise-grade security by default.</p>
-      </div>
-      <div class="wa-stack wa-gap-xs">
-        <wa-icon name="puzzle-piece"></wa-icon>
-        <h3>Flexible</h3>
-        <p>Adapts to how your team already works.</p>
+    </section>
+
+    <section class="section cta-band">
+      <div class="section-inner wa-stack wa-gap-l wa-align-items-center wa-text-center">
+        <h2 class="wa-heading-2xl">Ready to ship?</h2>
+        <p>Start free. Upgrade when your team grows.</p>
+        <div class="wa-cluster wa-justify-content-center">
+          <wa-button variant="neutral" size="l" href="/signup">Start free</wa-button>
+          <wa-button appearance="outlined" size="l" href="/sales">Talk to sales</wa-button>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer slot="footer" class="wa-grid wa-gap-2xl">
-    <div class="wa-stack wa-gap-xs"><strong>Product</strong><a href="#">Features</a><a href="#">Pricing</a></div>
-    <div class="wa-stack wa-gap-xs"><strong>Company</strong><a href="#">About</a><a href="#">Careers</a></div>
+  <footer slot="footer" class="section">
+    <div class="section-inner wa-split">
+      <small class="wa-color-text-quiet">&copy; Acme</small>
+      <nav class="wa-cluster wa-gap-l" aria-label="Footer">
+        <a href="/about" class="wa-link-plain">About</a>
+        <a href="/careers" class="wa-link-plain">Careers</a>
+        <a href="/privacy" class="wa-link-plain">Privacy</a>
+      </nav>
+    </div>
   </footer>
 </wa-page>
 
 <style>
-  html,
-  body {
-    min-height: 100%;
-    padding: 0;
-    margin: 0;
-  }
-  wa-page[view='mobile'] .header-nav {
-    display: none; /* hide desktop header links on mobile */
-  }
+  /* No --menu-width: the desktop sidebar is hidden, so its column stays at auto and collapses. */
   wa-page[view='desktop']::part(navigation) {
-    display: none; /* hide the desktop sidebar; mobile drawer is unaffected */
+    display: none;
+  }
+  main {
+    padding: 0;
+  }
+  .section {
+    padding: var(--wa-space-4xl) var(--wa-space-xl);
+  }
+  .section-inner {
+    max-inline-size: 75ch;
+    margin-inline: auto;
+  }
+  .features {
+    --min-column-size: 24ch;
+  }
+  .feature-icon {
+    font-size: var(--wa-font-size-2xl);
+    color: var(--wa-color-brand-fill-loud);
+  }
+  .cta-band {
+    background-color: var(--wa-color-brand-fill-loud);
+    color: var(--wa-color-brand-on-loud);
+  }
+  .cta-band wa-button[appearance='outlined']::part(button) {
+    border-color: var(--wa-color-brand-on-loud);
+    color: var(--wa-color-brand-on-loud);
   }
 </style>
 ```
+
+The CTA band pairs `brand-fill-loud` with `brand-on-loud`. Its primary button is a filled `neutral`, which
+reads on a brand field, and the outlined secondary is recolored through its `button` part to the band's
+on-color. A brand-outlined or plain button there would share the band's hue and disappear.
 
 ---
 
@@ -164,28 +230,26 @@ the mobile drawer.)
 action. Don't use `<wa-page>`; this is one element on a page.
 
 ```html
-<div class="auth-screen wa-stack">
+<div class="auth-screen wa-stack wa-align-items-center wa-justify-content-center">
   <wa-card class="auth-card">
-    <div class="wa-stack wa-gap-l">
+    <form class="wa-stack wa-gap-l">
       <h1 class="wa-heading-l">Sign in</h1>
-      <wa-input label="Email" type="email"></wa-input>
-      <wa-input label="Password" type="password"></wa-input>
-      <wa-button variant="brand">Sign in</wa-button>
-      <a href="#" class="wa-caption-m">Forgot your password?</a>
-    </div>
+      <wa-input label="Email" type="email" name="email" required></wa-input>
+      <wa-input label="Password" type="password" name="password" required></wa-input>
+      <wa-button type="submit" variant="brand">Sign in</wa-button>
+      <a href="/forgot-password" class="wa-caption-m">Forgot your password?</a>
+    </form>
   </wa-card>
 </div>
 
 <style>
   .auth-screen {
-    min-height: 100vh;
-    justify-content: center;
-    align-items: center;
+    min-block-size: 100dvh;
   }
-  /* Size the card via a class, not an inline style on the component host. */
+  /* Size the card with a class; width is layout, so it's fine on the host. */
   .auth-card {
-    width: 100%;
-    max-width: 24rem;
+    inline-size: 100%;
+    max-inline-size: 40ch;
   }
 </style>
 ```
@@ -195,30 +259,26 @@ action. Don't use `<wa-page>`; this is one element on a page.
 ## Settings section (in-page, utilities only)
 
 **Intent:** a settings panel with grouped, labeled rows.
-**Rationale:** group related settings, label each row, and keep the control aligned to the right of its
-description, for a scannable, conventional settings layout.
+**Rationale:** group related settings, label each one, and keep the explanation next to the control, for a
+scannable, conventional settings layout.
 
 ```html
-<section class="wa-stack wa-gap-xl" style="max-width: 40rem;">
+<section class="wa-stack wa-gap-xl settings">
   <h2>Notifications</h2>
-
-  <div class="wa-split">
-    <div class="wa-stack wa-gap-3xs">
-      <strong>Email digests</strong>
-      <span class="wa-caption-m">A weekly summary of activity.</span>
-    </div>
-    <wa-switch></wa-switch>
-  </div>
-
-  <div class="wa-split">
-    <div class="wa-stack wa-gap-3xs">
-      <strong>Product updates</strong>
-      <span class="wa-caption-m">News about features and releases.</span>
-    </div>
-    <wa-switch checked></wa-switch>
-  </div>
+  <wa-switch name="digest" hint="A weekly summary of activity.">Email digests</wa-switch>
+  <wa-switch name="updates" hint="News about features and releases." checked>Product updates</wa-switch>
 </section>
+
+<style>
+  .settings {
+    max-inline-size: 60ch;
+  }
+</style>
 ```
+
+The switch's default slot is its label and `hint` is its description, so each switch has an accessible
+name and description without extra markup. For validation and form submission, see
+`references/form-controls.md` in the `webawesome` skill.
 
 ---
 
@@ -229,7 +289,7 @@ description, for a scannable, conventional settings layout.
 reflows by available width with no breakpoints.
 
 ```html
-<div class="wa-grid wa-gap-l" style="--min-column-size: 14rem;">
+<div class="wa-grid wa-gap-l" style="--min-column-size: 24ch;">
   <wa-card>
     <div class="wa-stack wa-gap-2xs">
       <span class="wa-caption-m">Revenue</span>

@@ -44,9 +44,9 @@ See [theming.md](theming.md) for the layer breakdown and
 
 ### Palette tints work for purely visual depth — with a dark-mode cost
 
-§1.1 calls palette tints an escape hatch; here's when reaching for that hatch is fair use. When you
-want a **purely visual** distinction between two elements — a sidebar a step darker than main, two
-adjacent cards on a tinted band, a hover background a half-step deeper than its container —
+The semantic layer above treats palette tints as an escape hatch; here's when that hatch is fair use.
+When you want a **purely visual** distinction between two elements (a sidebar a step darker than main,
+two adjacent cards on a tinted band, a hover background a half-step deeper than its container),
 reaching one or two steps along a palette scale is reasonable. The qualifiers:
 
 - **Stay on the scale.** `--wa-color-neutral-90` next to a default surface is fine; a raw hex or a
@@ -69,67 +69,19 @@ assignments. Palette tints don't. So when you reach for a palette tint, you owe 
 }
 ```
 
-Skip the override and the band stays at the same near-white tint in dark mode — exactly the
-theming breakage §1.1 is set up to prevent.
+Skip the override and the band stays at the same near-white tint in dark mode, which is the breakage the
+semantic layer exists to prevent.
 
-### `loud` / `normal` / `quiet` — your contrast lever
+### `loud` / `normal` / `quiet`: your contrast lever
 
-Each semantic role (`brand`, `neutral`, `success`, `warning`, `danger`) exposes three weight steps,
-and these are how you encode hierarchy through color:
-
-- **`loud`** — boldest fill, highest visual weight. Primary actions, hero callouts, the most
-  important band on a page.
-- **`normal`** — default mid-step. Standard surfaces, typical badges, secondary emphasis.
-- **`quiet`** — softest fill, lowest visual weight. Hover states, soft callouts, background tints,
-  de-emphasized accents.
-
-The lever applies to **fills**, **borders**, and the matching **on** (text) color of each step. So
-moving an element between `loud` / `normal` / `quiet` keeps it on the same role (brand stays brand)
-but shifts its emphasis. This is the §3 "quiet the surroundings" principle expressed in color: drop
-competing elements to `quiet`, leave the focal one at `loud`.
-
-### Pair within the step — `*-on-*` is the only safe text color on a changed background
-
-Whenever you change a component's background or fill, the matching `on` color of the same step is
-the only text color guaranteed to hit WCAG contrast: `fill-loud` with `on-loud`, `fill-normal` with
-`on-normal`, `fill-quiet` with `on-quiet`. The palettes are tuned for those exact pairings. **Mixing
-steps is the most common visual bug in WA output** — `on-loud` text on a `fill-quiet` background is
-too dark; `on-quiet` text on `fill-loud` is too pale. If a callout, badge, or card looks dark-on-dark
-or low-contrast after you styled it, this is almost always why. (SKILL.md's rules table calls out two
-specific instances: an `appearance="outlined"` or `appearance="plain"` button whose `variant`
-matches the band it sits on, and a `<wa-callout>` whose body text becomes unreadable after the host
-`background` changed but its text token didn't.)
-
-### Borders are a third hierarchy lever
-
-Alongside fills and text, every semantic role exposes a **`*-border-*`** family:
-`--wa-color-brand-border-normal`, `--wa-color-success-border-normal`, etc. Use them when you want a
-themed outline that re-resolves correctly across light/dark and across re-brandings — never a raw
-hex or a palette tint for borders.
-
-```css
-.brand-callout {
-  background-color: var(--wa-color-brand-fill-quiet);
-  color: var(--wa-color-brand-on-quiet);
-  border: var(--wa-border-width-s) solid var(--wa-color-brand-border-normal);
-}
-```
-
-(That's the working example from [composition.md § Custom CSS](composition.md#custom-css), and it's
-the canonical shape for a custom themed card.)
-
-### Quiet controls don't quiet themselves across bands
-
-A `<wa-button appearance="plain">` or any "quiet" control inherits a muted text color tuned for the
-**page surface**. Drop it onto a brand-colored hero or a dark band and the text stays muted relative
-to the page surface — which against a saturated background reads as low-contrast or disabled. The
-control didn't change; the assumption that "quiet" was a relative shade did.
-
-**In Web Awesome:** on any colored band, secondary actions need a full-contrast on-color text
-(`--wa-color-brand-on-loud`, `--wa-color-brand-on-quiet`, etc., matching the band's step) — or use a
-filled/outlined appearance with an explicit `::part(button)` recolor. Don't leave them on the page-surface
-quiet default. See the host-vs-part pair and the rules table in SKILL.md, and [theming.md](theming.md)'s closing note for
-the component-specific fix.
+Each semantic role exposes three weight steps for fills, borders, and their matching on (text) color.
+Moving an element between steps keeps its role (brand stays brand) and shifts its emphasis, which is the
+§3 "quiet the surroundings" principle expressed in color: drop competing elements to `quiet`, leave the
+focal one at `loud`. How to use the steps, pair `fill-*` with the same step's `on-*` text, and build a
+themed border with `*-border-*`: [composition.md § Custom CSS](composition.md#custom-css). Mixing steps is
+the most common visual bug in Web Awesome output; dark-on-dark or washed-out text after a restyle almost
+always traces back to it. For secondary buttons on colored bands, see the
+[landing page CTA band](patterns.md#marketing-landing-page-full-page-wa-page).
 
 ### Flip the contrast to keep brand color from going dark
 
@@ -163,11 +115,10 @@ warning icon isn't.
 
 ### `<wa-page>` layers with z-index, not shadow
 
-The page grid bakes layering into its slot structure: sticky regions (banner, header, subheader,
-menu, aside) sit at `z-index: 5` so content scrolls beneath them — but they carry no built-in
-shadow. The menu and aside columns share elevation with main; a `<wa-card>` _inside_ main is what
-the surface tokens raise. If you want a header to cast an elevation shadow as content scrolls under
-it, that's on you — add `--wa-shadow-s` or `--wa-shadow-m` to a header-slot background element.
+The page grid bakes layering into its regions: the sticky banner, header, and subheader sit at
+`z-index: 5` and the sticky menu and aside at `z-index: 4`, so content scrolls beneath them. None carry a
+built-in shadow. A `<wa-card>` inside main is what the surface tokens raise. For a header that casts a
+shadow as content scrolls under it, set `box-shadow: var(--wa-shadow-s)` on `wa-page::part(header)`.
 
 ### Picture an overhead light source
 
@@ -242,14 +193,14 @@ They're not just decorative options; they're the lever for de-emphasizing surrou
 element rises. When a primary element doesn't pop, this is usually the first move — quiet the
 competitors rather than piling more weight on the focus.
 
-This is the [§1 contrast lever](#loud--normal--quiet--your-contrast-lever) applied at the element
+This is the [§1 contrast lever](#loud--normal--quiet-your-contrast-lever) applied at the element
 level.
 
 ### Buttons stack by importance, not by semantics
 
-The `<wa-button>` attribute combinations encode three importance tiers directly:
-`variant="brand"` is your primary (loud), `appearance="outlined"` your secondary (quieter),
-`appearance="plain"` your tertiary (link-like). One primary per view, and it's the loud one.
+The `<wa-button>` attributes encode importance directly: `variant="brand"` is the primary (loud) and
+`appearance="plain"` the secondary (quiet). Reach for `appearance="outlined"` when a secondary needs a
+visible edge, such as on a busy surface. One primary per view, and it's the loud one.
 "Destructive" doesn't automatically mean "primary" — if Delete isn't the page's main action, keep
 its trigger secondary; reserve `variant="danger"` for the confirm button inside the `<wa-dialog>` it
 opens.
@@ -292,8 +243,8 @@ labels are the loudest text on the page.
 
 ### Begin loose; tighten only with reason
 
-WA's spacing utilities span twelve steps (`wa-gap-3xs` through `wa-gap-5xl`), but four cover most
-of what a layout needs. Start with `wa-gap-l` (24px) between blocks and `wa-gap-m` (16px) between
+WA's spacing utilities span eleven steps (`wa-gap-3xs` through `wa-gap-5xl`, plus `wa-gap-0`), but
+four cover most of what a layout needs. Start with `wa-gap-l` (24px) between blocks and `wa-gap-m` (16px) between
 related items, then tighten with `wa-gap-xs` (8px) or `wa-gap-2xs` (4px) for closely related
 controls — the tighter steps shouldn't be the default rhythm. Building margin upward until things
 "look OK" produces cramped UIs; loosening from a generous default produces breathing room you can
@@ -301,9 +252,9 @@ trim back.
 
 ### Web Awesome's spacing scale is non-linear on purpose
 
-The tokens jump non-linearly (2 → 4 → 8 → 12 → 16 → 24 → 32 → 40 → 48 → 64 → 80px). The gaps between
-steps are large enough that 12px and 16px are different decisions, not different shades of the same
-one. Pick the right step, not the right pixel.
+The tokens jump non-linearly ([values](composition.md#spacing-rhythm)). The gaps between steps are large
+enough that 12px and 16px are different decisions, not different shades of the same one. Pick the right
+step, not the right pixel.
 
 **Common miss:** `padding: 14px` because `wa-gap-s` (12px) feels tight and `wa-gap-m` (16px) feels
 loose. Pick one — the difference doesn't read once the rest of the page is on the scale.
@@ -334,12 +285,10 @@ parent. For multi-element long-form blocks, see §5 below.
 
 ### Full-bleed band, contained content — the canonical `<wa-page>` rhythm
 
-On a full page, the recurring decision is "section background runs edge-to-edge; readable content
-sits in a constrained inner column." This is the same "don't fill the screen" principle applied at
-the layout scale. [Layouts-page.md](layouts-page.md) encodes it as the
-`main { padding: 0 }` + `.section { padding-inline: var(--wa-space-xl) }` pattern: the band's color,
-photo, or gradient reaches the viewport edges, the heading and body inside it stay between `60ch`
-and `75ch` — typically by wrapping the section's inner content in a centered max-width container.
+On a full page, the recurring decision is "section background runs edge-to-edge; readable content sits
+in a constrained inner column." It's the "don't fill the screen" principle at the layout scale. The
+[landing page recipe](patterns.md#marketing-landing-page-full-page-wa-page) encodes it: `main` padding
+zeroed, a `.section` gutter class, and a centered `.section-inner` capped at `75ch`.
 
 ### Don't scale proportionally across breakpoints
 
@@ -355,8 +304,8 @@ desktop layout down.
 
 ### Hand-pick a small type scale and reuse it
 
-Web Awesome's `--wa-font-size-*` tokens (10/11/12/14/16/20/25/32/41/52/66px) are a 1.125 modular ramp
-tuned to land on whole pixels. Pick three or four sizes for a page — typically caption, body,
+Web Awesome's `--wa-font-size-*` tokens are a 1.125 modular ramp tuned to land on whole pixels
+([values](composition.md#typography)). Pick three or four sizes for a page — typically caption, body,
 heading, and an optional display — and reuse them. If you find yourself using six different sizes,
 two of them are unnecessary.
 
@@ -428,9 +377,17 @@ hand-rolled positioning required:
 
 ```html
 <wa-page>
-  <div slot="banner" style="background: var(--wa-color-brand-fill-loud); block-size: var(--wa-space-2xs);"></div>
+  <div slot="banner" class="accent-stripe"></div>
   …
 </wa-page>
+
+<style>
+  .accent-stripe {
+    padding: 0;
+    block-size: var(--wa-space-2xs);
+    background-color: var(--wa-color-brand-fill-loud);
+  }
+</style>
 ```
 
 ### Theme the browser defaults
@@ -450,7 +407,7 @@ point 8.
 **Icon bullets** — replace native list markers with `<wa-icon>` glyphs:
 
 ```html
-<ul class="wa-stack wa-gap-xs branded-list">
+<ul class="wa-list-plain wa-stack wa-gap-xs">
   <li class="wa-cluster wa-gap-s wa-align-items-start">
     <wa-icon class="branded-list-glyph" name="check"></wa-icon>
     <span>List item content.</span>
@@ -458,10 +415,6 @@ point 8.
 </ul>
 
 <style>
-  .branded-list {
-    list-style: none;
-    padding-inline-start: 0;
-  }
   .branded-list-glyph {
     color: var(--wa-color-brand-fill-loud);
   }
@@ -499,19 +452,9 @@ first.
 
 ### Title + action rows want `wa-split`, not `wa-cluster`
 
-A common pattern — section heading on the left, action button on the right — is `wa-split`. It
-pushes the first and last children to opposite ends with no inline `style` needed. Reach for
-`wa-cluster` for groups that should pack together; `wa-split` for groups that should pull apart.
-
-```html
-<div class="wa-split wa-align-items-center">
-  <h2 class="wa-heading-m">Members</h2>
-  <wa-button variant="brand">Add member</wa-button>
-</div>
-```
-
-For "fixed icon next to flexible text" (the classic media object), `wa-flank` does the same job:
-one fixed item beside one flexible item, no flexbox by hand.
+A heading on one side and an action on the other is `wa-split`, which pushes the first and last
+children apart ([example](layouts-inpage.md#toolbar--section-header-with-an-action)). `wa-cluster` is for
+groups that pack together; `wa-flank` is for a fixed icon beside flexible text.
 
 ### Section backgrounds are fields, not features
 
@@ -524,12 +467,12 @@ within ~30° of each other read as natural light; further apart looks like a sti
 
 ### Common components can do uncommon things
 
-WA's component slots are wider than the canonical use cases suggest. `<wa-dropdown>` contents are
-whatever you slot in — they don't have to be a `<wa-menu>`; columns, supporting text, or icons all
-work. `<wa-card>` containing a `<wa-radio>` is a valid selectable-card pattern. `<wa-tab-group>`
-panels hold any markup, not just lists. A dropdown doesn't have to be a vertical list of links; a
-radio group of two big choices reads better as selectable cards than labeled circles; a table column
-can stack label and value vertically when the column isn't sortable.
+WA's component slots are wider than the canonical use cases suggest. A `<wa-dropdown>` holds
+`<wa-dropdown-item>`s, which take an `icon` slot and a `details` slot for supporting text; for columns or
+arbitrary content, use a `<wa-popover>`. `<wa-card>` containing a `<wa-radio>` is a valid selectable-card
+pattern. `<wa-tab-group>` panels hold any markup, not just lists. A radio group of two big choices reads
+better as selectable cards than labeled circles; a table column can stack label and value vertically
+when the column isn't sortable.
 
 ---
 
@@ -554,7 +497,7 @@ controls just communicate "this thing is broken."
 
 <style>
   .empty-state {
-    max-inline-size: 32rem;
+    max-inline-size: 50ch;
     margin-inline: auto;
   }
   .empty-state-glyph {

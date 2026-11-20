@@ -55,7 +55,6 @@ declare const EyeDropper: EyeDropperConstructor;
  * @dependency wa-button-group
  * @dependency wa-input
  * @dependency wa-popup
- * @dependency wa-visually-hidden
  *
  * @slot label - The color picker's form label. Alternatively, you can use the `label` attribute.
  * @slot hint - The color picker's form hint. Alternatively, you can use the `hint` attribute.
