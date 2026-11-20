@@ -144,6 +144,7 @@ export default class WaDurationInput extends WebAwesomeFormAssociatedElement {
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private readonly localize = new LocalizeController(this);
   private _value: string | null = null;
+  private pendingFocus: string | null = null;
   @state() private draft: string[] | null = null;
 
   @query('input') input: HTMLInputElement;
@@ -241,6 +242,14 @@ export default class WaDurationInput extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'with-clear', type: Boolean }) withClear = false;
   /** Shows the days segment and uses 24-hour days. */
   @property({ attribute: 'show-days', type: Boolean, reflect: true }) showDays = false;
+  /** Hides the hours segment without changing its value. */
+  @property({ attribute: 'no-hours', type: Boolean, reflect: true }) withoutHours = false;
+  /** Hides the minutes segment without changing its value. */
+  @property({ attribute: 'no-minutes', type: Boolean, reflect: true }) withoutMinutes = false;
+  /** Hides the seconds segment without changing its value. */
+  @property({ attribute: 'no-seconds', type: Boolean, reflect: true }) withoutSeconds = false;
+  /** Hides the milliseconds segment without changing its value. */
+  @property({ attribute: 'no-microseconds', type: Boolean, reflect: true }) withoutMilliseconds = false;
   /** The minimum valid duration, inclusive. */
   @property({ reflect: true }) min = '';
   /** The maximum valid duration, inclusive. */
@@ -263,9 +272,26 @@ export default class WaDurationInput extends WebAwesomeFormAssociatedElement {
   }
 
   protected willUpdate(changedProperties: Parameters<WebAwesomeFormAssociatedElement['willUpdate']>[0]) {
-    if (changedProperties.has('showDays') && this.draft) {
+    const visibilityChanged = [
+      'showDays',
+      'withoutHours',
+      'withoutMinutes',
+      'withoutSeconds',
+      'withoutMilliseconds',
+    ].some(property => changedProperties.has(property));
+    if (visibilityChanged && this.draft) {
       this.segmentsController.flushAllBuffers();
       if (this.draft) this.commit();
+    }
+    if (visibilityChanged && !isServer) {
+      const active = this.shadowRoot?.activeElement;
+      const visibleFields = this.visibleFields;
+      if (active instanceof HTMLInputElement && !visibleFields.some(field => field.name === active.dataset.segment)) {
+        const index = fields.findIndex(field => field.name === active.dataset.segment);
+        const next =
+          visibleFields.find(field => fields.indexOf(field) > index) ?? visibleFields[visibleFields.length - 1];
+        this.pendingFocus = next?.name ?? null;
+      }
     }
     if (changedProperties.has('showDays') && this.hasUpdated) {
       const rawValue = this.valueHasChanged ? this._value : this.defaultValue;
@@ -280,8 +306,31 @@ export default class WaDurationInput extends WebAwesomeFormAssociatedElement {
     if (changedProperties.has('showDays')) this.updateFormValue(this.value);
   }
 
+  protected updated(changedProperties: Parameters<WebAwesomeFormAssociatedElement['updated']>[0]) {
+    super.updated(changedProperties);
+    if (this.pendingFocus) {
+      this.segmentsController.segmentElementFor(group, this.pendingFocus)?.focus();
+      this.pendingFocus = null;
+    }
+  }
+
   private get visibleFields() {
-    return this.showDays ? fields : fields.slice(1);
+    return fields.filter(field => {
+      switch (field.name) {
+        case 'Days':
+          return this.showDays;
+        case 'Hours':
+          return !this.withoutHours;
+        case 'Minutes':
+          return !this.withoutMinutes;
+        case 'Seconds':
+          return !this.withoutSeconds;
+        case 'Milliseconds':
+          return !this.withoutMilliseconds;
+        default:
+          return false;
+      }
+    });
   }
 
   private inDayMode(parts = this.currentParts()) {
@@ -374,6 +423,46 @@ export default class WaDurationInput extends WebAwesomeFormAssociatedElement {
     this.input?.focus(options);
   }
 
+  /** Hides the hours segment. */
+  hideHours() {
+    this.withoutHours = true;
+  }
+
+  /** Shows the hours segment. */
+  showHours() {
+    this.withoutHours = false;
+  }
+
+  /** Hides the minutes segment. */
+  hideMinutes() {
+    this.withoutMinutes = true;
+  }
+
+  /** Shows the minutes segment. */
+  showMinutes() {
+    this.withoutMinutes = false;
+  }
+
+  /** Hides the seconds segment. */
+  hideSeconds() {
+    this.withoutSeconds = true;
+  }
+
+  /** Shows the seconds segment. */
+  showSeconds() {
+    this.withoutSeconds = false;
+  }
+
+  /** Hides the milliseconds segment. */
+  hideMicroSeconds() {
+    this.withoutMilliseconds = true;
+  }
+
+  /** Shows the milliseconds segment. */
+  showMicroSeconds() {
+    this.withoutMilliseconds = false;
+  }
+
   blur() {
     this.renderRoot.querySelector<HTMLInputElement>('input:focus')?.blur();
   }
@@ -390,7 +479,8 @@ export default class WaDurationInput extends WebAwesomeFormAssociatedElement {
     const display =
       this.draft ?? (this.value && !parseDuration(this.value) ? ['', '', '', '', ''] : this.currentParts());
     const active = this.segmentsController.getActiveSegment();
-    const activeVisible = this.visibleFields.some(field => field.name === active?.field);
+    const visibleFields = this.visibleFields;
+    const activeVisible = visibleFields.some(field => field.name === active?.field);
     const dividers = [
       this.daysDivider ?? 'd ',
       this.hoursDivider ?? ':',
@@ -402,7 +492,7 @@ export default class WaDurationInput extends WebAwesomeFormAssociatedElement {
       <label
         part="form-control-label"
         class=${classMap({ 'has-label': hasLabel })}
-        for=${this.showDays ? 'days' : 'hours'}
+        for=${ifDefined(visibleFields[0]?.name.toLowerCase())}
         id="label"
       >
         <slot name="label">${this.label}</slot>
@@ -411,12 +501,16 @@ export default class WaDurationInput extends WebAwesomeFormAssociatedElement {
         <slot name="start" part="start"></slot>
         <div class="segments">
           ${repeat(
-            this.visibleFields,
+            visibleFields,
             field => field.name,
             (field, visibleIndex) => {
               const index = fields.indexOf(field);
               return html`
-                ${visibleIndex ? html`<span class="divider" aria-hidden="true">${dividers[index - 1]}</span>` : ''}
+                ${visibleIndex
+                  ? html`<span class="divider" aria-hidden="true"
+                      >${dividers[fields.indexOf(visibleFields[visibleIndex - 1])]}</span
+                    >`
+                  : ''}
                 <input
                   part="input"
                   id=${field.name.toLowerCase()}
@@ -443,7 +537,7 @@ export default class WaDurationInput extends WebAwesomeFormAssociatedElement {
               `;
             },
           )}
-          ${this.microsecondsDivider
+          ${!this.withoutMilliseconds && this.microsecondsDivider
             ? html`<span class="divider" aria-hidden="true">${this.microsecondsDivider}</span>`
             : ''}
         </div>

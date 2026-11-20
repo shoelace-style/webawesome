@@ -103,7 +103,8 @@ maximum, produce a validation error.
 
 Set `days-divider`, `hours-divider`, `minutes-divider`, and `seconds-divider` to change the text following each
 segment. `microseconds-divider` adds a suffix after milliseconds; its name matches `input-duration`. Empty strings
-hide divider text. Dividers are displayed as text and do not change the submitted value.
+hide divider text. Dividers are displayed as text and do not change the submitted value. Between visible segments,
+the divider associated with the left segment is used, even when intermediate segments are hidden.
 
 ```html {.example}
 <wa-duration-input
@@ -118,5 +119,18 @@ hide divider text. Dividers are displayed as text and do not change the submitte
 ></wa-duration-input>
 ```
 
-Configurable unit visibility is intended for Web Awesome Pro, subject to maintainer agreement, and is not implemented
-in this prototype. The placement of configurable dividers and min/max between core and Pro is also open for discussion.
+### Visible Units
+
+Use `no-hours`, `no-minutes`, `no-seconds`, or `no-microseconds` to hide the corresponding segment. The last attribute
+hides milliseconds and retains the name used by `input-duration`. Hidden units remain in the value and participate in
+validation and form submission; hiding a unit does not reset or convert it.
+
+```html {.example}
+<wa-duration-input label="Hours and seconds" no-minutes no-microseconds value="01:02:03.004"></wa-duration-input>
+```
+
+In JavaScript, the corresponding `hideHours()`, `hideMinutes()`, `hideSeconds()`, and `hideMicroSeconds()` methods hide
+segments; `showHours()`, `showMinutes()`, `showSeconds()`, and `showMicroSeconds()` show them again. If every segment
+is hidden, the value is preserved but cannot be edited until a segment is shown.
+
+The placement of configurable units, dividers, and min/max between Core and Pro is open for maintainer discussion.

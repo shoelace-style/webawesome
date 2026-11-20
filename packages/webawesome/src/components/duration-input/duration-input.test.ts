@@ -145,6 +145,89 @@ describe('<wa-duration-input>', () => {
         expect(new FormData(form).get('duration')).to.equal('2:03:04:05.006');
       });
 
+      it('keeps the left unit’s divider between visible segments and preserves hidden values', async () => {
+        const form = await fixture<HTMLFormElement>(html`
+          <form>
+            <wa-duration-input
+              name="duration"
+              label="Duration"
+              value="2:03:04:05.006"
+              days-divider="D"
+              hours-divider="H"
+              minutes-divider="M"
+              seconds-divider="S"
+              microseconds-divider="Z"
+            ></wa-duration-input>
+          </form>
+        `);
+        const el = form.querySelector('wa-duration-input')!;
+        const names = ['Days', 'Hours', 'Minutes', 'Seconds', 'Milliseconds'];
+        const dividers = ['D', 'H', 'M', 'S'];
+        for (let mask = 0; mask < 32; mask++) {
+          el.showDays = !!(mask & 1);
+          el.withoutHours = !(mask & 2);
+          el.withoutMinutes = !(mask & 4);
+          el.withoutSeconds = !(mask & 8);
+          el.withoutMilliseconds = !(mask & 16);
+          await el.updateComplete;
+          const visible = names.filter((_name, index) => mask & (1 << index));
+          expect([...el.shadowRoot!.querySelectorAll('input')].map(input => input.dataset.segment)).to.deep.equal(
+            visible,
+          );
+          const expected = visible.slice(0, -1).map(name => dividers[names.indexOf(name)]);
+          if (mask & 16) expected.push('Z');
+          expect([...el.shadowRoot!.querySelectorAll('.divider')].map(divider => divider.textContent)).to.deep.equal(
+            expected,
+          );
+          expect(el.value).to.equal('2:03:04:05.006');
+          expect(new FormData(form).get('duration')).to.equal('2:03:04:05.006');
+        }
+      });
+
+      it('supports unit hide and show methods and labels the first visible field', async () => {
+        const el = await fixture<WaDurationInput>(
+          html`<wa-duration-input label="Duration" value="01:02:03.004"></wa-duration-input>`,
+        );
+        const units: Array<[string, () => void, () => void, string]> = [
+          ['no-hours', () => el.hideHours(), () => el.showHours(), '#hours'],
+          ['no-minutes', () => el.hideMinutes(), () => el.showMinutes(), '#minutes'],
+          ['no-seconds', () => el.hideSeconds(), () => el.showSeconds(), '#seconds'],
+          ['no-microseconds', () => el.hideMicroSeconds(), () => el.showMicroSeconds(), '#milliseconds'],
+        ];
+        for (const [attribute, hide, show, selector] of units) {
+          hide();
+          await el.updateComplete;
+          expect(el.hasAttribute(attribute)).to.be.true;
+          expect(el.shadowRoot!.querySelector(selector)).to.be.null;
+          show();
+          await el.updateComplete;
+          expect(el.hasAttribute(attribute)).to.be.false;
+          expect(el.shadowRoot!.querySelector(selector)).not.to.be.null;
+        }
+        el.hideHours();
+        await el.updateComplete;
+        expect(el.shadowRoot!.querySelector('label')!.htmlFor).to.equal('minutes');
+        el.focus();
+        expect(el.shadowRoot!.activeElement).to.equal(el.shadowRoot!.querySelector('#minutes'));
+        await expect(el).to.be.accessible();
+      });
+
+      it('commits an edit before hiding its segment and moves focus to the next visible unit', async () => {
+        const el = await fixture<WaDurationInput>(html`
+          <wa-duration-input label="Duration" value="01:02:03.004" no-hours></wa-duration-input>
+        `);
+        el.focus();
+        await sendKeys({ type: '7' });
+        el.hideMinutes();
+        await el.updateComplete;
+        expect(el.value).to.equal('01:07:03.004');
+        expect(el.shadowRoot!.activeElement).to.equal(el.shadowRoot!.querySelector('#seconds'));
+        await sendKeys({ type: '08' });
+        await el.updateComplete;
+        expect(el.value).to.equal('01:07:08.004');
+        expect(el.shadowRoot!.activeElement).to.equal(el.shadowRoot!.querySelector('#milliseconds'));
+      });
+
       it('submits and resets day values, including an explicit required zero', async () => {
         const form = await fixture<HTMLFormElement>(html`
           <form>
