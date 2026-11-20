@@ -217,13 +217,21 @@ And import the types of the component's `wa-*` events to type those callbacks di
 
 ```tsx
 import { useCallback, useState } from 'react';
+import type WaInputElement from '@awesome.me/webawesome/dist/components/input/input.js';
 import WaInput, { type WaClearEvent } from '@awesome.me/webawesome/dist/react/input/index.js';
 
 function MyComponent() {
   const [value, setValue] = useState('');
   const onWaClear = useCallback((_event: WaClearEvent) => setValue(''), []);
 
-  return <WaInput value={value} withClear onWaClear={onWaClear} />;
+  return (
+    <WaInput
+      value={value}
+      withClear
+      onInput={event => setValue((event.target as WaInputElement).value)}
+      onWaClear={onWaClear}
+    />
+  );
 }
 
 export default MyComponent;

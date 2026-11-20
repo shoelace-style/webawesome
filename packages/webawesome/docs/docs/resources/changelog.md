@@ -52,7 +52,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-color-picker>` that allowed the color to change after the picker was disabled while open [issue:3017] [pr:3018]
 - Fixed a bug in `<wa-color-picker>` where the `open` attribute didn't open the picker on first render [pr:3065]
 - Fixed a bug in `<wa-color-picker>` where dragging the hue slider emitted an `input` event that didn't bubble [pr:3062]
-- Fixed the agent skills, `llms.txt`, and editor data so they no longer list the deprecated long-form `size` values, deprecated parts and attributes, or internal members
+- Fixed the agent skills, `llms.txt`, and editor data so they no longer list the deprecated long-form `size` values or members marked internal
+  - Fixed the agent skills and `llms.txt` so they no longer list deprecated parts and attributes, or static and protected members
   - Fixed nonexistent events, attributes, and import paths in the skills and in the framework, localization, and usage docs
   - Fixed garbled tables and oversized references in the `webawesome` skill
   - Fixed broken examples, part names, and the verification searches in the `webawesome-design` skill

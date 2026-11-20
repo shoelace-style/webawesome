@@ -514,7 +514,7 @@ wa-button.full-width-control::part(button) {
 `references/components/<name>.md` of the companion `webawesome` skill (or
 `node_modules/@awesome.me/webawesome/dist/skills/webawesome/references/components/<name>.md`, or
 `https://webawesome.com/docs/components/<name>`). Every component lists its CSS parts and custom
-properties. Do this for **whatever** `<wa-*>` element you're styling; the right hook differs by component. Don't guess internal class names — they aren't stable and aren't selectable. If a component
+properties. Do this for **whatever** `<wa-*>` element you're styling; the right hook differs by component. Don't guess internal class names. They aren't stable and aren't selectable. If a component
 exposes neither a token nor a part for what you need, that styling generally isn't intended — reconsider
 the approach rather than forcing it.
 

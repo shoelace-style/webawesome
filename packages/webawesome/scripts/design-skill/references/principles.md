@@ -305,8 +305,8 @@ desktop layout down.
 ### Hand-pick a small type scale and reuse it
 
 Web Awesome's `--wa-font-size-*` tokens are a 1.125 modular ramp tuned to land on whole pixels
-([values](composition.md#typography)). Pick three or four sizes for a page — typically caption, body,
-heading, and an optional display — and reuse them. If you find yourself using six different sizes,
+([values](composition.md#typography)). Pick three or four sizes for a page, typically caption, body,
+heading, and an optional display, and reuse them. If you find yourself using six different sizes,
 two of them are unnecessary.
 
 **Common miss:** six sizes where three would do.

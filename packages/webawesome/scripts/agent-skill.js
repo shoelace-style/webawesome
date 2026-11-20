@@ -451,11 +451,12 @@ function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
   const turndown = createTurndownService(baseUrl);
 
   // Generated tables are swapped in via placeholders and restored after Turndown, so their backticks,
-  // brackets, pipes, and `<…>` text aren't escaped again or parsed as HTML.
+  // brackets, pipes, and `<…>` text aren't escaped again or parsed as HTML. Each placeholder sits in its own
+  // paragraph so Turndown keeps the table apart from the text around it.
   const tables = [];
   const placeholder = markdown => {
     tables.push(markdown);
-    return `{{TABLE${tables.length - 1}}}`;
+    return `<p>{{TABLE${tables.length - 1}}}</p>`;
   };
 
   // Converts one scraped cell to inline markdown so every `<code>` survives and pipes can't split the row.

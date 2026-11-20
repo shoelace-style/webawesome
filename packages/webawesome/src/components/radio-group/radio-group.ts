@@ -142,7 +142,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   }
 
   /**
-   * We use the first available radio as the validationTarget similar to native HTML that shows the validation popup on
+   * @internal We use the first available radio as the validationTarget similar to native HTML that shows the validation popup on
    * the first radio element.
    */
   get validationTarget() {

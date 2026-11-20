@@ -117,7 +117,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   @query('.value-input') valueInput: HTMLInputElement;
   @query('.listbox') listbox: HTMLSlotElement;
 
-  /** Where to anchor native constraint validation */
+  /** @internal Where to anchor native constraint validation */
   get validationTarget() {
     return this.valueInput;
   }

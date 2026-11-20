@@ -62,7 +62,7 @@ export default class WaTabGroup extends WebAwesomeElement {
   private readonly localize = new LocalizeController(this);
 
   @query('.tab-group') tabGroup: HTMLElement;
-  /** Default slot for `<wa-tab-panel>` children (inside the `body` part container). */
+  /** @internal Default slot for `<wa-tab-panel>` children (inside the `body` part container). */
   @query('.body slot') defaultSlot: HTMLSlotElement;
   @query('.nav') nav: HTMLElement;
 

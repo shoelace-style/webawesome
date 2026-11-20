@@ -93,7 +93,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     return this.isRange ? this.thumbMin || this.slider : this.slider;
   }
 
-  /** Override validation target to point to the focusable element */
+  /** @internal Override validation target to point to the focusable element */
   get validationTarget() {
     return this.focusableAnchor;
   }

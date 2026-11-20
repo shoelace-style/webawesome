@@ -53,6 +53,7 @@ declare const EyeDropper: EyeDropperConstructor;
  *
  * @dependency wa-button
  * @dependency wa-button-group
+ * @dependency wa-icon
  * @dependency wa-input
  * @dependency wa-popup
  *
