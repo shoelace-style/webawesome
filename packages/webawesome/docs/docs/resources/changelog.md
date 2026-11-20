@@ -52,13 +52,13 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-color-picker>` that allowed the color to change after the picker was disabled while open [issue:3017] [pr:3018]
 - Fixed a bug in `<wa-color-picker>` where the `open` attribute didn't open the picker on first render [pr:3065]
 - Fixed a bug in `<wa-color-picker>` where dragging the hue slider emitted an `input` event that didn't bubble [pr:3062]
-- Fixed the agent skills, `llms.txt`, editor data, and docs API tables so they no longer list the deprecated long-form `size` values or members marked internal
+- Fixed the agent skills, `llms.txt`, editor data, and docs API tables so they no longer list the deprecated long-form `size` values or members marked internal [pr:3076]
   - Fixed the agent skills and `llms.txt` so they no longer list deprecated parts and attributes, or static and protected members
   - Fixed nonexistent events, attributes, and import paths in the skills and in the framework, localization, and usage docs
   - Fixed garbled tables and oversized references in the `webawesome` skill
   - Fixed broken examples, part names, and the verification searches in the `webawesome-design` skill
-- Fixed missing documentation for the `for` attribute in `<wa-tooltip>` and the `image`, `image-background`, and `image-coverage` attributes in `<wa-qr-code>`
-- Fixed missing form control states, such as `user-invalid`, in the Custom States tables of form controls
+- Fixed missing documentation for the `for` attribute in `<wa-tooltip>` and the `image`, `image-background`, and `image-coverage` attributes in `<wa-qr-code>` [pr:3076]
+- Fixed missing form control states, such as `user-invalid`, in the Custom States tables of form controls [pr:3076]
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
 - Fixed a bug in `<wa-radio-group>` where arrow keys and [[Space]] were taken from buttons, links, and fields placed inside the group [issue:2892] [pr:2893]
 - Fixed a bug in `<wa-select>` that let an option be selected while the listbox closed after the control was disabled [pr:2960]
