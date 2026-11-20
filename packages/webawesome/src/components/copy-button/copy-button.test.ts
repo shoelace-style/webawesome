@@ -172,6 +172,26 @@ describe('<wa-copy-button>', () => {
           await waitUntil(() => el.status === 'rest', 'Expected status to reset to rest', { timeout: 2000 });
           expect(el.status).to.equal('rest');
         });
+
+        it('should reset status to rest when the tooltip is shown again while hiding', async () => {
+          sinon.stub(navigator.clipboard, 'writeText').resolves();
+
+          const el = await fixture<WaCopyButton>(
+            html`<wa-copy-button value="test" feedback-duration="100"></wa-copy-button>`,
+          );
+          // With SSR for copy-button, we need to wait for the first update and the following update to complete.
+          el.requestUpdate();
+          await el.updateComplete;
+          const tooltip = el.shadowRoot!.querySelector<WaTooltip>('wa-tooltip')!;
+          await tooltip.updateComplete;
+          tooltip.popup.style.setProperty('--hide-duration', '500ms');
+          const hiding = new Promise(resolve => tooltip.addEventListener('wa-hide', resolve, { once: true }));
+
+          await clickOnElement(el);
+          await hiding;
+          await tooltip.show();
+          await waitUntil(() => el.status === 'rest', 'Expected status to reset to rest', { timeout: 2000 });
+        });
       });
 
       describe('from property', () => {

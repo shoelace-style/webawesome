@@ -348,12 +348,14 @@ export default class WaCopyButton extends WebAwesomeElement {
           },
           { once: true },
         );
-      });
 
-      this.feedbackTimeout = window.setTimeout(async () => {
-        this.feedbackTimeout = null;
-        await tooltip.hide();
-      }, this.feedbackDuration);
+        this.feedbackTimeout = window.setTimeout(async () => {
+          this.feedbackTimeout = null;
+          // A newer show can supersede this hide, so no wa-after-hide fires. hide() still settles.
+          await tooltip.hide();
+          resolve();
+        }, this.feedbackDuration);
+      });
     }
 
     // Wait until the tooltip is fully hidden (or the cleanup duration elapses, whichever comes
