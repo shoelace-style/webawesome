@@ -127,7 +127,7 @@ The user types or uploads.
 | A known date (birthday, expiry) or a time of day            | `<wa-known-date>` / `<wa-time-input>` (see "Pick one")       |
 | A date from a calendar popup                                | `<wa-date-input>` **(Pro)**                                  |
 | File upload                                                 | `<wa-file-input>` **(Pro)**                                  |
-| Formatted text (bold, lists, links) submitted as HTML | `<wa-rich-text-editor>` **(Pro)** |
+| Formatted text (bold, lists, links) submitted as HTML       | `<wa-rich-text-editor>` **(Pro)**                            |
 | A color value                                               | `<wa-color-picker>`                                          |
 
 Use a `<form>` and the [form controls reference](form-controls.md) for validation patterns and form

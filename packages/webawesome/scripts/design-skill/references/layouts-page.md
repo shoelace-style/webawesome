@@ -65,8 +65,8 @@ the header. One copy serves both views, so write it once.
 - **The toggle.** The built-in hamburger appears only on mobile and only when there is navigation content.
   Put `data-toggle-nav` on any element inside `<wa-page>` to use your own toggle instead; that hides the
   built-in one, and the library hides `[data-toggle-nav]` elements on desktop for you. Several elements may
-  carry it. It only ever opens the `navigation` drawer, so it does nothing useful without navigation
-  content and never controls a drawer you wrote yourself.
+  carry it. It only ever opens the `navigation` drawer, so without navigation content it opens an empty
+  modal drawer that covers the page, and it never controls a drawer you wrote yourself.
 - **Closing on tap.** Add `data-drawer="close"` to each link in `slot="navigation"`. Otherwise the drawer
   stays open over the page the user just navigated to.
 - **The view switch.** `<wa-page>` measures itself and sets `view="mobile"` or `view="desktop"`. Media

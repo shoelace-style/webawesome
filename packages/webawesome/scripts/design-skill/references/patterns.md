@@ -122,7 +122,7 @@ header carries its own toggle, and `--menu-width` stays at its `auto` default so
     <a href="#features" class="wa-link-plain" data-drawer="close">Features</a>
     <a href="/pricing" class="wa-link-plain" data-drawer="close">Pricing</a>
     <a href="/docs" class="wa-link-plain" data-drawer="close">Docs</a>
-    <wa-button variant="brand" href="/signup">Get started</wa-button>
+    <wa-button variant="brand" href="/signup" data-drawer="close">Get started</wa-button>
   </nav>
 
   <main>

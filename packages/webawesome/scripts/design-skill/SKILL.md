@@ -149,8 +149,8 @@ low-contrast. Reach the surface through its `button` part:
 Without opening a component's reference, only position it (`margin`, a layout utility) and set its width.
 Everything visual goes through the documented API, and part names differ: `button` for `wa-button`,
 `input-wrapper` for `wa-input` (`input` is the native element inside it), `textarea-wrapper` for
-`wa-textarea`. A few components (`wa-card`, `wa-callout`, `wa-tag`, `wa-dropdown`) document host styling
-instead; `wa-button` never does. `::part(base)` still resolves but is deprecated. Full treatment:
+`wa-textarea`. A few components (`wa-card`, `wa-callout`, `wa-tag`) document host styling
+instead; `wa-button` never does, and `wa-dropdown` is styled through its `menu` part. `::part(base)` still resolves but is deprecated. Full treatment:
 [composition.md § Styling components](references/composition.md#styling-components--css-parts).
 
 ---
@@ -196,7 +196,7 @@ A rule 5 hit that sets only custom properties (`wa-page { --menu-width: … }`) 
 **Checklist.** Walk it line by line against your own output:
 
 - [ ] Project conventions from step 1 are followed, and a theme and palette are set on `<html>`.
-- [ ] Nav appears once on any `<wa-page>` (or is view-scoped per the header/drawer recipe); no hand-rolled drawer or toggle; `--menu-width` is `auto` whenever the desktop sidebar is hidden.
+- [ ] Nav appears once on any `<wa-page>` (or is view-scoped per the header/drawer recipe); no hand-rolled drawer or toggle script; `--menu-width` is `auto` whenever the desktop sidebar is hidden.
 - [ ] Every styled `<wa-*>` was looked up, and every part, custom property, `variant`, and `appearance` you used appears in its reference.
 - [ ] Every recolored component has readable text **and** border on its new background, and no outlined or plain button shares its band's hue.
 - [ ] Nothing hand-built duplicates an existing component (featured card, divider, badge, rating, callout).

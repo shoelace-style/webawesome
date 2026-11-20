@@ -490,8 +490,9 @@ order, stopping at the first that does the job:
    resolves as a deprecated alias and goes away in the next major.
 3. **The host, for layout or where documented.** `margin`, width, and placement in a flex or grid parent
    apply to the host normally. Visual properties on the host usually sit outside or behind the rendered
-   control. A few components, such as `wa-card`, `wa-callout`, `wa-tag`, and `wa-dropdown`, are styled on
-   the host by design, and their reference says so. `wa-button` is not one of them.
+   control. A few components, such as `wa-card`, `wa-callout`, and `wa-tag`, are styled on the host by design,
+   and their reference says so. `wa-button` is not one of them, and `wa-dropdown` is styled through its
+   `menu` part.
 
 Background, border, and padding on a `wa-button` host miss the surface the user sees. Target the part
 instead, and keep width (layout) on the host:
