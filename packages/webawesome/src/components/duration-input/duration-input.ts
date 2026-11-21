@@ -107,7 +107,7 @@ const durationRangeValidator: Validator = {
 };
 
 /**
- * @summary A prototype input for elapsed durations.
+ * @summary A form-associated segmented input for elapsed durations with optional days, validation, and keyboard navigation.
  * @documentation https://webawesome.com/docs/components/duration-input
  * @status experimental
  *
