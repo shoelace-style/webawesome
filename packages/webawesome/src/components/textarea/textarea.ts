@@ -474,6 +474,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
           maxlength=${ifDefined(this.maxlength)}
           autocapitalize=${ifDefined(this.autocapitalize)}
           autocorrect=${ifDefined(this.autocorrect)}
+          autocomplete=${ifDefined(this.autocomplete)}
           ?autofocus=${this.autofocus}
           spellcheck=${ifDefined(this.spellcheck)}
           enterkeyhint=${ifDefined(this.enterkeyhint)}

@@ -90,6 +90,12 @@ describe('<wa-textarea>', () => {
           const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('[part~="textarea"]')!;
           expect(textarea.rows).to.equal(8);
         });
+
+        it('should forward the autocomplete attribute to the internal textarea', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea autocomplete="off"></wa-textarea>`);
+          const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('[part~="textarea"]')!;
+          expect(textarea.getAttribute('autocomplete')).to.equal('off');
+        });
       });
 
       describe('slots', () => {
