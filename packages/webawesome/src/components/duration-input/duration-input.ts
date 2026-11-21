@@ -107,7 +107,7 @@ const durationRangeValidator: Validator = {
 };
 
 /**
- * @summary A form-associated segmented input for elapsed durations with optional days, validation, and keyboard navigation.
+ * @summary Duration inputs let users set time spans for timers, alarms, and other intervals, with optional days and keyboard navigation.
  * @documentation https://webawesome.com/docs/components/duration-input
  * @status experimental
  *
