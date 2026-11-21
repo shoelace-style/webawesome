@@ -4,7 +4,7 @@ layout: component
 category: Forms
 ---
 
-This experimental control lets users enter time spans for timers, alarms, and other intervals. Its value uses the
+This experimental control lets users enter time spans for alarms, timers, and other intervals. Its value uses the
 `HH:mm:ss.SSS` format.
 Hours range from 00 to 99, minutes and seconds from 00 to 59, and milliseconds from 000 to 999.
 An unset input displays zeros but is empty for form validation. Click a segment or use the left and right arrow keys
