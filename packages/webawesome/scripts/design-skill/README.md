@@ -12,7 +12,8 @@ documents individual component APIs.
 
 These files are **plain, static Markdown**. There is no templating, no placeholders, and no generation
 step. The build copies this directory verbatim into the dist output, then injects the current package
-version into the copied `SKILL.md`'s frontmatter so the skill stays in lockstep with releases.
+version into the copied `SKILL.md`'s frontmatter so the skill stays in lockstep with releases. In a Pro build, the
+`dist/` copy also has its package name pointed at Pro.
 
 ```
 scripts/design-skill/                  ← EDIT THESE (source of truth, in git)

@@ -40,7 +40,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Added the experimental `<wa-timeline>` component for showing a chronological list of events, such as an order history, activity feed, or changelog, in a column or a row [pr:2933] [pr:3057]
   - Added `<wa-timeline-item>` for the entries it shows
 - Added the `without-fragment` attribute to `<wa-include>` to include the whole file when `src` has a hash, as it did before 3.11.0 [issue:2875] [pr:3054]
-- Added guidance for loading Web Awesome in sandboxed environments, such as Claude.ai artifacts, to the installation docs, the agent skills, and `llms.txt` [issue:2418]
+- Added guidance for loading Web Awesome in sandboxed environments, such as Claude.ai artifacts, to the installation docs, the agent skills, and `llms.txt` [issue:2418] [pr:3087]
 
 :::
 
@@ -64,7 +64,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - Fixed the `webawesome-design` skill's description exceeding the 1,024-character limit in the Agent Skills specification [issue:2895]
 - Fixed missing documentation for the `for` attribute in `<wa-tooltip>` and the `image`, `image-background`, and `image-coverage` attributes in `<wa-qr-code>` [pr:3076]
 - Fixed missing form control states, such as `user-invalid`, in the Custom States tables of form controls [pr:3076]
-- Fixed the agent skills and `llms.txt` that ship with Web Awesome Pro so they import from the Pro package instead of `@awesome.me/webawesome` [issue:2824]
+- Fixed the agent skills and `llms.txt` that ship with Web Awesome Pro so they import from the Pro package instead of `@awesome.me/webawesome` [issue:2824] [pr:3087]
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
 - Fixed a bug in `<wa-radio-group>` where arrow keys and [[Space]] were taken from buttons, links, and fields placed inside the group [issue:2892] [pr:2893]
 - Fixed a bug in `<wa-select>` that let an option be selected while the listbox closed after the control was disabled [pr:2960]

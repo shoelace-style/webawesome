@@ -32,6 +32,7 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { retargetPackage } from './utils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PACKAGE_ROOT = path.resolve(__dirname, '..');
@@ -533,7 +534,7 @@ for (const file of [
   fs.readFileSync(file, 'utf-8')
     .split('\n')
     .forEach((line, idx) => {
-      if (isPro && /(?<!cdn\.jsdelivr\.net\/npm\/)@awesome\.me\/webawesome(?![\w-])/.test(line)) {
+      if (isPro && retargetPackage(line, 'pro') !== line) {
         errors.push(`${rel(file)}:${idx + 1}: names the core package; Pro's copy should import from Pro`);
       }
       if (/^\s*```/.test(line)) inFence = !inFence;

@@ -40,7 +40,7 @@ Now you can [use any Web Awesome component](/docs/components)! Try putting a but
 
 ### Sandboxed Environments
 
-Some tools that render HTML in a sandbox, such as Claude.ai artifacts, load files only from hosts on their Content Security Policy allowlist. When `ka-f.webawesome.com` isn't on the list, the page renders unstyled and components never load, with no visible error. Claude.ai allows jsDelivr, so load the same files from there.
+Some tools that render HTML in a sandbox, such as Claude.ai artifacts, load files only from hosts on their Content Security Policy allowlist. When `ka-f.webawesome.com` isn't on the list, the page renders unstyled and components never load, with no visible error. Claude.ai allows jsDelivr, so load Web Awesome from there instead.
 
 ```html
 <link
@@ -57,7 +57,7 @@ Some tools that render HTML in a sandbox, such as Claude.ai artifacts, load file
 </script>
 ```
 
-Use `dist-cdn` in these URLs, not `dist`, which needs a bundler. Icons load from the Font Awesome CDN by default, which the sandbox also blocks, so [`setIconPath()`](/docs/components/icon#self-hosting) points them at Font Awesome Free on jsDelivr. Pro components, themes, and icon families aren't available this way.
+Use `dist-cdn` in these URLs, not `dist`, which needs a bundler. Icons load from the Font Awesome CDN by default, which the sandbox also blocks, so [`setIconPath()`](/docs/components/icon#self-hosting) points them at Font Awesome Free on jsDelivr. Pro components, Pro themes, and Pro icon families aren't available this way.
 
 ## Install with npm {id=npm}
 

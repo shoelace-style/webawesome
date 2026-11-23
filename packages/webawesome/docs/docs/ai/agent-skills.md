@@ -36,7 +36,7 @@ Unlike a single file, Agent Skills use progressive disclosure. The AI loads only
 
 ### Skill Quality
 
-The `webawesome` skill is generated at build time from the docs and the Custom Elements Manifest, so it matches the release it ships with. The `webawesome-design` skill is hand-authored. Before publishing, a [verification script](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/scripts/verify-skills.js) checks the skills' frontmatter, relative links, and size budgets, the components and attributes named in the decision tree, the design skill's `<wa-page>` API tables against the Custom Elements Manifest, and that no deprecated sizes or members appear. The rest of the design guidance is reviewed by hand. Each `SKILL.md` records the Web Awesome version it came from in `metadata.version`.
+The `webawesome` skill is generated at build time from the docs and the Custom Elements Manifest, so it matches the release it ships with. The `webawesome-design` skill is hand-authored. Before publishing, a [verification script](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/scripts/verify-skills.js) checks both skills: frontmatter, relative links, and size budgets; the components and attributes named in the decision tree; the design skill's `<wa-page>` API tables against the Custom Elements Manifest; and that no deprecated sizes or members appear. The rest of the design guidance is reviewed by hand. Each `SKILL.md` records the Web Awesome version it came from in `metadata.version`.
 
 ## How to Use Them
 
@@ -47,7 +47,7 @@ node_modules/@awesome.me/webawesome/dist/skills/webawesome/
 node_modules/@awesome.me/webawesome/dist/skills/webawesome-design/
 ```
 
-Web Awesome Pro ships the same skills, with Pro components added to `webawesome`, under `node_modules/@web.awesome.me/webawesome-pro/dist/skills/`.
+Web Awesome Pro ships the same skills, with Pro components added to `webawesome`, under `node_modules/@web.awesome.me/webawesome-pro/dist/skills/`. With Pro, use that path in the commands below so the skills import from the Pro package.
 
 ### Installing with the Skills CLI
 
@@ -62,7 +62,7 @@ The CLI copies each skill into `.agents/skills/` and links it into each tool's s
 
 The path assumes Web Awesome is installed in the folder you run the command from. In a monorepo, run it from the folder whose `node_modules` contains `@awesome.me/webawesome`. Yarn Plug'n'Play doesn't create `node_modules`, so run `yarn unplug @awesome.me/webawesome` first and use the package's path under `.yarn/unplugged/`.
 
-To uninstall, adding `-g` if you installed them that way:
+To uninstall, run the following. Add `-g` if you installed them globally.
 
 ```bash
 npx skills remove webawesome
@@ -77,7 +77,7 @@ To see which release a skill came from, check `metadata.version` in the installe
 
 ### The skills.sh Registry
 
-The [skills.sh](https://skills.sh/) registry lists `webawesome-design` under `shoelace-style/webawesome`. That copy comes from the repository's development branch, has no version stamp, and can describe features your installed version doesn't have. The `webawesome` skill isn't listed because it's generated at build time and ships only in the npm package. Install both from your package, as shown above, so they match the version you use.
+The [skills.sh](https://skills.sh/) registry lists `webawesome-design` under `shoelace-style/webawesome`. That copy comes from the repository's development branch, has no version stamp, and can describe features your installed version doesn't have. The `webawesome` skill isn't listed because it's generated at build time and isn't in the repository. Install both from your package, as shown above, so they match the version you use.
 
 ### Referencing Files Directly
 

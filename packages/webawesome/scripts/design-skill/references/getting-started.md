@@ -70,8 +70,8 @@ Claude.ai does, load the same files from there instead:
 `https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@<version>/dist-cdn/webawesome.loader.js`. Keep the loader's
 `<script src>` tag, because the loader finds its base path from it. For icons, add a second module script that
 imports `setIconPath` from that loader URL and calls
-`setIconPath('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/svgs')`. Pro components, themes, and icon
-families aren't available this way.
+`setIconPath('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/svgs')`. Pro components, Pro themes, and
+Pro icon families aren't available this way.
 
 ## Where to go next
 

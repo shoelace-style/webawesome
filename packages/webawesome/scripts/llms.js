@@ -191,8 +191,9 @@ To load from the CDN, add these two tags to \`<head>\`:
 Sandboxed previews that load files only from allowlisted hosts, such as Claude.ai artifacts, can block that host. If the
 sandbox allows jsDelivr, as Claude.ai does, load the same two files from
 \`https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@${packageData.version}/dist-cdn/\` and keep the loader's
-\`<script src>\` tag. So icons load, add a second module script that imports \`setIconPath\` from that
+\`<script src>\` tag. For icons, add a second module script that imports \`setIconPath\` from that
 \`webawesome.loader.js\` and calls \`setIconPath('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/svgs')\`.
+Pro components, Pro themes, and Pro icon families aren't available this way.
 
 For AI agents and coding assistants building with Web Awesome: two Agent Skills ship with the package. The
 \`webawesome\` skill is this component reference in progressive, on-demand form; the companion \`webawesome-design\`
@@ -294,7 +295,7 @@ export async function generateLlmsTxtFile(options = {}) {
   const outputPath = path.join(outdir, 'llms.txt');
   fs.writeFileSync(outputPath, llmsTxt, 'utf-8');
 
-  // Copy to additional directories. These ship inside the package, so a Pro build imports from Pro there.
+  // Copy to additional directories. Users install from these, so a Pro build imports from Pro there.
   // The dist-cdn copy feeds webawesome.com and keeps core.
   for (const dest of copyTo) {
     fs.mkdirSync(dest, { recursive: true });

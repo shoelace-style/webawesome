@@ -42,7 +42,7 @@ function injectVersion(skillPath, version) {
  * Copies the static Web Awesome design skill into the build output. Mirrors the source directory
  * verbatim to `dist/skills/webawesome-design/` and `dist-cdn/skills/webawesome-design/`, then injects
  * the current package version into the copied SKILL.md so it stays in sync with releases. The first output
- * directory ships inside the package, so a Pro build imports from Pro there.
+ * directory is the one users install from, so a Pro build imports from Pro there.
  */
 export async function generateDesignSkill(options = {}) {
   const {
