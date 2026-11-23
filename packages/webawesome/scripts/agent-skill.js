@@ -695,6 +695,19 @@ function generateSkillMd({ componentList, packageData, baseUrl, packageName = CO
   const proPackages = isCore
     ? '`@web.awesome.me/webawesome-pro` or `@awesome.me/webawesome-pro`'
     : `\`${packageName}\``;
+  // Pro installs from a private registry, so a plain npm install fails until .npmrc is set up.
+  const registryNote = isCore
+    ? ''
+    : `
+Pro installs from a private registry. If the install fails with a 401 or 404, the project's \`.npmrc\` needs these two
+lines, with the token from the user's Web Awesome project page in the \`WEBAWESOME_NPM_TOKEN\` environment variable.
+Never write the token into a file.
+
+\`\`\`
+${packageName.split('/')[0]}:registry=https://npm.cloudsmith.io/fortawesome/webawesome-pro/
+//npm.cloudsmith.io/fortawesome/webawesome-pro/:_authToken=\${WEBAWESOME_NPM_TOKEN}
+\`\`\`
+`;
   const freeComponents = componentList.filter(c => !c.isProComponent);
   const proComponents = componentList.filter(c => c.isProComponent);
 
@@ -753,7 +766,7 @@ and in any framework. This skill is the component reference. For page layout, th
 \`\`\`bash
 npm install @awesome.me/webawesome
 \`\`\`
-
+${registryNote}
 \`\`\`js
 import '@awesome.me/webawesome/dist/styles/webawesome.css';
 import '@awesome.me/webawesome/dist/components/button/button.js';
