@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getCdnDir, getDistDir } from './utils.js';
+import { getCdnDir, getDistDir, listMarkdownFiles, retargetPackageFiles } from './utils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PACKAGE_ROOT = path.resolve(__dirname, '..');
@@ -41,7 +41,8 @@ function injectVersion(skillPath, version) {
 /**
  * Copies the static Web Awesome design skill into the build output. Mirrors the source directory
  * verbatim to `dist/skills/webawesome-design/` and `dist-cdn/skills/webawesome-design/`, then injects
- * the current package version into the copied SKILL.md so it stays in sync with releases.
+ * the current package version into the copied SKILL.md so it stays in sync with releases. The first output
+ * directory ships inside the package, so a Pro build imports from Pro there.
  */
 export async function generateDesignSkill(options = {}) {
   const {
@@ -66,6 +67,7 @@ export async function generateDesignSkill(options = {}) {
     });
     injectVersion(path.join(dest, 'SKILL.md'), version);
   }
+  retargetPackageFiles(listMarkdownFiles(outDirs[0]));
 
   console.log(`\nCopied design skill (v${version}) to ${outDirs.length} location(s).`);
 }

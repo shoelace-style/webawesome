@@ -36,38 +36,52 @@ Unlike a single file, Agent Skills use progressive disclosure. The AI loads only
 
 ### Skill Quality
 
-The `webawesome` skill is generated from the Custom Elements Manifest on every build, so it matches the current component API. The `webawesome-design` skill is hand-authored. Tooling checks its frontmatter, its `<wa-page>` API tables against the Custom Elements Manifest, its relative links, and deprecated size values as part of the library's verification step; the rest of its guidance and examples is reviewed by hand.
+The `webawesome` skill is generated at build time from the docs and the Custom Elements Manifest, so it matches the release it ships with. The `webawesome-design` skill is hand-authored. Before publishing, a [verification script](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/scripts/verify-skills.js) checks the skills' frontmatter, relative links, and size budgets, the components and attributes named in the decision tree, the design skill's `<wa-page>` API tables against the Custom Elements Manifest, and that no deprecated sizes or members appear. The rest of the design guidance is reviewed by hand. Each `SKILL.md` records the Web Awesome version it came from in `metadata.version`.
 
 ## How to Use Them
 
-Both skills ship in every Web Awesome build and are available in your `node_modules` directory after installing via npm:
+Both skills ship in the npm package and are available in your `node_modules` directory after you install Web Awesome:
 
 ```
 node_modules/@awesome.me/webawesome/dist/skills/webawesome/
 node_modules/@awesome.me/webawesome/dist/skills/webawesome-design/
 ```
 
-How you reference them depends on your AI tool.
+Web Awesome Pro ships the same skills, with Pro components added to `webawesome`, under `node_modules/@web.awesome.me/webawesome-pro/dist/skills/`.
 
-### Claude Code
+### Installing with the Skills CLI
 
-With [Claude Code](https://claude.ai/code), install either or both skills using the [skills CLI](https://skills.sh/):
+The [skills CLI](https://skills.sh/) installs skills for Claude Code, Cursor, Codex, and other tools that support the specification. Run it from your project after installing Web Awesome:
 
 ```bash
-# Install the component skill, the design skill, or both
 npx skills add ./node_modules/@awesome.me/webawesome/dist/skills/webawesome
 npx skills add ./node_modules/@awesome.me/webawesome/dist/skills/webawesome-design
+```
 
-# Uninstall
+The CLI copies each skill into `.agents/skills/` and links it into each tool's skills directory, such as `.claude/skills/`. Add `-g` to install them for your user account in `~/.agents/skills/` instead. Once installed, your AI tool loads the right skill based on what you ask for.
+
+The path assumes Web Awesome is installed in the folder you run the command from. In a monorepo, run it from the folder whose `node_modules` contains `@awesome.me/webawesome`. Yarn Plug'n'Play doesn't create `node_modules`, so run `yarn unplug @awesome.me/webawesome` first and use the package's path under `.yarn/unplugged/`.
+
+To uninstall, adding `-g` if you installed them that way:
+
+```bash
 npx skills remove webawesome
 npx skills remove webawesome-design
 ```
 
-Web Awesome Pro users can install the same skills from `node_modules/@awesome.me/webawesome-pro/dist/skills/`.
+### Keeping Skills Up to Date
 
-Once installed, the skills are available to Claude Code automatically, and it loads the right one based on what you ask for. They're installed as symlinks, so they stay up to date when you update Web Awesome via npm.
+Installed skills are copies, so they don't change when you upgrade Web Awesome. Run the same `npx skills add` commands again after each upgrade. `npx skills update` skips skills installed from a local path, so it won't refresh them.
 
-You can also reference a skill directory manually, or point Claude at a specific reference file:
+To see which release a skill came from, check `metadata.version` in the installed `SKILL.md`, such as `.agents/skills/webawesome/SKILL.md` or `.claude/skills/webawesome/SKILL.md`.
+
+### The skills.sh Registry
+
+The [skills.sh](https://skills.sh/) registry lists `webawesome-design` under `shoelace-style/webawesome`. That copy comes from the repository's development branch, has no version stamp, and can describe features your installed version doesn't have. The `webawesome` skill isn't listed because it's generated at build time and ships only in the npm package. Install both from your package, as shown above, so they match the version you use.
+
+### Referencing Files Directly
+
+In Claude Code, you can also reference a skill directory without installing it, or point Claude at a specific reference file:
 
 ```
 @node_modules/@awesome.me/webawesome/dist/skills/webawesome/
@@ -75,27 +89,16 @@ You can also reference a skill directory manually, or point Claude at a specific
 @node_modules/@awesome.me/webawesome/dist/skills/webawesome-design/references/layouts-page.md
 ```
 
-### Cursor
-
-In [Cursor](https://cursor.sh/), open **Cursor Settings → Features → Docs**, click **+ Add new doc**, and point it at the skill directory in your `node_modules` folder:
-
-```
-node_modules/@awesome.me/webawesome/dist/skills/webawesome/
-node_modules/@awesome.me/webawesome/dist/skills/webawesome-design/
-```
-
-Add both as separate doc sources if you want both skills available. Cursor will index the markdown and surface it via @-mention or as relevant context.
-
 ### Other AI Tools
 
-The skills follow the [Agent Skills specification](https://agentskills.io/), so any tool that supports the spec should be able to use them. We've tested in Claude Code and Cursor. If your tool can load a directory of markdown references on demand, point it at the same `node_modules/@awesome.me/webawesome/dist/skills/` directories shown above.
+The skills follow the [Agent Skills specification](https://agentskills.io/), so any tool that supports the spec should be able to use them. Cursor and Codex load skills from `.agents/skills/`, so the CLI install above covers them. We've tested in Claude Code and Cursor. If your tool can load a directory of markdown references on demand, point it at the same `node_modules/@awesome.me/webawesome/dist/skills/` directories shown above.
 
 <div class="wa-flank:end">
   <h2>The Component Skill</h2>
   <code>webawesome</code>
 </div>
 
-The `webawesome` skill is the **component reference**. It's generated from the library on every build, so it always matches the current API. Use it when you need to know what a component does: its properties, slots, events, CSS parts, or framework integration.
+The `webawesome` skill is the **component reference**. It's generated from the docs and the Custom Elements Manifest at build time, so it matches the release it ships with. Use it when you need to know what a component does: its properties, slots, events, CSS parts, or framework integration.
 
 The skill directory contains:
 
@@ -111,8 +114,10 @@ webawesome/
     ├── installation.md            # Installation guide
     ├── usage.md                   # Usage patterns
     ├── form-controls.md           # Form integration
+    ├── customizing.md             # Light and dark mode, theme CSS, parts, custom properties, states
     ├── themes.md                  # Themes and color palettes
-    └── ...
+    ├── localization.md            # Languages, translations, and registering your own
+    └── support.md                 # Where to report bugs and ask questions
 ```
 
 It covers:
@@ -159,18 +164,13 @@ It covers:
 
 ## Agent Skills vs llms.txt
 
-Web Awesome provides both an [llms.txt file](/docs/ai/llms) and [Agent Skills](https://agentskills.io/). Here's when to use each:
+Web Awesome provides both an [llms.txt file](/docs/ai/llms) and [Agent Skills](https://agentskills.io/). Which one to use depends on how your tool loads documentation:
 
-| Feature       | Agent Skill                              | llms.txt                      |
-| ------------- | ---------------------------------------- | ----------------------------- |
-| Format        | Directory with multiple markdown files   | Single text file              |
-| Best for      | Deep integration, complex tasks          | Quick context, simple queries |
-| Context usage | Progressive disclosure (loads as needed) | Loads everything at once      |
-| Supported by  | Tools supporting agentskills.io spec     | Most AI tools                 |
-
-:::info
-If your AI tool supports Agent Skills, **we recommend using the skills** for better context efficiency. Otherwise, the `llms.txt` file is a great fallback.
-:::
+| If your tool                                                   | Use                         | Why                                                                                                |
+| -------------------------------------------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------- |
+| Supports Agent Skills (Claude Code, Cursor, Codex, and others) | The skills                  | The tool reads `SKILL.md` first and opens references only when a task needs them                   |
+| Takes one file, a URL, or pasted context                       | [`llms.txt`](/docs/ai/llms) | It's a single file with the full component API                                                     |
+| Loads a whole folder into context at once                      | [`llms.txt`](/docs/ai/llms) | The `webawesome` skill has a reference file for every component and is much larger than `llms.txt` |
 
 ## Feedback
 

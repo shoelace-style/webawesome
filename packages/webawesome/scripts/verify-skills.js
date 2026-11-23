@@ -22,6 +22,10 @@
  *     A link to a directory is an error.
  *  7. Budgets: each SKILL.md should stay under 500 lines and 24 KB and each reference under 100 KB
  *     (warnings); a line over 2,000 characters anywhere in skill output is an error.
+ *  8. The file trees in `docs/docs/ai/agent-skills.md` list exactly the entries in the design skill's references
+ *     and in the built `webawesome` skill's references.
+ *  9. No backslash-escaped `**` or backtick outside fenced code in the built skills or llms.txt, and no core
+ *     package import in Pro's built skills or llms.txt (jsDelivr URLs excepted).
  */
 
 import fs from 'fs';
@@ -38,6 +42,7 @@ const PRO_COMPONENTS_DIR = path.join(REPO_ROOT, 'packages', 'webawesome-pro', 's
 
 const FREE_CEM = path.join(PACKAGE_ROOT, 'dist', 'custom-elements.json');
 const PRO_CEM = path.join(REPO_ROOT, 'packages', 'webawesome-pro', 'dist', 'custom-elements.json');
+const PRO_DIST_DIR = path.join(REPO_ROOT, 'packages', 'webawesome-pro', 'dist');
 
 const CHOOSING_COMPONENTS = path.join(__dirname, 'agent-skill', 'choosing-components.md');
 const DIST_SKILLS_DIR = path.join(PACKAGE_ROOT, 'dist', 'skills');
@@ -492,6 +497,49 @@ for (const file of [...walkFiles(DIST_SKILLS_DIR, ['.md']), ...walkFiles(DESIGN_
   content.split('\n').forEach((line, idx) => {
     if (line.length > 2000) errors.push(`${rel(file)}:${idx + 1}: line is ${line.length} characters (max 2,000)`);
   });
+}
+
+// --- Check 8: the docs page's file trees match each skill's references ---
+const AGENT_SKILLS_PAGE = path.join(DOCS_DIR, 'ai', 'agent-skills.md');
+const agentSkillsPage = fs.readFileSync(AGENT_SKILLS_PAGE, 'utf-8');
+for (const [skill, refsDir] of [
+  ['webawesome', path.join(AGENT_SKILL_DIST, 'references')],
+  ['webawesome-design', path.join(DESIGN_SKILL_DIR, 'references')],
+]) {
+  if (!fs.existsSync(refsDir)) continue;
+  const tree = agentSkillsPage.match(new RegExp('```\\n' + skill + '/\\n([\\s\\S]*?)```'))?.[1] ?? '';
+  const listed = [...tree.matchAll(/^ {4}[├└]── ([\w.-]+)/gm)].map(match => match[1]);
+  const shipped = fs.readdirSync(refsDir).filter(name => !name.startsWith('.'));
+  for (const name of shipped.filter(name => !listed.includes(name))) {
+    errors.push(`${rel(AGENT_SKILLS_PAGE)}: ${skill} file tree doesn't list ${name}`);
+  }
+  for (const name of listed.filter(name => !shipped.includes(name))) {
+    errors.push(`${rel(AGENT_SKILLS_PAGE)}: ${skill} file tree lists ${name}, which isn't shipped`);
+  }
+}
+
+// --- Check 9: no escaped markdown in built output, and Pro's copy imports from Pro ---
+const proDistFiles = [
+  ...walkFiles(path.join(PRO_DIST_DIR, 'skills'), ['.md']),
+  ...[path.join(PRO_DIST_DIR, 'llms.txt')].filter(file => fs.existsSync(file)),
+];
+for (const file of [
+  ...walkFiles(DIST_SKILLS_DIR, ['.md']),
+  ...(fs.existsSync(LLMS_TXT) ? [LLMS_TXT] : []),
+  ...proDistFiles,
+]) {
+  const isPro = proDistFiles.includes(file);
+  let inFence = false;
+  fs.readFileSync(file, 'utf-8')
+    .split('\n')
+    .forEach((line, idx) => {
+      if (isPro && /(?<!cdn\.jsdelivr\.net\/npm\/)@awesome\.me\/webawesome(?![\w-])/.test(line)) {
+        errors.push(`${rel(file)}:${idx + 1}: names the core package; Pro's copy should import from Pro`);
+      }
+      if (/^\s*```/.test(line)) inFence = !inFence;
+      else if (!inFence && /\\(\*\*|`)/.test(line))
+        errors.push(`${rel(file)}:${idx + 1}: backslash-escaped ** or backtick`);
+    });
 }
 
 // --- Report ---

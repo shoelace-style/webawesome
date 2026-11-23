@@ -1,4 +1,5 @@
 import childProcess from 'child_process';
+import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -12,6 +13,34 @@ export const getCdnDir = () => process.env.CDN_DIR || join(getRootDir(), 'dist-c
 export const getDocsDir = () => process.env.DOCS_DIR || join(getRootDir(), 'docs');
 export const getSiteDir = () => process.env.SITE_DIR || join(getRootDir(), '_site');
 export const getEleventyConfigPath = () => process.env.ELEVENTY_CONFIG_PATH || join(getDocsDir(), '.eleventy.js');
+
+/** The core package name, which the docs and skill sources use for imports. */
+export const CORE_PACKAGE_NAME = '@awesome.me/webawesome';
+
+/** The name of the package being built. Pro builds point ROOT_DIR at a folder holding Pro's package.json. */
+export const getPackageName = () => JSON.parse(readFileSync(join(getRootDir(), 'package.json'), 'utf-8')).name;
+
+/**
+ * Points core package references at another package, so output that ships inside Pro imports from Pro. jsDelivr
+ * URLs keep the core name because only core is on the public registry.
+ */
+export function retargetPackage(text, name) {
+  if (name === CORE_PACKAGE_NAME) return text;
+  return text.replace(/(?<!cdn\.jsdelivr\.net\/npm\/)@awesome\.me\/webawesome(?![\w-])/g, name);
+}
+
+/** Runs retargetPackage on each file in place. A no-op in a core build. */
+export function retargetPackageFiles(files, name = getPackageName()) {
+  if (name === CORE_PACKAGE_NAME) return;
+  for (const file of files) writeFileSync(file, retargetPackage(readFileSync(file, 'utf-8'), name), 'utf-8');
+}
+
+/** Lists the .md files in a directory and its subdirectories. */
+export const listMarkdownFiles = dir =>
+  readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
+    const p = join(dir, entry.name);
+    return entry.isDirectory() ? listMarkdownFiles(p) : entry.name.endsWith('.md') ? [p] : [];
+  });
 
 /**
  * Formats an error for display in dev terminals. 11ty wraps template

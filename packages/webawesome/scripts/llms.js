@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { apiMembers, cleanCemText, current, typeText } from './agent-skill.js';
 import { getAllComponents } from './shared.js';
-import { getCdnDir, getDistDir, getDocsDir } from './utils.js';
+import { getCdnDir, getDistDir, getDocsDir, retargetPackageFiles } from './utils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -181,6 +181,19 @@ Constraint Validation API.
 Font Awesome is the default icon library, so \`<wa-icon name="...">\` values should reference Font Awesome
 icon names.
 
+To load from the CDN, add these two tags to \`<head>\`:
+
+\`\`\`html
+<link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@${packageData.version}/styles/webawesome.css" />
+<script type="module" src="https://ka-f.webawesome.com/webawesome@${packageData.version}/webawesome.loader.js"></script>
+\`\`\`
+
+Sandboxed previews that load files only from allowlisted hosts, such as Claude.ai artifacts, can block that host. If the
+sandbox allows jsDelivr, as Claude.ai does, load the same two files from
+\`https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@${packageData.version}/dist-cdn/\` and keep the loader's
+\`<script src>\` tag. So icons load, add a second module script that imports \`setIconPath\` from that
+\`webawesome.loader.js\` and calls \`setIconPath('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/svgs')\`.
+
 For AI agents and coding assistants building with Web Awesome: two Agent Skills ship with the package. The
 \`webawesome\` skill is this component reference in progressive, on-demand form; the companion \`webawesome-design\`
 skill covers full-page layout (\`<wa-page>\`), theming, brand color, and visual composition. After installing
@@ -197,7 +210,7 @@ and \`npx skills add ./node_modules/@awesome.me/webawesome/dist/skills/webawesom
   lines.push('');
   lines.push(`For comprehensive documentation, visit ${baseUrl}/docs/`);
   lines.push('');
-  lines.push(`- [Getting Started](${baseUrl}/docs/getting-started): Installation and setup guide`);
+  lines.push(`- [Installation](${baseUrl}/docs/): Installation and setup guide`);
   lines.push(`- [Components Overview](${baseUrl}/docs/components): Complete component reference`);
   lines.push(`- [Theming](${baseUrl}/docs/theming): Customization and design tokens`);
   lines.push(`- [Form Controls](${baseUrl}/docs/form-controls): Form integration and validation`);
@@ -281,9 +294,11 @@ export async function generateLlmsTxtFile(options = {}) {
   const outputPath = path.join(outdir, 'llms.txt');
   fs.writeFileSync(outputPath, llmsTxt, 'utf-8');
 
-  // Copy to additional directories
+  // Copy to additional directories. These ship inside the package, so a Pro build imports from Pro there.
+  // The dist-cdn copy feeds webawesome.com and keeps core.
   for (const dest of copyTo) {
     fs.mkdirSync(dest, { recursive: true });
     fs.copyFileSync(outputPath, path.join(dest, 'llms.txt'));
+    retargetPackageFiles([path.join(dest, 'llms.txt')]);
   }
 }
