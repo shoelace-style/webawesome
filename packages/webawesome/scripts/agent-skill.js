@@ -5,7 +5,16 @@ import path from 'path';
 import TurndownService from 'turndown';
 import { fileURLToPath } from 'url';
 import { getAllComponents } from './shared.js';
-import { getCdnDir, getDistDir, getDocsDir, getSiteDir } from './utils.js';
+import {
+  CORE_PACKAGE_NAME,
+  getCdnDir,
+  getDistDir,
+  getDocsDir,
+  getPackageName,
+  getSiteDir,
+  listMarkdownFiles,
+  retargetPackageFiles,
+} from './utils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -363,13 +372,7 @@ function localizeComponentLinks(refsDir, baseUrl) {
   const docsUrl = baseUrl.replace(/\./g, '\\.') + '/docs/components/';
   const linkPattern = new RegExp(`\\]\\(${docsUrl}([a-z0-9-]+)/?(#[^)\\s]*)?(\\s+"[^"]*")?\\)`, 'g');
 
-  const walk = dir =>
-    fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
-      const p = path.join(dir, entry.name);
-      return entry.isDirectory() ? walk(p) : entry.name.endsWith('.md') ? [p] : [];
-    });
-
-  for (const file of walk(refsDir)) {
+  for (const file of listMarkdownFiles(refsDir)) {
     const before = fs.readFileSync(file, 'utf-8');
     const after = before.replace(linkPattern, (match, name, hash = '', title = '') => {
       const target = path.join(componentsDir, `${name}.md`);
@@ -686,7 +689,12 @@ function getComponentInfo(components, frontMatterCache) {
 /**
  * Generates the main SKILL.md content.
  */
-function generateSkillMd({ componentList, packageData, baseUrl }) {
+function generateSkillMd({ componentList, packageData, baseUrl, packageName = CORE_PACKAGE_NAME }) {
+  // A core build names both packages. The copy that ships inside Pro names only Pro.
+  const isCore = packageName === CORE_PACKAGE_NAME;
+  const proPackages = isCore
+    ? '`@web.awesome.me/webawesome-pro` or `@awesome.me/webawesome-pro`'
+    : `\`${packageName}\``;
   const freeComponents = componentList.filter(c => !c.isProComponent);
   const proComponents = componentList.filter(c => c.isProComponent);
 
@@ -716,7 +724,7 @@ function generateSkillMd({ componentList, packageData, baseUrl }) {
     ? `
 ### Pro components
 
-Use these only when the project depends on \`@awesome.me/webawesome-pro\` or the user says they have Pro.
+Use these only when the project depends on ${proPackages}, or the user says they have Pro.
 
 ${renderIndex(proComponents)}
 `
@@ -724,7 +732,7 @@ ${renderIndex(proComponents)}
 
   return `---
 name: webawesome
-description: Component API reference for Web Awesome (wa-* custom elements such as wa-button, wa-input, wa-select, wa-dialog; packages @awesome.me/webawesome and @awesome.me/webawesome-pro). Use when writing, fixing, or reviewing code that uses Web Awesome components, to pick the right component and get its attributes, slots, events, methods, CSS parts, and form behavior right, including in React, Vue, Angular, or Svelte, or when migrating from Shoelace. For page layout, theming, and visual design, use webawesome-design.
+description: Component API reference for Web Awesome (wa-* custom elements such as wa-button, wa-input, wa-select, wa-dialog; ${isCore ? 'packages @awesome.me/webawesome, @web.awesome.me/webawesome-pro, and @awesome.me/webawesome-pro' : `package ${packageName}`}). Use when writing, fixing, or reviewing code that uses Web Awesome components, to pick the right component and get its attributes, slots, events, methods, CSS parts, and form behavior right, including in React, Vue, Angular, or Svelte, or when migrating from Shoelace. For page layout, theming, and visual design, use webawesome-design.
 license: MIT / Commercial (for Web Awesome Pro)
 metadata:
   author: Web Awesome
@@ -771,6 +779,13 @@ Hosted projects and the autoloader load components on demand. For CDN, self-host
   stays open and the markup after it ends up nested inside. JSX is fine either way.
 - **Style the inside of a component with \`::part()\`** and its documented CSS custom properties. Shadow DOM blocks
   ordinary selectors.
+- **In a Claude.ai artifact, load from jsDelivr.** Its Content Security Policy blocks \`ka-f.webawesome.com\`, so the
+  page renders unstyled with no error, but it allows jsDelivr. Load \`styles/webawesome.css\` and
+  \`webawesome.loader.js\` from
+  \`https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@${packageData.version || '0.0.0'}/dist-cdn/\`, keep the loader's
+  \`<script src>\` tag, and for icons add a second module script that imports \`setIconPath\` from that loader and
+  calls \`setIconPath('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/svgs')\`. Pro components, Pro
+  themes, and Pro icon families aren't available this way. In other sandboxes, check which hosts are allowed first. See "Sandboxed Environments" in [installation.md](references/installation.md).
 
 For attributes versus properties, slots, and events in depth, read [usage.md](references/usage.md).
 
@@ -781,7 +796,7 @@ not API misuse. When unsure, read [choosing-components.md](references/choosing-c
 user intent.
 
 ${renderIndex(freeComponents)}
-${proSection || '\nPro components (\`@awesome.me/webawesome-pro\`) are listed in the copy of this skill that ships with Pro.\n'}
+${proSection || '\nPro components (' + proPackages + ') are listed in the copy of this skill that ships with Pro.\n'}
 ## Building full pages with \`<wa-page>\`
 
 \`<wa-page>\` scaffolds an entire page (banner, header, navigation, main content, aside, footer) with sticky regions
@@ -1367,5 +1382,17 @@ export async function generateAgentSkill(options = {}) {
   // Copy to additional directories
   for (const dest of copyTo) {
     copyDirSync(outdir, dest);
+  }
+
+  // The dist copy is the one users install skills from, so a Pro build imports from Pro there. The dist-cdn copy
+  // feeds webawesome.com and keeps core.
+  const packageName = getPackageName();
+  if (packageName !== CORE_PACKAGE_NAME) {
+    fs.writeFileSync(
+      path.join(outdir, 'SKILL.md'),
+      generateSkillMd({ componentList, packageData, baseUrl, packageName }),
+      'utf-8',
+    );
+    retargetPackageFiles(listMarkdownFiles(outdir), packageName);
   }
 }

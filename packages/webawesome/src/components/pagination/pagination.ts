@@ -191,7 +191,7 @@ export default class WaPagination extends WebAwesomeElement {
    * A URL template used to render page items as links instead of buttons. When set, items render as `<a>` elements for
    * SSR, SEO, and no-JS support. Provide a string with `{page}` as a placeholder for the page number, e.g.
    * `/products?page={page}`. In JavaScript, you can also assign a function that receives the page number and returns
-   * the URL, e.g. `el.hrefTemplate = page => \`/products?page=${page}\``.
+   * the URL, e.g. `` el.hrefTemplate = page => `/products?page=${page}` ``.
    */
   @property({ attribute: 'href-template' }) hrefTemplate: string | ((page: number) => string) = '';
 

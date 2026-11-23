@@ -63,6 +63,16 @@ components as they appear. Replace `<version>` with the installed version (this 
 in SKILL.md). With npm instead of the CDN, import `@awesome.me/webawesome/dist/styles/webawesome.css` and
 each component you use; see `references/installation.md` in the `webawesome` skill.
 
+In a sandbox that loads files only from allowlisted hosts, such as a Claude.ai artifact, the
+`ka-f.webawesome.com` lines fail silently and the page renders unstyled. If the sandbox allows jsDelivr, as
+Claude.ai does, load the same files from there instead:
+`https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@<version>/dist-cdn/styles/webawesome.css` and
+`https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@<version>/dist-cdn/webawesome.loader.js`. Keep the loader's
+`<script src>` tag, because the loader finds its base path from it. For icons, add a second module script that
+imports `setIconPath` from that loader URL and calls
+`setIconPath('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/svgs')`. Pro components, Pro themes, and
+Pro icon families aren't available this way.
+
 ## Where to go next
 
 - **Re-brand:** add `.wa-brand-green` (or any hue) to `<html>` → [theming.md](theming.md).

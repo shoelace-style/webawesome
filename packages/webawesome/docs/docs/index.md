@@ -38,6 +38,27 @@ Now you can [use any Web Awesome component](/docs/components)! Try putting a but
 **Using Web Awesome Pro?** Visit [your workspaces](/workspaces) for personalized installation docs.
 :::
 
+### Sandboxed Environments
+
+Some tools that render HTML in a sandbox, such as Claude.ai artifacts, load files only from hosts on their Content Security Policy allowlist. When `ka-f.webawesome.com` isn't on the list, the page renders unstyled and components never load, with no visible error. Claude.ai allows jsDelivr, so load Web Awesome from there instead.
+
+```html
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@{{ package.version }}/dist-cdn/styles/webawesome.css"
+/>
+<script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@{{ package.version }}/dist-cdn/webawesome.loader.js"
+></script>
+<script type="module">
+  import { setIconPath } from 'https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@{{ package.version }}/dist-cdn/webawesome.loader.js';
+  setIconPath('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/svgs');
+</script>
+```
+
+Use `dist-cdn` in these URLs, not `dist`, which needs a bundler. Icons load from the Font Awesome CDN by default, which the sandbox also blocks, so [`setIconPath()`](/docs/components/icon#self-hosting) points them at Font Awesome Free on jsDelivr. Pro components, Pro themes, and Pro icon families aren't available this way.
+
 ## Install with npm {id=npm}
 
 <!-- pro-npm-lead: rendered by the app -->{% raw %}{% include "server/pro-npm-lead.njk" ignore missing %}{% endraw %}

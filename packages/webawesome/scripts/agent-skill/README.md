@@ -84,6 +84,9 @@ For the generated skill and the rest of the skill output:
 - Relative links in `dist/skills/webawesome/**` resolve; a link to a directory is an error
 - Budgets: a SKILL.md over 500 lines or 24 KB and a reference over 100 KB are warnings; a line over 2,000
   characters is an error
+- The file trees in `docs/docs/ai/agent-skills.md` list exactly the references each skill ships
+- No backslash-escaped `**` or backtick outside fenced code in the built skills or `llms.txt`, and no core package
+  import in Pro's built skills or `llms.txt` when a Pro build is present (jsDelivr URLs excepted)
 
 If the verifier fails after a library change, fix the citation (or the library) before merging.
 
