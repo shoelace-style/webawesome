@@ -109,6 +109,26 @@ describe('<wa-otp-input>', () => {
           el.value = '123456';
           expect(el.value).to.equal('1234');
         });
+
+        // https://github.com/shoelace-style/webawesome/issues/3092
+        it('should keep a value set as a property before the first render', async () => {
+          const container = await fixture<HTMLDivElement>(html`<div></div>`);
+          const el = document.createElement('wa-otp-input');
+          el.value = '271828';
+          container.append(el);
+          await el.updateComplete;
+          expect(el.value).to.equal('271828');
+        });
+
+        it('should normalize a value set before the first render with the initial length', async () => {
+          const container = await fixture<HTMLDivElement>(html`<div></div>`);
+          const el = document.createElement('wa-otp-input');
+          el.value = '12345678';
+          el.length = 8;
+          container.append(el);
+          await el.updateComplete;
+          expect(el.value).to.equal('12345678');
+        });
       });
 
       describe('format', () => {

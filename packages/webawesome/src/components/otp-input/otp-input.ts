@@ -97,12 +97,17 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
   // Backing field — not a reactive @state; value setter triggers requestUpdate() manually
   private _value = '';
 
+  // Raw value set as a property before the first render, normalized in willUpdate() once `type`, `case`,
+  // `length`, and `format` have their initial values
+  private _initialValue: string | null = null;
+
   /** The current value of the OTP field, submitted as a name/value pair with form data. */
   get value(): string {
     return this._value;
   }
 
   set value(val: string) {
+    if (!this.hasUpdated) this._initialValue = val;
     const next = this.filterAndTransform(val).slice(0, this.effectiveLength);
     if (this._value === next) return;
     const oldValue = this._value;
@@ -209,14 +214,18 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
 
   protected willUpdate(changedProperties: PropertyValues) {
     super.willUpdate(changedProperties);
-    // Initialize live value from the HTML `value` attribute on first render.
+    // Initialize live value on first render from the `value` property if it was set, else from the `value` attribute.
     if (!this.hasUpdated) {
-      const initial = this.filterAndTransform(this.defaultValue ?? '').slice(0, this.effectiveLength);
+      const initial = this.filterAndTransform(this._initialValue ?? this.defaultValue ?? '').slice(
+        0,
+        this.effectiveLength,
+      );
+      this._initialValue = null;
       if (this._value !== initial) {
         this._value = initial;
         this.setValue(initial);
-        this._lastChangeValue = initial;
       }
+      this._lastChangeValue = initial;
     }
     // Re-filter and truncate when type, case, length, or format changes after first render.
     if (
