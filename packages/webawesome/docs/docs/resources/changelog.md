@@ -46,6 +46,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a bug in `<wa-dialog>`, `<wa-drawer>`, and `<wa-lightbox>` that reset an author-set `scrollbar-gutter` to `auto` while open when the page had no visible scrollbar [issue:2771]
 - Fixed bugs in `<wa-dropdown>` when opening and closing the menu [issue:2882] [pr:3060]
   - Fixed a stale `wa-after-hide` event when the menu reopened during its hide animation
   - Fixed an open dropdown ignoring [[Escape]] and clicks outside after it was removed and reattached
