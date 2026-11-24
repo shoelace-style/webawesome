@@ -66,6 +66,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed missing form control states, such as `user-invalid`, in the Custom States tables of form controls [pr:3076]
 - Fixed the agent skills and `llms.txt` that ship with Web Awesome Pro so they import from the Pro package instead of `@awesome.me/webawesome` [issue:2824] [pr:3087]
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
+- Fixed a bug in `<wa-select>` where a text caret appeared at the start of the input after the listbox closed [issue:2979] [pr:3078]
 - Fixed a bug in `<wa-radio-group>` where arrow keys and [[Space]] were taken from buttons, links, and fields placed inside the group [issue:2892] [pr:2893]
 - Fixed a bug in `<wa-select>` that let an option be selected while the listbox closed after the control was disabled [pr:2960]
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
