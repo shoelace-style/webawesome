@@ -84,6 +84,9 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-known-date>` that caused the label to sit lower than the labels of other form controls [pr:3047]
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` that caused the text to start further in than other form controls [pr:3047]
 - Fixed a bug in `<wa-dropdown>` where the `--show-duration` and `--hide-duration` custom properties had no effect [pr:3064]
+- Fixed a regression in `<wa-dropdown>` where focus was pulled back to the trigger, or lost, when the user moved it elsewhere while the menu was closing
+  - Fixed items being selectable while the menu was closing
+  - Submenus now hide right away when the whole menu closes, instead of animating out
 - Fixed a bug in `<wa-dropdown-item>` where submenus closed at `--show-duration` instead of `--hide-duration` [pr:3070]
 - Fixed bugs in `<wa-dropdown-item>` submenus [issue:2876] [pr:3059]
   - Fixed a submenu staying hidden when it reopened during its close animation

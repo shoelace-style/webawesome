@@ -478,7 +478,6 @@ describe('<wa-dropdown>', () => {
           `);
 
           const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')!;
-          const firstItem = el.querySelector('wa-dropdown-item')!;
           el.style.setProperty('--hide-duration', '100ms');
           trigger.click();
           await waitUntil(() => el.open);
@@ -486,10 +485,7 @@ describe('<wa-dropdown>', () => {
 
           const afterHide = new Promise(resolve => el.addEventListener('wa-after-hide', resolve, { once: true }));
           await sendKeys({ press: 'Escape' });
-          await aTimeout(50);
-
-          expect(getDeepestActiveElement()).to.equal(firstItem);
-
+          expect(getDeepestActiveElement()).to.equal(trigger.shadowRoot!.querySelector('[part~="base"]'));
           await afterHide;
           expect(el.open).to.be.false;
           expect(getDeepestActiveElement()).to.equal(trigger.shadowRoot!.querySelector('[part~="base"]'));
@@ -949,6 +945,168 @@ describe('<wa-dropdown>', () => {
       expect(el.open).to.be.true;
       expect(parentItem.submenuOpen).to.be.true;
       expect(parentItem.submenuElement.hidden).to.be.false;
+      expect(document.activeElement).to.equal(nestedItem);
+    });
+
+    it('should not pull focus back to the trigger when focus moves while closing on Escape', async () => {
+      const host = await clientFixture<HTMLDivElement>(html`
+        <div>
+          <wa-dropdown style="--hide-duration: 500ms">
+            <wa-button slot="trigger">Dropdown</wa-button>
+            <wa-dropdown-item>One</wa-dropdown-item>
+          </wa-dropdown>
+          <input />
+        </div>
+      `);
+      const el = host.querySelector<WaDropdown>('wa-dropdown')!;
+      const input = host.querySelector('input')!;
+      await clickOnElement(el.querySelector('[slot="trigger"]')!);
+      await oneEvent(el, 'wa-after-show');
+
+      const hidden = oneEvent(el, 'wa-after-hide');
+      await sendKeys({ press: 'Escape' });
+      input.focus();
+      await hidden;
+
+      expect(document.activeElement).to.equal(input);
+    });
+
+    describe('while closing', () => {
+      const createFixture = async (openWith: 'click' | 'Enter' = 'click') => {
+        const host = await clientFixture<HTMLDivElement>(html`
+          <div>
+            <input id="before" />
+            <wa-dropdown style="--hide-duration: 500ms">
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item>One</wa-dropdown-item>
+              <wa-dropdown-item>Two</wa-dropdown-item>
+            </wa-dropdown>
+            <input id="after" />
+          </div>
+        `);
+        const el = host.querySelector<WaDropdown>('wa-dropdown')!;
+        const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')!;
+        const menu = el.shadowRoot!.querySelector<HTMLElement>('#menu')!;
+        const shown = oneEvent(el, 'wa-after-show');
+        if (openWith === 'click') {
+          await clickOnElement(trigger);
+        } else {
+          trigger.focus();
+          await sendKeys({ press: 'Enter' });
+        }
+        await shown;
+        return { host, el, trigger, menu };
+      };
+
+      for (const [keys, target] of [
+        ['Tab', 'after'],
+        ['Shift+Tab', 'before'],
+      ]) {
+        it(`should skip the closing menu when pressing ${keys} after Escape`, async () => {
+          const { host, el } = await createFixture();
+          const hidden = oneEvent(el, 'wa-after-hide');
+          await sendKeys({ press: 'Escape' });
+          await sendKeys({ press: keys });
+          await hidden;
+
+          expect(document.activeElement).to.equal(host.querySelector(`#${target}`));
+        });
+      }
+
+      it('should skip the closing menu when tabbing after a close without Escape', async () => {
+        const { host, el, trigger } = await createFixture();
+        trigger.focus();
+        const hidden = oneEvent(el, 'wa-after-hide');
+        el.open = false;
+        await el.updateComplete;
+        await sendKeys({ press: 'Tab' });
+        await hidden;
+
+        expect(document.activeElement).to.equal(host.querySelector('#after'));
+      });
+
+      it('should move focus out of the menu when Tab closes it', async () => {
+        const { host, el } = await createFixture('Enter');
+        const hidden = oneEvent(el, 'wa-after-hide');
+        await sendKeys({ press: 'Tab' });
+        await hidden;
+
+        expect(document.activeElement).to.equal(host.querySelector('#after'));
+      });
+
+      it('should make the menu usable again when reopened during the hide animation', async () => {
+        const { el, trigger, menu } = await createFixture();
+        const firstItem = el.querySelector('wa-dropdown-item')!;
+        await sendKeys({ press: 'Escape' });
+        expect(menu.inert).to.be.true;
+
+        trigger.click();
+        await waitUntil(() => el.open);
+        await waitUntil(() => document.activeElement === firstItem);
+
+        expect(menu.inert).to.be.false;
+      });
+
+      it('should keep focus on the trigger after Escape when the menu was opened with the keyboard', async () => {
+        const { el, trigger } = await createFixture('Enter');
+        const hidden = oneEvent(el, 'wa-after-hide');
+        await sendKeys({ press: 'Escape' });
+        await hidden;
+
+        expect(getDeepestActiveElement()).to.equal(trigger.shadowRoot!.querySelector('[part~="base"]'));
+      });
+
+      it('should keep focus on the trigger when the closing menu is clicked', async () => {
+        const { el, trigger, menu } = await createFixture('Enter');
+        const secondItem = el.querySelectorAll('wa-dropdown-item')[1];
+        const selectHandler = sinon.spy();
+        // Leave plenty of time for the click to land during the hide animation
+        el.style.setProperty('--hide-duration', '1000ms');
+        el.addEventListener('wa-select', selectHandler);
+        const hidden = oneEvent(el, 'wa-after-hide');
+        await sendKeys({ press: 'Escape' });
+        await clickOnElement(secondItem);
+        // The click must land while the menu is still animating out
+        expect(menu.classList.contains('hide')).to.be.true;
+        await hidden;
+
+        expect(selectHandler).not.to.have.been.called;
+        expect(getDeepestActiveElement()).to.equal(trigger.shadowRoot!.querySelector('[part~="base"]'));
+      });
+
+      it('should hide open submenus right away when the menu closes', async () => {
+        const el = await clientFixture<WaDropdown>(html`
+          <wa-dropdown style="--hide-duration: 500ms">
+            <button slot="trigger">Menu</button>
+            <wa-dropdown-item>
+              More options
+              <wa-dropdown-item slot="submenu">Nested option</wa-dropdown-item>
+            </wa-dropdown-item>
+          </wa-dropdown>
+        `);
+        const trigger = el.querySelector('button')!;
+        const menu = el.shadowRoot!.querySelector<HTMLElement>('#menu')!;
+        const parentItem = el.querySelector<WaDropdownItem>('wa-dropdown-item')!;
+        const nestedItem = parentItem.querySelector<WaDropdownItem>('[slot="submenu"]')!;
+
+        trigger.focus();
+        await sendKeys({ press: 'Enter' });
+        await waitUntil(() => document.activeElement === parentItem);
+        await sendKeys({ press: 'ArrowRight' });
+        await waitUntil(() => document.activeElement === nestedItem);
+
+        const hidden = oneEvent(el, 'wa-after-hide');
+        await sendKeys({ press: 'Escape' });
+
+        // The menu is still animating out, but the submenu is already gone
+        expect(menu.classList.contains('hide')).to.be.true;
+        expect(parentItem.submenuOpen).to.be.false;
+        expect(parentItem.submenuElement.hidden).to.be.true;
+        expect(document.activeElement).to.equal(trigger);
+
+        await hidden;
+        expect(document.activeElement).to.equal(trigger);
+      });
     });
 
     it('should emit wa-hide once when Tab closes the menu', async () => {
