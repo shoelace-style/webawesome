@@ -100,6 +100,23 @@ Use the `pill` attribute to give tags rounded edges.
 <wa-tag size="xl" pill>Extra Large</wa-tag>
 ```
 
+### Customizing
+
+Style a tag with regular CSS. The `<wa-tag>` element is the tag itself, so `background-color`, `border-color`, `border-style`, and `color` go right on it.
+
+```html {.example}
+<wa-tag class="brand-tag">Custom Tag</wa-tag>
+
+<style>
+  wa-tag.brand-tag {
+    background-color: var(--wa-color-brand-fill-quiet);
+    border-color: var(--wa-color-brand-border-normal);
+    border-style: dashed;
+    color: var(--wa-color-brand-on-quiet);
+  }
+</style>
+```
+
 ### Removable
 
 Use the `with-remove` attribute to add a remove button to the tag. The button carries a built-in `Remove` label for assistive technology, and activating it emits the `wa-remove` event so you can handle the removal.

@@ -59,6 +59,11 @@ export default css`
     overflow: visible;
     width: auto;
 
+    /* Sprite sheet svgs have no viewBox or width, so default to square instead of 300px */
+    &:not([viewBox], [width]) {
+      aspect-ratio: 1;
+    }
+
     /* Duotone colors with path-specific opacity fallback */
     path[data-duotone-primary] {
       color: var(--primary-color);

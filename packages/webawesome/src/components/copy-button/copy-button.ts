@@ -46,6 +46,7 @@ const ASSIGNED_ID_PROP = '__waCopyButtonAssignedId';
  * @csspart success-icon - The container that holds the success icon.
  * @csspart error-icon - The container that holds the error icon.
  * @csspart feedback - The internal `<wa-tooltip>` element.
+ * @csspart copy-button - The component's outer wrapper.
  */
 @customElement('wa-copy-button')
 export default class WaCopyButton extends WebAwesomeElement {
@@ -347,12 +348,14 @@ export default class WaCopyButton extends WebAwesomeElement {
           },
           { once: true },
         );
-      });
 
-      this.feedbackTimeout = window.setTimeout(async () => {
-        this.feedbackTimeout = null;
-        await tooltip.hide();
-      }, this.feedbackDuration);
+        this.feedbackTimeout = window.setTimeout(async () => {
+          this.feedbackTimeout = null;
+          // A newer show can supersede this hide, so no wa-after-hide fires. hide() still settles.
+          await tooltip.hide();
+          resolve();
+        }, this.feedbackDuration);
+      });
     }
 
     // Wait until the tooltip is fully hidden (or the cleanup duration elapses, whichever comes
@@ -385,49 +388,46 @@ export default class WaCopyButton extends WebAwesomeElement {
       showTooltip = false;
     }
 
-    return html`
-      <div class="copy-button__trigger" @click=${this.handleCopy}>
-        <slot @slotchange=${this.handleDefaultSlotChange}></slot>
-        <button
-          class="button"
-          part="button"
-          type="button"
-          id="copy-button"
-          aria-label=${this.currentLabel}
-          ?disabled=${this.disabled}
-          ?hidden=${this.hasCustomTrigger}
-        >
-          <slot part="copy-icon" name="copy-icon">
-            <wa-icon library="system" name="copy" variant="regular"></wa-icon>
-          </slot>
-          <slot part="success-icon" name="success-icon" variant="solid" hidden>
-            <wa-icon library="system" name="check"></wa-icon>
-          </slot>
-          <slot part="error-icon" name="error-icon" variant="solid" hidden>
-            <wa-icon library="system" name="xmark"></wa-icon>
-          </slot>
-        </button>
+    // Significant whitespace is getting "fixed" by Prettier, but its important to tell Prettier to stop doing that because Lindsay (@omnifides) complained about an extra 4px of width due to whitespace :D
+    // prettier-ignore
+    return html`<div part="copy-button" class="copy-button__trigger" @click=${this.handleCopy}><!--
+  --><slot @slotchange=${this.handleDefaultSlotChange}></slot><!--
+  --><button
+        class="button"
+        part="button"
+        type="button"
+        id="copy-button"
+        aria-label=${this.currentLabel}
+        ?disabled=${this.disabled}
+        ?hidden=${this.hasCustomTrigger}
+      >
+        <slot part="copy-icon" name="copy-icon"
+          ><wa-icon library="system" name="copy" variant="regular"></wa-icon
+        ></slot>
+        <slot part="success-icon" name="success-icon" variant="solid" hidden
+          ><wa-icon library="system" name="check"></wa-icon
+        ></slot>
+        <slot part="error-icon" name="error-icon" variant="solid" hidden
+          ><wa-icon library="system" name="xmark"></wa-icon>
+        </slot>
+      </button><!--
 
-        ${showTooltip
-          ? html`
-              <wa-tooltip
-                part="feedback"
-                for="copy-button"
-                placement=${this.tooltipPlacement}
-                trigger=${triggerValue}
-                class=${classMap({
-                  'copy-button-tooltip': true,
-                  'copy-button-tooltip-success': this.status === 'success',
-                  'copy-button-tooltip-error': this.status === 'error',
-                })}
-                ?disabled=${this.disabled}
-                >${this.currentLabel}</wa-tooltip
-              >
-            `
-          : ''}
-        <slot name="${INTERNAL_TOOLTIP_SLOT}"></slot>
-      </div>
-    `;
+  -->${showTooltip
+        ? html`<wa-tooltip
+            part="feedback"
+            for="copy-button"
+            placement=${this.tooltipPlacement}
+            trigger=${triggerValue}
+            class=${classMap({
+              'copy-button-tooltip': true,
+              'copy-button-tooltip-success': this.status === 'success',
+              'copy-button-tooltip-error': this.status === 'error',
+            })}
+            ?disabled=${this.disabled}
+            >${this.currentLabel}</wa-tooltip>`
+        : ''}<!--
+        --><slot name="${INTERNAL_TOOLTIP_SLOT}"></slot><!--
+    --></div>`;
   }
 }
 

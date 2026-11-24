@@ -2,8 +2,10 @@ import { aTimeout, expect, nextFrame, oneEvent, waitUntil } from '@open-wc/testi
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
+import { getDeepestActiveElement } from '../../internal/active-elements.js';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { clientFixture, fixtures } from '../../internal/test/fixture.js';
+import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
 import type WaDropdown from './dropdown.js';
 
@@ -26,7 +28,7 @@ describe('<wa-dropdown>', () => {
           await customElements.whenDefined('wa-button');
           const waButton = trigger as any;
           await waButton.updateComplete;
-          const nativeButton = waButton.shadowRoot!.querySelector('[part~="base"]')!;
+          const nativeButton = waButton.shadowRoot!.querySelector('[part~="button"]')!;
 
           expect(nativeButton.getAttribute('aria-haspopup')).to.equal('menu');
         });
@@ -43,7 +45,7 @@ describe('<wa-dropdown>', () => {
 
           const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')! as any;
           await trigger.updateComplete;
-          const nativeButton = trigger.shadowRoot!.querySelector('[part~="base"]')!;
+          const nativeButton = trigger.shadowRoot!.querySelector('[part~="button"]')!;
 
           expect(nativeButton.getAttribute('aria-expanded')).to.equal('true');
         });
@@ -307,6 +309,31 @@ describe('<wa-dropdown>', () => {
           expect(el.open).to.be.true;
         });
 
+        it('should not navigate when click is prevented on a link item', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown open>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item value="about" href="/about">About</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+          await aTimeout(200);
+
+          const documentClickHandler = (event: MouseEvent) => event.preventDefault();
+          document.addEventListener('click', documentClickHandler, { once: true });
+
+          const item = el.querySelector<HTMLElement>('wa-dropdown-item')!;
+          const link = item.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          await clickOnElement(item);
+          await aTimeout(200);
+
+          expect(clickHandler).to.not.have.been.called;
+          expect(el.open).to.be.false;
+        });
+
         it('should not navigate when a disabled link item is clicked', async () => {
           const el = await fixture<WaDropdown>(html`
             <wa-dropdown open>
@@ -451,14 +478,21 @@ describe('<wa-dropdown>', () => {
           `);
 
           const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')!;
+          const firstItem = el.querySelector('wa-dropdown-item')!;
+          el.style.setProperty('--hide-duration', '100ms');
           trigger.click();
           await waitUntil(() => el.open);
           await aTimeout(200);
 
+          const afterHide = new Promise(resolve => el.addEventListener('wa-after-hide', resolve, { once: true }));
           await sendKeys({ press: 'Escape' });
-          await waitUntil(() => !el.open);
+          await aTimeout(50);
 
+          expect(getDeepestActiveElement()).to.equal(firstItem);
+
+          await afterHide;
           expect(el.open).to.be.false;
+          expect(getDeepestActiveElement()).to.equal(trigger.shadowRoot!.querySelector('[part~="base"]'));
         });
 
         it('should navigate items with ArrowDown', async () => {
@@ -758,6 +792,34 @@ describe('<wa-dropdown>', () => {
     });
   });
 
+  describe('animation durations', () => {
+    it('should animate the menu with --show-duration and --hide-duration set on the host', async () => {
+      const dropdown = await clientFixture<WaDropdown>(html`
+        <wa-dropdown style="--show-duration: 1234ms; --hide-duration: 567ms">
+          <button slot="trigger">Menu</button>
+          <wa-dropdown-item>One</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const menu = dropdown.shadowRoot!.querySelector<HTMLElement>('[part="menu"]')!;
+      const menuAnimation = () => menu.getAnimations().find(animation => animation instanceof CSSAnimation);
+      menu.style.animationPlayState = 'paused';
+
+      const shown = oneEvent(dropdown, 'wa-after-show');
+      dropdown.querySelector('button')!.click();
+      await waitUntil(() => menuAnimation());
+      expect(menuAnimation()!.effect!.getComputedTiming().duration).to.equal(1234);
+      menuAnimation()!.finish();
+      await shown;
+
+      const hidden = oneEvent(dropdown, 'wa-after-hide');
+      dropdown.open = false;
+      await waitUntil(() => menuAnimation());
+      expect(menuAnimation()!.effect!.getComputedTiming().duration).to.equal(567);
+      menuAnimation()!.finish();
+      await hidden;
+    });
+  });
+
   describe('trigger interaction', () => {
     it('should toggle open when the trigger is clicked', async () => {
       const el = await clientFixture<WaDropdown>(html`
@@ -776,6 +838,139 @@ describe('<wa-dropdown>', () => {
       trigger.click();
       await waitUntil(() => !el.open);
       expect(el.open).to.be.false;
+    });
+
+    it('should still close on Escape after reopening during the hide animation', async () => {
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown>
+          <wa-button slot="trigger">Dropdown</wa-button>
+          <wa-dropdown-item>One</wa-dropdown-item>
+          <wa-dropdown-item>Two</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const popup = el.shadowRoot!.querySelector<any>('wa-popup')!;
+
+      const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')!;
+      trigger.click();
+      await waitUntil(() => el.open);
+      await aTimeout(200);
+
+      // Reopen while the hide animation is still running
+      await sendKeys({ press: 'Escape' });
+      expect(el.open).to.be.false;
+      trigger.click();
+      await waitUntil(() => el.open);
+      await aTimeout(200);
+
+      await sendKeys({ press: 'Escape' });
+      await aTimeout(200);
+
+      expect(el.open).to.be.false;
+      expect(popup.active).to.be.false;
+    });
+
+    it('should not emit wa-after-hide when reopened during the hide animation', async () => {
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown style="--hide-duration: 400ms">
+          <wa-button slot="trigger">Dropdown</wa-button>
+          <wa-dropdown-item>One</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')!;
+      const afterHide = sinon.spy();
+      el.addEventListener('wa-after-hide', afterHide);
+
+      await clickOnElement(trigger);
+      await oneEvent(el, 'wa-after-show');
+      await sendKeys({ press: 'Escape' });
+      await aTimeout(50);
+      const shown = oneEvent(el, 'wa-after-show');
+      await clickOnElement(trigger);
+      await shown;
+      await aTimeout(500);
+
+      expect(el.open).to.be.true;
+      expect(afterHide).not.to.have.been.called;
+    });
+
+    for (const dismissal of ['Escape', 'an outside click']) {
+      it(`should close on ${dismissal} after an open dropdown is removed and reattached`, async () => {
+        const host = await clientFixture<HTMLDivElement>(html`
+          <div>
+            <wa-dropdown>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item>One</wa-dropdown-item>
+            </wa-dropdown>
+            <button>Outside</button>
+          </div>
+        `);
+        const el = host.querySelector<WaDropdown>('wa-dropdown')!;
+        await clickOnElement(el.querySelector('[slot="trigger"]')!);
+        await oneEvent(el, 'wa-after-show');
+
+        el.remove();
+        host.prepend(el);
+        await aTimeout(100);
+
+        if (dismissal === 'Escape') {
+          await sendKeys({ press: 'Escape' });
+        } else {
+          await clickOnElement(host.querySelector('button')!);
+        }
+        await waitUntil(() => !el.open);
+        expect(el.open).to.be.false;
+      });
+    }
+
+    it('should keep submenus open when wa-hide is prevented', async () => {
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown>
+          <button slot="trigger">Menu</button>
+          <wa-dropdown-item>
+            More options
+            <wa-dropdown-item slot="submenu">Nested option</wa-dropdown-item>
+          </wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const parentItem = el.querySelector<WaDropdownItem>('wa-dropdown-item')!;
+      const nestedItem = parentItem.querySelector<WaDropdownItem>('[slot="submenu"]')!;
+
+      el.querySelector('button')!.focus();
+      await sendKeys({ press: 'Enter' });
+      await waitUntil(() => document.activeElement === parentItem);
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement === nestedItem);
+      await aTimeout(200);
+
+      el.addEventListener('wa-hide', event => event.preventDefault());
+      await sendKeys({ press: 'Escape' });
+      await aTimeout(300);
+
+      expect(el.open).to.be.true;
+      expect(parentItem.submenuOpen).to.be.true;
+      expect(parentItem.submenuElement.hidden).to.be.false;
+    });
+
+    it('should emit wa-hide once when Tab closes the menu', async () => {
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown>
+          <button slot="trigger">Menu</button>
+          <wa-dropdown-item>One</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const hide = sinon.spy();
+      el.addEventListener('wa-hide', hide);
+
+      el.querySelector('button')!.focus();
+      await sendKeys({ press: 'Enter' });
+      await oneEvent(el, 'wa-after-show');
+      const hidden = oneEvent(el, 'wa-after-hide');
+      await sendKeys({ press: 'Tab' });
+      await hidden;
+      await aTimeout(100);
+
+      expect(el.open).to.be.false;
+      expect(hide).to.have.been.calledOnce;
     });
   });
 
@@ -876,6 +1071,188 @@ describe('<wa-dropdown>', () => {
         }
       });
     }
+
+    it('should return focus to the parent item when a submenu holding focus closes', async () => {
+      await sendMouse({ type: 'move', position: [window.innerWidth - 10, window.innerHeight - 10] });
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown style="--show-duration: 0ms; --hide-duration: 0ms;">
+          <wa-button slot="trigger">Menu</wa-button>
+          <wa-dropdown-item>
+            More options
+            <wa-dropdown-item slot="submenu">Nested option</wa-dropdown-item>
+          </wa-dropdown-item>
+          <wa-dropdown-item>Plain option</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const shown = oneEvent(el, 'wa-after-show');
+      el.open = true;
+      await shown;
+
+      // Hovering the parent opens its submenu and focuses the first nested item
+      const parentItem = el.querySelector<WaDropdownItem>('wa-dropdown-item')!;
+      const nestedItem = parentItem.querySelector<WaDropdownItem>('[slot="submenu"]')!;
+      const itemRect = parentItem.getBoundingClientRect();
+      await sendMouse({
+        type: 'move',
+        position: [Math.round(itemRect.left + itemRect.width / 2), Math.round(itemRect.top + itemRect.height / 2)],
+      });
+      await waitUntil(() => document.activeElement === nestedItem);
+
+      // Without this, hiding the submenu drops focus to the body
+      parentItem.submenuOpen = false;
+      await parentItem.updateComplete;
+      await waitUntil(() => parentItem.submenuElement.hidden);
+
+      expect(document.activeElement).to.equal(parentItem);
+      expect(el.open).to.be.true;
+    });
+  });
+
+  describe('submenu navigation', () => {
+    const corner = (): [number, number] => [window.innerWidth - 10, window.innerHeight - 10];
+    const center = (element: Element): [number, number] => {
+      const rect = element.getBoundingClientRect();
+      return [Math.round(rect.left + rect.width / 2), Math.round(rect.top + rect.height / 2)];
+    };
+
+    const openMenu = async () => {
+      await sendMouse({ type: 'move', position: corner() });
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown style="--show-duration: 0ms; --hide-duration: 0ms;">
+          <button slot="trigger">Actions</button>
+          <wa-dropdown-item id="new">New</wa-dropdown-item>
+          <wa-dropdown-item id="export">
+            Export
+            <wa-dropdown-item slot="submenu" id="documents">
+              Documents
+              <wa-dropdown-item slot="submenu" id="pdf">PDF document</wa-dropdown-item>
+            </wa-dropdown-item>
+          </wa-dropdown-item>
+          <wa-dropdown-item id="settings">
+            Settings
+            <wa-dropdown-item slot="submenu" id="appearance">Appearance</wa-dropdown-item>
+          </wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const shown = oneEvent(el, 'wa-after-show');
+      el.open = true;
+      await shown;
+      const item = (id: string) => el.querySelector<WaDropdownItem>(`#${id}`)!;
+      return { el, item };
+    };
+
+    it('should navigate the root menu after hovering from one submenu to another and pressing ArrowLeft', async () => {
+      const { item } = await openMenu();
+
+      await sendMouse({ type: 'move', position: center(item('export')) });
+      await waitUntil(() => document.activeElement === item('documents'));
+      await sendMouse({ type: 'move', position: center(item('settings')) });
+      await waitUntil(() => document.activeElement === item('appearance'));
+
+      await sendKeys({ press: 'ArrowLeft' });
+      await waitUntil(() => document.activeElement === item('settings'));
+      await sendKeys({ press: 'ArrowDown' });
+      await aTimeout(50);
+
+      expect(document.activeElement?.id).to.equal('new');
+      expect(item('export').submenuOpen).to.be.false;
+    });
+
+    it('should navigate the root menu after a hovered submenu closes on hover out', async () => {
+      const { item } = await openMenu();
+
+      await sendMouse({ type: 'move', position: center(item('export')) });
+      await waitUntil(() => document.activeElement === item('documents'));
+      await sendMouse({ type: 'move', position: corner() });
+      await waitUntil(() => !item('export').submenuOpen);
+      await waitUntil(() => document.activeElement === item('export'));
+
+      await sendKeys({ press: 'ArrowDown' });
+      await aTimeout(50);
+
+      expect(document.activeElement?.id).to.equal('settings');
+    });
+
+    it('should close nested submenus when Escape closes the dropdown', async () => {
+      const { el, item } = await openMenu();
+
+      item('export').focus();
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement === item('documents'));
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement === item('pdf'));
+
+      await sendKeys({ press: 'Escape' });
+      await waitUntil(() => !el.open);
+      await aTimeout(50);
+
+      expect(item('export').submenuOpen).to.be.false;
+      expect(item('documents').submenuOpen).to.be.false;
+      expect(item('documents').getAttribute('aria-expanded')).to.equal('false');
+    });
+
+    it('should return focus to the parent item when code closes a submenu while a nested submenu holds focus', async () => {
+      const { el, item } = await openMenu();
+
+      item('export').focus();
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement?.id === 'documents');
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement?.id === 'pdf');
+
+      // Chromium and WebKit don't match :focus-within across the nested submenu's popover
+      item('export').submenuOpen = false;
+      await item('export').updateComplete;
+      await waitUntil(() => item('export').submenuElement.hidden);
+
+      expect(document.activeElement?.id).to.equal('export');
+      expect(el.open).to.be.true;
+    });
+
+    const openForwardedMenu = async () => {
+      await sendMouse({ type: 'move', position: corner() });
+      const host = await clientFixture<HTMLDivElement>(
+        html`<div><wa-dropdown-item id="forwarded">Forwarded option</wa-dropdown-item></div>`,
+      );
+      const shadow = host.attachShadow({ mode: 'open' });
+      shadow.innerHTML = `
+        <wa-dropdown style="--show-duration: 0ms; --hide-duration: 0ms;">
+          <button slot="trigger">Menu</button>
+          <wa-dropdown-item id="parent">More options<slot slot="submenu"></slot></wa-dropdown-item>
+        </wa-dropdown>
+      `;
+      const el = shadow.querySelector<WaDropdown>('wa-dropdown')!;
+      const parentItem = shadow.querySelector<WaDropdownItem>('#parent')!;
+      await parentItem.updateComplete;
+      const shown = oneEvent(el, 'wa-after-show');
+      el.open = true;
+      await shown;
+      return { shadow, parentItem };
+    };
+
+    it('should return focus to the parent item when code closes a submenu while a forwarded item holds focus', async () => {
+      const { shadow, parentItem } = await openForwardedMenu();
+
+      parentItem.focus();
+      await sendKeys({ press: 'ArrowRight' });
+      await waitUntil(() => document.activeElement?.id === 'forwarded');
+
+      parentItem.submenuOpen = false;
+      await parentItem.updateComplete;
+      await waitUntil(() => parentItem.submenuElement.hidden);
+
+      expect(shadow.activeElement?.id).to.equal('parent');
+    });
+
+    it('should focus submenu items forwarded through a slot', async () => {
+      const { parentItem } = await openForwardedMenu();
+
+      await sendMouse({ type: 'move', position: center(parentItem) });
+      await waitUntil(() => parentItem.submenuOpen);
+      await aTimeout(100);
+
+      expect(document.activeElement?.id).to.equal('forwarded');
+    });
   });
 
   describe('submenu positioning', () => {
@@ -941,6 +1318,20 @@ describe('<wa-dropdown>', () => {
       // Allow for the intentional 5px overlap from the offset middleware.
       expect(rect.left).to.be.at.least(itemRect.right - 6);
       expect(rect.right).to.be.at.most(window.innerWidth);
+    });
+
+    it('should aim the safe triangle at the near edge when the submenu flips to the other side', async () => {
+      const el = await submenuFixture();
+      el.querySelector<HTMLElement>('[slot="trigger"]')!.style.cssText = 'position: fixed; top: 0; right: 0;';
+      const parentItem = await openSubmenu(el);
+
+      const rect = parentItem.submenuElement.getBoundingClientRect();
+      expect(parentItem.submenuElement.getAttribute('data-placement')).to.match(/^left/);
+
+      // A cursor over the parent item sits to the right of a flipped submenu, so it shouldn't be clamped to the left edge
+      const clientX = Math.round(rect.right + 20);
+      document.dispatchEvent(new MouseEvent('mousemove', { clientX, clientY: Math.round(rect.top + 10) }));
+      expect(parentItem.submenuElement.style.getPropertyValue('--safe-triangle-cursor-x')).to.equal(`${clientX}px`);
     });
   });
 });

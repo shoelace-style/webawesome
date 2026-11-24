@@ -142,7 +142,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   }
 
   /**
-   * We use the first available radio as the validationTarget similar to native HTML that shows the validation popup on
+   * @internal We use the first available radio as the validationTarget similar to native HTML that shows the validation popup on
    * the first radio element.
    */
   get validationTarget() {
@@ -274,6 +274,12 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   private handleKeyDown(event: KeyboardEvent) {
     if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(event.key) || this.disabled) {
+      return;
+    }
+
+    // Only keys pressed on a radio move the selection. Links, buttons, and fields inside the group keep their own
+    // keyboard behavior.
+    if (!this.getAllRadios().includes(event.target as WaRadio)) {
       return;
     }
 

@@ -34,7 +34,8 @@ export function lockBodyScrolling(lockingEl: HTMLElement) {
     /** Scrollbar width + body padding calculation can go away once Safari has scrollbar-gutter support. */
     const scrollbarWidth = getScrollbarWidth() + getExistingBodyPadding(); // must be measured before the `wa-scroll-lock` class is applied
 
-    let scrollbarGutterProperty = getComputedStyle(document.documentElement).scrollbarGutter;
+    const authorScrollbarGutter = getComputedStyle(document.documentElement).scrollbarGutter;
+    let scrollbarGutterProperty = authorScrollbarGutter;
 
     // default is auto, unsupported browsers is "undefined"
     if (!scrollbarGutterProperty || scrollbarGutterProperty === 'auto') {
@@ -43,8 +44,8 @@ export function lockBodyScrolling(lockingEl: HTMLElement) {
 
     /** Sometimes the scrollbar width is 1px, even then, we assume nothing is overflowing. */
     if (scrollbarWidth < 2) {
-      // if there's no scrollbar, just set it to an empty string so whatever the user has set gets used. This is useful if the page is not overflowing and showing a scrollbar, or if the user has overflow: hidden, or any other reason a scrollbar may not be showing.
-      scrollbarGutterProperty = '';
+      // keep the user's value; an empty string would make the declaration invalid and reset it to `auto`
+      scrollbarGutterProperty = authorScrollbarGutter || '';
     }
     document.documentElement.style.setProperty('--wa-scroll-lock-gutter', scrollbarGutterProperty);
     document.documentElement.classList.add('wa-scroll-lock');

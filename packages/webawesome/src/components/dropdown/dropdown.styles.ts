@@ -7,6 +7,12 @@ export default css`
     display: contents;
   }
 
+  /* Pass through from dropdown to the popup */
+  wa-popup {
+    --show-duration: inherit;
+    --hide-duration: inherit;
+  }
+
   #menu {
     display: flex;
     flex-direction: column;
@@ -21,6 +27,7 @@ export default css`
     text-align: start;
     user-select: none;
     overflow: auto;
+    overscroll-behavior: none;
     max-width: var(--auto-size-available-width) !important;
     max-height: var(--auto-size-available-height) !important;
 

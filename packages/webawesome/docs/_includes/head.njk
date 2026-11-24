@@ -1,6 +1,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="{{ description }}">
+<meta name="description" content="{{ description | replace('`', '') }}">
 {% if noindex %}<meta name="robots" content="noindex">{% endif %}
 
 <title>{{ pageTitle }}</title>
@@ -11,8 +11,10 @@
   <meta property="og:type" content="{{ ogType }}" />
   <meta property="og:url" content="{{ ogUrl }}" />
   <meta property="og:title" content="{{ ogTitle }}" />
-  <meta property="og:description" content="{{ ogDescription }}" />
+  <meta property="og:description" content="{{ ogDescription | replace('`', '') }}" />
   <meta property="og:image" content="{{ ogImage }}" />
+  {# ogCard is set by webawesome-app when it renders a card image that shows this title and description. #}
+  {% if ogCard %}<meta property="og:image:alt" content="{{ ogTitle }}. {{ ogDescription | replace('`', '') }}" />{% endif %}
   {% if ogImageWidth %}<meta property="og:image:width" content="{{ ogImageWidth }}" />{% endif %}
   {% if ogImageHeight %}<meta property="og:image:height" content="{{ ogImageHeight }}" />{% endif %}
   <meta property="og:site_name" content="{{ siteMetadata.name }}" />
@@ -28,6 +30,14 @@
 		isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 	}
 	document.documentElement.classList.toggle('wa-dark', isDark);
+
+  // Set the icon family and variant before any icon renders. This site defaults to classic regular rather than the
+  // library's classic solid. A style saved by the selector (e.g. "sharp light") overrides that. Anything else, such
+  // as a style the selector no longer offers, is ignored. Keep this list in sync with icon-family-selector.njk.
+  // Pages without the selector (marketing, checkout, Create) are designed for one look, so they skip the saved style.
+  var iconFamily = {% if hasIconSelector %}/^(classic|sharp|duotone|sharp-duotone) (solid|regular|light|thin)$/.exec(localStorage.getItem('icon-family')){% else %}null{% endif %};
+  document.documentElement.dataset.faFamily = iconFamily ? iconFamily[1] : 'classic';
+  document.documentElement.dataset.faVariant = iconFamily ? iconFamily[2] : 'regular';
 
   function setCookie(options) {
     let {
@@ -92,6 +102,7 @@
   function loadLayout () {
     const proComponents = [
       "combobox",
+      "sparkline",
     ]
 
     const kitCode = "f4ea8aaaeb9d4f12"

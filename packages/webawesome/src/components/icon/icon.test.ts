@@ -1,15 +1,19 @@
 import { aTimeout, elementUpdated, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { emulateMedia } from '@web/test-runner-commands';
 import { html } from 'lit';
+import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
+import { setKitCode } from '../../utilities/base-path.js';
 
 // Make sure this is `dist-cdn/` otherwise you will get an error.
 import { registerIconLibrary } from '../../../dist-cdn/webawesome.js';
 import type WaIcon from './icon.js';
 import type { IconAnimation } from './icon.js';
 import defaultLibrary, { getIconFolder } from './library.default.js';
-import systemLibrary from './library.system.js';
+import { getDefaultIconFamily, setDefaultIconFamily } from './library.js';
+import systemLibrary, { icons as systemIcons } from './library.system.js';
+import { systemIconSets } from './library.system.sets.js';
 
 // Captures the autoWidth argument passed to a resolver so we can assert the canvas="auto" coupling.
 let probeAutoWidth: boolean | undefined;
@@ -139,6 +143,79 @@ describe('<wa-icon>', () => {
       svg.setAttribute('fill', 'none');
       systemLibrary.mutator!(svg);
       expect(svg.getAttribute('fill')).to.equal('none');
+    });
+  });
+
+  // Pro artwork can only ship in the pro package (see webawesome-pro's library.system.pro.ts).
+  it('system library contains no Font Awesome Pro icons', () => {
+    const proIcons = Object.entries(systemIcons).flatMap(([variant, collection]) =>
+      Object.entries(collection)
+        .filter(([, svg]) => svg.includes('Font Awesome Pro'))
+        .map(([name]) => `${variant}/${name}`),
+    );
+    expect(proIcons).to.deep.equal([]);
+  });
+
+  describe('default icon family and variant', () => {
+    const fakeSvg = '<svg id="fake-sharp-light"></svg>';
+
+    afterEach(() => {
+      setDefaultIconFamily('classic', 'solid');
+      delete systemIconSets['sharp-light'];
+    });
+
+    it('applies to the default library when the icon has no family or variant', async () => {
+      setDefaultIconFamily('sharp', 'light');
+
+      // A property that was never set is undefined, a removed attribute leaves null, and an empty one leaves ''
+      for (const unset of [undefined, null, ''] as unknown as string[]) {
+        expect(await defaultLibrary.resolver('house', unset, unset, false)).to.include('/sharp-light/');
+      }
+      expect(await defaultLibrary.resolver('house', getDefaultIconFamily(), 'solid', false)).to.include(
+        '/sharp-solid/',
+      );
+    });
+
+    it('resolves system icons from an alternate set and falls back to the built-in icons', async () => {
+      systemIconSets['sharp-light'] = async () => ({ default: { solid: { check: fakeSvg } } });
+      setDefaultIconFamily('sharp', 'light');
+      const check = decodeURIComponent(await systemLibrary.resolver('check', 'classic', 'solid', false));
+      const xmark = decodeURIComponent(await systemLibrary.resolver('xmark', 'classic', 'solid', false));
+      expect(check).to.include('fake-sharp-light');
+      expect(xmark).to.include(systemIcons.solid.xmark);
+    });
+  });
+
+  // Without a kit code, the lookup used to scan the DOM on every icon (issue #2975).
+  describe('kit code', () => {
+    afterEach(() => {
+      sinon.restore();
+      setKitCode('');
+    });
+
+    it('looks up a missing kit code at most once', async () => {
+      const querySelector = sinon.spy(document, 'querySelector');
+      for (let i = 0; i < 100; i++) {
+        expect(await defaultLibrary.resolver('house', 'classic', 'solid', false)).to.include('ka-f.fontawesome.com');
+      }
+      expect(querySelector.withArgs('[data-fa-kit-code]').callCount).to.be.at.most(1);
+    });
+
+    it('uses a kit code set after a cached miss', async () => {
+      await defaultLibrary.resolver('house', 'classic', 'solid', false);
+      setKitCode('abc123');
+      expect(await defaultLibrary.resolver('house', 'classic', 'solid', false)).to.include('token=abc123');
+    });
+
+    it('reads the attribute again after the kit code is set to an empty string', async () => {
+      await defaultLibrary.resolver('house', 'classic', 'solid', false);
+      document.documentElement.setAttribute('data-fa-kit-code', 'fromdom');
+      try {
+        setKitCode('');
+        expect(await defaultLibrary.resolver('house', 'classic', 'solid', false)).to.include('token=fromdom');
+      } finally {
+        document.documentElement.removeAttribute('data-fa-kit-code');
+      }
     });
   });
 
@@ -305,6 +382,38 @@ describe('<wa-icon>', () => {
           await elementUpdated(el);
           const svg = el.shadowRoot?.querySelector("svg[part='svg']");
           expect(svg?.getAttribute('fill')).to.equal('currentColor');
+        });
+
+        it('should size the <svg> as a square instead of the 300px replaced element default', async () => {
+          registerIconLibrary('sprite', {
+            resolver: name => `/docs/assets/images/sprite.svg#${name}`,
+            spriteSheet: true,
+          });
+
+          const el = await fixture<WaIcon>(html`<wa-icon name="non-existent" library="sprite"></wa-icon>`);
+          await waitUntil(() => el.shadowRoot!.querySelector('use'));
+          const svg = el.shadowRoot!.querySelector<SVGElement>("svg[part='svg']")!;
+          const { width, height } = svg.getBoundingClientRect();
+
+          // The sprite sheet <svg> has no viewBox to take an aspect ratio from, so without one of its own it is 300px wide
+          // and intercepts pointer events meant for whatever sits next to the icon.
+          expect(height).to.be.greaterThan(0);
+          expect(width).to.equal(height);
+        });
+
+        it('should leave the aspect ratio alone when the mutator sets a viewBox', async () => {
+          registerIconLibrary('sprite', {
+            resolver: name => `/docs/assets/images/sprite.svg#${name}`,
+            mutator: svg => svg.setAttribute('viewBox', '0 0 32 16'),
+            spriteSheet: true,
+          });
+
+          const el = await fixture<WaIcon>(html`<wa-icon name="non-existent" library="sprite"></wa-icon>`);
+          await waitUntil(() => el.shadowRoot!.querySelector('svg[viewBox] > use'));
+          const svg = el.shadowRoot!.querySelector<SVGElement>("svg[part='svg']")!;
+
+          // The square default is only a fallback: an <svg> that states its own viewBox keeps the ratio it asked for.
+          expect(svg.getBoundingClientRect().width).to.equal(32);
         });
       });
 

@@ -1,6 +1,6 @@
 ---
 title: Browser Support Policy
-description: Changes to each version of the project are documented here.
+description: The latest two major versions of Chrome, Safari, Edge, Firefox, and Opera. Tested with popular screen readers too.
 layout: page-outline
 ---
 

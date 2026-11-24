@@ -75,9 +75,10 @@ export default css`
     display: none;
   }
 
+  /* The start margin cancels the check's width (1.25em) and end margin, so checked and unchecked items line up */
   #check {
     visibility: hidden;
-    margin-inline-start: -1.5em;
+    margin-inline-start: -1.75em;
     margin-inline-end: 0.5em;
     font-size: var(--wa-font-size-smaller);
   }
@@ -158,7 +159,7 @@ export default css`
     }
 
     &.hide {
-      animation: submenu-show var(--show-duration, var(--wa-transition-fast)) ease reverse;
+      animation: submenu-show var(--hide-duration, var(--wa-transition-fast)) ease reverse;
     }
 
     /* Submenu placement transform origins */

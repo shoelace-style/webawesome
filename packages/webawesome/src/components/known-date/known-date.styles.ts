@@ -15,9 +15,11 @@ export default css`
     min-inline-size: 0;
   }
 
+  /* Flex, not block, so the label isn't laid out on a line box. A line box takes its height from the inherited line
+     height, which pushed the label below the labels of other form controls. */
   legend[part~='legend'] {
     padding: 0;
-    display: block;
+    display: flex;
   }
 
   /* The legend's inner span carries the form-control-label part so the existing form-control styles

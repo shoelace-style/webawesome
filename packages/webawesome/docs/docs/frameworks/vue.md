@@ -1,6 +1,6 @@
 ---
 title: Vue 3
-description: Tips for using Web Awesome in your Vue 3 app.
+description: Configure Vue 3 for Web Awesome, with types, slots, SSR, and why v-model only sometimes works.
 layout: framework
 officialDocs: https://vuejs.org
 ---
@@ -52,7 +52,7 @@ Configuring custom elements stops the errors, but it doesn't give the `wa-*` tag
   <div class="container">
     <h1>QR code generator</h1>
 
-    <wa-input maxlength="255" clearable label="Value" v-model="qrCode"></wa-input>
+    <wa-input maxlength="255" with-clear label="Value" v-model="qrCode"></wa-input>
 
     <wa-qr-code :value="qrCode"></wa-qr-code>
   </div>
@@ -103,7 +103,7 @@ Here is an example:
 <wa-drawer label="Drawer" placement="start" class="drawer-placement-start" :open="drawerIsOpen">
   This drawer slides in from the start.
   <div slot="footer">
-    <wa-button variant="primary" @click="drawerIsOpen = false">Close</wa-button>
+    <wa-button variant="brand" @click="drawerIsOpen = false">Close</wa-button>
   </div>
 </wa-drawer>
 ```

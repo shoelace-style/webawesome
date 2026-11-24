@@ -1,24 +1,38 @@
 /**
  * Verifies skill content stays in sync with the library.
  *
- * Catches the regression we hit when shipping `choosing-components.md`: silent drift between the
- * hand-authored decision tree and the actual component catalog (wrong Pro/Free classification, tags
- * that don't exist, etc.). Also checks relative markdown links inside the skill files resolve.
+ * Catches silent drift between the hand-authored skill files and the component catalog, and regressions
+ * in the generated `webawesome` skill.
  *
- * Run: `node scripts/verify-skills.js`. Exits non-zero on any failure so it can be wired into CI.
+ * Run: `node scripts/verify-skills.js`. Exits non-zero on any failure so it can be wired into CI. Checks that
+ * read `dist/` (the built skill, llms.txt, and the CEM) are skipped with a warning when it hasn't been built.
  *
  * Checks:
- *  1. Every `<wa-*>` tag mentioned in `agent-skill/choosing-components.md` exists either as a Free
- *     component (`src/components/<name>/`) or as a Pro component (`webawesome-pro/src/components/<name>/`).
- *  2. Components marked **(Pro)** in `choosing-components.md` actually live in the Pro package; Free
- *     components aren't marked Pro.
- *  3. Every relative markdown link in `agent-skill/choosing-components.md` and `design-skill/**.md`
- *     resolves to a file that exists.
+ *  1. Every `<wa-*>` tag in `agent-skill/choosing-components.md` exists in the core or Pro package, rows
+ *     marked **(Pro)** are Pro components and unmarked rows are core, and cited attributes exist per the CEM.
+ *  2. The tables at the end of the design skill's `layouts-page.md` cite only slots, attributes, CSS custom
+ *     properties, and CSS parts that `<wa-page>` has, and no part the CEM marks deprecated.
+ *  3. Skill frontmatter: `name` is lowercase-hyphenated, 64 characters or fewer, and matches the skill's
+ *     directory; `description` is 1024 characters or fewer with no `<`, `>`, `&lt;`, or `&gt;`.
+ *  4. No deprecated long-form size values (a size attribute set to one, the long-form union, or the
+ *     "long-form values" sentence) in the built skill, llms.txt, the design skill, or the docs (the changelog
+ *     and the Shoelace migration guide excepted).
+ *  5. No CEM item flagged deprecated and no static member appears as a row in a component reference.
+ *  6. Relative markdown links resolve, in the hand-authored skill files and in the built `webawesome` skill.
+ *     A link to a directory is an error.
+ *  7. Budgets: each SKILL.md should stay under 500 lines and 24 KB and each reference under 100 KB
+ *     (warnings); a line over 2,000 characters anywhere in skill output is an error.
+ *  8. The file trees in `docs/docs/ai/agent-skills.md` list exactly the entries in the design skill's references
+ *     and in the built `webawesome` skill's references.
+ *  9. No backslash-escaped `**` or backtick outside fenced code in the built skills or llms.txt, and no core
+ *     package import in Pro's built skills or llms.txt (jsDelivr URLs excepted).
  */
 
 import fs from 'fs';
+import matter from 'gray-matter';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { retargetPackage } from './utils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PACKAGE_ROOT = path.resolve(__dirname, '..');
@@ -29,9 +43,15 @@ const PRO_COMPONENTS_DIR = path.join(REPO_ROOT, 'packages', 'webawesome-pro', 's
 
 const FREE_CEM = path.join(PACKAGE_ROOT, 'dist', 'custom-elements.json');
 const PRO_CEM = path.join(REPO_ROOT, 'packages', 'webawesome-pro', 'dist', 'custom-elements.json');
+const PRO_DIST_DIR = path.join(REPO_ROOT, 'packages', 'webawesome-pro', 'dist');
 
 const CHOOSING_COMPONENTS = path.join(__dirname, 'agent-skill', 'choosing-components.md');
+const DIST_SKILLS_DIR = path.join(PACKAGE_ROOT, 'dist', 'skills');
+const AGENT_SKILL_DIST = path.join(DIST_SKILLS_DIR, 'webawesome');
+const LLMS_TXT = path.join(PACKAGE_ROOT, 'dist', 'llms.txt');
+const DOCS_DIR = path.join(PACKAGE_ROOT, 'docs', 'docs');
 const DESIGN_SKILL_DIR = path.join(__dirname, 'design-skill');
+const DESIGN_SKILL = path.join(DESIGN_SKILL_DIR, 'SKILL.md');
 
 // `choosing-components.md` lives at source in `scripts/agent-skill/` but ships into the same
 // `references/` dir as everything else the agent-skill generator produces — so relative links it
@@ -100,7 +120,34 @@ if (!cemAvailable) {
   );
 }
 
-// --- Check 1 + 2: choosing-components.md tag classifications ---
+const rel = file => path.relative(PACKAGE_ROOT, file);
+
+// --- Check 3: skill frontmatter must be accepted by Claude.ai Skills ---
+function checkFrontmatter(file, expectedName) {
+  if (!fs.existsSync(file)) return;
+  const { name, description } = matter(fs.readFileSync(file, 'utf-8')).data;
+  const where = rel(file);
+  if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(String(name || ''))) {
+    errors.push(`${where}: frontmatter name "${name}" must be lowercase words joined by hyphens`);
+  }
+  if (String(name || '').length > 64) errors.push(`${where}: frontmatter name is over 64 characters`);
+  if (name !== expectedName) errors.push(`${where}: frontmatter name "${name}" should be "${expectedName}"`);
+  const text = String(description || '');
+  if (!text.trim()) errors.push(`${where}: frontmatter description is empty`);
+  if (text.length > 1024) errors.push(`${where}: frontmatter description is ${text.length} characters (max 1024)`);
+  if (/[<>]|&lt;|&gt;/.test(text)) {
+    errors.push(`${where}: frontmatter description contains < or >; use plain names such as \`wa-page\``);
+  }
+}
+
+checkFrontmatter(DESIGN_SKILL, 'webawesome-design');
+if (fs.existsSync(DIST_SKILLS_DIR)) {
+  for (const entry of fs.readdirSync(DIST_SKILLS_DIR, { withFileTypes: true })) {
+    if (entry.isDirectory()) checkFrontmatter(path.join(DIST_SKILLS_DIR, entry.name, 'SKILL.md'), entry.name);
+  }
+}
+
+// --- Check 1a: choosing-components.md tag classifications ---
 const choosingMd = fs.readFileSync(CHOOSING_COMPONENTS, 'utf-8');
 
 // Tables hold the source-of-truth classifications; prose mentions are looser (e.g. "the chart family"
@@ -183,7 +230,7 @@ choosingMd.split('\n').forEach((line, idx) => {
   }
 });
 
-// --- Check 3: attribute names cited in choosing-components.md exist on those components per CEM ---
+// --- Check 1c: attribute names cited in choosing-components.md exist on those components per CEM ---
 //
 // Tables and prose make concrete claims like `<wa-tag removable>` and `<wa-button variant="brand">`.
 // Catch the case where the cited attribute doesn't actually exist on that component (e.g. the real
@@ -235,7 +282,7 @@ if (cemAvailable) {
   });
 }
 
-// --- Check 4: layouts-page.md API tables match wa-page CEM declaration ---
+// --- Check 2: layouts-page.md API tables match wa-page CEM declaration ---
 //
 // The design skill's `layouts-page.md` ends with hand-authored summary tables of `<wa-page>`'s slots,
 // attributes, and CSS custom properties. These drift the same way `choosing-components.md` did — the
@@ -254,19 +301,14 @@ if (cemAvailable && fs.existsSync(LAYOUTS_PAGE)) {
     const cemSlots = new Set((waPageDecl.slots || []).map(s => s.name || '_default'));
     const cemAttrs = new Set((waPageDecl.attributes || []).map(a => a.name));
     const cemCssProps = new Set((waPageDecl.cssProperties || []).map(p => p.name));
-
-    // Attributes the wa-page component reads via CSS selectors (`:host([disable-sticky~='banner'])`
-    // in page.styles.ts) but doesn't expose via a `@property` decorator, so they don't appear in the
-    // CEM. The design skill correctly documents them; the CEM is the one out of sync. Allowlisted here
-    // so a real bug elsewhere isn't drowned out. Re-evaluate if/when the component adds the missing
-    // `@property` declarations.
-    const CSS_ONLY_ATTRS = new Set(['disable-sticky']);
-    for (const a of CSS_ONLY_ATTRS) cemAttrs.add(a);
+    // Deprecated parts are left out so citing one fails like citing a missing part.
+    const cemCssParts = new Set((waPageDecl.cssParts || []).filter(p => !p.deprecated).map(p => p.name));
 
     const sections = {
       '### Slots': cemSlots,
       '### Attributes': cemAttrs,
       '### CSS custom properties': cemCssProps,
+      '### CSS parts': cemCssParts,
     };
 
     const layoutsLines = fs.readFileSync(LAYOUTS_PAGE, 'utf-8').split('\n');
@@ -303,8 +345,9 @@ if (cemAvailable && fs.existsSync(LAYOUTS_PAGE)) {
           name = m[1];
         }
         if (!validSet.has(name)) {
+          const deprecated = heading === '### CSS parts' && waPageDecl.cssParts?.some(p => p.name === name);
           errors.push(
-            `layouts-page.md:${i + 1}: "${name}" cited under ${heading} but not in <wa-page>'s CEM declaration`,
+            `layouts-page.md:${i + 1}: "${name}" cited under ${heading} but ${deprecated ? 'the CEM marks it deprecated' : "not in <wa-page>'s CEM declaration"}`,
           );
         }
       }
@@ -312,7 +355,7 @@ if (cemAvailable && fs.existsSync(LAYOUTS_PAGE)) {
   }
 }
 
-// --- Check 5: relative markdown links resolve ---
+// --- Check 6: relative markdown links resolve ---
 function* walkMarkdown(dir) {
   if (!fs.existsSync(dir)) return;
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -323,12 +366,21 @@ function* walkMarkdown(dir) {
 }
 
 const linkRegex = /\[([^\]]+)\]\(([^)\s]+)\)/g;
-const filesToScan = [CHOOSING_COMPONENTS, ...walkMarkdown(DESIGN_SKILL_DIR)];
+const filesToScan = [CHOOSING_COMPONENTS, ...walkMarkdown(DESIGN_SKILL_DIR), ...walkMarkdown(AGENT_SKILL_DIST)];
+if (!fs.existsSync(AGENT_SKILL_DIST)) {
+  warnings.push(
+    `${rel(AGENT_SKILL_DIST)} not found (run \`npm run build\` first); skipping checks of the built skill.`,
+  );
+}
 
 for (const file of filesToScan) {
   const content = fs.readFileSync(file, 'utf-8');
   const lines = content.split('\n');
+  let inFence = false;
   lines.forEach((line, idx) => {
+    // Code blocks hold example markup, not links.
+    if (/^\s*(```|~~~)/.test(line)) inFence = !inFence;
+    if (inFence) return;
     let m;
     const re = new RegExp(linkRegex.source, 'g');
     while ((m = re.exec(line)) !== null) {
@@ -346,12 +398,149 @@ for (const file of filesToScan) {
       // Resolve relative to the file's directory
       const resolved = path.resolve(path.dirname(file), pathPart);
       if (!fs.existsSync(resolved)) {
-        errors.push(
-          `${path.relative(PACKAGE_ROOT, file)}:${idx + 1}: broken link to '${href}' (resolved to ${path.relative(PACKAGE_ROOT, resolved)})`,
-        );
+        errors.push(`${rel(file)}:${idx + 1}: broken link to '${href}' (resolved to ${rel(resolved)})`);
+      } else if (fs.statSync(resolved).isDirectory()) {
+        errors.push(`${rel(file)}:${idx + 1}: link to directory '${href}'; link to the files in it instead`);
       }
     }
   });
+}
+
+// --- Check 4: no deprecated long-form size values ---
+const DEPRECATED_SIZE_PATTERNS = [
+  [/\bsize=["'](small|medium|large)["']/, 'a size attribute with a long-form value'],
+  [/["'](small|medium|large)["']\s*\|\s*["'](small|medium|large)["']/, 'the long-form size union'],
+  [/long-form values/, 'the "long-form values" deprecation sentence'],
+];
+const SIZE_SCAN_EXCLUDES = new Set([
+  path.join(DOCS_DIR, 'resources', 'changelog.md'),
+  path.join(DOCS_DIR, 'resources', 'migrating-from-shoelace.md'),
+]);
+
+function* walkFiles(dir, extensions) {
+  if (!fs.existsSync(dir)) return;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, entry.name);
+    if (entry.isDirectory()) yield* walkFiles(p, extensions);
+    else if (extensions.some(ext => entry.name.endsWith(ext))) yield p;
+  }
+}
+
+const sizeScanFiles = [
+  ...walkFiles(DIST_SKILLS_DIR, ['.md']),
+  ...(fs.existsSync(LLMS_TXT) ? [LLMS_TXT] : []),
+  ...walkFiles(DESIGN_SKILL_DIR, ['.md']),
+  ...walkFiles(DOCS_DIR, ['.md']),
+].filter(file => !SIZE_SCAN_EXCLUDES.has(file));
+
+for (const file of sizeScanFiles) {
+  fs.readFileSync(file, 'utf-8')
+    .split('\n')
+    .forEach((line, idx) => {
+      for (const [pattern, label] of DEPRECATED_SIZE_PATTERNS) {
+        if (pattern.test(line)) errors.push(`${rel(file)}:${idx + 1}: ${label}; use xs, s, m, l, or xl`);
+      }
+    });
+}
+
+// --- Check 5: no deprecated items or static members in component reference tables ---
+//
+// Each API section of a component reference lists names in its first cell (or, for slots, as bullets).
+// Anything the CEM flags deprecated, and any static member, must not be listed there.
+const SECTION_ITEMS = {
+  Slots: decl => decl.slots,
+  'Attributes & Properties': decl => (decl.members || []).filter(m => m.kind === 'field'),
+  Methods: decl => (decl.members || []).filter(m => m.kind === 'method'),
+  Events: decl => decl.events,
+  'CSS Custom Properties': decl => decl.cssProperties,
+  'Custom States': decl => decl.cssStates,
+  'CSS Parts': decl => decl.cssParts,
+};
+const componentRefsDir = path.join(AGENT_SKILL_DIST, 'references', 'components');
+if (cemAvailable && fs.existsSync(componentRefsDir)) {
+  for (const file of walkFiles(componentRefsDir, ['.md'])) {
+    const decl = cemByTag.get(`wa-${path.basename(file, '.md')}`);
+    if (!decl) continue;
+    let section = null;
+    fs.readFileSync(file, 'utf-8')
+      .split('\n')
+      .forEach((line, idx) => {
+        const heading = line.match(/^#{2,3} (.+)$/);
+        if (heading) {
+          section = SECTION_ITEMS[heading[1].trim()] ? heading[1].trim() : null;
+          return;
+        }
+        if (!section) return;
+        const name = (line.match(/^\| `([^`]+?)(?:\(\))?` \|/) || line.match(/^- `([^`]+)` —/))?.[1];
+        if (!name) return;
+        const item = (SECTION_ITEMS[section](decl) || []).find(i => (i.name || '(default)') === name);
+        if (item?.deprecated)
+          errors.push(`${rel(file)}:${idx + 1}: ${section} lists \`${name}\`, which the CEM marks deprecated`);
+        if (item?.static) errors.push(`${rel(file)}:${idx + 1}: ${section} lists static member \`${name}\``);
+      });
+  }
+}
+
+// --- Check 7: budgets ---
+const skillMds = [DESIGN_SKILL, path.join(AGENT_SKILL_DIST, 'SKILL.md')].filter(file => fs.existsSync(file));
+for (const file of skillMds) {
+  const content = fs.readFileSync(file, 'utf-8');
+  const lineCount = content.split('\n').length;
+  const kb = Buffer.byteLength(content) / 1024;
+  if (lineCount > 500) warnings.push(`${rel(file)} is ${lineCount} lines (budget 500)`);
+  if (kb > 24) warnings.push(`${rel(file)} is ${kb.toFixed(1)} KB (budget 24 KB)`);
+}
+for (const file of [...walkFiles(DIST_SKILLS_DIR, ['.md']), ...walkFiles(DESIGN_SKILL_DIR, ['.md'])]) {
+  const content = fs.readFileSync(file, 'utf-8');
+  if (path.basename(file) !== 'SKILL.md' && Buffer.byteLength(content) > 100 * 1024) {
+    warnings.push(`${rel(file)} is ${(Buffer.byteLength(content) / 1024).toFixed(0)} KB (budget 100 KB)`);
+  }
+  content.split('\n').forEach((line, idx) => {
+    if (line.length > 2000) errors.push(`${rel(file)}:${idx + 1}: line is ${line.length} characters (max 2,000)`);
+  });
+}
+
+// --- Check 8: the docs page's file trees match each skill's references ---
+const AGENT_SKILLS_PAGE = path.join(DOCS_DIR, 'ai', 'agent-skills.md');
+const agentSkillsPage = fs.readFileSync(AGENT_SKILLS_PAGE, 'utf-8');
+for (const [skill, refsDir] of [
+  ['webawesome', path.join(AGENT_SKILL_DIST, 'references')],
+  ['webawesome-design', path.join(DESIGN_SKILL_DIR, 'references')],
+]) {
+  if (!fs.existsSync(refsDir)) continue;
+  const tree = agentSkillsPage.match(new RegExp('```\\n' + skill + '/\\n([\\s\\S]*?)```'))?.[1] ?? '';
+  const listed = [...tree.matchAll(/^ {4}[├└]── ([\w.-]+)/gm)].map(match => match[1]);
+  const shipped = fs.readdirSync(refsDir).filter(name => !name.startsWith('.'));
+  for (const name of shipped.filter(name => !listed.includes(name))) {
+    errors.push(`${rel(AGENT_SKILLS_PAGE)}: ${skill} file tree doesn't list ${name}`);
+  }
+  for (const name of listed.filter(name => !shipped.includes(name))) {
+    errors.push(`${rel(AGENT_SKILLS_PAGE)}: ${skill} file tree lists ${name}, which isn't shipped`);
+  }
+}
+
+// --- Check 9: no escaped markdown in built output, and Pro's copy imports from Pro ---
+const proDistFiles = [
+  ...walkFiles(path.join(PRO_DIST_DIR, 'skills'), ['.md']),
+  ...[path.join(PRO_DIST_DIR, 'llms.txt')].filter(file => fs.existsSync(file)),
+];
+for (const file of [
+  ...walkFiles(DIST_SKILLS_DIR, ['.md']),
+  ...(fs.existsSync(LLMS_TXT) ? [LLMS_TXT] : []),
+  ...proDistFiles,
+]) {
+  const isPro = proDistFiles.includes(file);
+  let inFence = false;
+  fs.readFileSync(file, 'utf-8')
+    .split('\n')
+    .forEach((line, idx) => {
+      if (isPro && retargetPackage(line, 'pro') !== line) {
+        errors.push(`${rel(file)}:${idx + 1}: names the core package; Pro's copy should import from Pro`);
+      }
+      if (/^\s*```/.test(line)) inFence = !inFence;
+      else if (!inFence && /\\(\*\*|`)/.test(line))
+        errors.push(`${rel(file)}:${idx + 1}: backslash-escaped ** or backtick`);
+    });
 }
 
 // --- Report ---

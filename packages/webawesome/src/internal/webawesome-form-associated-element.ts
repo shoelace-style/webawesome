@@ -56,6 +56,15 @@ export interface WebAwesomeFormControl extends WebAwesomeElement {
 }
 
 // setFormValue omitted so that we can use `setValue`
+/**
+ * @cssstate disabled - Applied when the form control is disabled.
+ * @cssstate required - Applied when the form control is required.
+ * @cssstate optional - Applied when the form control is not required.
+ * @cssstate valid - Applied when the form control passes validation.
+ * @cssstate invalid - Applied when the form control fails validation.
+ * @cssstate user-valid - Applied when the form control passes validation after the user has interacted with it.
+ * @cssstate user-invalid - Applied when the form control fails validation after the user has interacted with it.
+ */
 export class WebAwesomeFormAssociatedElement
   extends WebAwesomeElement
   implements Omit<ElementInternals, 'form' | 'setFormValue'>, WebAwesomeFormControl
@@ -63,6 +72,7 @@ export class WebAwesomeFormAssociatedElement
   static formAssociated = true;
 
   /**
+   * @internal
    * Validators are static because they have `observedAttributes`, essentially attributes to "watch"
    * for changes. Whenever these attributes change, we want to be notified and update the validator.
    */
@@ -101,6 +111,7 @@ export class WebAwesomeFormAssociatedElement
   // Additional
   input?: (HTMLElement & { value: unknown }) | HTMLInputElement | HTMLTextAreaElement;
 
+  /** @internal */
   validators: Validator[] = [];
 
   // Should these be private?
@@ -265,7 +276,7 @@ export class WebAwesomeFormAssociatedElement
   }
 
   /**
-   * Override this to change where constraint validation popups are anchored.
+   * @internal Override this to change where constraint validation popups are anchored.
    */
   get validationTarget(): undefined | HTMLElement {
     return (this.input || undefined) as undefined | HTMLElement;
@@ -298,10 +309,10 @@ export class WebAwesomeFormAssociatedElement
     this.customStates.set('user-valid', isValid && hasInteracted);
   }
 
+  // Not for use inside a Validator. Custom errors are tracked so validators don't clear them by accident.
   /**
-   * Do not use this when creating a "Validator". This is intended for end users of components.
-   * We track manually defined custom errors so we don't clear them on accident in our validators.
-   *
+   * Sets a custom validation message. While the message is set, the form control is invalid and the message is shown
+   * when validity is reported. Pass an empty string to clear it.
    */
   setCustomValidity(message: string) {
     if (!message) {
@@ -330,6 +341,7 @@ export class WebAwesomeFormAssociatedElement
   }
 
   /**
+   * @internal
    * Called when the browser is trying to restore element’s state to state in which case reason is "restore", or when
    * the browser is trying to fulfill autofill on behalf of user in which case reason is "autocomplete". In the case of
    * "restore", state is a string, File, or FormData object previously set as the second argument to setFormValue.
@@ -372,7 +384,7 @@ export class WebAwesomeFormAssociatedElement
   }
 
   /**
-   * Reset validity is a way of removing manual custom errors and native validation.
+   * @internal Reset validity is a way of removing manual custom errors and native validation.
    */
   resetValidity() {
     this.setCustomValidity('');

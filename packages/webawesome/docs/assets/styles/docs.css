@@ -2,7 +2,7 @@
 @import 'code-highlighter.css';
 @import 'copy-code.css';
 @import 'outline.css';
-@import 'search.css';
+@import 'icon-family-selector.css';
 @import 'cera-typeface.css';
 @import 'theme-icons.css';
 @import 'utils.css';
@@ -66,7 +66,7 @@ wa-page::part(header-actions) {
 }
 
 wa-button.delete {
-  &::part(base):hover {
+  &::part(button):hover {
     color: var(--wa-color-danger-on-quiet);
     background: var(--wa-color-danger-fill-quiet);
   }

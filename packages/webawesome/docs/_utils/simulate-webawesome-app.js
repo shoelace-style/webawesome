@@ -31,9 +31,6 @@ export function SimulateWebAwesomeApp(str, context = {}) {
       return '';
     },
     // Stub the server EJS shortcodes.
-    currentUser: {
-      hasPro: false,
-    },
     server: {
       head: '',
       flashes: '',

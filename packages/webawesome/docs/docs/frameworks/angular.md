@@ -1,6 +1,6 @@
 ---
 title: Angular
-description: Tips for using Web Awesome in your Angular app.
+description: 'Angular needs one extra step: the custom elements schema. Here’s that, plus install and theme.'
 layout: framework
 officialDocs: https://angular.dev
 ---
@@ -62,7 +62,7 @@ export class AppModule {}
 Reference Web Awesome components from your component code. Import both the component and its type — otherwise Angular tree-shakes the component out of your build:
 
 ```js
-import type { WaDrawer } from '@awesome.me/webawesome/dist/components/drawer/drawer.js';
+import type WaDrawer from '@awesome.me/webawesome/dist/components/drawer/drawer.js';
 import '@awesome.me/webawesome/dist/components/drawer/drawer.js';
 
 @Component({
@@ -75,8 +75,8 @@ export class DrawerExampleComponent {
   drawer?: ElementRef<WaDrawer>;
 
   showDrawer() {
-    // Access Web Awesome methods via nativeElement
-    this.drawer?.nativeElement.show();
+    // Set Web Awesome properties via nativeElement
+    if (this.drawer) this.drawer.nativeElement.open = true;
   }
 }
 ```

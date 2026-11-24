@@ -27,14 +27,9 @@ find rather than resetting the theme.
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Load Web Awesome (see the `webawesome` skill for installation) -->
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@<version>/styles/webawesome.css" />
+    <script type="module" src="https://ka-f.webawesome.com/webawesome@<version>/webawesome.loader.js"></script>
     <style>
-      html,
-      body {
-        min-height: 100%;
-        padding: 0;
-        margin: 0;
-      }
       wa-page {
         --menu-width: 16rem;
       }
@@ -50,8 +45,8 @@ find rather than resetting the theme.
         <wa-button variant="brand">Sign up</wa-button>
       </header>
       <nav slot="navigation" class="wa-stack wa-gap-2xs">
-        <a href="#">Home</a>
-        <a href="#">Settings</a>
+        <a href="/" data-drawer="close">Home</a>
+        <a href="/settings" data-drawer="close">Settings</a>
       </nav>
       <main class="wa-stack wa-gap-xl">
         <h1>Welcome</h1>
@@ -61,6 +56,22 @@ find rather than resetting the theme.
   </body>
 </html>
 ```
+
+The two lines in `<head>` load everything the skill uses: `webawesome.css` (the default theme, utility
+classes, native styles, and the `html`/`body` reset for `<wa-page>`) and the loader, which registers
+components as they appear. Replace `<version>` with the installed version (this skill's `metadata.version`
+in SKILL.md). With npm instead of the CDN, import `@awesome.me/webawesome/dist/styles/webawesome.css` and
+each component you use; see `references/installation.md` in the `webawesome` skill.
+
+In a sandbox that loads files only from allowlisted hosts, such as a Claude.ai artifact, the
+`ka-f.webawesome.com` lines fail silently and the page renders unstyled. If the sandbox allows jsDelivr, as
+Claude.ai does, load the same files from there instead:
+`https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@<version>/dist-cdn/styles/webawesome.css` and
+`https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@<version>/dist-cdn/webawesome.loader.js`. Keep the loader's
+`<script src>` tag, because the loader finds its base path from it. For icons, add a second module script that
+imports `setIconPath` from that loader URL and calls
+`setIconPath('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/svgs')`. Pro components, Pro themes, and
+Pro icon families aren't available this way.
 
 ## Where to go next
 

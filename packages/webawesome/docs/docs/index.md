@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Choose the installation method that works best for you.
+description: One CDN line is the fastest start. npm and self-hosted downloads are covered too.
 layout: page-outline
 ---
 
@@ -10,7 +10,7 @@ You can load Web Awesome via CDN or by installing it locally. If you’re using 
 
 ---
 
-## CDN (Easiest)
+## Use the CDN (Easiest) {id=cdn}
 
 The CDN is the fastest way to get started with Web Awesome. Just copy and paste the following into the `<head>` of your HTML to get started!
 
@@ -38,7 +38,30 @@ Now you can [use any Web Awesome component](/docs/components)! Try putting a but
 **Using Web Awesome Pro?** Visit [your workspaces](/workspaces) for personalized installation docs.
 :::
 
-## Installing with npm
+### Sandboxed Environments
+
+Some tools that render HTML in a sandbox, such as Claude.ai artifacts, load files only from hosts on their Content Security Policy allowlist. When `ka-f.webawesome.com` isn't on the list, the page renders unstyled and components never load, with no visible error. Claude.ai allows jsDelivr, so load Web Awesome from there instead.
+
+```html
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@{{ package.version }}/dist-cdn/styles/webawesome.css"
+/>
+<script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@{{ package.version }}/dist-cdn/webawesome.loader.js"
+></script>
+<script type="module">
+  import { setIconPath } from 'https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@{{ package.version }}/dist-cdn/webawesome.loader.js';
+  setIconPath('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/svgs');
+</script>
+```
+
+Use `dist-cdn` in these URLs, not `dist`, which needs a bundler. Icons load from the Font Awesome CDN by default, which the sandbox also blocks, so [`setIconPath()`](/docs/components/icon#self-hosting) points them at Font Awesome Free on jsDelivr. Pro components, Pro themes, and Pro icon families aren't available this way.
+
+## Install with npm {id=npm}
+
+<!-- pro-npm-lead: rendered by the app -->{% raw %}{% include "server/pro-npm-lead.njk" ignore missing %}{% endraw %}
 
 Start by installing the Web Awesome package:
 
@@ -59,11 +82,11 @@ import '@awesome.me/webawesome/dist/components/input/input.js';
 
 Once a component has been imported, you can use it in your HTML normally. Components are cherry picked to ensure you're getting the smallest possible bundle. You can find each component import in the "Importing" section of its documentation.
 
-:::pro
-**Using Web Awesome Pro?** Visit [your workspaces](/workspaces) for personalized installation docs.
-:::
+<!-- pro-npm: rendered by the app -->{% raw %}{% include "server/pro-npm.njk" ignore missing %}{% endraw %}
 
-## Get the Download (Advanced)
+## Download & Self-Host {id=download}
+
+<!-- pro-setup-lead: rendered by the app -->{% raw %}{% include "server/pro-setup-lead.njk" ignore missing %}{% endraw %}
 
 You can download Web Awesome from npm and self-host it.
 
@@ -73,11 +96,13 @@ npm pack @awesome.me/webawesome
 
 This will download a `.tgz` archive containing all Web Awesome files. Extract it and host the files on your own server.
 
+<!-- pro-setup: rendered by the app -->{% raw %}{% include "server/pro-setup.njk" ignore missing %}{% endraw %}
+
 ---
 
-## Additional Setup
+## Setup for npm & Self-Hosted Installs {id=setup}
 
-### The Difference Between `/dist` & `/dist-cdn`
+### Choosing `/dist` or `/dist-cdn`
 
 If you have Web Awesome installed locally via npm, you'll notice the following directories in the project's root:
 
@@ -90,7 +115,7 @@ The `dist-cdn` files come with everything bundled together, so you can use them 
 
 Use `dist-cdn` if you're loading directly in the browser or from a CDN. Use `dist` if you're using a bundler like Webpack or Vite.
 
-### Referencing Necessary Styles
+### Adding Styles
 
 If you're self-hosting Web Awesome, you'll need to set up your pages to reference any necessary styles. You can do so by referencing `webawesome.css`, or you can pick and choose specific stylesheets you'd like to use.
 
@@ -129,7 +154,7 @@ Some components rely on assets (icons, images, etc.) and Web Awesome needs to kn
 </script>
 ```
 
-### Referencing Assets
+### Getting Asset Paths
 
 Most of the magic behind assets is handled internally by Web Awesome, but if you need to reference the base path for any reason, the same module exports a function called `getBasePath()`. An optional string argument can be passed, allowing you to get the full path to any asset.
 
@@ -151,7 +176,7 @@ Most of the magic behind assets is handled internally by Web Awesome, but if you
 
 ### Using Font Awesome Pro & Pro+
 
-{{ site.siblings.fontAwesome.name }} users can provide their kit code to unlock Pro and Pro+ icon packs. You can do so by adding the `data-fa-kit-code` attribute to any element on the page, or by calling the `setKitCode()` method.
+{{ site.siblings.fontAwesome.name }} users can provide their kit code to unlock Pro and Pro+ icon packs. You can do so by adding the `data-fa-kit-code` attribute to the `<html>` element or the script that loads Web Awesome, or by calling the `setKitCode()` method. The attribute is read once, when the first icon renders, so use `setKitCode()` if the kit code is added to the page later.
 
 ```html
 <!-- Option 1: the data-fa-kit-code attribute -->
@@ -165,3 +190,9 @@ Most of the magic behind assets is handled internally by Web Awesome, but if you
 ```
 
 Now you can use {{ site.siblings.fontAwesome.name }} icons through the [`<wa-icon>`](/docs/components/icon) component!
+
+To use a different family or variant for every icon, add the `data-fa-family` and `data-fa-variant` attributes too. See [Changing the Default Family & Variant](/docs/components/icon#changing-the-default-family-and-variant) for details.
+
+```html
+<html data-fa-kit-code="YOUR_KIT_CODE_HERE" data-fa-family="sharp" data-fa-variant="light"></html>
+```

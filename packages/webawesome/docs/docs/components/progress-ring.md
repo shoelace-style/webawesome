@@ -67,8 +67,8 @@ Use the default slot to show a value inside the ring.
   <wa-divider></wa-divider>
 
   <div class="wa-cluster">
-    <wa-button appearance="filled" circle><wa-icon name="minus" label="Decrease"></wa-icon></wa-button>
-    <wa-button appearance="filled" circle><wa-icon name="plus" label="Increase"></wa-icon></wa-button>
+    <wa-button appearance="filled" pill><wa-icon name="minus" label="Decrease"></wa-icon></wa-button>
+    <wa-button appearance="filled" pill><wa-icon name="plus" label="Increase"></wa-icon></wa-button>
   </div>
 </div>
 

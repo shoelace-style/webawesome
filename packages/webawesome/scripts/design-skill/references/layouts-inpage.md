@@ -13,7 +13,15 @@ no `data-toggle-nav`, and **no `.wa-desktop-only` / `.wa-mobile-only`** (those o
 `<wa-page>`; use a CSS media query for responsive visibility here). Don't reach for any of them; they
 do nothing outside a `<wa-page>`.
 
-The six layout utilities:
+**Contents**
+
+- [The six layout utilities](#the-six-layout-utilities)
+- [Section recipes](#section-recipes)
+- [Anti-patterns](#anti-patterns)
+
+---
+
+## The six layout utilities
 
 | Utility      | Shape                                 | Use when                                                              |
 | ------------ | ------------------------------------- | --------------------------------------------------------------------- |
@@ -40,7 +48,7 @@ A constrained-width vertical stack. Keep forms narrow for readability and pair a
 quiet secondary.
 
 ```html
-<section class="wa-stack wa-gap-l" style="max-width: 28rem;">
+<section class="wa-stack wa-gap-l form-block">
   <h2>Create account</h2>
   <wa-input label="Email" type="email"></wa-input>
   <wa-input label="Password" type="password"></wa-input>
@@ -49,7 +57,16 @@ quiet secondary.
     <wa-button appearance="plain">Cancel</wa-button>
   </div>
 </section>
+
+<style>
+  .form-block {
+    max-inline-size: 45ch;
+  }
+</style>
 ```
+
+For labels, hints, validation, and submission, see `references/form-controls.md` in the `webawesome`
+skill.
 
 ### Toolbar / section header with an action
 
@@ -71,7 +88,7 @@ quiet secondary.
 `--min-column-size`.
 
 ```html
-<div class="wa-grid wa-gap-l" style="--min-column-size: 16rem;">
+<div class="wa-grid wa-gap-l" style="--min-column-size: 24ch;">
   <wa-card>
     <h3>Starter</h3>
     <p>For individuals getting started.</p>
@@ -111,10 +128,10 @@ Use `wa-flank:end` to flank the **last** child instead (e.g. text with a trailin
 
 ## Anti-patterns
 
-| ❌ Don't                                           | ✅ Do                                                        |
-| -------------------------------------------------- | ------------------------------------------------------------ |
-| Drop a `<wa-page>` into a section to get a sidebar | Use `wa-grid` / `wa-flank` for in-section columns            |
-| Write `display: flex; gap: 16px` by hand           | Use `wa-stack`/`wa-cluster` + `wa-gap-*`                     |
-| Hardcode `max-width: 480px` everywhere             | Constrain to a readable measure with tokens/rem and reuse it |
-| Hardcode colors in a card                          | Inherit the theme; style with `--wa-color-*`                 |
-| Add media queries for a card grid                  | `wa-grid` is responsive without them                         |
+| Instead of…                                         | Do this                                              |
+| --------------------------------------------------- | ---------------------------------------------------- |
+| Dropping a `<wa-page>` into a section for a sidebar | `wa-grid` or `wa-flank` for in-section columns       |
+| Hand-written flex with a literal gap                | `wa-stack` or `wa-cluster` plus `wa-gap-*`           |
+| A pixel `max-width` repeated on every section       | One reused class with a `ch` measure (`45ch`–`75ch`) |
+| Hardcoded colors in a card                          | Inherit the theme; style with `--wa-color-*` tokens  |
+| Media queries for a card grid                       | `wa-grid`, which is responsive without them          |

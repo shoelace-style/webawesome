@@ -1,5 +1,5 @@
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
@@ -23,6 +23,15 @@ describe('<wa-color-picker>', () => {
           const trigger = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="trigger"]');
           expect(el.value).to.equal('#ff0000');
           expect(trigger?.style.color).to.equal('rgb(255, 0, 0)');
+        });
+
+        it('should give the value input an accessible name', async () => {
+          const el = await fixture<WaColorPicker>(html` <wa-color-picker label="Color"></wa-color-picker> `);
+          const field = el.shadowRoot!.querySelector<HTMLElement & { updateComplete: Promise<unknown> }>('wa-input')!;
+          await field.updateComplete;
+          const input = field.shadowRoot!.querySelector('input')!;
+
+          expect(input.labels?.[0]?.textContent?.trim()).to.equal('Current value');
         });
 
         it('should show opacity slider when opacity is enabled', async () => {
@@ -55,6 +64,29 @@ describe('<wa-color-picker>', () => {
           expect(getComputedStyle(swatches[1]).backgroundColor).to.equal('rgb(0, 128, 0)');
           expect(getComputedStyle(swatches[2]).backgroundColor).to.equal('rgb(0, 0, 255)');
         });
+
+        it('should open on first render when the open attribute is set', async () => {
+          const el = await fixture<WaColorPicker>(html` <wa-color-picker open></wa-color-picker> `);
+          await waitUntil(() => el.popup.active, 'popup never activated');
+
+          expect(el.open).to.be.true;
+          expect(el.wrapper.hidden).to.be.false;
+          expect(el.trigger.getAttribute('aria-expanded')).to.equal('true');
+
+          // The open listeners are registered, so Escape closes it
+          await sendKeys({ press: 'Escape' });
+          await waitUntil(() => !el.popup.active, 'popup never closed');
+          expect(el.open).to.be.false;
+        });
+
+        it('should stay closed on first render when open and disabled', async () => {
+          const el = await fixture<WaColorPicker>(html` <wa-color-picker open disabled></wa-color-picker> `);
+          await aTimeout(100);
+
+          expect(el.open).to.be.false;
+          expect(el.hasAttribute('open')).to.be.false;
+          expect(el.popup.active).to.be.false;
+        });
       });
 
       describe('events', () => {
@@ -66,6 +98,96 @@ describe('<wa-color-picker>', () => {
           el.addEventListener('input', () => expect.fail('change should not be emitted'));
           el.value = color;
           await el.updateComplete;
+        });
+
+        it('should stop changing the color when disabled during a drag', async () => {
+          const el = await fixture<WaColorPicker>(html` <wa-color-picker value="#ff0000"></wa-color-picker> `);
+          const grid = el.shadowRoot!.querySelector<HTMLElement>('[part~="grid"]')!;
+          const inputHandler = sinon.spy();
+          const changeHandler = sinon.spy();
+          el.addEventListener('input', inputHandler);
+          el.addEventListener('change', changeHandler);
+          await el.show();
+
+          let valueAtDisable: string | null | undefined;
+          await dragElement(grid, 20, 20, {
+            afterMouseDown: async () => {
+              valueAtDisable = el.value;
+              expect(valueAtDisable).not.to.equal('#ff0000');
+              expect(inputHandler).to.have.been.calledOnce;
+              el.disabled = true;
+              await el.updateComplete;
+            },
+          });
+          await el.updateComplete;
+
+          expect(el.value).to.equal(valueAtDisable);
+          expect(inputHandler).to.have.been.calledOnce;
+          expect(changeHandler).not.to.have.been.called;
+        });
+
+        it('should close the popup and block the format button when disabled', async () => {
+          const el = await fixture<WaColorPicker>(html` <wa-color-picker value="#ff0000"></wa-color-picker> `);
+          const button = el.shadowRoot!.querySelector<HTMLElement>('[part~="format-button"]')!;
+          const changeHandler = sinon.spy();
+          const afterHideHandler = sinon.spy();
+          el.addEventListener('change', changeHandler);
+          el.addEventListener('wa-after-hide', afterHideHandler);
+          await el.show();
+          const { x, y, width, height } = button.getBoundingClientRect();
+
+          el.disabled = true;
+          await el.updateComplete;
+          await sendMouse({ type: 'click', position: [Math.floor(x + width / 2), Math.floor(y + height / 2)] });
+
+          expect(el.value).to.equal('#ff0000');
+          expect(el.format).to.equal('hex');
+          expect(changeHandler).not.to.have.been.called;
+          expect(el.open).to.be.false;
+
+          await waitUntil(() => afterHideHandler.calledOnce, 'wa-after-hide never fired');
+          expect(el.wrapper.hidden).to.be.true;
+          expect(el.popup.active).to.be.false;
+          expect(el.trigger.getAttribute('aria-expanded')).to.equal('false');
+        });
+
+        it('should ignore an eyedropper pick that resolves after being disabled', async () => {
+          let resolvePick!: (result: { sRGBHex: string }) => void;
+          const win = window as unknown as { EyeDropper?: unknown };
+          const hadEyeDropper = 'EyeDropper' in win;
+          const originalEyeDropper = win.EyeDropper;
+          win.EyeDropper = class {
+            open() {
+              return new Promise(resolve => (resolvePick = resolve));
+            }
+          };
+
+          try {
+            const el = await fixture<WaColorPicker>(html` <wa-color-picker value="#ff0000"></wa-color-picker> `);
+            const inputHandler = sinon.spy();
+            const changeHandler = sinon.spy();
+            el.addEventListener('input', inputHandler);
+            el.addEventListener('change', changeHandler);
+            await el.show();
+
+            const eyeDropperButton = el.shadowRoot!.querySelector<HTMLElement>('[part~="eyedropper-button"]')!;
+            eyeDropperButton.click();
+            el.disabled = true;
+            await el.updateComplete;
+            resolvePick({ sRGBHex: '#00ff00' });
+            await aTimeout(0);
+            await el.updateComplete;
+
+            expect(el.value).to.equal('#ff0000');
+            expect(inputHandler).not.to.have.been.called;
+            expect(changeHandler).not.to.have.been.called;
+          } finally {
+            if (hadEyeDropper) {
+              win.EyeDropper = originalEyeDropper;
+            } else {
+              delete win.EyeDropper;
+            }
+          }
         });
 
         it('should emit change and input when the color grid selector is moved', async () => {
@@ -125,6 +247,33 @@ describe('<wa-color-picker>', () => {
 
           expect(changeHandler).to.have.been.calledOnce;
           expect(inputHandler).to.have.been.calledTwice;
+        });
+
+        it('should emit bubbling change and input events when dragging the grid and sliders', async () => {
+          const container = await fixture<HTMLDivElement>(html`
+            <div><wa-color-picker opacity></wa-color-picker></div>
+          `);
+          const el = container.querySelector<WaColorPicker>('wa-color-picker')!;
+          const trigger = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="trigger"]')!;
+          const changeHandler = sinon.spy();
+          const inputHandler = sinon.spy();
+
+          container.addEventListener('change', changeHandler);
+          container.addEventListener('input', inputHandler);
+
+          await clickOnElement(trigger); // open the dropdown
+          await aTimeout(200); // wait for the dropdown to open
+
+          for (const part of ['grid', 'hue-slider', 'opacity-slider']) {
+            changeHandler.resetHistory();
+            inputHandler.resetHistory();
+
+            await dragElement(el.shadowRoot!.querySelector<HTMLElement>(`[part~="${part}"]`)!, 2, 0);
+            await el.updateComplete;
+
+            expect(inputHandler.called, `${part} input`).to.be.true;
+            expect(changeHandler.calledOnce, `${part} change`).to.be.true;
+          }
         });
 
         it('should emit change and input when toggling the format', async () => {
@@ -517,6 +666,23 @@ describe('<wa-color-picker>', () => {
       });
     });
   }
+
+  it('should emit wa-show and wa-after-show once when connected with open', async () => {
+    const el = document.createElement('wa-color-picker') as WaColorPicker;
+    const showHandler = sinon.spy();
+    el.open = true;
+    el.addEventListener('wa-show', showHandler);
+    const afterShow = oneEvent(el, 'wa-after-show');
+    document.body.append(el);
+
+    try {
+      await afterShow;
+      await aTimeout(100);
+      expect(showHandler).to.have.been.calledOnce;
+    } finally {
+      el.remove();
+    }
+  });
 
   describe('dismissible stack', () => {
     it('should only close the popover when pressing Escape with an open color-picker underneath', async () => {

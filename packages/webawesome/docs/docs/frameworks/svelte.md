@@ -1,6 +1,6 @@
 ---
 title: Svelte
-description: Tips for using Web Awesome in your Svelte app.
+description: Web Awesome in Svelte, including how two-way binding and slots behave.
 layout: framework
 officialDocs: https://svelte.dev
 ---
@@ -71,7 +71,7 @@ Here is an example:
 <wa-drawer label="Drawer" placement="start" class="drawer-placement-start" bind:open={drawerIsOpen}>
   This drawer slides in from the start.
   <div slot="footer">
-    <wa-button variant="primary" onclick={() => (drawerIsOpen = false)}>
+    <wa-button variant="brand" onclick={() => (drawerIsOpen = false)}>
       Close
     </wa-button>
   </div>

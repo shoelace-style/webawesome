@@ -59,7 +59,10 @@ export default class WaCarousel extends WebAwesomeElement {
   /** When set, allows the user to navigate the carousel in the same direction indefinitely. */
   @property({ type: Boolean, reflect: true }) loop = false;
 
+  /** @internal Unused. */
   @property({ type: Number, reflect: true }) slides = 0;
+
+  /** @internal Unused. */
   @property({ type: Number, reflect: true }) currentSlide = 0;
 
   /** When set, show the carousel's navigation. */

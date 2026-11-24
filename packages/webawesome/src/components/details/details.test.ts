@@ -368,9 +368,11 @@ describe('<wa-details>', () => {
       });
 
       describe('CSS parts and states', () => {
-        it('should expose the base part', async () => {
+        it('should expose the "details" part and keep the deprecated base part', async () => {
           const el = await fixture<WaDetails>(html`<wa-details summary="Test">Content</wa-details>`);
-          expect(el.shadowRoot!.querySelector('[part~="base"]')).to.exist;
+          const wrapper = el.shadowRoot!.querySelector('[part~="details"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
         });
 
         it('should expose the header part', async () => {

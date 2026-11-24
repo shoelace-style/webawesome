@@ -24,8 +24,8 @@ export type WaKnownDateAppearance = 'filled' | 'outlined' | 'filled-outlined';
 const generateId = (): string => uniqueId('wa-known-date-');
 
 /**
- * @summary Known dates let users enter dates they already know - birthdays, expirations, document
- *  dates - through three separate day, month, and year fields shown in the locale's natural order.
+ * @summary Known dates let users enter dates they already know, like birthdays and expirations, in separate day, month,
+ *  and year fields.
  * @documentation https://webawesome.com/docs/components/known-date
  * @status stable
  * @since 3.8
@@ -96,14 +96,14 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   private readonly groupId = generateId();
   private readonly hintId = `${this.groupId}-hint`;
 
-  /** Hidden mirror used for native constraint validation (min/max/required + valid-date roundtrip). */
+  /** @internal Hidden mirror used for native constraint validation (min/max/required + valid-date roundtrip). */
   @query('.value-input') valueInput!: HTMLInputElement;
 
   /** Debounces duplicate `change` events when the value hasn't transitioned. */
   private lastEmittedValue = '';
   private pendingValue: string | null = null;
 
-  /** The three field strings. Stored verbatim so user-typed digits round-trip faithfully. */
+  /** @internal The three field strings. Stored verbatim so user-typed digits round-trip faithfully. */
   @state() parts: DateParts = { ...EMPTY_PARTS };
 
   //
@@ -248,7 +248,7 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   }
 
   /**
-   * Anchor native validation popups on a real visible input. The hidden mirror handles form data, but
+   * @internal Anchor native validation popups on a real visible input. The hidden mirror handles form data, but
    * anchoring a popup on `display: none` content would render it at offset (0, 0).
    */
   get validationTarget(): HTMLElement | undefined {

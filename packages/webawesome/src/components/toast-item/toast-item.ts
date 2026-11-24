@@ -40,7 +40,8 @@ import styles from './toast-item.styles.js';
  * @csspart content - The message content container.
  * @csspart close-button - The close button element.
  * @csspart progress-ring - The progress ring component.
- * @csspart progress-ring__base - The progress ring's exported base part.
+ * @csspart progress-ring__base - Deprecated. Use the `progress-ring__progress-ring` part instead.
+ * @csspart progress-ring__progress-ring - The progress ring's exported `progress-ring` part.
  * @csspart progress-ring__label - The progress ring's exported label part.
  * @csspart progress-ring__track - The progress ring's exported track part.
  * @csspart progress-ring__indicator - The progress ring's exported indicator part.
@@ -122,12 +123,9 @@ export default class WaToastItem extends WebAwesomeElement {
     await animateWithClass(this.toastItemElement, 'show');
     this.dispatchEvent(new WaAfterShowEvent());
 
-    // Start the countdown if there's a duration
-    if (this.duration > 0 && Number.isFinite(this.duration)) {
-      this.startTime = performance.now();
-      this.timeLeft = 100;
-      this.tick();
-    }
+    // Start the countdown unless hover or focus is holding it
+    this.timeLeft = 100;
+    this.resumeTimer();
   }
 
   /** @internal Stops the toast item's timer. */
@@ -185,7 +183,9 @@ export default class WaToastItem extends WebAwesomeElement {
 
   private resumeTimer() {
     // Only resume if neither hover nor focus is keeping it paused
-    if (!this.isHovering && !this.isFocused && this.duration > 0) {
+    if (!this.isHovering && !this.isFocused && this.duration > 0 && Number.isFinite(this.duration)) {
+      // Cancel any running loop so only one countdown exists
+      this.stopTimer();
       this.startTime = performance.now();
       this.tick();
     }
@@ -252,6 +252,7 @@ export default class WaToastItem extends WebAwesomeElement {
             part="progress-ring"
             exportparts="
               base:progress-ring__base,
+              progress-ring:progress-ring__progress-ring,
               label:progress-ring__label,
               track:progress-ring__track,
               indicator:progress-ring__indicator

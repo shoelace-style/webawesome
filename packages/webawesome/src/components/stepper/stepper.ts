@@ -16,7 +16,7 @@ import styles from './stepper.styles.js';
  * @summary Steppers visually guide users through a process step by step, breaking content into clear, logical
  *  stages. Use them for checkout flows, multi-step setup, onboarding, or just to show the status of a process.
  * @documentation https://webawesome.com/docs/components/stepper
- * @status experimental
+ * @status stable
  * @since 3.14
  *
  * @dependency wa-step

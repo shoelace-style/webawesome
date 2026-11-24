@@ -26,6 +26,11 @@ use-cases:
 
 Set the `active` attribute to the name of the current [`<wa-step>`](/docs/components/step). A stepper is a display, not a form control, and by default its steps aren't directly interactive. Pair it with your own Next/Back buttons (see [Navigating Declaratively](#navigating-declaratively)) or call its methods directly to move between steps as the user progresses. Add the `clickable` attribute (see [Clickable](#clickable)) to let people click a step, or focus it and press Enter/Space, to jump straight to it.
 
+:::info
+<strong>Showing a record of events?</strong><br />
+Use [`<wa-timeline>`](/docs/components/timeline) instead. A stepper tracks progress through a process and marks the current step.
+:::
+
 ## Examples
 
 ### Clickable
@@ -126,7 +131,7 @@ To flag a step that failed or needs attention, pair the variant with an icon in 
 
 ### Size
 
-A stepper is sized relative to the current font size, like a badge. Set `font-size` on the stepper (or an ancestor element) to change it; markers, connectors, and text scale together.
+A stepper is sized relative to the current font size, like a badge. Set `font-size` on the stepper (or an ancestor element) to change it; markers and text scale together.
 
 ```html {.example}
 <div class="wa-stack wa-gap-l">

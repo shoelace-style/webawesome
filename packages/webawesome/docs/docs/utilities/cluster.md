@@ -77,7 +77,7 @@ Clusters are great for inline lists and aligning items of varying sizes.
 <div class="wa-stack">
   <h3 class="wa-heading-2xl">Withywindle Pub and Eatery</h3>
   <div class="wa-cluster wa-gap-xs">
-    <wa-rating value="4.6" read-only></wa-rating>
+    <wa-rating value="4.6" readonly></wa-rating>
     <strong>4.6</strong>
     <span>(419 reviews)</span>
   </div>

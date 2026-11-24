@@ -53,9 +53,9 @@ declare const EyeDropper: EyeDropperConstructor;
  *
  * @dependency wa-button
  * @dependency wa-button-group
+ * @dependency wa-icon
  * @dependency wa-input
  * @dependency wa-popup
- * @dependency wa-visually-hidden
  *
  * @slot label - The color picker's form label. Alternatively, you can use the `label` attribute.
  * @slot hint - The color picker's form hint. Alternatively, you can use the `hint` attribute.
@@ -87,13 +87,15 @@ declare const EyeDropper: EyeDropperConstructor;
  * @csspart preview - The preview color.
  * @csspart input - The text input.
  * @csspart eyedropper-button - The eye dropper button.
- * @csspart eyedropper-button__base - The eye dropper button's exported `button` part.
+ * @csspart eyedropper-button__base - Deprecated. Use the `eyedropper-button__button` part instead.
+ * @csspart eyedropper-button__button - The eye dropper button's exported `button` part.
  * @csspart eyedropper-button__start - The eye dropper button's exported `start` part.
  * @csspart eyedropper-button__label - The eye dropper button's exported `label` part.
  * @csspart eyedropper-button__end - The eye dropper button's exported `end` part.
  * @csspart eyedropper-button__caret - The eye dropper button's exported `caret` part.
  * @csspart format-button - The format button.
- * @csspart format-button__base - The format button's exported `button` part.
+ * @csspart format-button__base - Deprecated. Use the `format-button__button` part instead.
+ * @csspart format-button__button - The format button's exported `button` part.
  * @csspart format-button__start - The format button's exported `start` part.
  * @csspart format-button__label - The format button's exported `label` part.
  * @csspart format-button__end - The format button's exported `end` part.
@@ -121,7 +123,10 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   private isSafeValue = false;
   private readonly localize = new LocalizeController(this);
 
-  @query('[part~="base"]') base: HTMLElement;
+  /** @internal */
+  @query('[part~="color-picker"]') wrapper: HTMLElement;
+  /** @deprecated Use the `color-picker` part instead. */
+  @query('[part~="color-picker"]') base: HTMLElement;
   @query('[part~="input"]') input: WaInput;
   @query('[part~="form-control-label"]') triggerLabel: HTMLElement;
   @query('[part~="form-control-input"]') triggerButton: HTMLButtonElement;
@@ -197,7 +202,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   /**
    * The color picker's label. This will not be displayed, but it will be announced by assistive devices. If you need to
-   * display HTML, you can use the `label` slot` instead.
+   * display HTML, you can use the `label` slot instead.
    */
   @property() label = '';
 
@@ -351,6 +356,10 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     drag(container, {
       onMove: x => {
+        if (this.disabled) {
+          return;
+        }
+
         this.alpha = clamp((x / width) * 100, 0, 100);
         this.syncValues();
 
@@ -362,7 +371,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         }
       },
       onStop: () => {
-        if (this.value !== initialValue) {
+        if (!this.disabled && this.value !== initialValue) {
           initialValue = this.value;
 
           this.updateComplete.then(() => {
@@ -386,18 +395,22 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     drag(container, {
       onMove: x => {
+        if (this.disabled) {
+          return;
+        }
+
         this.hue = clamp((x / width) * 360, 0, 360);
         this.syncValues();
 
         if (this.value !== currentValue) {
           currentValue = this.value;
           this.updateComplete.then(() => {
-            this.dispatchEvent(new InputEvent('input'));
+            this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
           });
         }
       },
       onStop: () => {
-        if (this.value !== initialValue) {
+        if (!this.disabled && this.value !== initialValue) {
           initialValue = this.value;
           this.updateComplete.then(() => {
             this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
@@ -422,6 +435,10 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     drag(grid, {
       onMove: (x, y) => {
+        if (this.disabled) {
+          return;
+        }
+
         this.saturation = clamp((x / width) * 100, 0, 100);
         this.brightness = clamp(100 - (y / height) * 100, 0, 100);
         this.syncValues();
@@ -435,7 +452,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       },
       onStop: () => {
         this.isDraggingGridHandle = false;
-        if (this.value !== initialValue) {
+        if (!this.disabled && this.value !== initialValue) {
           initialValue = this.value;
           this.updateComplete.then(() => {
             this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
@@ -774,6 +791,11 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     eyeDropper
       .open()
       .then(colorSelectionResult => {
+        // The picker may have been disabled while the eyedropper was open.
+        if (this.disabled) {
+          return;
+        }
+
         const oldValue = this.value;
 
         this.setColor(colorSelectionResult.sRGBHex);
@@ -834,6 +856,11 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     // this is for the server to be honest, but it needs to be here to get properly synced values. Without this, the server just sees nothing for a value
     if (changedProperties.has('value') || changedProperties.has('defaultValue')) {
       this.handleValueChange(changedProperties.get('value') || '', this.value || '');
+    }
+
+    // A disabled picker is never open. The watchers enforce this after the first update.
+    if (!this.hasUpdated && this.open && this.disabled) {
+      this.open = false;
     }
 
     super.willUpdate(changedProperties);
@@ -959,6 +986,11 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     super.firstUpdated(changedProperties);
 
     this.hasEyeDropper = 'EyeDropper' in window;
+
+    // The open watcher skips the first update, so open the popup here when it starts open
+    if (this.open) {
+      this.handleOpenChange();
+    }
   }
 
   private handleKeyDown = (event: KeyboardEvent) => {
@@ -1050,7 +1082,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   /** Shows the color picker panel. */
   async show() {
-    if (this.open) {
+    if (this.open || this.disabled) {
       return undefined;
     }
 
@@ -1069,15 +1101,15 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   addOpenListeners() {
-    this.base.addEventListener('keydown', this.handleKeyDown);
+    this.wrapper.addEventListener('keydown', this.handleKeyDown);
     document.addEventListener('keydown', this.handleDocumentKeyDown);
     document.addEventListener('mousedown', this.handleDocumentMouseDown);
     registerDismissible(this);
   }
 
   removeOpenListeners() {
-    if (this.base) {
-      this.base.removeEventListener('keydown', this.handleKeyDown);
+    if (this.wrapper) {
+      this.wrapper.removeEventListener('keydown', this.handleKeyDown);
     }
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('mousedown', this.handleDocumentMouseDown);
@@ -1086,7 +1118,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   @watch('open', { waitUntilFirstUpdate: true })
   async handleOpenChange() {
-    if (this.disabled) {
+    if (this.open && this.disabled) {
       this.open = false;
       return;
     }
@@ -1099,7 +1131,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
       this.addOpenListeners();
       await this.updateComplete;
-      this.base.hidden = false;
+      this.wrapper.hidden = false;
       this.popup.active = true;
       await animateWithClass(this.popup.popup, 'show-with-scale');
       this.dispatchEvent(new CustomEvent('wa-after-show'));
@@ -1109,9 +1141,17 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
       this.removeOpenListeners();
       await animateWithClass(this.popup.popup, 'hide-with-scale');
-      this.base.hidden = true;
+      this.wrapper.hidden = true;
       this.popup.active = false;
       this.dispatchEvent(new CustomEvent('wa-after-hide'));
+    }
+  }
+
+  // Declared after handleOpenChange so it runs first and the open watcher sees the change.
+  @watch('disabled', { waitUntilFirstUpdate: true })
+  handleDisabledChange() {
+    if (this.disabled && this.open) {
+      this.open = false;
     }
   }
 
@@ -1138,6 +1178,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           'color-picker': true,
         })}
         aria-disabled=${this.disabled ? 'true' : 'false'}
+        ?inert=${this.disabled}
         tabindex="-1"
       >
         <div
@@ -1256,7 +1297,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             value=${isEmpty ? '' : this.inputValue}
             ?required=${this.required}
             ?disabled=${this.disabled}
-            aria-label=${this.localize.term('currentValue')}
+            label=${this.localize.term('currentValue')}
             @keydown=${this.handleInputKeyDown}
             @change=${this.handleInputChange}
             @input=${this.handleInputInput}
@@ -1274,6 +1315,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                     aria-label=${this.localize.term('toggleColorFormat')}
                     exportparts="
                       base:format-button__base,
+                      button:format-button__button,
                       start:format-button__start,
                       label:format-button__label,
                       end:format-button__end,
@@ -1295,6 +1337,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                     appearance="outlined"
                     exportparts="
                       base:eyedropper-button__base,
+                      button:eyedropper-button__button,
                       start:eyedropper-button__start,
                       label:eyedropper-button__label,
                       end:eyedropper-button__end,

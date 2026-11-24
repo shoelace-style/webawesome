@@ -126,8 +126,7 @@ export default class WaComparison extends WebAwesomeElement {
           left: isRtl ? `${100 - this.position}%` : `${this.position}%`,
         })}
         @keydown=${this.handleKeyDown}
-        @mousedown=${this.handleDrag}
-        @touchstart=${this.handleDrag}
+        @pointerdown=${this.handleDrag}
       >
         <div
           part="handle"

@@ -74,7 +74,7 @@ const SINGLE_GROUP = 'single';
  * @event wa-clear - Emitted when the clear button is activated.
  * @event wa-show - Emitted when the popup is about to open. Cancelable.
  * @event wa-after-show - Emitted after the popup opens and animations complete.
- * @event wa-hide - Emitted when the popup is about to close. Cancelable.
+ * @event wa-hide - Emitted when the popup is about to close. Cancelable, except when the time input is disabled.
  * @event wa-after-hide - Emitted after the popup closes and animations complete.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
@@ -133,7 +133,10 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
     return [...super.validators, ...validators];
   }
 
-  /** Every segment edit dispatches `input`, so a single observed `input` event marks the field as interacted with. */
+  /**
+   * @internal Every segment edit dispatches `input`, so a single observed `input` event marks the field as interacted
+   * with.
+   */
   assumeInteractionOn = ['input'];
 
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label', 'footer');
@@ -344,6 +347,15 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
     this.lastEmittedValue = this._value;
   }
 
+  protected willUpdate(changed: PropertyValues<this>) {
+    super.willUpdate(changed);
+    // A disabled time input is never open. Closing here, before any watcher runs, lets the open watcher see the change
+    // whatever order the watchers are declared in, and skip it when open was only just set.
+    if (this.disabled && this.open) {
+      this.open = false;
+    }
+  }
+
   protected updated(changed: Map<string, unknown>) {
     super.updated?.(changed as never);
     if (changed.has('value')) {
@@ -364,13 +376,6 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
       // MirrorValidator reads the native input's constraint attributes, which are bound during render. Revalidate
       // after render so a reactive min/max/step change is reflected in validity (willUpdate runs pre-render).
       this.updateValidity();
-    }
-  }
-
-  @watch('disabled', { waitUntilFirstUpdate: true })
-  handleDisabledChange() {
-    if (this.disabled && this.open) {
-      this.open = false;
     }
   }
 
@@ -395,12 +400,15 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
       }
       this.dispatchEvent(new WaAfterShowEvent());
     } else {
-      const hideEvent = new WaHideEvent();
+      // A disabled time input is never open, so wa-hide can't cancel the close
+      const hideEvent = new WaHideEvent(undefined, { cancelable: !this.disabled });
       this.dispatchEvent(hideEvent);
       if (hideEvent.defaultPrevented) {
         this.open = true;
         return;
       }
+      // A listener can't reopen a disabled time input
+      if (this.disabled) this.open = false;
       this.removeOpenListeners();
       await animateWithClass(this.popup.popup, 'hide');
       this.popup.active = false;
@@ -687,8 +695,8 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
       return;
     }
 
-    // AM/PM letter shortcuts on the dayPeriod segment.
-    if (field === 'dayPeriod') {
+    // AM/PM letter shortcuts on the dayPeriod segment. Modified keys (Cmd/Ctrl+A, Cmd+P) are not shortcuts.
+    if (field === 'dayPeriod' && !event.ctrlKey && !event.metaKey && !event.altKey) {
       const period = dayPeriodFromKey(event.key);
       if (period != null) {
         event.preventDefault();

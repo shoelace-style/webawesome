@@ -1,6 +1,6 @@
 ---
 title: Localization
-description: Discover how to localize Web Awesome with minimal effort.
+description: Components ship in about 30 languages. Load one, set the lang attribute, mix locales on a page, or add your own translation.
 layout: page-outline
 synonyms:
   - i18n
@@ -19,7 +19,7 @@ Components can be localized by importing the appropriate translation file and se
 ```html
 <html lang="es">
   <head>
-    <script type="module" src="/path/to/shoelace/dist/translations/es.js"></script>
+    <script type="module" src="/path/to/webawesome/dist/translations/es.js"></script>
   </head>
 
   <body>
@@ -34,10 +34,10 @@ Through the magic of a mutation observer, changing the `lang` attribute will aut
 
 Web Awesome ships with [a number of translations](https://github.com/shoelace-style/webawesome/tree/next/packages/webawesome/src/translations). The default is English (US), which also serves as the fallback locale. As such, you do not need to import the English translation.
 
-You can import translations using the following syntax, where `<code>` is replaced with any language code shown above.
+You can import translations using the following syntax, where `<code>` is replaced with one of these language codes: `ar`, `cs`, `da`, `de-ch`, `de`, `en-gb`, `en`, `es`, `fa`, `fi`, `fr`, `he`, `hi`, `hr`, `hu`, `id`, `it`, `ja`, `kk`, `nb`, `nl`, `nn`, `pl`, `pt`, `ru`, `sl`, `sv`, `tr`, `uk`, `uz`, `zh-cn`, `zh-tw`.
 
 ```js
-import '/dist/translations/<code>.js';
+import '/path/to/webawesome/dist/translations/<code>.js';
 ```
 
 You do not need to load translations up front. You can import them dynamically even after updating the `lang` attribute. Once a translation is registered, localized components will update automatically.
@@ -47,7 +47,7 @@ You do not need to load translations up front. You can import them dynamically e
 document.documentElement.lang = 'de';
 
 // Import the translation
-import('/translations/<code>.js');
+import('/path/to/webawesome/dist/translations/<code>.js');
 ```
 
 ### Translation Resolution
@@ -110,8 +110,8 @@ You can provide your own translations if you have specific needs or if you don't
 Let's create a Spanish translation as an example. The following assumes you're using TypeScript, but you can also create translations with regular JavaScript.
 
 ```ts
-import { registerTranslation } from 'path/to/webawesome.js';
-import type { Translation } from 'path/to/webawesome.js';
+import { registerTranslation } from '@awesome.me/webawesome/dist/utilities/localize.js';
+import type { Translation } from '@awesome.me/webawesome/dist/utilities/localize.js';
 
 const translation: Translation = {
   $code: 'es',

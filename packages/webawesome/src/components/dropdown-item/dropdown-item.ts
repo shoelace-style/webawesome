@@ -208,6 +208,9 @@ export default class WaDropdownItem extends WebAwesomeElement {
     // Notify parent dropdown to handle positioning
     this.notifyParentOfOpening();
 
+    // Cancel a running hide animation, which would otherwise override the show animation
+    submenu.classList.remove('hide');
+
     // Use Popover API to show the submenu
     submenu.showPopover?.();
     submenu.hidden = false;
@@ -217,9 +220,13 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
     // Animate the submenu
     await animateWithClass(submenu, 'show');
+    if (!this.submenuOpen) return;
 
     // Set focus to the first submenu item
     setTimeout(() => {
+      // Skip if this submenu or one it's nested in closed meanwhile, or keyboard navigation already moved focus into it
+      if (this.closest('wa-dropdown-item:not([submenuopen])') || this.hasFocusInSubmenu()) return;
+
       const items = this.getSubmenuItems();
       if (items.length > 0) {
         items.forEach((item, index) => (item.active = index === 0));
@@ -264,14 +271,32 @@ export default class WaDropdownItem extends WebAwesomeElement {
     this.submenuOpen = false;
     this.setAttribute('aria-expanded', 'false');
 
+    // Hiding a submenu that holds focus drops focus to the body, so return it to this item as ArrowLeft does
+    if (this.hasFocusInSubmenu()) {
+      this.focus({ preventScroll: true });
+    }
+
     if (!submenu.hidden) {
       await animateWithClass(submenu, 'hide');
-      if (submenu?.isConnected) {
+      // Skip if the submenu reopened while it was animating closed
+      if (!this.submenuOpen) {
         submenu.hidden = true;
         submenu.removeAttribute('data-visible');
-        submenu.hidePopover?.();
+        // The browser already hid the popover if the item was removed
+        if (submenu.isConnected) submenu.hidePopover?.();
       }
     }
+  }
+
+  /**
+   * Whether focus is on one of this item's submenu items, including items forwarded through a slot, or on anything
+   * inside them, such as a nested submenu. Other light DOM children of this item don't count.
+   */
+  private hasFocusInSubmenu() {
+    // Check containment, since Chromium and WebKit don't match :focus-within across a nested submenu's popover
+    return this.getSubmenuItems().some(item =>
+      item.contains((item.getRootNode() as Document | ShadowRoot).activeElement),
+    );
   }
 
   /** Determines whether the item navigates when selected. Items with submenus never navigate. */
@@ -291,26 +316,60 @@ export default class WaDropdownItem extends WebAwesomeElement {
       return;
     }
 
-    link.dispatchEvent(
-      new MouseEvent('click', {
-        bubbles: false,
-        cancelable: true,
-        composed: false,
-        altKey: sourceEvent?.altKey ?? false,
-        ctrlKey: sourceEvent?.ctrlKey ?? false,
-        metaKey: sourceEvent?.metaKey ?? false,
-        shiftKey: sourceEvent?.shiftKey ?? false,
-      }),
-    );
+    // For the future: Theres a pattern here between button and dropdown-item, so if this comes up a 3rd time, we should extract it into a utility.
+    let handled = false;
+
+    const dispatchClick = () => {
+      if (handled) return;
+
+      handled = true;
+
+      if (sourceEvent?.type) {
+        window.removeEventListener(sourceEvent.type, handleWindowEvent);
+      }
+
+      // Keyboard events are always prevented by the dropdown, so only honor preventDefault() on clicks
+      if (sourceEvent instanceof MouseEvent && sourceEvent.defaultPrevented) {
+        return;
+      }
+
+      link.dispatchEvent(
+        new MouseEvent('click', {
+          bubbles: false,
+          cancelable: true,
+          composed: false,
+          altKey: sourceEvent?.altKey ?? false,
+          ctrlKey: sourceEvent?.ctrlKey ?? false,
+          metaKey: sourceEvent?.metaKey ?? false,
+          shiftKey: sourceEvent?.shiftKey ?? false,
+        }),
+      );
+    };
+
+    const handleWindowEvent = (event: Event) => {
+      if (event === sourceEvent) dispatchClick();
+    };
+
+    // Nothing left to wait for: no source event, or it won't reach window
+    if (!sourceEvent || !sourceEvent.bubbles || sourceEvent.eventPhase === Event.NONE) {
+      dispatchClick();
+      return;
+    }
+
+    // Runs at the end of this dispatch, after user listeners, so preventDefault() is respected
+    window.addEventListener(sourceEvent.type, handleWindowEvent);
+
+    // Fallback: stopPropagation() keeps the event from reaching window, but native links still navigate in this case. Only `preventDefault()` stops the link from navigating.
+    setTimeout(dispatchClick);
   }
 
   /** Gets all dropdown items in the submenu. */
   private getSubmenuItems(): WaDropdownItem[] {
-    // Only get direct children with slot="submenu", not nested ones
-    return [...this.children].filter(
-      el =>
-        el.localName === 'wa-dropdown-item' && el.getAttribute('slot') === 'submenu' && !el.hasAttribute('disabled'),
-    ) as WaDropdownItem[];
+    const slot = this.submenuElement?.querySelector<HTMLSlotElement>('slot[name="submenu"]');
+    return (slot?.assignedElements({ flatten: true }) ?? []).filter(
+      (element): element is WaDropdownItem =>
+        element.localName === 'wa-dropdown-item' && !(element as WaDropdownItem).disabled,
+    );
   }
 
   /** Prevents click events from firing on the host when the item is disabled (e.g. programmatic .click() calls). */

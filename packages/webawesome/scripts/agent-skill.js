@@ -5,7 +5,16 @@ import path from 'path';
 import TurndownService from 'turndown';
 import { fileURLToPath } from 'url';
 import { getAllComponents } from './shared.js';
-import { getCdnDir, getDistDir, getDocsDir, getSiteDir } from './utils.js';
+import {
+  CORE_PACKAGE_NAME,
+  getCdnDir,
+  getDistDir,
+  getDocsDir,
+  getPackageName,
+  getSiteDir,
+  listMarkdownFiles,
+  retargetPackageFiles,
+} from './utils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -104,6 +113,8 @@ function createTurndownService(baseUrl) {
   turndown.addRule('absoluteLinks', {
     filter: 'a',
     replacement: (content, node) => {
+      // Card links wrap block content; keep the link text on one line
+      content = content.replace(/\s+/g, ' ').trim();
       let href = node.getAttribute('href') || '';
       if (href.startsWith('/')) {
         href = baseUrl + href;
@@ -149,6 +160,48 @@ function createTurndownService(baseUrl) {
   return turndown;
 }
 
+/** Collapses whitespace and renders `[[Key]]` shortcodes from JSDoc as plain key names. */
+export function cleanCemText(text) {
+  return String(text ?? '')
+    .replace(/\[\[([^\]]+)\]\]/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/** Escapes the characters that would otherwise be parsed as HTML. */
+function escapeHtml(text) {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/** Escapes pipes so text can sit in a markdown table cell. */
+function escapeCell(text) {
+  return text.replace(/\|/g, '\\|');
+}
+
+/** A type with aliases expanded when the type parser resolved them, without a leading union pipe. */
+export function typeText(item) {
+  return (item?.parsedType?.text || item?.type?.text || '').replace(/^\s*\|\s*/, '');
+}
+
+/** Drops CEM items flagged deprecated. */
+export function current(items = []) {
+  return items.filter(item => !item.deprecated);
+}
+
+/** Public, documented, non-static, non-deprecated members of one kind. */
+export function apiMembers(component, kind) {
+  return (component.members || []).filter(
+    m =>
+      m.kind === kind &&
+      m.privacy !== 'private' &&
+      m.privacy !== 'protected' &&
+      !m.static &&
+      !m.deprecated &&
+      !m.name.startsWith('#') &&
+      m.description,
+  );
+}
+
 /**
  * Renders a component's API table (Slots, Attributes & Properties, Methods, Events, CSS custom
  * properties, Custom States, CSS parts) directly from the Custom Elements Manifest.
@@ -163,14 +216,7 @@ function createTurndownService(baseUrl) {
  */
 function renderComponentApiTable(section, component) {
   const bt = s => '`' + s + '`';
-  const deprecatedLast = items =>
-    [...items].sort((a, b) => Number(Boolean(a.deprecated)) - Number(Boolean(b.deprecated)));
-  const esc = s =>
-    String(s ?? '')
-      .replace(/\r?\n/g, ' ')
-      .replace(/\|/g, '\\|')
-      .replace(/\s+/g, ' ')
-      .trim();
+  const esc = s => escapeCell(cleanCemText(s));
   const codeOrDash = s => {
     const t = esc(s);
     return t ? bt(t) : '—';
@@ -185,11 +231,10 @@ function renderComponentApiTable(section, component) {
       // Rendered as a bullet list (not a table) with an explicit warning: losing slot names is the
       // exact failure that makes LLMs invent non-existent slots like `slot="main"`, so the valid
       // names are stated plainly. The default slot is shown as `(default)`.
-      const slots = deprecatedLast(component.slots || []);
+      const slots = current(component.slots);
       if (!slots.length) return null;
       const lines = [
-        'Valid slot names for this component (use exactly these — any other `slot` value is',
-        'silently ignored and the element falls back to the default slot):',
+        'Valid slot names for this component. An element with any other `slot` value is not rendered.',
         '',
       ];
       for (const s of slots) {
@@ -200,30 +245,22 @@ function renderComponentApiTable(section, component) {
     }
 
     case 'Attributes & Properties': {
-      const props = deprecatedLast(
-        (component.members || []).filter(m => m.kind === 'field' && m.privacy !== 'private' && m.description),
-      );
+      const props = apiMembers(component, 'field');
       return table(
         ['Property', 'Attribute', 'Description', 'Type', 'Default'],
         props.map(p => {
           const attr = (component.attributes || []).find(a => a.fieldName === p.name);
-          return `| ${bt(esc(p.name))} | ${attr ? bt(esc(attr.name)) : '—'} | ${esc(p.description) || '—'} | ${codeOrDash(p.type && p.type.text)} | ${codeOrDash(p.default)} |`;
+          return `| ${bt(esc(p.name))} | ${attr ? bt(esc(attr.name)) : '—'} | ${esc(p.description) || '—'} | ${codeOrDash(typeText(p))} | ${codeOrDash(p.default)} |`;
         }),
       );
     }
 
     case 'Methods': {
-      const methods = deprecatedLast(
-        (component.members || []).filter(
-          m => m.kind === 'method' && m.privacy !== 'private' && !m.name.startsWith('#') && m.description,
-        ),
-      );
+      const methods = apiMembers(component, 'method');
       return table(
         ['Name', 'Description', 'Arguments'],
         methods.map(m => {
-          const args = (m.parameters || [])
-            .map(p => `${p.name}: ${esc(p.type && p.type.text) || 'unknown'}`)
-            .join(', ');
+          const args = (m.parameters || []).map(p => `${p.name}: ${cleanCemText(typeText(p)) || 'unknown'}`).join(', ');
           return `| ${bt(esc(m.name) + '()')} | ${esc(m.description) || '—'} | ${args ? bt(esc(args)) : '—'} |`;
         }),
       );
@@ -232,15 +269,15 @@ function renderComponentApiTable(section, component) {
     case 'Events':
       return table(
         ['Name', 'Description'],
-        deprecatedLast((component.events || []).filter(e => e.name)).map(
-          e => `| ${bt(esc(e.name))} | ${esc(e.description) || '—'} |`,
-        ),
+        current(component.events)
+          .filter(e => e.name)
+          .map(e => `| ${bt(esc(e.name))} | ${esc(e.description) || '—'} |`),
       );
 
     case 'CSS Custom Properties':
       return table(
         ['Name', 'Description', 'Default'],
-        deprecatedLast(component.cssProperties || []).map(
+        current(component.cssProperties).map(
           p => `| ${bt(esc(p.name))} | ${esc(p.description) || '—'} | ${codeOrDash(p.default)} |`,
         ),
       );
@@ -248,7 +285,7 @@ function renderComponentApiTable(section, component) {
     case 'Custom States':
       return table(
         ['Name', 'Description', 'CSS selector'],
-        deprecatedLast(component.cssStates || []).map(
+        current(component.cssStates).map(
           s => `| ${bt(esc(s.name))} | ${esc(s.description) || '—'} | ${bt(':state(' + esc(s.name) + ')')} |`,
         ),
       );
@@ -256,7 +293,7 @@ function renderComponentApiTable(section, component) {
     case 'CSS Parts':
       return table(
         ['Name', 'Description', 'CSS selector'],
-        deprecatedLast(component.cssParts || []).map(
+        current(component.cssParts).map(
           p => `| ${bt(esc(p.name))} | ${esc(p.description) || '—'} | ${bt('::part(' + esc(p.name) + ')')} |`,
         ),
       );
@@ -279,6 +316,72 @@ function moveExamplesToEnd(markdown) {
   if (!match) return markdown;
   const examples = match[0];
   return (markdown.slice(0, match.index) + markdown.slice(match.index + examples.length)).trimEnd() + '\n' + examples;
+}
+
+/**
+ * Shrinks a component's Importing section to the npm import, plus the React wrapper import when the docs
+ * list one. CDN and self-hosted setup is the same for every component, so it lives in installation.md.
+ */
+function collapseImporting(markdown) {
+  return markdown.replace(/### Importing\n[\s\S]*?(?=\n### |\n## |$)/, section => {
+    const code = label =>
+      section.match(new RegExp(`\\*\\*${label}\\*\\*[\\s\\S]*?\`\`\`\\w*\\n([\\s\\S]*?)\\n\`\`\``))?.[1];
+    const npm = code('npm');
+    if (!npm) return section;
+    const react = code('React');
+    return [
+      '### Importing',
+      '',
+      'The autoloader and hosted projects load components on demand. To import this one from npm:',
+      '',
+      '```js',
+      npm,
+      '```',
+      '',
+      ...(react ? ['React 18 and below use the wrapper instead:', '', '```js', react, '```', ''] : []),
+      'For CDN and self-hosted setup, see [Installation](../installation.md).',
+      '',
+    ].join('\n');
+  });
+}
+
+/**
+ * Adds a contents line to a long component reference, after the summary and hero example, listing its
+ * sections and example headings so an agent can jump to the one it needs.
+ */
+function addContentsLine(markdown, minBytes = 15 * 1024) {
+  if (Buffer.byteLength(markdown) < minBytes) return markdown;
+  const examples = markdown.match(/\n## Examples\n([\s\S]*)$/)?.[1] ?? '';
+  const exampleHeadings = [...examples.matchAll(/^### (.+)$/gm)].map(m => m[1].trim());
+  const sections = [...markdown.matchAll(/^## (.+)$/gm)].map(m => m[1].trim()).filter(h => h !== 'Examples');
+  const parts = [...sections, ...(exampleHeadings.length ? [`Examples (${exampleHeadings.join(', ')})`] : [])];
+  if (!parts.length) return markdown;
+  const line = `**Contents:** ${parts.join(' · ')}`;
+  // Insert before the first heading below the title, which follows the summary and any hero example.
+  const firstSection = markdown.search(/\n## /);
+  if (firstSection === -1) return markdown;
+  return markdown.slice(0, firstSection) + '\n' + line + '\n' + markdown.slice(firstSection);
+}
+
+/**
+ * Rewrites absolute component docs links to the sibling reference file when the build ships one, so agents
+ * stay inside the skill instead of fetching the website.
+ */
+function localizeComponentLinks(refsDir, baseUrl) {
+  const componentsDir = path.join(refsDir, 'components');
+  const docsUrl = baseUrl.replace(/\./g, '\\.') + '/docs/components/';
+  const linkPattern = new RegExp(`\\]\\(${docsUrl}([a-z0-9-]+)/?(#[^)\\s]*)?(\\s+"[^"]*")?\\)`, 'g');
+
+  for (const file of listMarkdownFiles(refsDir)) {
+    const before = fs.readFileSync(file, 'utf-8');
+    const after = before.replace(linkPattern, (match, name, hash = '', title = '') => {
+      const target = path.join(componentsDir, `${name}.md`);
+      if (!fs.existsSync(target)) return match;
+      const relative = path.relative(path.dirname(file), target).split(path.sep).join('/');
+      return `](${relative}${hash}${title})`;
+    });
+    if (after !== before) fs.writeFileSync(file, after, 'utf-8');
+  }
 }
 
 /**
@@ -312,6 +415,13 @@ function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
     }
   });
 
+  // Collapse each palette swatch grid to its token and tints
+  main.querySelectorAll('.color-scale').forEach(scale => {
+    const token = scale.querySelector('.color-token')?.textContent.trim();
+    const tints = scale.querySelectorAll('.tint-label').map(label => label.textContent.trim());
+    if (token && tints.length) scale.replaceWith(`<p><code>${token}</code> tints: ${tints.join(', ')}</p>`);
+  });
+
   // Process color groups before removing copy buttons - extract token names
   main.querySelectorAll('ul.color-group').forEach(ul => {
     const tokens = [];
@@ -327,9 +437,40 @@ function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
     }
   });
 
-  // Process tables - convert to markdown tables, skipping visual-only columns
-  // We use a special marker that we'll convert back to newlines after turndown
-  const TABLE_NEWLINE = '{{TABLE_NEWLINE}}';
+  // Drop docs chrome that means nothing outside the site: breadcrumbs, "Next Steps" cards, feedback and
+  // "ready to use" callouts, the interactive page anatomy, and buttons that open demos we don't ship.
+  main
+    .querySelectorAll('wa-breadcrumb.page-breadcrumbs, section.modern-card-list, #page-anatomy-demo')
+    .forEach(el => el.remove());
+  main.querySelectorAll('wa-callout').forEach(callout => {
+    const text = callout.textContent;
+    if (/Help make things more awesome|Web Awesome is ready to use/.test(text)) callout.remove();
+  });
+  main.querySelectorAll('p').forEach(p => {
+    const text = p.textContent.trim();
+    if (/^(Open demo in a new window|Open demos in a new tab|This image depicts)/.test(text)) p.remove();
+  });
+
+  const turndown = createTurndownService(baseUrl);
+
+  // Generated tables are swapped in via placeholders and restored after Turndown, so their backticks,
+  // brackets, pipes, and `<…>` text aren't escaped again or parsed as HTML. Each placeholder sits in its own
+  // paragraph so Turndown keeps the table apart from the text around it.
+  const tables = [];
+  const placeholder = markdown => {
+    tables.push(markdown);
+    return `<p>{{TABLE${tables.length - 1}}}</p>`;
+  };
+
+  // Converts one scraped cell to inline markdown so every `<code>` survives and pipes can't split the row.
+  const cellToMarkdown = td =>
+    escapeCell(
+      turndown
+        .turndown(td.innerHTML)
+        .replace(/```\w*\n([\s\S]*?)\n```/g, (_, code) => '`' + code.replace(/\s+/g, ' ') + '`')
+        .replace(/\s+/g, ' ')
+        .trim(),
+    );
 
   // Map each component API table to its section heading, in document order, so CEM-backed tables
   // can be regenerated from the manifest instead of scraped (see renderComponentApiTable).
@@ -345,33 +486,29 @@ function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
     });
   }
 
-  // CEM-generated tables are swapped in via placeholders and restored after Turndown, so their
-  // backticks, brackets, pipes, and `<…>` text aren't escaped or parsed as HTML.
-  const cemTables = [];
-
   main.querySelectorAll('table').forEach(table => {
     // Regenerate component API tables from the CEM (lossless) rather than scraping the HTML.
     if (sectionByTable.has(table)) {
       const cemTable = renderComponentApiTable(sectionByTable.get(table), component);
       if (cemTable !== null) {
-        table.replaceWith(`{{CEMTABLE${cemTables.length}}}`);
-        cemTables.push(cemTable);
+        table.replaceWith(placeholder(cemTable));
         return;
       }
     }
 
     const headers = [];
     const headerCells = table.querySelectorAll('thead th');
+    // Header text goes through the same escaping as cells.
+    const headerText = th => cellToMarkdown(th);
     const columnsToSkip = new Set();
 
     // Collect headers and identify visual-only columns (Preview, CSS selector columns with no useful text)
     headerCells.forEach((th, index) => {
-      const text = th.textContent.trim();
       // Skip "Preview" columns as they only contain visual elements
-      if (text === 'Preview') {
+      if (th.textContent.trim() === 'Preview') {
         columnsToSkip.add(index);
       } else {
-        headers.push(text);
+        headers.push(headerText(th));
       }
     });
 
@@ -390,22 +527,7 @@ function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
       tds.forEach((td, index) => {
         if (columnsToSkip.has(index)) return;
 
-        // Get text content, preserving code formatting
-        let cellText = '';
-        const codeEl = td.querySelector('code');
-        if (codeEl) {
-          cellText = '`' + codeEl.textContent.trim() + '`';
-          // Check for additional text after the code (like default values or descriptions)
-          const remainingText = td.textContent.replace(codeEl.textContent, '').trim();
-          if (remainingText) {
-            cellText += ' ' + remainingText;
-          }
-        } else {
-          cellText = td.textContent.trim();
-        }
-        // Escape pipe characters and normalize whitespace
-        cellText = cellText.replace(/\|/g, '\\|').replace(/\s+/g, ' ');
-        cells.push(cellText);
+        cells.push(cellToMarkdown(td));
       });
 
       if (cells.length > 0) {
@@ -413,8 +535,7 @@ function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
       }
     });
 
-    // Replace the table with markdown using special newline markers
-    table.replaceWith(rows.join(TABLE_NEWLINE));
+    table.replaceWith(placeholder(rows.join('\n')));
   });
 
   // Process tab groups - convert to labeled sections
@@ -431,7 +552,7 @@ function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
         // Get the panel's HTML content for turndown to process later
         const panelContent = panel.innerHTML.trim();
         if (panelContent) {
-          sections.push(`**${tabLabel}**\n\n${panelContent}`);
+          sections.push(`<p><strong>${escapeHtml(tabLabel)}</strong></p>${panelContent}`);
         }
       }
     });
@@ -460,13 +581,10 @@ function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
   const title = h1 ? h1.textContent.trim() : null;
   if (h1) h1.remove();
 
-  const turndown = createTurndownService(baseUrl);
   let markdown = turndown.turndown(main.innerHTML);
 
-  // Restore table newlines from markers (underscores may be escaped by turndown)
-  markdown = markdown.replace(/\{\{TABLE[_\\]+NEWLINE\}\}/g, '\n');
-  // Restore CEM-generated tables (kept out of the Turndown pass so their markdown isn't escaped)
-  markdown = markdown.replace(/\{\{CEMTABLE(\d+)\}\}/g, (_, i) => cemTables[Number(i)]);
+  // Restore the generated tables
+  markdown = markdown.replace(/\{\{TABLE(\d+)\}\}/g, (_, i) => tables[Number(i)]);
 
   // Remove server-side Nunjucks templates that aren't rendered in static build
   // These are templates meant for the production server (e.g., {% if session.isLoggedIn %})
@@ -477,7 +595,7 @@ function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
 
   // For component docs, move the examples below the API reference.
   if (component) {
-    markdown = moveExamplesToEnd(markdown);
+    markdown = collapseImporting(moveExamplesToEnd(markdown));
   }
 
   return { content: markdown, title };
@@ -558,6 +676,7 @@ function getComponentInfo(components, frontMatterCache) {
       name: componentName,
       title: frontmatter.title || componentName,
       description: frontmatter.description || component.summary || '',
+      summary: component.summary || frontmatter.description || '',
       category: frontmatter.category || 'Uncategorized',
       isProComponent: frontmatter.isProComponent === true,
     });
@@ -570,72 +689,63 @@ function getComponentInfo(components, frontMatterCache) {
 /**
  * Generates the main SKILL.md content.
  */
-function generateSkillMd({ componentList, packageData, baseUrl }) {
+function generateSkillMd({ componentList, packageData, baseUrl, packageName = CORE_PACKAGE_NAME }) {
+  // A core build names both packages. The copy that ships inside Pro names only Pro.
+  const isCore = packageName === CORE_PACKAGE_NAME;
+  const proPackages = isCore
+    ? '`@web.awesome.me/webawesome-pro` or `@awesome.me/webawesome-pro`'
+    : `\`${packageName}\``;
+  // Pro installs from a private registry, so a plain npm install fails until .npmrc is set up.
+  const registryNote = isCore
+    ? ''
+    : `
+Pro installs from a private registry. If the install fails with a 401 or 404, the project's \`.npmrc\` needs these two
+lines, with the token from the user's Web Awesome project page in the \`WEBAWESOME_NPM_TOKEN\` environment variable.
+Never write the token into a file.
+
+\`\`\`
+${packageName.split('/')[0]}:registry=https://npm.cloudsmith.io/fortawesome/webawesome-pro/
+//npm.cloudsmith.io/fortawesome/webawesome-pro/:_authToken=\${WEBAWESOME_NPM_TOKEN}
+\`\`\`
+`;
   const freeComponents = componentList.filter(c => !c.isProComponent);
   const proComponents = componentList.filter(c => c.isProComponent);
 
-  // Group components by category
-  const categorize = list => {
+  // One line per component: the local reference and the first sentence of its summary
+  const firstSentence = text => {
+    const flat = String(text || '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    return flat.match(/^.*?[.!?](?=\s|$)/)?.[0] || flat || 'No description.';
+  };
+  const renderIndex = list => {
     const categories = {};
-    for (const c of list) {
-      if (!categories[c.category]) {
-        categories[c.category] = [];
-      }
-      categories[c.category].push(c);
-    }
-    return categories;
+    for (const c of list) (categories[c.category] ||= []).push(c);
+    return Object.keys(categories)
+      .sort()
+      .map(
+        category =>
+          `**${category}**\n\n` +
+          categories[category]
+            .map(c => `- [\`<${c.tagName}>\`](references/components/${c.name}.md): ${firstSentence(c.summary)}`)
+            .join('\n'),
+      )
+      .join('\n\n');
   };
 
-  const freeByCategory = categorize(freeComponents);
-  const proByCategory = categorize(proComponents);
+  const proSection = proComponents.length
+    ? `
+### Pro components
 
-  // Helper to generate component list for a category
-  const renderComponentList = (components, isPro = false) => {
-    return components
-      .map(c => {
-        const proTag = isPro ? ' [Pro]' : '';
-        return `- [\`<${c.tagName}>\`](references/components/${c.name}.md)${proTag} - ${c.description || 'No description'} ([docs](${baseUrl}/docs/components/${c.name}))`;
-      })
-      .join('\n');
-  };
+Use these only when the project depends on ${proPackages}, or the user says they have Pro.
 
-  // Generate free components section
-  const freeComponentsSection =
-    Object.keys(freeByCategory).length > 0
-      ? `### Free Components
-
-${Object.keys(freeByCategory)
-  .sort()
-  .map(
-    category => `#### ${category}
-
-${renderComponentList(freeByCategory[category])}`,
-  )
-  .join('\n\n')}
+${renderIndex(proComponents)}
 `
-      : '';
-
-  // Generate pro components section
-  const proComponentsSection =
-    Object.keys(proByCategory).length > 0
-      ? `### Pro Components
-
-These components require [Web Awesome Pro](${baseUrl}/purchase).
-
-${Object.keys(proByCategory)
-  .sort()
-  .map(
-    category => `#### ${category}
-
-${renderComponentList(proByCategory[category], true)}`,
-  )
-  .join('\n\n')}
-`
-      : '';
+    : '';
 
   return `---
 name: webawesome
-description: Web Awesome is a UI component library built with web components. Use when building buttons, inputs, selects, checkboxes, dialogs, modals, drawers, tabs, dropdowns, tooltips, carousels, forms, or using CSS utilities like wa-stack, wa-cluster, wa-grid, wa-prose. Supports React, Vue, Angular, Svelte, and vanilla JS.
+description: Component API reference for Web Awesome (wa-* custom elements such as wa-button, wa-input, wa-select, wa-dialog; ${isCore ? 'packages @awesome.me/webawesome, @web.awesome.me/webawesome-pro, and @awesome.me/webawesome-pro' : `package ${packageName}`}). Use when writing, fixing, or reviewing code that uses Web Awesome components, to pick the right component and get its attributes, slots, events, methods, CSS parts, and form behavior right, including in React, Vue, Angular, or Svelte, or when migrating from Shoelace. For page layout, theming, and visual design, use webawesome-design.
 license: MIT / Commercial (for Web Awesome Pro)
 metadata:
   author: Web Awesome
@@ -643,80 +753,72 @@ metadata:
   homepage: ${baseUrl}
   repository: https://github.com/shoelace-style/webawesome
 compatibility: Works in modern browsers. Requires no build tools when using CDN. Works with bundlers like Webpack and Vite when installed via npm.
-allowed-tools: Read
 ---
 
 # Web Awesome
 
-Web Awesome is an open source UI component library with a Pro offering that helps sustain the project. It provides 50+ accessible, customizable web components that work with any framework.
+Web Awesome is a library of ${componentList.length} accessible web components (\`<wa-*>\` custom elements) that work in plain HTML
+and in any framework. This skill is the component reference. For page layout, theming, and visual design, use the
+\`webawesome-design\` skill if installed.
 
-**Pro components and features are available to paid users.** [Purchase Pro](${baseUrl}/purchase)
-
-> **Designing with Web Awesome?** For full-page layout (\`<wa-page>\`), theming, brand color, and visual composition guidance, install the companion **\`webawesome-design\`** skill. This skill is the component reference; that one teaches how to put components together into a polished UI. See [Agent Skills](${baseUrl}/docs/ai/agent-skills) for both.
-
-## Quick Start
-
-### npm Installation
+## Setup
 
 \`\`\`bash
 npm install @awesome.me/webawesome
 \`\`\`
-
-Import styles and components:
-
+${registryNote}
 \`\`\`js
 import '@awesome.me/webawesome/dist/styles/webawesome.css';
 import '@awesome.me/webawesome/dist/components/button/button.js';
 \`\`\`
 
-### CDN / Project Setup
+Hosted projects and the autoloader load components on demand. For CDN, self-hosted, and autoloader setup, read
+[installation.md](references/installation.md).
 
-The easiest way to use Web Awesome is with a hosted project. [Create a project](${baseUrl}) to get a single line of code that loads everything automatically.
+## Facts that break output when guessed
 
-For detailed installation options, see [Installation Guide](references/installation.md).
+- **Read the component's reference before using an attribute, slot, event, or part.** Each one lists the valid names.
+  Names that look right but aren't there are ignored without an error.
+- **Form controls fire native \`input\` and \`change\` events**, with no prefix. Read the new value from the element
+  (\`event.target.value\`, or \`checked\` on checkboxes and switches).
+- **Component-specific events use a \`wa-\` prefix**, such as \`wa-show\`, \`wa-after-hide\`, and \`wa-clear\`.
+- **Sizes are \`xs\`, \`s\`, \`m\` (default), \`l\`, and \`xl\`**, as in \`<wa-button size="s">\`. Code written before 3.6 may
+  use long-form size names; switch them to the short form when you edit those lines.
+- **Variants are \`neutral\`, \`brand\`, \`success\`, \`warning\`, and \`danger\`.** There is no \`primary\`.
+- **Boolean attributes that add optional UI start with \`with-\`** (\`with-clear\`, \`with-caret\`), and ones that remove
+  default UI start with \`without-\` (\`without-arrow\`). \`with-label\`, \`with-hint\`, \`with-start\`, and the like are
+  SSR hints, not switches.
+- **In HTML, close every tag**: \`<wa-input></wa-input>\`. HTML has no self-closing custom elements, so \`<wa-input />\`
+  stays open and the markup after it ends up nested inside. JSX is fine either way.
+- **Style the inside of a component with \`::part()\`** and its documented CSS custom properties. Shadow DOM blocks
+  ordinary selectors.
+- **In a Claude.ai artifact, load from jsDelivr.** Its Content Security Policy blocks \`ka-f.webawesome.com\`, so the
+  page renders unstyled with no error, but it allows jsDelivr. Load \`styles/webawesome.css\` and
+  \`webawesome.loader.js\` from
+  \`https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@${packageData.version || '0.0.0'}/dist-cdn/\`, keep the loader's
+  \`<script src>\` tag, and for icons add a second module script that imports \`setIconPath\` from that loader and
+  calls \`setIconPath('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/svgs')\`. Pro components, Pro
+  themes, and Pro icon families aren't available this way. In other sandboxes, check which hosts are allowed first. See "Sandboxed Environments" in [installation.md](references/installation.md).
 
-## Core Concepts
-
-Web Awesome components are custom HTML elements. They work like native elements but with enhanced functionality.
-
-- **Attributes & Properties**: Configure components via HTML attributes or JavaScript properties
-- **Events**: Listen to custom events prefixed with \`wa-\` (e.g., \`wa-change\`, \`wa-input\`)
-- **Methods**: Call methods programmatically (e.g., \`element.focus()\`)
-- **Slots**: Insert content into named slots (e.g., \`<wa-icon slot="start">\`)
-- **CSS Parts**: Style internal elements using \`::part()\` selectors
-- **CSS Custom Properties**: Customize appearance with CSS variables
-
-**Important**: Always use closing tags. Custom elements cannot self-close.
-
-\`\`\`html
-<!-- Correct -->
-<wa-input></wa-input>
-
-<!-- Incorrect - will not work -->
-<wa-input />
-\`\`\`
-
-For complete usage details, see [Usage Guide](references/usage.md).
+For attributes versus properties, slots, and events in depth, read [usage.md](references/usage.md).
 
 ## Components
 
-> **Not sure which one to pick?** See [Choosing the right component](references/choosing-components.md)
-> — a decision tree organized by user intent. Most agent mistakes here are picking the wrong component
-> (e.g. \`<wa-dropdown>\` instead of \`<wa-select>\`), not API misuse.
+Most mistakes are picking the wrong component (\`<wa-dropdown>\` is a menu of actions, \`<wa-select>\` picks a value),
+not API misuse. When unsure, read [choosing-components.md](references/choosing-components.md), a decision tree by
+user intent.
 
-${freeComponentsSection}
-${proComponentsSection}
-## Building Full Pages with \`<wa-page>\`
+${renderIndex(freeComponents)}
+${proSection || '\nPro components (' + proPackages + ') are listed in the copy of this skill that ships with Pro.\n'}
+## Building full pages with \`<wa-page>\`
 
-\`<wa-page>\` scaffolds an entire page layout (banner, header, navigation, main content, aside, footer)
-with sticky regions and a responsive navigation drawer built in. The companion \`webawesome-design\`
-skill has the full guide (\`references/layouts-page.md\`) with canonical examples; the facts below are
-the ones that break pages when guessed.
+\`<wa-page>\` scaffolds an entire page (banner, header, navigation, main content, aside, footer) with sticky regions
+and a responsive navigation drawer built in. The \`webawesome-design\` skill, if installed, has the full guide in its
+\`layouts-page.md\`; the facts below are the ones that break pages when guessed.
 
-### Main content goes in the default slot; there is no \`main\` slot
+### Main content goes in the default slot
 
-Put primary content directly inside \`<wa-page>\` with no \`slot\` attribute. \`slot="main"\`, \`slot="nav"\`,
-and \`slot="content"\` don't exist, so the element is silently dropped and the page renders blank.
+Put primary content directly inside \`<wa-page>\` with no \`slot\` attribute.
 
 \`\`\`html
 <wa-page>
@@ -727,22 +829,21 @@ and \`slot="content"\` don't exist, so the element is silently dropped and the p
 </wa-page>
 \`\`\`
 
-Valid named slots: \`banner\`, \`header\`, \`subheader\`, \`navigation-header\`, \`navigation\`,
-\`navigation-footer\`, \`navigation-toggle\`, \`navigation-toggle-icon\`, \`menu\`, \`main-header\`,
-\`main-footer\`, \`aside\`, \`skip-to-content\`, \`footer\`. (\`menu\` replaces the entire left region and opts
-out of the responsive drawer; use \`navigation\` for ordinary nav.) \`<wa-page>\` adds no semantic elements
-of its own, so slot in your own \`<header>\`, \`<nav>\`, \`<main>\`, and \`<footer>\`.
+Valid named slots: \`banner\`, \`header\`, \`subheader\`, \`navigation-header\`, \`navigation\`, \`navigation-footer\`,
+\`navigation-toggle\`, \`navigation-toggle-icon\`, \`menu\`, \`main-header\`, \`main-footer\`, \`aside\`, \`skip-to-content\`,
+\`footer\`. An element with any other slot name is not rendered, so the page can come out blank. \`menu\` replaces the
+entire left region and opts out of the responsive drawer; use \`navigation\` for ordinary nav. \`<wa-page>\` adds no
+semantic elements of its own, so slot in your own \`<header>\`, \`<nav>\`, \`<main>\`, and \`<footer>\`.
 
 ### Write the nav once, in \`slot="navigation"\`
 
-The \`navigation\` slot renders in exactly one place at a time: as a left sidebar when \`view="desktop"\`
-and inside the component's own \`<wa-drawer>\` when \`view="mobile"\`, opened by a hamburger button the
-component provides. One copy serves both views. Don't duplicate the links into \`header\` (they show
-twice on desktop), don't add your own \`<wa-drawer>\`, and don't write media queries for the nav.
+The \`navigation\` slot renders in exactly one place at a time: as a left sidebar when \`view="desktop"\` and inside the
+component's own \`<wa-drawer>\` when \`view="mobile"\`, opened by a hamburger button the component provides. One copy
+serves both views. Don't duplicate the links into \`header\` (they show twice on desktop), don't add your own
+\`<wa-drawer>\`, and don't write media queries for the nav.
 
-Want nav links in the header bar on desktop with no sidebar (the marketing-site look)? Keep the links
-in \`header\`, mirror them in \`slot="navigation"\` so the drawer has content, and hide each copy in the
-view where it doesn't belong:
+Want nav links in the header bar on desktop with no sidebar (the marketing-site look)? Keep the links in \`header\`,
+mirror them in \`slot="navigation"\` so the drawer has content, and hide each copy in the view where it doesn't belong:
 
 \`\`\`css
 wa-page[view='mobile'] .header-nav {
@@ -754,180 +855,81 @@ wa-page[view='desktop']::part(navigation) {
 /* Leave --menu-width at its default (auto) so the hidden sidebar column collapses to nothing. */
 \`\`\`
 
-Put your own \`data-toggle-nav\` button inside the header so the hamburger sits in your bar; supplying
-one hides the default button, and it is hidden automatically on desktop.
+Put your own \`data-toggle-nav\` button inside the header so the hamburger sits in your bar; supplying one hides the
+default button, and it is hidden automatically on desktop.
 
-Never put a \`data-toggle-nav\` button on a page that has no \`navigation\` content: on mobile it still
-opens the component's drawer, which is then empty and modal, covering the page.
+Never put a \`data-toggle-nav\` button on a page that has no \`navigation\` content: on mobile it still opens the
+component's drawer, which is then empty and modal, covering the page.
 
 ### Reset the page and control the main padding
 
 1. Zero \`<html>\` and \`<body>\` margin and padding, or you get gaps (native styles do this for you):
+   \`html, body { min-height: 100%; padding: 0; margin: 0; }\`.
 
-   \`\`\`css
-   html,
-   body {
-     min-height: 100%;
-     padding: 0;
-     margin: 0;
-   }
-   \`\`\`
+2. \`<wa-page>\` pads a \`<main>\` or \`<section>\` placed in the default slot (a \`<div>\` gets no padding). Keep it for a
+   contained column such as a docs article or a form. For full-bleed heroes and color bands, zero it on the light-DOM
+   element and let each section own its gutter: \`main { padding: 0; }\`.
+   \`wa-page::part(main-content) { padding: 0 }\` does nothing here: the padding lives on your slotted element, not on
+   the part.
 
-2. \`<wa-page>\` pads a \`<main>\` or \`<section>\` placed in the default slot (a \`<div>\` gets no padding).
-   Keep it for a contained column such as a docs article or a form. For full-bleed heroes and color
-   bands, zero it on the light-DOM element and let each section own its gutter:
-
-   \`\`\`css
-   main {
-     padding: 0;
-   }
-   \`\`\`
-
-   \`wa-page::part(main-content) { padding: 0 }\` does nothing here: the padding lives on your slotted
-   element, not on the part.
-
-3. If you set a fixed \`--menu-width\` for a desktop sidebar, reset it with
-   \`wa-page[view='mobile'] { --menu-width: auto; }\`. The \`aside\` slot has no drawer, so hide it on
-   mobile yourself.
+3. If you set a fixed \`--menu-width\` for a desktop sidebar, reset it with \`wa-page[view='mobile'] { --menu-width: auto; }\`.
+   The \`aside\` slot has no drawer, so hide it on mobile yourself.
 
 ### \`view\` is read-only, and the utility classes need a \`<wa-page>\`
 
-The component sets \`view="mobile"\` or \`view="desktop"\` from \`mobile-breakpoint\` (default \`768px\`).
-Read it in CSS; never set it. \`.wa-mobile-only\` and \`.wa-desktop-only\` work only inside a \`<wa-page>\`
-because they key off \`view\`. Add \`data-drawer="close"\` to nav links so the drawer closes after a tap.
+The component sets \`view="mobile"\` or \`view="desktop"\` from \`mobile-breakpoint\` (default \`768px\`). Read it in CSS;
+never set it. \`.wa-mobile-only\` and \`.wa-desktop-only\` work only inside a \`<wa-page>\` because they key off \`view\`.
+Add \`data-drawer="close"\` to nav links so the drawer closes after a tap.
 
-See the full reference at [\`<wa-page>\`](references/components/page.md), the \`webawesome-design\` skill's
-\`layouts-page.md\`, and ${baseUrl}/docs/components/page.
+The full API is in [page.md](references/components/page.md).
 
-## Themes
+## Forms
 
-Web Awesome includes pre-built themes. Apply a theme by adding its class to the \`<html>\` element.
-
-### Free Themes
-- **Default** - The foundational theme
-- **Awesome** - Bright, vibrant color palette
-- **Shoelace** - Classic Shoelace styling
-
-### Pro Themes
-- **Active** - Green branding with rudimentary palette
-- **Brutalist** - Blue branding with default palette
-- **Glossy** - Indigo accents with elegant palette
-- **Matter** - Purple branding with mild palette
-- **Mellow** - Blue branding with natural palette
-- **Playful** - Purple branding with rudimentary palette
-- **Premium** - Cyan branding with anodized palette
-- **Tailspin** - Indigo accents with vogue palette
-
-See [Themes Reference](references/themes.md) for usage details.
-
-## Color Palettes
-
-Each palette provides 10 color hues with 11 tints each.
-
-### Free Palettes
-- Default, Bright, Shoelace
-
-### Pro Palettes
-- Rudimentary, Elegant, Mild, Natural, Anodized, Vogue
-
-See [Themes Reference](references/themes.md) for palette usage.
-
-## Utilities
-
-Web Awesome provides CSS utilities for common styling tasks:
-
-- **Layout**: \`wa-stack\`, \`wa-cluster\`, \`wa-grid\`, \`wa-split\`, \`wa-flank\`, \`wa-frame\`
-- **Spacing**: \`wa-gap-*\` utilities
-- **Text**: Typography utilities
-- **Color**: Color variant utilities
-- **Rounding**: \`wa-border-radius-*\` utilities
-- **Prose**: \`wa-prose\` for long-form typographic rhythm (articles, docs, marketing copy)
-- **Accessibility**: \`wa-visually-hidden\` utilities
-- **FOUCE Prevention**: \`wa-cloak\` utility
-- **Native Styles**: Enhanced styling for native HTML elements
-
-See [Layout Utilities](references/utilities/layout.md), [Prose](references/utilities/prose.md), [Rounding](references/utilities/rounding.md), [Visually Hidden](references/utilities/visually-hidden.md), [FOUCE](references/utilities/fouce.md), and [Native Styles](references/utilities/native.md).
-
-## Design Tokens
-
-Web Awesome uses CSS custom properties (design tokens) for consistent theming:
-
-- **Borders**: \`--wa-border-*\` for width, radius, style
-- **Color**: \`--wa-color-*\` for surfaces, text, semantic colors
-- **Space**: \`--wa-space-*\` for consistent spacing
-- **Typography**: \`--wa-font-*\` for font families, sizes, weights
-- **Shadows**: \`--wa-shadow-*\` for elevation
-- **Focus**: \`--wa-focus-*\` for focus ring styles
-- **Transitions**: \`--wa-transition-*\` for animation timing
-
-See [Design Tokens](references/tokens/) for full reference.
-
-## Form Controls
-
-Web Awesome form controls are form-associated custom elements supporting native form validation and the Constraint Validation API.
-
-- Use \`required\`, \`pattern\`, \`minlength\`, \`maxlength\` attributes
-- Use \`setCustomValidity()\` for custom error messages
-- Style validation states with \`:state(valid)\`, \`:state(invalid)\`, etc.
-
-See [Form Controls Reference](references/form-controls.md) for details.
+Form controls are form-associated custom elements: they submit with a native \`<form>\`, support \`required\`,
+\`pattern\`, \`minlength\`, and \`maxlength\`, and take \`setCustomValidity()\` for custom messages. Style validation with
+\`:state(user-invalid)\`, \`:state(user-valid)\`, \`:state(invalid)\`, and \`:state(required)\`. Read
+[form-controls.md](references/form-controls.md) when building or validating a form.
 
 ## Icons
 
-Font Awesome is the default icon library. Use \`<wa-icon>\` with Font Awesome icon names:
+Font Awesome is the default icon library, so \`name\` takes Font Awesome icon names: \`<wa-icon name="house"></wa-icon>\`.
+Give an icon that carries meaning a \`label\`; decorative icons need none. See [icon.md](references/components/icon.md).
 
-\`\`\`html
-<wa-icon name="house"></wa-icon>
-<wa-icon name="gear"></wa-icon>
-<wa-icon name="check"></wa-icon>
-\`\`\`
+## Other references
 
-## Framework Integration
+Read these when the task calls for them:
 
-Web Awesome works with any framework:
+- [installation.md](references/installation.md): CDN, npm, self-hosted, and autoloader setup.
+- [usage.md](references/usage.md): attributes vs. properties, slots, events, methods, editor setup.
+- [form-controls.md](references/form-controls.md): submission, validation, the Constraint Validation API.
+- [customizing.md](references/customizing.md): light and dark mode, theme CSS, parts, custom properties, states.
+- [themes.md](references/themes.md): theme, palette, and brand classes for \`<html>\`, such as \`wa-theme-awesome\`.
+- [localization.md](references/localization.md): \`lang\`, available translations, registering your own.
+- [support.md](references/support.md): where to report bugs and ask questions.
+- Frameworks: [react.md](references/frameworks/react.md) (React 19, and wrappers for 18 and below),
+  [vue.md](references/frameworks/vue.md), [angular.md](references/frameworks/angular.md),
+  [svelte.md](references/frameworks/svelte.md).
+- CSS utilities, for layout and styling without custom CSS:
+  - [layout.md](references/utilities/layout.md): \`wa-stack\`, \`wa-cluster\`, \`wa-grid\`, \`wa-split\`, \`wa-flank\`, \`wa-frame\`, gaps.
+  - [text.md](references/utilities/text.md): type classes such as \`wa-heading-l\` and \`wa-body-s\`.
+  - [color.md](references/utilities/color.md): variant color classes such as \`wa-brand\`.
+  - [rounding.md](references/utilities/rounding.md): \`wa-border-radius-*\`.
+  - [prose.md](references/utilities/prose.md): \`wa-prose\` for long-form content.
+  - [native.md](references/utilities/native.md): styles for native HTML elements.
+  - [visually-hidden.md](references/utilities/visually-hidden.md): screen-reader-only text.
+  - [fouce.md](references/utilities/fouce.md): \`wa-cloak\`, hiding content until components load.
+- Design tokens, for custom CSS that follows the theme:
+  - [color.md](references/tokens/color.md): \`--wa-color-*\` surfaces, text, and semantic colors.
+  - [space.md](references/tokens/space.md): \`--wa-space-*\`.
+  - [typography.md](references/tokens/typography.md): \`--wa-font-*\`.
+  - [borders.md](references/tokens/borders.md): \`--wa-border-*\`.
+  - [shadows.md](references/tokens/shadows.md): \`--wa-shadow-*\`.
+  - [focus.md](references/tokens/focus.md): \`--wa-focus-*\`.
+  - [transitions.md](references/tokens/transitions.md): \`--wa-transition-*\`.
+  - [component-groups.md](references/tokens/component-groups.md): tokens shared by form controls, buttons, panels.
 
-- **React 19+**: Native custom element support with TypeScript types
-- **React 18 and below**: Use provided React wrappers
-- **Vue**: Works out of the box
-- **Angular**: Works out of the box
-- **Svelte**: Works out of the box
-
-See framework-specific guides in [references/frameworks/](references/frameworks/).
-
-## Pro Features
-
-[Web Awesome Pro](${baseUrl}/purchase) includes:
-
-- Pro Components (Data Grid, Date Picker, Rich Text Editor, etc.)
-- Pro Themes and Color Palettes
-- Theme Builder tool
-- Official Figma Design Kit
-- Responsive Layout Tools
-- Pattern Library
-- Priority Support
-
-## Support
-
-- **GitHub Issues**: https://github.com/shoelace-style/webawesome/issues
-- **GitHub Discussions**: https://github.com/shoelace-style/webawesome/discussions
-- **Discord**: Community chat and support
-- **Email**: For account and billing questions
-
-See [Support Reference](references/support.md) for more details.
-
-## Reference Documentation
-
-- [Choosing the Right Component](references/choosing-components.md) — decision tree by user intent (start here if you're unsure which component fits)
-- [Installation Guide](references/installation.md)
-- [Usage Guide](references/usage.md)
-- [Form Controls](references/form-controls.md)
-- [Customizing](references/customizing.md)
-- [Localization](references/localization.md)
-- [Themes & Palettes](references/themes.md)
-- [Layout Utilities](references/utilities/layout.md)
-- [Native Styles](references/utilities/native.md)
-- [Design Tokens](references/tokens/) - Borders, Color, Space, Typography, Shadows, Focus, Transitions
-- [Framework Guides](references/frameworks/)
+Pro adds components, themes, and the theme builder (${baseUrl}/purchase). Questions and bugs:
+https://github.com/shoelace-style/webawesome/discussions.
 `;
 }
 
@@ -1132,7 +1134,7 @@ function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache, compo
       '',
     ].join('\n');
 
-    fs.writeFileSync(path.join(componentsDestDir, `${componentName}.md`), header + processed, 'utf-8');
+    fs.writeFileSync(path.join(componentsDestDir, `${componentName}.md`), addContentsLine(header + processed), 'utf-8');
   }
 }
 
@@ -1388,8 +1390,22 @@ export async function generateAgentSkill(options = {}) {
     mdPath: 'docs/tokens/typography.md',
   });
 
+  localizeComponentLinks(refsDir, baseUrl);
+
   // Copy to additional directories
   for (const dest of copyTo) {
     copyDirSync(outdir, dest);
+  }
+
+  // The dist copy is the one users install skills from, so a Pro build imports from Pro there. The dist-cdn copy
+  // feeds webawesome.com and keeps core.
+  const packageName = getPackageName();
+  if (packageName !== CORE_PACKAGE_NAME) {
+    fs.writeFileSync(
+      path.join(outdir, 'SKILL.md'),
+      generateSkillMd({ componentList, packageData, baseUrl, packageName }),
+      'utf-8',
+    );
+    retargetPackageFiles(listMarkdownFiles(outdir), packageName);
   }
 }

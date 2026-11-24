@@ -305,6 +305,32 @@ describe('<wa-tooltip>', () => {
           expect(showHandler).to.have.been.calledOnce;
         });
 
+        it('should close when disabled even if wa-hide is prevented', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="disable-prevent-anchor">Anchor</button>
+              <wa-tooltip for="disable-prevent-anchor" trigger="manual">Tooltip</wa-tooltip>
+            </div>
+          `);
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+          await tooltip.show();
+          const hideEvents: Event[] = [];
+          const afterHide = sinon.spy();
+          tooltip.addEventListener('wa-hide', event => {
+            hideEvents.push(event);
+            event.preventDefault();
+          });
+          tooltip.addEventListener('wa-after-hide', afterHide);
+
+          tooltip.disabled = true;
+          await waitUntil(() => afterHide.called);
+
+          expect(tooltip.open).to.be.false;
+          expect(tooltip.body.hidden).to.be.true;
+          expect(hideEvents).to.have.length(1);
+          expect(hideEvents[0].cancelable).to.be.false;
+        });
+
         it('should stay closed when initially open and disabled', async () => {
           const el = await fixture<HTMLDivElement>(html`
             <div>
@@ -365,6 +391,125 @@ describe('<wa-tooltip>', () => {
         });
       });
 
+      describe('connection lifecycle', () => {
+        for (const connected of [false, true]) {
+          it(`should honor hide() ${connected ? 'immediately after' : 'before'} reconnecting an open tooltip`, async () => {
+            const el = await fixture<HTMLDivElement>(html`
+              <div>
+                <button id="reconnect-anchor">Anchor</button>
+                <wa-tooltip for="reconnect-anchor" trigger="manual">Tooltip</wa-tooltip>
+              </div>
+            `);
+            const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+            await tooltip.show();
+
+            tooltip.remove();
+            if (connected) el.append(tooltip);
+            await tooltip.hide();
+            if (!connected) el.append(tooltip);
+            await tooltip.updateComplete;
+
+            expect(tooltip.open).to.be.false;
+            expect(tooltip.body.hidden).to.be.true;
+            expect(tooltip.popup.active).to.be.false;
+          });
+        }
+
+        it('should restore an open tooltip on reconnect', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="reconnect-visible-anchor">Anchor</button>
+              <wa-tooltip for="reconnect-visible-anchor" trigger="manual">Tooltip</wa-tooltip>
+            </div>
+          `);
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+          await tooltip.show();
+
+          tooltip.remove();
+          expect(tooltip.open).to.be.true;
+
+          el.append(tooltip);
+          await tooltip.updateComplete;
+          expect(tooltip.open).to.be.true;
+          expect(tooltip.body.hidden).to.be.false;
+          expect(tooltip.popup.active).to.be.true;
+        });
+
+        it('should stay visible when an open tooltip is re-appended to its parent', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="reappend-anchor">Anchor</button>
+              <wa-tooltip for="reappend-anchor" open>Tooltip</wa-tooltip>
+            </div>
+          `);
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+
+          el.append(tooltip);
+          await aTimeout(500);
+
+          expect(tooltip.open).to.be.true;
+          expect(tooltip.body.hidden).to.be.false;
+          expect(tooltip.popup.active).to.be.true;
+        });
+
+        it('should not complete a hide from a previous connection', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="retired-hide-anchor">Anchor</button>
+              <wa-tooltip for="retired-hide-anchor" trigger="manual">Tooltip</wa-tooltip>
+            </div>
+          `);
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+          await tooltip.show();
+          tooltip.popup.style.setProperty('--hide-duration', '100ms');
+          const afterHide = sinon.spy();
+          tooltip.addEventListener('wa-after-hide', afterHide);
+
+          const hiding = tooltip.hide();
+          await tooltip.updateComplete;
+          tooltip.remove();
+          el.append(tooltip);
+          await hiding;
+
+          expect(afterHide).not.to.have.been.called;
+          expect(tooltip.open).to.be.false;
+          expect(tooltip.body.hidden).to.be.true;
+          expect(tooltip.popup.active).to.be.false;
+
+          await tooltip.show();
+          expect(tooltip.open).to.be.true;
+          expect(tooltip.body.hidden).to.be.false;
+          expect(tooltip.popup.active).to.be.true;
+        });
+
+        for (const open of [false, true]) {
+          it(`should cancel a pending hover ${open ? 'hide' : 'show'} across reconnection`, async () => {
+            const el = await fixture<HTMLDivElement>(html`
+              <div>
+                <button id="disconnect-delay-anchor">Anchor</button>
+                <wa-tooltip for="disconnect-delay-anchor" trigger="hover" show-delay="100" hide-delay="100">
+                  Tooltip
+                </wa-tooltip>
+              </div>
+            `);
+            const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+            const anchor = el.querySelector<HTMLButtonElement>('button')!;
+            if (open) await tooltip.show();
+
+            const clock = sinon.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
+            try {
+              anchor.dispatchEvent(new MouseEvent(open ? 'mouseout' : 'mouseover', { bubbles: true }));
+              tooltip.remove();
+              el.append(tooltip);
+              await clock.tickAsync(100);
+              expect(tooltip.open).to.equal(open);
+            } finally {
+              clock.restore();
+            }
+          });
+        }
+      });
+
       describe('slots', () => {
         it('should accept content in the default slot', async () => {
           const el = await fixture<HTMLDivElement>(html`
@@ -383,7 +528,7 @@ describe('<wa-tooltip>', () => {
       });
 
       describe('CSS parts and states', () => {
-        it('should expose the base CSS part', async () => {
+        it('should expose the "tooltip" part and keep the deprecated base part', async () => {
           const el = await fixture<HTMLDivElement>(html`
             <div>
               <wa-button id="btn">Hover</wa-button>
@@ -391,8 +536,40 @@ describe('<wa-tooltip>', () => {
             </div>
           `);
           const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
-          const base = tooltip.shadowRoot!.querySelector('[part~="base"]');
-          expect(base).to.exist;
+          const wrapper = tooltip.shadowRoot!.querySelector('[part~="tooltip"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
+        });
+
+        it('should expose the popup and arrow under both the deprecated base__ names and the tooltip__ names', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <style>
+                wa-tooltip::part(base__popup) {
+                  outline-color: rgb(1, 2, 3);
+                }
+                wa-tooltip::part(base__arrow) {
+                  outline-color: rgb(4, 5, 6);
+                }
+                wa-tooltip::part(tooltip__popup) {
+                  outline-style: dotted;
+                }
+                wa-tooltip::part(tooltip__arrow) {
+                  outline-style: dashed;
+                }
+              </style>
+              <wa-button id="btn">Hover</wa-button>
+              <wa-tooltip for="btn">Tooltip</wa-tooltip>
+            </div>
+          `);
+          const popupEl = el.querySelector<WaTooltip>('wa-tooltip')!.shadowRoot!.querySelector('wa-popup')!;
+          await popupEl.updateComplete;
+          const popup = getComputedStyle(popupEl.shadowRoot!.querySelector('[part~="popup"]')!);
+          const arrow = getComputedStyle(popupEl.shadowRoot!.querySelector('[part~="arrow"]')!);
+          expect(popup.outlineColor).to.equal('rgb(1, 2, 3)');
+          expect(popup.outlineStyle).to.equal('dotted');
+          expect(arrow.outlineColor).to.equal('rgb(4, 5, 6)');
+          expect(arrow.outlineStyle).to.equal('dashed');
         });
 
         it('should expose the body CSS part', async () => {
@@ -423,6 +600,92 @@ describe('<wa-tooltip>', () => {
       });
     });
   }
+
+  describe('interrupted transitions', () => {
+    it('should hide when opened before its first render', async () => {
+      const el = await fixtures[0]<HTMLDivElement>(html`<div><button id="initial-trigger">Details</button></div>`);
+      const tooltip = document.createElement('wa-tooltip');
+      tooltip.for = 'initial-trigger';
+      tooltip.trigger = 'manual';
+      tooltip.textContent = 'Tooltip';
+      el.append(tooltip);
+      tooltip.open = true;
+      await tooltip.updateComplete;
+      expect(tooltip.body.hidden).to.be.false;
+
+      await tooltip.hide();
+      await tooltip.popup.updateComplete;
+
+      expect(tooltip.open).to.be.false;
+      expect(tooltip.body.hidden).to.be.true;
+      expect(tooltip.popup.active).to.be.false;
+    });
+
+    for (const operation of ['show', 'hide'] as const) {
+      it(`should settle a canceled ${operation} and accept the next request`, async () => {
+        const el = await fixtures[0]<HTMLDivElement>(html`
+          <div>
+            <button id="cancel-trigger">Details</button>
+            <wa-tooltip for="cancel-trigger" trigger="manual">Tooltip</wa-tooltip>
+          </div>
+        `);
+        const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+        if (operation === 'hide') {
+          await tooltip.show();
+        }
+        const events: string[] = [];
+        for (const type of ['wa-show', 'wa-after-show', 'wa-hide', 'wa-after-hide']) {
+          tooltip.addEventListener(type, () => events.push(type));
+        }
+        tooltip.addEventListener(`wa-${operation}`, event => event.preventDefault(), { once: true });
+
+        await tooltip[operation]();
+
+        expect(tooltip.open).to.equal(operation === 'hide');
+        expect(tooltip.body.hidden).to.equal(operation === 'show');
+        expect(events).to.deep.equal([`wa-${operation}`]);
+
+        await tooltip[operation]();
+
+        expect(tooltip.open).to.equal(operation === 'show');
+        expect(tooltip.body.hidden).to.equal(operation === 'hide');
+        expect(events).to.deep.equal([`wa-${operation}`, `wa-${operation}`, `wa-after-${operation}`]);
+      });
+
+      for (const duration of ['0ms', '100ms']) {
+        it(`should settle an interrupted ${operation} without stale completion (${duration})`, async () => {
+          const el = await fixtures[0]<HTMLDivElement>(html`
+            <div>
+              <button id="interrupt-trigger">Details</button>
+              <wa-tooltip for="interrupt-trigger" trigger="manual">Tooltip</wa-tooltip>
+            </div>
+          `);
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+          tooltip.popup.style.setProperty('--show-duration', duration);
+          tooltip.popup.style.setProperty('--hide-duration', duration);
+          if (operation === 'hide') {
+            await tooltip.show();
+          }
+          const events: string[] = [];
+          for (const type of ['wa-show', 'wa-after-show', 'wa-hide', 'wa-after-hide']) {
+            tooltip.addEventListener(type, () => events.push(type));
+          }
+
+          const interrupted = tooltip[operation]();
+          await tooltip.updateComplete;
+          expect(events).to.deep.equal([`wa-${operation}`]);
+          const replacement = operation === 'show' ? 'hide' : 'show';
+          await Promise.all([interrupted, tooltip[replacement]()]);
+          await tooltip.popup.updateComplete;
+
+          expect(tooltip.open).to.equal(replacement === 'show');
+          expect(tooltip.body.hidden).to.equal(replacement === 'hide');
+          expect(tooltip.popup.active).to.equal(replacement === 'show');
+          expect(events).to.deep.equal([`wa-${operation}`, `wa-${replacement}`, `wa-after-${replacement}`]);
+        });
+      }
+    }
+  });
 
   describe('trigger interactions', () => {
     it('should show on click when trigger is "click"', async () => {
@@ -482,6 +745,30 @@ describe('<wa-tooltip>', () => {
       tooltip.open = true;
       await waitUntil(() => tooltip.open);
       expect(tooltip.open).to.be.true;
+    });
+
+    it('should end open when the pointer returns to the anchor during a hide', async () => {
+      const el = await fixtures[0]<HTMLDivElement>(html`
+        <div>
+          <wa-button id="rehover-btn">Hover me</wa-button>
+          <wa-tooltip for="rehover-btn" trigger="hover" show-delay="0" hide-delay="0">Tooltip</wa-tooltip>
+        </div>
+      `);
+      const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+      const anchor = el.querySelector<HTMLElement>('#rehover-btn')!;
+      tooltip.popup.style.setProperty('--hide-duration', '300ms');
+      const afterShow = new Promise(resolve => tooltip.addEventListener('wa-after-show', resolve, { once: true }));
+
+      await moveMouseOnElement(anchor);
+      await afterShow;
+      await moveMouseOnElement(document.body, 'top', 0, 0);
+      await waitUntil(() => !tooltip.open);
+      await moveMouseOnElement(anchor);
+      await aTimeout(500);
+
+      expect(tooltip.open).to.be.true;
+      expect(tooltip.body.hidden).to.be.false;
+      expect(tooltip.popup.active).to.be.true;
     });
 
     it('should remain open when the pointer moves onto a slotted child element of the tooltip', async () => {
@@ -765,7 +1052,7 @@ describe('<wa-tooltip>', () => {
       const el = await fixtures[0]<HTMLDivElement>(html`
         <div>
           <wa-button id="ld-prevent-btn">Hover me</wa-button>
-          <wa-tooltip for="ld-prevent-btn" open>Tooltip</wa-tooltip>
+          <wa-tooltip for="ld-prevent-btn" trigger="manual" open>Tooltip</wa-tooltip>
         </div>
       `);
       const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;

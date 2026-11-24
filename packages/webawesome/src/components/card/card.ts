@@ -79,7 +79,7 @@ export default class WaCard extends WebAwesomeElement {
    */
   @property({ attribute: 'with-footer-actions', type: Boolean, reflect: true }) withFooterActions = false;
 
-  /** Renders the card's orientation **/
+  /** The card's orientation. */
   @property({ reflect: true })
   orientation: 'horizontal' | 'vertical' = 'vertical';
 

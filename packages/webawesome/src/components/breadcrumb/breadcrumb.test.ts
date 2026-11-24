@@ -120,15 +120,16 @@ describe('<wa-breadcrumb>', () => {
       });
 
       describe('CSS parts and states', () => {
-        it('should expose a "base" part on the nav element', async () => {
+        it('should expose a "breadcrumb" part on the nav element and keep the deprecated base part', async () => {
           const el = await fixture<WaBreadcrumb>(html`
             <wa-breadcrumb>
               <wa-breadcrumb-item>Home</wa-breadcrumb-item>
             </wa-breadcrumb>
           `);
-          const base = el.shadowRoot!.querySelector('[part~="base"]');
-          expect(base).to.exist;
-          expect(base!.tagName.toLowerCase()).to.equal('nav');
+          const breadcrumb = el.shadowRoot!.querySelector('[part~="breadcrumb"]');
+          expect(breadcrumb).to.exist;
+          expect(breadcrumb!.tagName.toLowerCase()).to.equal('nav');
+          expect(breadcrumb!.matches('[part~="base"]')).to.be.true;
         });
       });
     });

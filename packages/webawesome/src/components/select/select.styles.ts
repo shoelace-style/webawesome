@@ -114,6 +114,8 @@ export default css`
     background: none;
     line-height: var(--wa-form-control-value-line-height);
     color: var(--wa-form-control-value-color);
+    /* The input is readonly, so Chrome would otherwise draw a text caret while it has focus. */
+    caret-color: transparent;
     cursor: inherit;
     overflow: hidden;
     padding: 0;

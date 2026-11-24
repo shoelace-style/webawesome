@@ -1,12 +1,12 @@
 ---
 title: Agent Skills
-description: Two complementary Agent Skills that help AI tools work with Web Awesome — components and design.
+description: Two complementary Agent Skills that help AI tools work with Web Awesome, one for components and one for design.
 layout: page-outline
 ---
 
 The [Agent Skills specification](https://agentskills.io/) is a standard for providing structured documentation to AI coding assistants. It helps AI tools understand your project's APIs, conventions, and best practices through a well-organized directory of markdown files.
 
-Web Awesome publishes **two complementary Agent Skills** that are designed to work together. If your tool supports loading more than one skill, install both — they cross-reference each other, and the combination covers the full range of design and component work an AI tool will hit on a real task.
+Web Awesome publishes **two complementary Agent Skills** that are designed to work together. If your tool supports loading more than one skill, install both. They cross-reference each other, and the combination covers the full range of design and component work an AI tool will hit on a real task.
 
 | Skill               | Answers the question                             | Reach for it when you're                                                          |
 | ------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------- |
@@ -36,36 +36,52 @@ Unlike a single file, Agent Skills use progressive disclosure. The AI loads only
 
 ### Skill Quality
 
-Both skills are kept in sync with the library by tooling. The `webawesome` skill is generated from the Custom Elements Manifest on every release, so it matches the current component API exactly. The `webawesome-design` skill is hand-authored but verified — every component tag, attribute, slot, and CSS custom property it cites is cross-checked against the library on every build, so it can't claim something the components don't actually do.
+The `webawesome` skill is generated at build time from the docs and the Custom Elements Manifest, so it matches the release it ships with. The `webawesome-design` skill is hand-authored. Before publishing, a [verification script](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/scripts/verify-skills.js) checks both skills: frontmatter, relative links, and size budgets; the components and attributes named in the decision tree; the design skill's `<wa-page>` API tables against the Custom Elements Manifest; and that no deprecated sizes or members appear. The rest of the design guidance is reviewed by hand. Each `SKILL.md` records the Web Awesome version it came from in `metadata.version`.
 
 ## How to Use Them
 
-Both skills ship in every Web Awesome build and are available in your `node_modules` directory after installing via npm:
+Both skills ship in the npm package and are available in your `node_modules` directory after you install Web Awesome:
 
 ```
 node_modules/@awesome.me/webawesome/dist/skills/webawesome/
 node_modules/@awesome.me/webawesome/dist/skills/webawesome-design/
 ```
 
-How you reference them depends on your AI tool.
+Web Awesome Pro ships the same skills, with Pro components added to `webawesome`, under `node_modules/@web.awesome.me/webawesome-pro/dist/skills/`. With Pro, use that path in the commands below so the skills import from the Pro package.
 
-### Claude Code
+### Installing with the Skills CLI
 
-With [Claude Code](https://claude.ai/code), install either or both skills using the [skills CLI](https://skills.sh/):
+The [skills CLI](https://skills.sh/) installs skills for Claude Code, Cursor, Codex, and other tools that support the specification. Run it from your project after installing Web Awesome:
 
 ```bash
-# Install the component skill, the design skill, or both
 npx skills add ./node_modules/@awesome.me/webawesome/dist/skills/webawesome
 npx skills add ./node_modules/@awesome.me/webawesome/dist/skills/webawesome-design
+```
 
-# Uninstall
+The CLI copies each skill into `.agents/skills/` and links it into each tool's skills directory, such as `.claude/skills/`. Add `-g` to install them for your user account in `~/.agents/skills/` instead. Once installed, your AI tool loads the right skill based on what you ask for.
+
+The path assumes Web Awesome is installed in the folder you run the command from. In a monorepo, run it from the folder whose `node_modules` contains `@awesome.me/webawesome`. Yarn Plug'n'Play doesn't create `node_modules`, so run `yarn unplug @awesome.me/webawesome` first and use the package's path under `.yarn/unplugged/`.
+
+To uninstall, run the following. Add `-g` if you installed them globally.
+
+```bash
 npx skills remove webawesome
 npx skills remove webawesome-design
 ```
 
-Once installed, the skills are available to Claude Code automatically, and it loads the right one based on what you ask for. They're installed as symlinks, so they stay up to date when you update Web Awesome via npm.
+### Keeping Skills Up to Date
 
-You can also reference a skill directory manually, or point Claude at a specific reference file:
+Installed skills are copies, so they don't change when you upgrade Web Awesome. Run the same `npx skills add` commands again after each upgrade. `npx skills update` skips skills installed from a local path, so it won't refresh them.
+
+To see which release a skill came from, check `metadata.version` in the installed `SKILL.md`, such as `.agents/skills/webawesome/SKILL.md` or `.claude/skills/webawesome/SKILL.md`.
+
+### The skills.sh Registry
+
+The [skills.sh](https://skills.sh/) registry lists `webawesome-design` under `shoelace-style/webawesome`. That copy comes from the repository's development branch, has no version stamp, and can describe features your installed version doesn't have. The `webawesome` skill isn't listed because it's generated at build time and isn't in the repository. Install both from your package, as shown above, so they match the version you use.
+
+### Referencing Files Directly
+
+In Claude Code, you can also reference a skill directory without installing it, or point Claude at a specific reference file:
 
 ```
 @node_modules/@awesome.me/webawesome/dist/skills/webawesome/
@@ -73,27 +89,16 @@ You can also reference a skill directory manually, or point Claude at a specific
 @node_modules/@awesome.me/webawesome/dist/skills/webawesome-design/references/layouts-page.md
 ```
 
-### Cursor
-
-In [Cursor](https://cursor.sh/), open **Cursor Settings → Features → Docs**, click **+ Add new doc**, and point it at the skill directory in your `node_modules` folder:
-
-```
-node_modules/@awesome.me/webawesome/dist/skills/webawesome/
-node_modules/@awesome.me/webawesome/dist/skills/webawesome-design/
-```
-
-Add both as separate doc sources if you want both skills available. Cursor will index the markdown and surface it via @-mention or as relevant context.
-
 ### Other AI Tools
 
-The skills follow the [Agent Skills specification](https://agentskills.io/), so any tool that supports the spec should be able to use them. We've tested in Claude Code and Cursor. If your tool can load a directory of markdown references on demand, point it at the same `node_modules/@awesome.me/webawesome/dist/skills/` directories shown above.
+The skills follow the [Agent Skills specification](https://agentskills.io/), so any tool that supports the spec should be able to use them. Cursor and Codex load skills from `.agents/skills/`, so the CLI install above covers them. We've tested in Claude Code and Cursor. If your tool can load a directory of markdown references on demand, point it at the same `node_modules/@awesome.me/webawesome/dist/skills/` directories shown above.
 
 <div class="wa-flank:end">
   <h2>The Component Skill</h2>
   <code>webawesome</code>
 </div>
 
-The `webawesome` skill is the **component reference**. It's generated from the library on every build, so it always matches the current API. Use it when you need to know what a component does: its properties, slots, events, CSS parts, or framework integration.
+The `webawesome` skill is the **component reference**. It's generated from the docs and the Custom Elements Manifest at build time, so it matches the release it ships with. Use it when you need to know what a component does: its properties, slots, events, CSS parts, or framework integration.
 
 The skill directory contains:
 
@@ -101,7 +106,7 @@ The skill directory contains:
 webawesome/
 ├── SKILL.md                       # Overview, quick start, and component listing
 └── references/
-    ├── choosing-components.md     # Decision tree by user intent — start here
+    ├── choosing-components.md     # Decision tree by user intent; start here
     ├── components/                # Individual documentation for each component
     ├── frameworks/                # React, Vue, Angular, Svelte guides
     ├── utilities/                 # Layout and styling utilities
@@ -109,13 +114,15 @@ webawesome/
     ├── installation.md            # Installation guide
     ├── usage.md                   # Usage patterns
     ├── form-controls.md           # Form integration
+    ├── customizing.md             # Light and dark mode, theme CSS, parts, custom properties, states
     ├── themes.md                  # Themes and color palettes
-    └── ...
+    ├── localization.md            # Languages, translations, and registering your own
+    └── support.md                 # Where to report bugs and ask questions
 ```
 
 It covers:
 
-- **Component decision tree:** a "which component should I use?" reference organized by user intent (pick one, pick many, show feedback, etc.) — closes the most common gap, which is picking the wrong component for the job
+- **Component decision tree:** a "which component should I use?" reference organized by user intent (pick one, pick many, show feedback, etc.). It closes the most common gap, which is picking the wrong component for the job
 - **Component documentation:** every component's full API (properties, slots, methods, events, CSS parts, and customization), with examples
 - **Installation & usage:** npm, CDN, and self-hosting options, plus working with attributes, properties, events, methods, and slots
 - **Form controls:** form integration and validation
@@ -133,14 +140,16 @@ The skill directory contains:
 
 ```
 webawesome-design/
-├── SKILL.md                  # Layout decision gate, core rules, recommended starting points, structural Final Pass
+├── SKILL.md                    # Four-step workflow, core rules, verification command and checklist, starting points
 └── references/
-    ├── layouts-page.md       # Full-page layouts with <wa-page> + a <wa-page>-specific structural checklist
-    ├── layouts-inpage.md     # Sections, widgets, and embeds (utilities only)
-    ├── theming.md            # Themes, palettes, light/dark, brand color, tokens
-    ├── composition.md        # Spacing, layout utilities, companion utilities, typography, surfaces, images, custom CSS playbook
-    ├── patterns.md           # Best-practice recipes (app shell, login, settings, dashboard, hero)
-    └── getting-started.md    # The opinionated default setup
+    ├── your-design-system.md   # Discovering and extending a project's own design system, DESIGN.md template
+    ├── layouts-page.md         # Full-page layouts with <wa-page>, nav shapes, a <wa-page> checklist, API tables
+    ├── layouts-inpage.md       # Sections, widgets, and embeds (utilities only)
+    ├── theming.md              # Themes, palettes, light/dark, brand color, tokens
+    ├── composition.md          # Spacing, layout and companion utilities, typography, icons, surfaces, custom CSS playbook
+    ├── principles.md           # The design judgment behind the tokens: color, depth, hierarchy, spacing, type
+    ├── patterns.md             # Recipes: app shell, landing page, login, settings, dashboard grid
+    └── getting-started.md      # The opinionated default setup
 ```
 
 It covers:
@@ -148,24 +157,20 @@ It covers:
 - **Layout:** when and how to use `<wa-page>` for full-page layouts (with an explicit landing-page vs. app-shell branch to head off the most common sidebar mistake), and how to compose sections, widgets, and forms with layout utilities when `<wa-page>` isn't the right fit
 - **Theming:** choosing themes and palettes, light and dark mode, matching a brand color, and customizing with `--wa-*` tokens
 - **Composition:** spacing rhythm, the layout-utility decision guide, typography, surfaces, images/placeholders, and a Companion utilities reference (alignment, text, sizing, color, accessibility) so AI tools reach for utility classes instead of inline styles
-- **Custom CSS playbook:** a seven-point playbook for the times AI tools genuinely need to write custom CSS — semantic tokens for dark mode, `*-on-*` pairings for WCAG contrast, the `loud`/`normal`/`quiet` step as a contrast lever, and the shadow-DOM cascade boundary so custom rules target your own elements rather than fighting component internals
-- **Self-check passes:** a **structural** final pass in the main skill (markup, slot decisions, rule compliance) plus a **visual polish** checklist in composition.md (rhythm, hierarchy, contrast on surfaces) and a `<wa-page>`-specific structural checklist in layouts-page.md
+- **Design system discovery:** how to find a project's existing theme, token overrides, and house recipes before building, and how to extend them without forking
+- **Custom CSS playbook:** an eight-point playbook for the times AI tools genuinely need to write custom CSS: semantic tokens for dark mode, `*-on-*` pairings for WCAG contrast, the `loud`/`normal`/`quiet` step as a contrast lever, and the shadow-DOM cascade boundary so custom rules target your own elements rather than fighting component internals
+- **Self-check passes:** a "Verify before you finish" section in the main skill with one search command and a structural checklist, plus a **visual polish** checklist in composition.md (rhythm, hierarchy, contrast on surfaces) and a `<wa-page>` checklist in layouts-page.md
 - **Recipes:** best-practice starting points for common screens
 
 ## Agent Skills vs llms.txt
 
-Web Awesome provides both an [llms.txt file](/docs/ai/llms) and [Agent Skills](https://agentskills.io/). Here's when to use each:
+Web Awesome provides both an [llms.txt file](/docs/ai/llms) and [Agent Skills](https://agentskills.io/). Which one to use depends on how your tool loads documentation:
 
-| Feature       | Agent Skill                              | llms.txt                      |
-| ------------- | ---------------------------------------- | ----------------------------- |
-| Format        | Directory with multiple markdown files   | Single text file              |
-| Best for      | Deep integration, complex tasks          | Quick context, simple queries |
-| Context usage | Progressive disclosure (loads as needed) | Loads everything at once      |
-| Supported by  | Tools supporting agentskills.io spec     | Most AI tools                 |
-
-:::info
-If your AI tool supports Agent Skills, **we recommend using the skills** for better context efficiency. Otherwise, the `llms.txt` file is a great fallback.
-:::
+| If your tool                                                   | Use                         | Why                                                                                                |
+| -------------------------------------------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------- |
+| Supports Agent Skills (Claude Code, Cursor, Codex, and others) | The skills                  | The tool reads `SKILL.md` first and opens references only when a task needs them                   |
+| Takes one file, a URL, or pasted context                       | [`llms.txt`](/docs/ai/llms) | It's a single file with the full component API                                                     |
+| Loads a whole folder into context at once                      | [`llms.txt`](/docs/ai/llms) | The `webawesome` skill has a reference file for every component and is much larger than `llms.txt` |
 
 ## Feedback
 

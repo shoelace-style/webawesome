@@ -15,6 +15,12 @@ interface AllDefinedOptions {
    * but you can call this function and set `root` to a custom element's shadow root if needed.
    */
   root: Document | ShadowRoot;
+
+  /**
+   * The maximum time to wait in milliseconds. When it expires, a warning listing the elements that were never defined
+   * is logged and the promise resolves anyway. Defaults to `2000`. Set to `Infinity` to wait indefinitely.
+   */
+  timeout: number;
 }
 
 /**
@@ -40,6 +46,7 @@ export async function allDefined(options?: Partial<AllDefinedOptions>) {
     match: tagName => tagName.startsWith('wa-'),
     additionalElements: [],
     root: document,
+    timeout: 2000,
     ...options,
   };
 
@@ -56,8 +63,22 @@ export async function allDefined(options?: Partial<AllDefinedOptions>) {
 
   const tagsToAwait = [...undefinedElements, ...additionalElements];
 
-  // Wait for all to be registered
-  await Promise.all(tagsToAwait.map(tag => customElements.whenDefined(tag)));
+  // Wait for all to be registered, but don't let an element that's never registered hang forever
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timedOut = new Promise<void>(resolve => {
+    if (opts.timeout === Infinity) return;
+    timer = setTimeout(() => {
+      const pending = tagsToAwait.filter(tag => !customElements.get(tag));
+      console.warn(`allDefined() timed out after ${opts.timeout}ms waiting for: ${pending.join(', ')}`);
+      resolve();
+    }, opts.timeout);
+  });
+
+  try {
+    await Promise.race([Promise.all(tagsToAwait.map(tag => customElements.whenDefined(tag))), timedOut]);
+  } finally {
+    clearTimeout(timer);
+  }
 
   // Wait a cycle for the first update
   await new Promise(requestAnimationFrame);

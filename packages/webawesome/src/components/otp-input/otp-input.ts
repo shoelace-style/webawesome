@@ -63,7 +63,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
 
   private readonly hasSlotController = new HasSlotController(this, 'label', 'hint');
 
-  /** The real `<input>` used for form association and validation (visually hidden). */
+  /** @internal The real `<input>` used for form association and validation (visually hidden). */
   @query('.hidden-input') input: HTMLInputElement;
 
   @query('.segments') private segmentsContainer: HTMLElement;
