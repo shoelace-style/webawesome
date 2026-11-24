@@ -217,9 +217,12 @@ export default class WaDropdown extends WebAwesomeElement {
   }
 
   /** Closes all submenus in the dropdown. */
-  private closeAllSubmenus() {
+  private closeAllSubmenus(animate = true) {
     const items = this.getItems(true);
-    [...items, ...this.openSubmenuStack].forEach(item => (item.submenuOpen = false));
+    [...items, ...this.openSubmenuStack].forEach(item => {
+      item.submenuOpen = false;
+      if (!animate) item.hideSubmenu();
+    });
     this.openSubmenuStack = [];
   }
 
@@ -240,6 +243,9 @@ export default class WaDropdown extends WebAwesomeElement {
       this.open = false;
       return;
     }
+
+    // A reopen during the hide animation makes the menu usable again
+    this.menu.inert = false;
 
     // if this dropdown is already open, do nothing
     // (this can happen when wa-hide was cancelled). A popup that's still animating closed isn't open, so reopen it.
@@ -300,9 +306,13 @@ export default class WaDropdown extends WebAwesomeElement {
       return;
     }
 
-    this.closeAllSubmenus();
-    const originalTrigger = this.originalTrigger;
+    // Focus the trigger now, since focus may move elsewhere during the hide animation
+    this.originalTrigger?.focus({ preventScroll: true });
     this.originalTrigger = null;
+    // An inert submenu would let clicks through to the page while it animates out, so hide submenus right away
+    this.closeAllSubmenus(false);
+    // The menu stays visible while it animates out, so keep focus and clicks out of it
+    this.menu.inert = true;
     this.open = false;
     openDropdowns.delete(this);
     unregisterDismissible(this);
@@ -318,7 +328,6 @@ export default class WaDropdown extends WebAwesomeElement {
     // Sometimes this ends up out of sync. So make sure it aligns with `open`
     this.popup.active = this.open; // Hide using wa-popup
     this.dispatchEvent(new WaAfterHideEvent());
-    originalTrigger?.focus({ preventScroll: true });
   }
 
   /** Adds the dropdown to the open dropdowns and dismissible stack and listens for document events. */
@@ -544,6 +553,14 @@ export default class WaDropdown extends WebAwesomeElement {
   /** Toggles the dropdown menu */
   private handleTriggerClick() {
     this.open = !this.open;
+  }
+
+  /** Keeps focus in place when the inert menu is clicked while it animates out */
+  private handlePopupMouseDown(event: MouseEvent) {
+    // The inert menu passes clicks through to the popup's wrapper
+    if (!this.open && event.target === this.popup) {
+      event.preventDefault();
+    }
   }
 
   /** Handles submenu opening events */
@@ -786,6 +803,7 @@ export default class WaDropdown extends WebAwesomeElement {
         shift-padding="10"
         auto-size="both"
         auto-size-padding="10"
+        @mousedown=${this.handlePopupMouseDown}
       >
         <slot
           name="trigger"

@@ -280,12 +280,22 @@ export default class WaDropdownItem extends WebAwesomeElement {
       await animateWithClass(submenu, 'hide');
       // Skip if the submenu reopened while it was animating closed
       if (!this.submenuOpen) {
-        submenu.hidden = true;
-        submenu.removeAttribute('data-visible');
-        // The browser already hid the popover if the item was removed
-        if (submenu.isConnected) submenu.hidePopover?.();
+        this.hideSubmenu();
       }
     }
+  }
+
+  /** @internal Hides the submenu without animating it. The dropdown uses this when the whole menu closes. */
+  hideSubmenu() {
+    const submenu = this.submenuElement;
+    if (!submenu || submenu.hidden) return;
+
+    this.submenuOpen = false;
+    this.setAttribute('aria-expanded', 'false');
+    submenu.hidden = true;
+    submenu.removeAttribute('data-visible');
+    // The browser already hid the popover if the item was removed
+    if (submenu.isConnected) submenu.hidePopover?.();
   }
 
   /**
