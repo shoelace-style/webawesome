@@ -1,5 +1,5 @@
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
@@ -7,6 +7,16 @@ import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { serialize } from '../../utilities/form.js';
 import type WaInput from './input.js';
+
+// Clicks a point inside the field, measured in pixels from its left edge or, when negative, its right edge
+async function clickField(el: WaInput, offset: number) {
+  const { left, right, top, height } = el.shadowRoot!.querySelector('[part~="base"]')!.getBoundingClientRect();
+  const x = offset < 0 ? right + offset : left + offset;
+  await sendMouse({
+    type: 'click',
+    position: [Math.round(x + window.pageXOffset), Math.round(top + window.pageYOffset + height / 2)],
+  });
+}
 
 describe('<wa-input>', () => {
   runFormControlBaseTests('wa-input');
@@ -242,6 +252,28 @@ describe('<wa-input>', () => {
           await el.updateComplete;
           const toggleButton = el.shadowRoot!.querySelector('[part~="password-toggle-button"]');
           expect(toggleButton).to.be.null;
+        });
+      });
+
+      describe('caret placement', () => {
+        it('should place the caret at the end when clicking the trailing padding', async () => {
+          const el = await fixture<WaInput>(html`<wa-input value="Example text"></wa-input>`);
+          const input = el.shadowRoot!.querySelector<HTMLInputElement>('input')!;
+
+          await clickField(el, -6);
+
+          expect(el.shadowRoot!.activeElement).to.equal(input);
+          expect(input.selectionStart).to.equal('Example text'.length);
+        });
+
+        it('should place the caret at the start when clicking the leading padding', async () => {
+          const el = await fixture<WaInput>(html`<wa-input value="Example text"></wa-input>`);
+          const input = el.shadowRoot!.querySelector<HTMLInputElement>('input')!;
+
+          await clickField(el, 6);
+
+          expect(el.shadowRoot!.activeElement).to.equal(input);
+          expect(input.selectionStart).to.equal(0);
         });
       });
 

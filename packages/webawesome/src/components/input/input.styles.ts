@@ -35,7 +35,6 @@ export default css`
     transition-timing-function: var(--wa-transition-easing);
     background-color: var(--wa-form-control-background-color);
     box-shadow: var(--box-shadow);
-    padding: 0 var(--wa-form-control-padding-inline);
     outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) transparent;
     outline-offset: var(--wa-focus-ring-offset);
 
@@ -86,7 +85,8 @@ export default css`
     */
       height: 100%;
 
-      padding: 0;
+      /* Pad the control, not the field, so clicks in the padding reach the control and place the caret natively */
+      padding: 0 var(--wa-form-control-padding-inline);
       border: none;
       outline: none;
       box-shadow: none;
@@ -178,11 +178,11 @@ export default css`
   }
 
   .start::slotted(*) {
-    margin-inline-end: var(--wa-form-control-padding-inline);
+    margin-inline-start: var(--wa-form-control-padding-inline);
   }
 
   .end::slotted(*) {
-    margin-inline-start: var(--wa-form-control-padding-inline);
+    margin-inline-end: var(--wa-form-control-padding-inline);
   }
 
   /*
@@ -208,8 +208,8 @@ export default css`
     cursor: pointer;
     /* The box is wider than the glyph, so overhang half of that growth on each side. Keeps the
        glyph flush with the field's trailing padding edge, like every other form control. */
-    margin-inline-start: calc(var(--wa-form-control-padding-inline) - 0.125em);
-    margin-inline-end: -0.125em;
+    margin-inline-start: -0.125em;
+    margin-inline-end: calc(var(--wa-form-control-padding-inline) - 0.125em);
 
     &::after {
       content: '';
