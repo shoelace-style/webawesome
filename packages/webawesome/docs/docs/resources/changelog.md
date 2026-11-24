@@ -46,7 +46,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- Fixed a bug in `<wa-dialog>`, `<wa-drawer>`, and `<wa-lightbox>` that reset an author-set `scrollbar-gutter` to `auto` while open when the page had no visible scrollbar [issue:2771]
+- Fixed a bug in `<wa-dialog>`, `<wa-drawer>`, and `<wa-lightbox>` that reset an author-set `scrollbar-gutter` to `auto` while open when the page had no visible scrollbar [issue:2771] [pr:3085]
 - Fixed bugs in `<wa-dropdown>` when opening and closing the menu [issue:2882] [pr:3060]
   - Fixed a stale `wa-after-hide` event when the menu reopened during its hide animation
   - Fixed an open dropdown ignoring [[Escape]] and clicks outside after it was removed and reattached
@@ -67,7 +67,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed missing form control states, such as `user-invalid`, in the Custom States tables of form controls [pr:3076]
 - Fixed the agent skills and `llms.txt` that ship with Web Awesome Pro so they import from the Pro package instead of `@awesome.me/webawesome` [issue:2824] [pr:3087]
 - Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
-- Fixed a bug in `<wa-select>` where a text caret appeared at the start of the input after the listbox closed [issue:2979] [pr:3078]
+- Fixed a bug in `<wa-select>` where a text caret appeared at the start of the input when the select received focus [issue:2979] [pr:3078]
 - Fixed a bug in `<wa-radio-group>` where arrow keys and [[Space]] were taken from buttons, links, and fields placed inside the group [issue:2892] [pr:2893]
 - Fixed a bug in `<wa-select>` that let an option be selected while the listbox closed after the control was disabled [pr:2960]
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
