@@ -99,7 +99,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
 
   // Raw value set as a property before the first render, normalized in willUpdate() once `type`, `case`,
   // `length`, and `format` have their initial values
-  private _initialValue: string | null = null;
+  private initialValue: string | null = null;
 
   /** The current value of the OTP field, submitted as a name/value pair with form data. */
   get value(): string {
@@ -107,7 +107,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
   }
 
   set value(val: string) {
-    if (!this.hasUpdated) this._initialValue = val;
+    if (!this.hasUpdated) this.initialValue = val;
     const next = this.filterAndTransform(val).slice(0, this.effectiveLength);
     if (this._value === next) return;
     const oldValue = this._value;
@@ -216,11 +216,11 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     super.willUpdate(changedProperties);
     // Initialize live value on first render from the `value` property if it was set, else from the `value` attribute.
     if (!this.hasUpdated) {
-      const initial = this.filterAndTransform(this._initialValue ?? this.defaultValue ?? '').slice(
+      const initial = this.filterAndTransform(this.initialValue ?? this.defaultValue ?? '').slice(
         0,
         this.effectiveLength,
       );
-      this._initialValue = null;
+      this.initialValue = null;
       if (this._value !== initial) {
         this._value = initial;
         this.setValue(initial);
