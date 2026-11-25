@@ -103,6 +103,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-toast-item>` that let a toast close while hovered or focused [pr:3063]
 - Fixed a bug in `<wa-input>` where clicking the field's padding placed the caret at the wrong position [issue:2956] [pr:2971]
   - Moved the inline padding from the `base` part to the `input` part, so custom padding set on `base` should move to `input`
+- Fixed a bug in `<wa-slider>` where a swipe that started on the slider on a touch screen changed its value instead of scrolling the page; a touch now starts a drag only once it moves along the slider [issue:3098]
 
 :::
 

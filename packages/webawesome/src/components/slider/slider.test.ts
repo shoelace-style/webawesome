@@ -9,6 +9,17 @@ import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import { serialize } from '../../utilities/form.js';
 import type WaSlider from './slider.js';
 
+function trackPoint(el: WaSlider, fraction: number) {
+  const { left, top, width, height } = el.shadowRoot!.querySelector('#track')!.getBoundingClientRect();
+  return { x: left + width * fraction, y: top + height / 2 };
+}
+
+function dispatchTouch(target: EventTarget, type: string, clientX: number, clientY: number) {
+  target.dispatchEvent(
+    new PointerEvent(type, { pointerType: 'touch', clientX, clientY, bubbles: true, composed: true }),
+  );
+}
+
 describe('<wa-slider>', () => {
   runFormControlBaseTests('wa-slider');
 
@@ -93,6 +104,55 @@ describe('<wa-slider>', () => {
           el.addEventListener('input', () => expect.fail('input should not be emitted'));
           el.stepDown();
           await el.updateComplete;
+        });
+      });
+
+      describe('touch', () => {
+        it('should not change the value when the browser takes over a touch to scroll', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider value="20"></wa-slider>`);
+          const { x, y } = trackPoint(el, 0.75);
+
+          el.addEventListener('change', () => expect.fail('change should not be emitted'));
+          el.addEventListener('input', () => expect.fail('input should not be emitted'));
+          dispatchTouch(el.shadowRoot!.querySelector('#slider')!, 'pointerdown', x, y);
+          dispatchTouch(document, 'pointermove', x, y - 8);
+          dispatchTouch(document, 'pointercancel', x, y - 8);
+          await el.updateComplete;
+
+          expect(el.value).to.equal(20);
+        });
+
+        it('should set the value when a touch is released without moving', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider value="20"></wa-slider>`);
+          const { x, y } = trackPoint(el, 0.75);
+
+          await expectEvent(el, ['change', 'input'], async () => {
+            dispatchTouch(el.shadowRoot!.querySelector('#slider')!, 'pointerdown', x, y);
+            dispatchTouch(document, 'pointerup', x, y);
+            await el.updateComplete;
+          });
+
+          expect(el.value).to.equal(75);
+        });
+
+        it('should start dragging once a touch moves along the slider', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider value="20"></wa-slider>`);
+          const start = trackPoint(el, 0.2);
+          const end = trackPoint(el, 0.75);
+
+          dispatchTouch(el.shadowRoot!.querySelector('#slider')!, 'pointerdown', start.x, start.y);
+          dispatchTouch(document, 'pointermove', start.x + 5, start.y);
+          await el.updateComplete;
+          expect(el.value).to.equal(20);
+
+          dispatchTouch(document, 'pointermove', end.x, end.y);
+          await el.updateComplete;
+          expect(el.value).to.equal(75);
+
+          await expectEvent(el, 'change', async () => {
+            dispatchTouch(document, 'pointerup', end.x, end.y);
+            await el.updateComplete;
+          });
         });
       });
 

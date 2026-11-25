@@ -62,6 +62,13 @@ export function drag(container: HTMLElement, options?: Partial<DragOptions>) {
 
 const supportsTouch = typeof window !== 'undefined' && 'ontouchstart' in window;
 
+/** How far a touch must move along the drag axis before it starts a drag. */
+const TOUCH_SLOP = 10;
+
+function isTouch(event: PointerEvent | TouchEvent) {
+  return 'touches' in event || event.pointerType === 'touch';
+}
+
 /**
  * Attaches the necessary events to make an element draggable.
  *
@@ -72,6 +79,8 @@ const supportsTouch = typeof window !== 'undefined' && 'ontouchstart' in window;
  * to start and stop it, if needed.
  *
  * Use `touch-action: none` on touch devices if scrolling occurs while dragging. Avoid preventing the touchstart event!
+ * To let the page scroll when a touch moves across the drag axis instead, set the `touchAxis` option and use
+ * `touch-action: pan-y` (for `x`) or `touch-action: pan-x` (for `y`).
  *
  * @usage
  *
@@ -85,6 +94,7 @@ export class DraggableElement {
   private element: Element;
   private isActive = false;
   private isDragging = false;
+  private pendingTouch?: { x: number; y: number; axis: 'x' | 'y' };
   private options: DraggableElementOptions;
 
   constructor(el: Element, options: Partial<DraggableElementOptions>) {
@@ -123,6 +133,13 @@ export class DraggableElement {
     document.addEventListener('touchend', this.handleDragStop);
     document.addEventListener('touchmove', this.handleDragMove);
     document.addEventListener('touchcancel', this.handleDragStop);
+
+    const axis = this.options.touchAxis?.();
+    if (axis && isTouch(event)) {
+      this.pendingTouch = { x: clientX, y: clientY, axis };
+      return;
+    }
+
     this.options.start(clientX, clientY);
   };
 
@@ -137,12 +154,34 @@ export class DraggableElement {
     document.removeEventListener('touchend', this.handleDragStop);
     document.removeEventListener('touchmove', this.handleDragMove);
     document.removeEventListener('touchcancel', this.handleDragStop);
+
+    if (this.pendingTouch) {
+      this.pendingTouch = undefined;
+
+      // The browser cancels a touch that it takes over to scroll the page
+      if (event.type === 'pointercancel' || event.type === 'touchcancel') {
+        return;
+      }
+
+      // A touch that didn't move is a tap
+      this.options.start(clientX, clientY);
+    }
+
     this.options.stop(clientX, clientY);
   };
 
   private handleDragMove = (event: PointerEvent | TouchEvent) => {
     const clientX = 'touches' in event ? event.touches[0].clientX : (event as PointerEvent).clientX;
     const clientY = 'touches' in event ? event.touches[0].clientY : (event as PointerEvent).clientY;
+
+    if (this.pendingTouch) {
+      const { x, y, axis } = this.pendingTouch;
+      if (Math.abs(axis === 'x' ? clientX - x : clientY - y) < TOUCH_SLOP) {
+        return;
+      }
+      this.pendingTouch = undefined;
+      this.options.start(x, y);
+    }
 
     // Prevent text selection while dragging
     window.getSelection()?.removeAllRanges();
@@ -175,6 +214,7 @@ export class DraggableElement {
     }
     this.isActive = false;
     this.isDragging = false;
+    this.pendingTouch = undefined;
   }
 
   /** Starts or stops the drag listeners. */
@@ -196,4 +236,10 @@ export interface DraggableElementOptions {
   move: (clientX: number, clientY: number) => void;
   /** Runs when dragging ends. */
   stop: (clientX: number, clientY: number) => void;
+  /**
+   * Returns the axis the element is dragged along. When set, a touch only starts a drag once it moves along this axis,
+   * so the browser can scroll the page with a touch that moves across it. A touch that doesn't move is a tap: `start`
+   * and `stop` run when it ends.
+   */
+  touchAxis?: () => 'x' | 'y';
 }
