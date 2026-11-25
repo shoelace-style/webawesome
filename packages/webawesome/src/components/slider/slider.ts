@@ -231,6 +231,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     if (this.isRange) {
       // Enable dragging on both thumbs for range slider
       this.draggableThumbMin = new DraggableElement(this.thumbMin, {
+        touchAxis: this.getTouchAxis,
         start: () => {
           this.activeThumb = 'min';
           this.trackBoundingClientRect = this.track.getBoundingClientRect();
@@ -256,6 +257,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       });
 
       this.draggableThumbMax = new DraggableElement(this.thumbMax, {
+        touchAxis: this.getTouchAxis,
         start: () => {
           this.activeThumb = 'max';
           this.trackBoundingClientRect = this.track.getBoundingClientRect();
@@ -282,6 +284,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
       // Enable track dragging for finding the closest thumb
       this.draggableTrack = new DraggableElement(this.track, {
+        touchAxis: this.getTouchAxis,
         start: (x, y) => {
           this.trackBoundingClientRect = this.track.getBoundingClientRect();
 
@@ -355,6 +358,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     } else {
       // Single thumb mode - original behavior
       this.draggableTrack = new DraggableElement(this.slider, {
+        touchAxis: this.getTouchAxis,
         start: (x, y) => {
           this.trackBoundingClientRect = this.track.getBoundingClientRect();
           this.valueWhenDraggingStarted = this.value;
@@ -640,6 +644,8 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       }
     }
   }
+
+  private getTouchAxis = () => (this.orientation === 'vertical' ? 'y' : 'x');
 
   private setValueFromCoordinates(x: number, y: number) {
     const oldValue = this.value;

@@ -36,7 +36,13 @@ export default css`
   }
 
   #slider {
-    touch-action: none;
+    &.horizontal {
+      touch-action: pan-y;
+    }
+
+    &.vertical {
+      touch-action: pan-x;
+    }
 
     &:focus {
       outline: none;
