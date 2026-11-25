@@ -390,7 +390,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
         changedProperties.has('min') ||
         changedProperties.has('max')
       ) {
-        this.minValue = clamp(this.minValue, this.min, this.maxValue);
+        this.minValue = clamp(this.minValue, this.min, Math.min(this.maxValue, this.max));
         this.maxValue = clamp(this.maxValue, this.minValue, this.max);
       }
     }

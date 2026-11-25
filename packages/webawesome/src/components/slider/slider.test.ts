@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
-import { clickOnElement } from '../../internal/test/pointer-utilities.js';
+import { clickOnElement, dragElement } from '../../internal/test/pointer-utilities.js';
 import { serialize } from '../../utilities/form.js';
 import type WaSlider from './slider.js';
 
@@ -52,6 +52,32 @@ describe('<wa-slider>', () => {
         it('should clamp value to min/max range', async () => {
           const el = await fixture<WaSlider>(html`<wa-slider min="10" max="90" value="200"></wa-slider>`);
           expect(el.value).to.equal(90);
+        });
+      });
+
+      describe('changing bounds', () => {
+        it('should commit both range values within a maximum changed during dragging', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider range min-value="80" max-value="90"></wa-slider>`);
+          let committed: number[] | undefined;
+          el.addEventListener('change', () => {
+            committed = [el.minValue, el.maxValue];
+          });
+          await dragElement(el.thumbMax, 10, 0, {
+            afterMouseMove: async () => {
+              el.max = 60;
+              await el.updateComplete;
+            },
+          });
+          await el.updateComplete;
+          expect(committed).to.deep.equal([60, 60]);
+        });
+
+        it('should clamp both range values when max moves below the lower thumb', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider range min-value="80" max-value="90"></wa-slider>`);
+          el.max = 60;
+          await el.updateComplete;
+          expect(el.minValue).to.equal(60);
+          expect(el.maxValue).to.equal(60);
         });
       });
 
