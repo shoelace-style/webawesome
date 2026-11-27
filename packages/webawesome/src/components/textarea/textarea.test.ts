@@ -67,6 +67,21 @@ describe('<wa-textarea>', () => {
           expect(textarea.title).to.equal('Test');
         });
 
+        it('should forward the autocomplete attribute to the internal textarea', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea autocomplete="off"></wa-textarea>`);
+          const textarea = el.shadowRoot!.querySelector('textarea')!;
+          expect(textarea.getAttribute('autocomplete')).to.equal('off');
+        });
+
+        it('should update the internal textarea when the autocomplete property changes', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea></wa-textarea>`);
+          const textarea = el.shadowRoot!.querySelector('textarea')!;
+          expect(textarea.hasAttribute('autocomplete')).to.be.false;
+          el.autocomplete = 'on';
+          await el.updateComplete;
+          expect(textarea.getAttribute('autocomplete')).to.equal('on');
+        });
+
         it('should be disabled with the disabled attribute', async () => {
           const el = await fixture<WaTextarea>(html`<wa-textarea disabled></wa-textarea>`);
           const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('[part~="textarea"]')!;
